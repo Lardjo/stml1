@@ -39,7 +39,7 @@ setup(
     	'Flask>=0.7',
     	],
     cmdclass={'test': PyTest},
-    classfiers=[
+    classifiers=[
     	'Environment :: Web Environment',
     	'Programming Language :: Python'
     ]
