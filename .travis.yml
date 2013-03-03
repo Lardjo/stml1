@@ -5,6 +5,9 @@ python:
 env:
   - FLASK=0.8
   - FLASK=0.9
+# notifications
+notifications:
+  email: false
 # command to install dependencies
 install: 
   - pip install -q Flask==$FLASK --use-mirrors
