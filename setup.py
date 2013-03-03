@@ -13,8 +13,8 @@ setup(
     license='MIT',
     author='Konstantin',
     description='Steam Stats',
-    long_description=open('README.rst').read() + '\n\n' +
-                     open('CHANGES.rst').read(),
+    long_description=open('README.md').read() + '\n\n' +
+                     open('CHANGELOG.md').read(),
     py_modules= ['main'],
     platforms='any',
 )
