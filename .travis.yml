@@ -3,9 +3,13 @@ python:
   - "2.6"
   - "2.7"
   - "3.2"
+env:
+  - FLASK=0.8
+  - FLASK=0.9
+  - HTTPBIN_URL=http://httpbin.org/
 # command to install dependencies
 install: 
-	- "pip install flaskr --use-mirrors"
-	- "pip requests --use-mirrors"
+  - "pip install -q Flask==$FLASK --use-mirrors"
 # command to run tests
-script: main
+script: 
+  - python main.py
