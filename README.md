@@ -5,9 +5,9 @@ User statistics for Steam™. Experimental version. Used [Flask](https://github.
 
 ## Quick start
 
-System Requirements: Python 2.7.3, Flask 0.9
+System Requirements: Python 2.7.3, Flask 0.9  
 Also used the library [HTTP Requests for Humans™](https://github.com/kennethreitz/requests)
 
 * Download the latest release
-* Run `main.py` from `./steam_stats'
+* Run `main.py` from `./steam_stats`
 * Go to the address `127.0.0.1:5000` in your browser 
