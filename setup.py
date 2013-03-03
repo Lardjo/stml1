@@ -17,7 +17,4 @@ setup(
                      open('CHANGES.rst').read(),
     py_modules= ['main'],
     platforms='any',
-    install_requires=[
-        'Flask>=0.8',
-    ],
 )
