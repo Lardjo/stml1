@@ -1,3 +1,6 @@
+## v.1.0.2
+- Fixed problem symbol in template
+
 ## v1.0.1
 - **Change structure of files**
 - More games on chart
