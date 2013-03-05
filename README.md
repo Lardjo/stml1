@@ -1,6 +1,6 @@
 Steam Stats [![Build Status](https://travis-ci.org/Lardjo/Steam-stats.png?branch=develop)](https://travis-ci.org/Lardjo/Steam-stats)
 ===========
-Version: 1.0.1  
+Version: 1.0.2  
 User statistics for Steam™. Experimental version. Used [Flask](https://github.com/mitsuhiko/flask) and [Bootstrap](https://github.com/twitter/bootstrap) Framework
 
 ## Quick start
