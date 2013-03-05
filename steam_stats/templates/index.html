@@ -16,16 +16,22 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours'],
-          ['{% for totalstat in total %} {{ totalstat.BestGame1 }} {% else %} none {% endfor %}',     {% for totalstat in total %} {{ totalstat.BestGame1Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame2 }} {% else %} none {% endfor %}',    {% for totalstat in total %} {{ totalstat.BestGame2Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame3 }} {% else %} none {% endfor %}',       {% for totalstat in total %} {{ totalstat.BestGame3Hours }} {% else %} none {% endfor %}],
+          ['{% for totalstat in total %} {{ totalstat.BestGame1 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame1Hours }} {% else %} none {% endfor %}],
+          ['{% for totalstat in total %} {{ totalstat.BestGame2 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame2Hours }} {% else %} none {% endfor %}],
+          ['{% for totalstat in total %} {{ totalstat.BestGame3 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame3Hours }} {% else %} none {% endfor %}],
           ['{% for totalstat in total %} {{ totalstat.BestGame4 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame4Hours }} {% else %} none {% endfor %}],
-          ['Other',     {% for totalstat in total %} {{ totalstat.OtherHours }} {% else %} none {% endfor %}]
+          ['{% for totalstat in total %} {{ totalstat.BestGame5 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame5Hours }} {% else %} none {% endfor %}],
+          ['{% for totalstat in total %} {{ totalstat.BestGame6 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame6Hours }} {% else %} none {% endfor %}],
+          ['Other', {% for totalstat in total %} {{ totalstat.OtherHours }} {% else %} none {% endfor %}]
         ]);
 
         var options = {
-          title: 'Games Total Stats (in hours)',
-          backgroundColor: '#f5f5f5'
+          title: '',
+          backgroundColor: '#f5f5f5',
+          width: '900',
+          height: '400',
+          chartArea: {width: '850', top: '60', left: '0'},
+          legend: {textStyle: {fontSize: '13'}}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -43,7 +49,8 @@
           ['none',    0],
           ['none',       0],
           ['none', 0],
-          ['none',     0]
+          ['none',     0],
+          ['none',  0]
         ]);
 
         var options = {
@@ -127,9 +134,6 @@
             <div class="well">
               <p><i class="icon-time" id="icon"></i><b>Total Game Time:</b> {% for totalstat in total %} {{ totalstat.HoursTotal }} Hours (or {{ totalstat.HoursTotal // 24 }} days) {% else %} none {% endfor %}</p></p>
             </div>
-            <div class="well">
-              <div id="chart_div" style="width: 650px; height: 400px;"></div>
-            </div>
             {% else %}
             <p></p>
             {% endif %}
@@ -160,9 +164,27 @@
             {% endif %}
           </div>
         </div>
+        {% if session.logged_in %}
+        <div class="well">
+          <p><i class="icon-time" id="icon"></i><b>Games Total Chart:</b></p>
+          <div id="chart_div" style="width: 900px; height: 400px;"></div>
+        </div>
+        {% else %}
+        
+        {% endif %}t
+
       </div>
 
+
+
+
+      {% if not session.logged_in %}
+
         {% include 'info.html' %}
+
+      {% else %}
+
+      {% endif %}
         
       <div id="push"></div>
     </div>
