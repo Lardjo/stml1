@@ -3,6 +3,7 @@ import sqlite3
 import datetime
 import heapq
 import os
+import re
 import sys
 import requests
 import xml.etree.ElementTree as ET
@@ -56,8 +57,9 @@ def main(name=None, total=None):
 
 		name = session['username']
 		nameg = session['username']
-		total = statgames(nameg)
 		name = statistics(name)
+		total = statgames(nameg)
+		
 
 	else:
 
@@ -98,6 +100,14 @@ def statistics(name):
 	root = tree.getroot()
 
 	try:
+
+		Privacy = root.find('privacyState').text
+
+	except:
+
+		Privacy = "none"
+
+	try:
 		SteamID = root.find('steamID').text
 	except:
 		SteamID = "none"
@@ -132,11 +142,6 @@ def statistics(name):
 		Avatar = ("src=" + Avatar) 
 	except:
 		Avatar = 'data-src=holder.js/64x64'
-
-	try:
-		Privacy = root.find('privacyState').text
-	except:
-		Privacy = "none"
 
 	stats = [dict(SteamID = SteamID, 
 					SteamID64 = SteamID64,	
@@ -186,14 +191,15 @@ def statgames(nameg):
 
 			b = 0
 
-		#print b
-
-	#print Dict
 	HoursTotal = sum(Dict.values())
-	DictTotal = sorted(Dict, key=Dict.get, reverse=True)[:4]
-	ListHoursTotalGames = [Dict.get(DictTotal[0]), Dict.get(DictTotal[1]), Dict.get(DictTotal[2]), Dict.get(DictTotal[3])]
+
+	DictTotal = sorted(Dict, key=Dict.get, reverse=True)[:6]
+	#DictTotal = map(lambda x: re.sub("'|`", "", x), DictTotal)
+	#print(DictTotal)
+
+	ListHoursTotalGames = [Dict.get(DictTotal[0]), Dict.get(DictTotal[1]), Dict.get(DictTotal[2]), Dict.get(DictTotal[3]), Dict.get(DictTotal[4]), Dict.get(DictTotal[5])]
 	TotalHoursBest = sum(ListHoursTotalGames)
-	OtherHours = HoursTotal - TotalHoursBest 
+	OtherHours = HoursTotal - TotalHoursBest
 
 	gamestats = [dict(
 		HoursTotal=HoursTotal,
@@ -201,10 +207,14 @@ def statgames(nameg):
 		BestGame2=DictTotal[1],
 		BestGame3=DictTotal[2],
 		BestGame4=DictTotal[3],
+		BestGame5=DictTotal[4],
+		BestGame6=DictTotal[5],
 		BestGame1Hours=Dict.get(DictTotal[0]),
 		BestGame2Hours=Dict.get(DictTotal[1]),
 		BestGame3Hours=Dict.get(DictTotal[2]),
 		BestGame4Hours=Dict.get(DictTotal[3]),
+		BestGame5Hours=Dict.get(DictTotal[4]),
+		BestGame6Hours=Dict.get(DictTotal[5]),
 		OtherHours=OtherHours
 		)]
 
