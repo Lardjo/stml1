@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import sqlite3
-import datetime
-import heapq
-import os
+#import datetime
+#import heapq
+#import os
 import re
-import sys
+#import sys
 import requests
 import xml.etree.ElementTree as ET
-import math
+#import math
 
 #from __future__ import with_statement
 #from sqlite3 import dbapi2 as sqlite3
@@ -59,7 +59,7 @@ def main(name=None, total=None):
 		nameg = session['username']
 		name = statistics(name)
 		total = statgames(nameg)
-		
+
 
 	else:
 
