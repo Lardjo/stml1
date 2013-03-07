@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="span7">
+      <a class="pull-left" href="#">
+      {% for steamstat in name %}<img {{ steamstat.Avatar }} class="img-rounded image-size" />{% else %}<img data-src="holder.js/64x64" alt="" />{% endfor %}
+      </a>
+      {% for steamstat in name %}
+      <h1>{{ steamstat.SteamID }} {% if steamstat.Status == "offline" %}<small id="offline">{% else %}<small id="online">{% endif %}{{ steamstat.Status }}</small></h1>
+      {% else %}
+      <h1>User<small id="online">status</small></h1>{% endfor %}
+      {% for steamstat in name %}<p>{{ steamstat.Location }}</p>{% else %}<p>City</p>{% endfor %}
+    </div>
+    <div class="span5">
+    {% for steamstat in name if steamstat.inGameInfo == "none" %} {% else %}
+      <p class="game">Now playing...</p>
+      <h4>{{ steamstat.inGameInfo }}</h4>
+    {% endfor %}
+    </div>
+  </div>
+</div>

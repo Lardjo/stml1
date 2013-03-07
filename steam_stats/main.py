@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
+# Welcome
+
 import sqlite3
-import datetime
-import heapq
 import os
 import re
-import sys
 import requests
 import xml.etree.ElementTree as ET
-import math
 
-#from __future__ import with_statement
-#from sqlite3 import dbapi2 as sqlite3
 from contextlib import closing
 from flask import Flask, session, url_for, g, render_template, request, redirect, _app_ctx_stack
 
@@ -50,20 +46,19 @@ def close_db_connection(exception):
 def main(name=None, total=None):
 
 	db = get_db()
-	cur = db.execute('select id, login from entries order by id desc limit 5')
+	cur = db.execute('select id, login from entries order by id desc limit 8')
 	entries = cur.fetchall()
 
-	if session['logged_in']:
+	if not session.get('logged_in'):
+
+		return render_template('index.html', entries=entries)
+
+	else:
 
 		name = session['username']
 		nameg = session['username']
 		name = statistics(name)
 		total = statgames(nameg)
-		
-
-	else:
-
-		return render_template('index.html', entries=entries)
 
 	return render_template('index.html', entries=entries, name=name, total=total)
 
@@ -72,18 +67,21 @@ def login():
 
 	if request.method == 'POST':
 
+		session['logged_in'] = True
+		session['username'] = request.form['username']
+
 		db = get_db()
 		db.execute('insert into entries (id, login) values (?, ?)', [None, request.form['username']])
 		db.commit()
-		session['username'] = request.form['username']
-		session['logged_in'] = True
+
 		return redirect(url_for('main'))
 
 	return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-	session['logged_in'] = False
+
+	session.pop('logged_in', None)
 	return redirect(url_for('main'))
 
 
@@ -100,11 +98,8 @@ def statistics(name):
 	root = tree.getroot()
 
 	try:
-
 		Privacy = root.find('privacyState').text
-
 	except:
-
 		Privacy = "none"
 
 	try:
@@ -138,7 +133,17 @@ def statistics(name):
 		RealName = "none"
 
 	try:
-		Avatar = root.find('avatarMedium').text
+		memberSince = root.find('memberSince').text
+	except:
+		memberSince = "none"
+
+	try:
+		inGameInfo = root.find('./inGameInfo/gameName').text
+	except:
+		inGameInfo = "none"
+
+	try:
+		Avatar = root.find('avatarFull').text
 		Avatar = ("src=" + Avatar) 
 	except:
 		Avatar = 'data-src=holder.js/64x64'
@@ -150,7 +155,9 @@ def statistics(name):
 					Rating = Rating,	
 					RealName = RealName,
 					Avatar = Avatar,
-					Privacy = Privacy)]
+					Privacy = Privacy, 
+					memberSince=memberSince,  
+					inGameInfo=inGameInfo)]
 
 	return stats
 

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% block head %}
     <meta charset="utf-8">
     <title>Steam Stats</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,189 +8,58 @@
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    {% if session.logged_in %}
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours'],
-          ['{% for totalstat in total %} {{ totalstat.BestGame1 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame1Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame2 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame2Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame3 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame3Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame4 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame4Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame5 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame5Hours }} {% else %} none {% endfor %}],
-          ['{% for totalstat in total %} {{ totalstat.BestGame6 }} {% else %} none {% endfor %}', {% for totalstat in total %} {{ totalstat.BestGame6Hours }} {% else %} none {% endfor %}],
-          ['Other', {% for totalstat in total %} {{ totalstat.OtherHours }} {% else %} none {% endfor %}]
-        ]);
-
-        var options = {
-          title: '',
-          backgroundColor: '#f5f5f5',
-          width: '900',
-          height: '400',
-          chartArea: {width: '850', top: '60', left: '0'},
-          legend: {textStyle: {fontSize: '13'}}
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-    {% else %}
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours'],
-          ['none',     0],
-          ['none',    0],
-          ['none',       0],
-          ['none', 0],
-          ['none',     0],
-          ['none',  0]
-        ]);
-
-        var options = {
-          title: 'none',
-          backgroundColor: '#f5f5f5'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-    {% endif %}   
-    {% endblock%}
+    {% if session.logged_in %} {% include 'scripts.html' %} {% else %} {% endif %}   
   </head>
   <body>
     <div id="wrap">
-      <!-- NAVBAR ======================================= -->
-      <div class="navbar navbar-static-top">
-          <div class="navbar-inner">
-            <div class="container">
+      <div class="navbar navbar-inverse navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
             <a href="#" class="brand">Steam Stats</a>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">GitHub Project</a></li>
             </ul>
-
             <ul class="nav pull-right">
               <li>{% block login %}{% endblock %}</li>
               <li class="divider-vertical"></li>
               <li class="dropdown">
-                {% if not session.logged_in %}
+              {% if not session.logged_in %}
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, friend! <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{ url_for('login') }}">Login</a></li>
                 </ul>
-                {% else %}
+              {% else %}
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ session['username'] }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 </ul>
-                {% endif %}
+              {% endif %}
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- HEAD ======================================= -->
-      <header class="main general">
-        {% if session.logged_in %}
-        <div class="container">
-          <a class="pull-left thumbnail" href="#">
-            {% for steamstat in name %}<img {{ steamstat.Avatar }} />{% else %}<img data-src="holder.js/64x64" alt="" />{% endfor %}
-          </a>
-          {% for steamstat in name %}<h1>{{ steamstat.SteamID }} {% if steamstat.Status == "offline" %}<small id="offline">{% else %}<small id="online">{% endif %}{{ steamstat.Status }}</small></h1>{% else %}<h1>User<small id="online">status</small></h1>{% endfor %}
-          {% for steamstat in name %}<p>{{ steamstat.Location }}</p>{% else %}<p>City</p>{% endfor %} 
-        </div>
-        {% else %}
-        <div class="container">
-          <div class="null"></div>
-        </div>
-        {% endif %}
-      </header>
-      <!-- MAIN ====================================== -->
+      {% if session.logged_in %}
+      <div class="main general">{% include 'header.html' %}</div>
       <div class="container">
         <div class="row" id="row-pad">
-          <div class="span9">
-            {% if session.logged_in %}
-            <div method="post" class="page-header">
-              <h1>Statistics for user {% for steamstat in name %}<small>{{ steamstat.SteamID }}</small>{% else %}<small>none</small>{% endfor %}<h1>
-            </div>
-            <div class="well">
-              <p><i class="icon-check" id="icon"></i><b>Username:</b> {% for steamstat in name %} {{ steamstat.SteamID }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Real name:</b> {% for steamstat in name %} {{ steamstat.RealName }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Status:</b> {% for steamstat in name %} {{ steamstat.Status }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Privacy:</b> {% for steamstat in name %} {{ steamstat.Privacy }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Steam ID:</b> {% for steamstat in name %} {{ steamstat.SteamID64 }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Location:</b> {% for steamstat in name %} {{ steamstat.Location }} {% else %} none {% endfor %}</p>
-              <p><i class="icon-check" id="icon"></i><b>Rating:</b> {% for steamstat in name %} {{ steamstat.Rating }} {% else %} none {% endfor %}</p>
-            </div>
-            <div class="well">
-              <p><i class="icon-time" id="icon"></i><b>Total Game Time:</b> {% for totalstat in total %} {{ totalstat.HoursTotal }} Hours (or {{ totalstat.HoursTotal // 24 }} days) {% else %} none {% endfor %}</p></p>
-            </div>
-            {% else %}
-            <p></p>
-            {% endif %}
-          </div>
-          <div class="span3">
-            {% if session.logged_in %}
-            <table method="post" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Last users</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for entry in entries %}
-                <tr>
-                  <td>{{ entry.id }}</td>
-                  <td>{{ entry.login }}</td>
-                {% else %}
-                  <td>1</td>
-                  <td>User</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            {% else %}
-            <p></p>
-            {% endif %}
-          </div>
+          <div class="span9">{% include 'statistics.html' %}</div>
+          <div class="span3">{% include 'history.html' %}</div>
         </div>
-        {% if session.logged_in %}
         <div class="well">
           <p><i class="icon-time" id="icon"></i><b>Games Total Chart:</b></p>
           <div id="chart_div" style="width: 900px; height: 400px;"></div>
         </div>
-        {% else %}
-        
-        {% endif %}
-
       </div>
-
-      {% if not session.logged_in %}
-
-        {% include 'info.html' %}
-
       {% else %}
-
+      <div class="main general"></div>
+      {% include 'info.html' %}
       {% endif %}
-        
       <div id="push"></div>
     </div>
-    <div id="footer">
-      {% block footer %}
-      <div class="container">
-        <p class="muted credit">Designed and accepted by <a href="#">@Lunars</a>. All right reserved. Copyright (c) 2013.</p>
-      </div>
-      {% endblock %}
-    </div>
+    {% include 'footer.html' %}
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/holder.js') }}"></script>
