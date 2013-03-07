@@ -1,0 +1,19 @@
+<table method="post" class="table table-bordered table-striped table-margin">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Last users</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td>{{ entry.id }}</td>
+      <td>{{ entry.login }}</td>
+    {% else %}
+      <td>1</td>
+      <td>User</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

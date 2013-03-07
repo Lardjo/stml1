@@ -1,0 +1,28 @@
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours'],
+    {% for totalstat in total %}[{{ totalstat.BestGame1|tojson|safe }}, {{ totalstat.BestGame1Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}[{{ totalstat.BestGame2|tojson|safe }}, {{ totalstat.BestGame2Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}[{{ totalstat.BestGame3|tojson|safe }}, {{ totalstat.BestGame3Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}[{{ totalstat.BestGame4|tojson|safe }}, {{ totalstat.BestGame4Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}[{{ totalstat.BestGame5|tojson|safe }}, {{ totalstat.BestGame5Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}[{{ totalstat.BestGame6|tojson|safe }}, {{ totalstat.BestGame6Hours }}], {% else %} ['unknown', '0'], {% endfor %}
+    {% for totalstat in total %}["Other", {{ totalstat.OtherHours }}] {% else %} ['unknown', '0'] {% endfor %}
+      ]);
+
+  var options = {
+    title: '',
+    backgroundColor: '#f5f5f5',
+    width: '900',
+    height: '400',
+    chartArea: {width: '850', top: '60', left: '0'},
+    legend: {textStyle: {fontSize: '13'}}
+    };
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>

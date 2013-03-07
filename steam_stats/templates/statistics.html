@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1>Statistics for user {% for steamstat in name %}<small>{{ steamstat.SteamID }}</small>{% else %}<small>none</small>{% endfor %}</h1>
+</div>
+<div class="well">
+  <p><i class="icon-check" id="icon"></i><b>Real name:</b> {% for steamstat in name %} {{ steamstat.RealName }} {% else %} none {% endfor %}</p>
+  <p><i class="icon-check" id="icon"></i><b>Member since:</b> {% for steamstat in name %} {{ steamstat.memberSince }} {% else %} none {% endfor %}</p>
+  <p><i class="icon-check" id="icon"></i><b>Rating:</b> {% for steamstat in name %} {{ steamstat.Rating }} {% else %} none {% endfor %}</p>
+  <p><i class="icon-check" id="icon"></i><b>Privacy:</b> {% for steamstat in name %} {{ steamstat.Privacy }} {% else %} none {% endfor %}</p>
+  <p><i class="icon-check" id="icon"></i><b>Steam ID:</b> {% for steamstat in name %} {{ steamstat.SteamID64 }} {% else %} none {% endfor %}</p>
+</div>
+<div class="well">
+  <p><i class="icon-time" id="icon"></i><b>Total Time:</b> {% for totalstat in total %} {{ totalstat.HoursTotal }} Hours (or {{ totalstat.HoursTotal // 24 }} days) {% else %} none {% endfor %}</p>
+</div>
