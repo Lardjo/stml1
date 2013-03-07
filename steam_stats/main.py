@@ -46,7 +46,7 @@ def close_db_connection(exception):
 def main(name=None, total=None):
 
 	db = get_db()
-	cur = db.execute('select id, login from entries order by id desc limit 5')
+	cur = db.execute('select id, login from entries order by id desc limit 8')
 	entries = cur.fetchall()
 
 	if not session.get('logged_in'):
@@ -98,11 +98,8 @@ def statistics(name):
 	root = tree.getroot()
 
 	try:
-
 		Privacy = root.find('privacyState').text
-
 	except:
-
 		Privacy = "none"
 
 	try:
@@ -136,6 +133,16 @@ def statistics(name):
 		RealName = "none"
 
 	try:
+		memberSince = root.find('memberSince').text
+	except:
+		memberSince = "none"
+
+	try:
+		inGameInfo = root.find('./inGameInfo/gameName').text
+	except:
+		inGameInfo = "none"
+
+	try:
 		Avatar = root.find('avatarFull').text
 		Avatar = ("src=" + Avatar) 
 	except:
@@ -148,7 +155,9 @@ def statistics(name):
 					Rating = Rating,	
 					RealName = RealName,
 					Avatar = Avatar,
-					Privacy = Privacy)]
+					Privacy = Privacy, 
+					memberSince=memberSince,  
+					inGameInfo=inGameInfo)]
 
 	return stats
 
