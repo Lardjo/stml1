@@ -5,10 +5,15 @@ import sqlite3
 import os
 import re
 import requests
+import ConfigParser
+import dota2parser
 import xml.etree.ElementTree as ET
 
 from contextlib import closing
 from flask import Flask, session, url_for, g, render_template, request, redirect, _app_ctx_stack
+
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
 
 # configuration
 TMP = 'tmp/'
@@ -49,6 +54,8 @@ def main(name=None, total=None):
 	cur = db.execute('select id, login from entries order by id desc limit 8')
 	entries = cur.fetchall()
 
+	apikey = config.get('data', 'apikey')
+
 	if not session.get('logged_in'):
 
 		return render_template('index.html', entries=entries)
@@ -58,7 +65,10 @@ def main(name=None, total=None):
 		name = session['username']
 		nameg = session['username']
 		name = statistics(name)
+		print(name)
 		total = statgames(nameg)
+		#match2 = dota2parser.dota2match(id64, apikey)
+		#print(match2)
 
 	return render_template('index.html', entries=entries, name=name, total=total)
 
@@ -148,16 +158,19 @@ def statistics(name):
 	except:
 		Avatar = 'data-src=holder.js/64x64'
 
-	stats = [dict(SteamID = SteamID, 
-					SteamID64 = SteamID64,	
-					Status = Status, 
-					Location = Location, 
-					Rating = Rating,	
-					RealName = RealName,
-					Avatar = Avatar,
-					Privacy = Privacy, 
-					memberSince=memberSince,  
-					inGameInfo=inGameInfo)]
+	#stats = [dict(SteamID=SteamID, 
+	#			SteamID64=SteamID64,	
+	#			Status=Status, 
+	#			Location=Location, 
+	#			Rating=Rating,	
+	#			RealName=RealName,
+	#			Avatar=Avatar,
+	#			Privacy=Privacy, 
+	#			memberSince=memberSince,  
+	#			inGameInfo=inGameInfo
+	#		)]
+
+	stats = {'SteamID': SteamID, 'SteamID64': SteamID64}
 
 	return stats
 

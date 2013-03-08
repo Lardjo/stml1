@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Statistics for user {% for steamstat in name %}<small>{{ steamstat.SteamID }}</small>{% else %}<small>none</small>{% endfor %}</h1>
+  <h1>Statistics for user <small>{{ name['SteamID'] }}</small></h1>
 </div>
 <div class="well">
   <p><i class="icon-check" id="icon"></i><b>Real name:</b> {% for steamstat in name %} {{ steamstat.RealName }} {% else %} none {% endfor %}</p>
