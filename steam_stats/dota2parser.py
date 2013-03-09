@@ -1,5 +1,6 @@
 import requests
 import os
+import datetime
 import xml.etree.ElementTree as ET
  
 def details(match=None, apikey=None):
@@ -31,6 +32,46 @@ def details(match=None, apikey=None):
 
 			error = "Error!"
 			return error
+
+	try:
+
+		details_match['match_id'] = root.find('match_id').text
+
+	except:
+
+		error = "Error!"
+		return error
+
+	try:
+
+		radiant_win = root.find('radiant_win').text
+
+		if radiant_win == "true":
+
+			details_match['win'] = 'Radiant Victory!'
+
+		else:
+
+			details_match['win'] = 'Dire Victory!'
+
+	except:
+
+		error = "Win Error!"
+		return error
+
+	try:
+
+		time = root.find('start_time').text
+		duration = root.find('duration').text
+		time = datetime.datetime.fromtimestamp(int(time)).strftime('%d, %B %Y %H:%M:%S')
+		duration = datetime.datetime.fromtimestamp(int(duration)).strftime('%M:%S')
+		details_match['start_time'] = time
+		details_match['duration'] = duration
+
+	except:
+
+		error = "Time Error!"
+		return error
 
 	return details_match
 

@@ -6,7 +6,6 @@ import os
 import re
 import requests
 import ConfigParser
-import dota2parser
 import xml.etree.ElementTree as ET
 
 from contextlib import closing
@@ -65,12 +64,12 @@ def main(name=None, total=None):
 		name = session['username']
 		nameg = session['username']
 		name = statistics(name)
-		print(name)
 		total = statgames(nameg)
-		#match2 = dota2parser.dota2match(id64, apikey)
-		#print(match2)
+		id64 = name['SteamID64']
+		match2 = dota2parser.dota2match(id64, apikey)
+		match2det = dota2parser.details(match2, apikey)
 
-	return render_template('index.html', entries=entries, name=name, total=total)
+	return render_template('index.html', entries=entries, name=name, total=total, match2det=match2det)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -158,19 +157,16 @@ def statistics(name):
 	except:
 		Avatar = 'data-src=holder.js/64x64'
 
-	#stats = [dict(SteamID=SteamID, 
-	#			SteamID64=SteamID64,	
-	#			Status=Status, 
-	#			Location=Location, 
-	#			Rating=Rating,	
-	#			RealName=RealName,
-	#			Avatar=Avatar,
-	#			Privacy=Privacy, 
-	#			memberSince=memberSince,  
-	#			inGameInfo=inGameInfo
-	#		)]
-
-	stats = {'SteamID': SteamID, 'SteamID64': SteamID64}
+	stats = {'SteamID': SteamID, 
+	'SteamID64': SteamID64, 
+	'Status': Status, 
+	'Location': Location, 
+	'Rating': Rating, 
+	'RealName': RealName, 
+	'Avatar': Avatar, 
+	'Privacy': Privacy, 
+	'memberSince': memberSince, 
+	'inGameInfo': inGameInfo}
 
 	return stats
 
@@ -221,22 +217,22 @@ def statgames(nameg):
 	TotalHoursBest = sum(ListHoursTotalGames)
 	OtherHours = HoursTotal - TotalHoursBest
 
-	gamestats = [dict(
-		HoursTotal=HoursTotal,
-		BestGame1=DictTotal[0],
-		BestGame2=DictTotal[1],
-		BestGame3=DictTotal[2],
-		BestGame4=DictTotal[3],
-		BestGame5=DictTotal[4],
-		BestGame6=DictTotal[5],
-		BestGame1Hours=Dict.get(DictTotal[0]),
-		BestGame2Hours=Dict.get(DictTotal[1]),
-		BestGame3Hours=Dict.get(DictTotal[2]),
-		BestGame4Hours=Dict.get(DictTotal[3]),
-		BestGame5Hours=Dict.get(DictTotal[4]),
-		BestGame6Hours=Dict.get(DictTotal[5]),
-		OtherHours=OtherHours
-		)]
+	gamestats = {
+		'HoursTotal': HoursTotal,
+		'BestGame1': DictTotal[0],
+		'BestGame2': DictTotal[1],
+		'BestGame3': DictTotal[2],
+		'BestGame4': DictTotal[3],
+		'BestGame5': DictTotal[4],
+		'BestGame6': DictTotal[5],
+		'BestGame1Hours': Dict.get(DictTotal[0]),
+		'BestGame2Hours': Dict.get(DictTotal[1]),
+		'BestGame3Hours': Dict.get(DictTotal[2]),
+		'BestGame4Hours': Dict.get(DictTotal[3]),
+		'BestGame5Hours': Dict.get(DictTotal[4]),
+		'BestGame6Hours': Dict.get(DictTotal[5]),
+		'OtherHours': OtherHours
+		}
 
 	return gamestats
 
