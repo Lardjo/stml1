@@ -5,14 +5,11 @@ import sqlite3
 import os
 import re
 import requests
-import ConfigParser
+import dota2stat
 import xml.etree.ElementTree as ET
 
 from contextlib import closing
 from flask import Flask, session, url_for, g, render_template, request, redirect, _app_ctx_stack
-
-config = ConfigParser.ConfigParser()
-config.read('config.ini')
 
 # configuration
 TMP = 'tmp/'
@@ -53,8 +50,6 @@ def main(name=None, total=None):
 	cur = db.execute('select id, login from entries order by id desc limit 8')
 	entries = cur.fetchall()
 
-	apikey = config.get('data', 'apikey')
-
 	if not session.get('logged_in'):
 
 		return render_template('index.html', entries=entries)
@@ -66,10 +61,11 @@ def main(name=None, total=None):
 		name = statistics(name)
 		total = statgames(nameg)
 		id64 = name['SteamID64']
-		match2 = dota2parser.dota2match(id64, apikey)
-		match2det = dota2parser.details(match2, apikey)
+		match2stats = dota2stat.match_stats(id64)
+		print match2stats
+		#match2det = dota2parser.details(match2, apikey)
 
-	return render_template('index.html', entries=entries, name=name, total=total, match2det=match2det)
+	return render_template('index.html', entries=entries, name=name, total=total, match2det=match2stats)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
