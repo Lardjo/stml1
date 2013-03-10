@@ -109,10 +109,14 @@ Heroes = {
 
 Items = {
 
+	0: {'avatar': 'none'},
+	50: {'name': 'Phase Boots', 'avatar': 'static/img/dota2items/phase_boots.png'},
 	63: {'name': 'Power Treads', 'avatar': 'static/img/dota2items/power_treads.png'},
 	65: {'name': 'Hand of Midas', 'avatar': 'static/img/dota2items/hand_of_midas.png'},
 	139: {'name': 'Butterfly', 'avatar': 'static/img/dota2items/butterfly.png'},
+	152: {'name': 'Shadow Blade', 'avatar': 'static/img/dota2items/shadow_blade.png'},
 	158: {'name': 'Mjollnir', 'avatar': 'static/img/dota2items/mjollnir.png'},
+	168: {'name': 'Desolator', 'avatar': 'static/img/dota2items/desolator.png'},
 	172: {'name': 'Mask of Madness', 'avatar': 'static/img/dota2items/mask_of_madness.png'},
 	141: {'name': 'Daedalus', 'avatar': 'static/img/dota2items/daedalus.png'}
 
