@@ -89,9 +89,16 @@ def details_hero(match=None, apikey=None):
 			xp_per_min = a.find('xp_per_min').text
 			last_hits = a.find('last_hits').text
 			level = a.find('level').text
+			item_0 = a.find('item_0').text
+			item_1 = a.find('item_1').text
+			item_2 = a.find('item_2').text
+			item_3 = a.find('item_3').text
+			item_4 = a.find('item_4').text
+			item_5 = a.find('item_5').text
 			details_hero[account_id] = {'player_slot': player_slot, 
 			'hero_id': hero_id, 'kills': kills, 'deaths': deaths, 'assists': assists, 
-			'gold_per_min': gold_per_min, 'xp_per_min': xp_per_min, 'last_hits': last_hits, 'level': level}
+			'gold_per_min': gold_per_min, 'xp_per_min': xp_per_min, 'last_hits': last_hits, 'level': level, 
+			'item_0': item_0, 'item_1': item_1, 'item_2': item_2, 'item_3': item_3, 'item_4': item_4, 'item_5': item_5}
 
 		except:
 
