@@ -8,12 +8,12 @@
   		<caption>{{ match2det[0]['win'] }}</caption>
   		<thead>
    			<tr>
-      	 <th colspan="6"><font class="text-success">The Radiant</font></th>
+      	 <th colspan="12"><font class="text-success">The Radiant</font></th>
     		</tr>
         <tr>
           <th><font class="muted">Hero</font></th>
+          <th colspan="6"><font class="muted">Items</font></th>
           <th><font class="muted">Level</font></th>
-          <th><font class="muted">Items</font></th>
           <th><font class="muted">LH</font></th>
           <th><font class="muted">XPM</font></th>
           <th><font class="muted">GPM</font></th>
@@ -31,12 +31,17 @@
                   <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
-      			<td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="width: 60px; padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
+            <td>{{ match2det[1][key]['level'] }}</td>
             <td style="width: 40px;">{{ match2det[1][key]['last_hits'] }}</td>
             <td style="width: 40px;">{{ match2det[1][key]['xp_per_min'] }}</td>
             <td style="width: 40px;">{{ match2det[1][key]['gold_per_min'] }}</td>
-      			<td style="width: 200px">
+      			<td style="width: 180px">
               <div class="progress progress-margin">
                 <div class="bar bar-success" style="width: {{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%;">{{ match2det[1][key]['kills'] }}</div>
                 <div class="bar bar-danger" style="width: {{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%;">{{ match2det[1][key]['deaths'] }}</div>
@@ -57,8 +62,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -83,8 +93,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -109,8 +124,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -135,8 +155,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -156,7 +181,7 @@
   		</tbody>
       <thead>
         <tr>
-            <th colspan="6"><font class="text-error">The Dire</font></th>
+            <th colspan="12"><font class="text-error">The Dire</font></th>
         </tr>
       </thead>
       <tbody>
@@ -168,8 +193,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -194,8 +224,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -220,8 +255,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -246,8 +286,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -272,8 +317,13 @@
                 <div class="label-hero"><h6>{{ match2det[1][key]['hero_id'] }}</h6></div>
               </div>
             </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
             <td>{{ match2det[1][key]['level'] }}</td>
-            <td></td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
