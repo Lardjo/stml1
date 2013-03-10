@@ -39,4 +39,78 @@ def match_stats(userid=None):
 
 			pass
 
+	lib = dota2lib.Items
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_0'])
+		
+		if a in lib.keys():
+
+			match_hero[it]['item_0'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_1'])
+
+		if a in lib.keys():
+
+			match_hero[it]['item_1'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_2'])
+
+		if a in lib.keys():
+
+			match_hero[it]['item_2'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_3'])
+
+		if a in lib.keys():
+
+			match_hero[it]['item_3'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_4'])
+
+		if a in lib.keys():
+
+			match_hero[it]['item_4'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
+	for it in match_hero:
+
+		a = int(match_hero[it]['item_5'])
+
+		if a in lib.keys():
+
+			match_hero[it]['item_5'] = lib[a]['avatar']
+
+		else:
+
+			pass
+
 	return match_details, match_hero
