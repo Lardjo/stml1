@@ -103,6 +103,17 @@ Heroes = {
 	96: {'name': 'Centaur Warrunner', 'avatar': 'static/img/dota2heroes/centaur_warrunner.png'},
 	97: {'name': 'Magnus', 'avatar': 'static/img/dota2heroes/magnus.png'},
 	98: {'name': 'Timbersaw', 'avatar': 'static/img/dota2heroes/timbersaw.png'},
-	100: {'name': 'Tusk', 'avatar': 'static/img/dota2heroes/tusk.png'},
+	100: {'name': 'Tusk', 'avatar': 'static/img/dota2heroes/tusk.png'}
 		
+}
+
+Items = {
+
+	63: {'name': 'Power Treads', 'avatar': 'static/img/dota2items/power_treads.png'},
+	65: {'name': 'Hand of Midas', 'avatar': 'static/img/dota2items/hand_of_midas.png'},
+	139: {'name': 'Butterfly', 'avatar': 'static/img/dota2items/butterfly.png'},
+	158: {'name': 'Mjollnir', 'avatar': 'static/img/dota2items/mjollnir.png'},
+	172: {'name': 'Mask of Madness', 'avatar': 'static/img/dota2items/mask_of_madness.png'},
+	141: {'name': 'Daedalus', 'avatar': 'static/img/dota2items/daedalus.png'}
+
 }
