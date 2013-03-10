@@ -6,7 +6,7 @@
 
 Heroes = {
 	
-	1: {'name': 'Antimage', 'avatar': 'static/img/dota2heroes/anti_mage.png'},
+	1: {'name': 'Antimage', 'avatar': 'static/img/dota2heroes/antimage.png'},
 	2: {'name': 'Axe', 'avatar': 'static/img/dota2heroes/axe.png'},
 	3: {'name': 'Ban', 'avatar': 'static/img/dota2heroes/ban.png'},
 	4: {'name': 'Bloodseeker', 'avatar': 'static/img/dota2heroes/bloodseeker.png'},
@@ -57,7 +57,7 @@ Heroes = {
 	50: {'name': 'Dazzle', 'avatar': 'static/img/dota2heroes/dazzle.png'},
 	51: {'name': 'Clockwerk', 'avatar': 'static/img/dota2heroes/clockwerk.png'},
 	52: {'name': 'Leshrac', 'avatar': 'static/img/dota2heroes/leshrac.png'},
-	53: {'name': 'Natures Prophet', 'avatar': 'static/img/dota2heroes/natures_prophet.png'},
+	53: {'name': 'Natures Prophet', 'avatar': 'static/img/dota2heroes/nature_prophet.png'},
 	54: {'name': 'Lifestealer', 'avatar': 'static/img/dota2heroes/lifestealer.png'},
 	55: {'name': 'Dark Seer', 'avatar': 'static/img/dota2heroes/dark_seer.png'},
 	56: {'name': 'Clinkz', 'avatar': 'static/img/dota2heroes/clinkz.png'},
