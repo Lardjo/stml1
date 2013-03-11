@@ -34,16 +34,23 @@ def details_match(match=None, apikey=None):
 
 	if radiant_win == "true":
 
-		details_match['win'] = 'Radiant Victory!'
+		details_match['radiant_win'] = 'True'
 
 	else:
 
-		details_match['win'] = 'Dire Victory!'
+		details_match['radiant_win'] = 'False'
 		
 	time = datetime.datetime.fromtimestamp(int(time)).strftime('%d, %B %Y %H:%M:%S')
 	duration = datetime.datetime.fromtimestamp(int(duration)).strftime('%M:%S')
 	details_match['start_time'] = time
 	details_match['duration'] = duration
+
+	# for total gold value
+	hours = (duration)[:-3]
+	minuts = (duration)[3:]
+	goldtime = round(float(hours) + (float(minuts) / 60), 1)
+	details_match['goldtime'] = goldtime
+	# for total gold value
 
 	return details_match
  
