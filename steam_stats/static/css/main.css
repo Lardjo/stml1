@@ -214,3 +214,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', end
                   margin-bottom: 0px;
                   margin-top: 20px;
             }
+
+            .dota2-separator {
+
+                  margin: 1px 0 11px;
+                  border-top: 1px solid #f3f3f3;
+                  border-bottom: 1px solid #dddddd;
+            }
+
+            .dota2-margin {
+                  margin-top: 17px;
+            }
+
+            .dota2-table {
+                  margin-top: 12px;
+            }

@@ -1,14 +1,26 @@
 <div class="well">
-	<p><i class="icon-flag" id="icon"></i><b>The last game in Dota 2</b></p>
-	<p><i class="icon-globe" id="icon"></i><b>Match: </b>{{ match2det[0]['match_id'] }}</p>
-	<p><i class="icon-time" id="icon"></i><b>Data: </b>{{ match2det[0]['start_time'] }}</p>
-	<p><i class="icon-time" id="icon"></i><b>Duration: </b>{{ match2det[0]['duration'] }}</p>
-
-	<table class="table table-bordered">
-  		<caption>{{ match2det[0]['radiant_win'] }}</caption>
+  <p><i class="icon-flag" id="icon"></i><b>The last game in Dota 2</b></p>
+  <hr class="dota2-separator">
+  <div class="row-fluid">
+    <div class="span4">
+      <p><i class="icon-globe" id="icon"></i><b>Match: </b>{{ match2det[0]['match_id'] }}</p>
+      <p><i class="icon-calendar" id="icon"></i><b>Data: </b>{{ match2det[0]['start_time'] }}</p>
+      <p><i class="icon-time" id="icon"></i><b>Duration: </b>{{ match2det[0]['duration'] }}</p>
+    </div>
+    <div class="span6">
+      <p><i class="icon-list-alt" id="icon"></i><b>Game Mode: </b></p>
+      <p><i class="icon-hdd" id="icon"></i><b>Server: </b></p>
+      <p><i class="icon-time" id="icon"></i><b>Played: </b></p>
+    </div>
+    <div class="span2 dota2-margin">
+      <a class="btn btn-small btn-inverse pull-right" href="#"><i class="icon-film icon-white"></i> Watch Replay</a>
+    </div>
+  </div>
+	
+	<table class="table table-bordered dota2-table">
   		<thead>
    			<tr>
-      	 <th colspan="12"><font class="text-success">The Radiant</font></th>
+      	 <th colspan="12"><font class="text-success">{% if match2det[0]['radiant_win'] == 'True' %}Radiant Victory!{% else %}The Radiant{% endif %}</font></th>
     		</tr>
         <tr>
           <th><font class="muted">Hero</font></th>
@@ -161,7 +173,7 @@
             <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
             <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
             <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
-            <td></td>
+            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
             <td>{{ match2det[1][key]['last_hits'] }}</td>
             <td>{{ match2det[1][key]['xp_per_min'] }}</td>
             <td>{{ match2det[1][key]['gold_per_min'] }}</td>
@@ -181,7 +193,7 @@
   		</tbody>
       <thead>
         <tr>
-            <th colspan="12"><font class="text-error">The Dire</font></th>
+            <th colspan="12"><font class="text-error">{% if match2det[0]['radiant_win'] == 'False' %}Dire Victory!{% else %}The Dire{% endif %}</font></th>
         </tr>
       </thead>
       <tbody>
