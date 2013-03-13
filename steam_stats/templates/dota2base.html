@@ -10,10 +10,10 @@
     <div class="span6">
       <p><i class="icon-list-alt" id="icon"></i><b>Game Mode: </b></p>
       <p><i class="icon-hdd" id="icon"></i><b>Server: </b></p>
-      <p><i class="icon-time" id="icon"></i><b>Played: </b></p>
+      <p><i class="icon-time" id="icon"></i><b>Played: </b>{{ match2det[0]['played'] }}</p>
     </div>
     <div class="span2 dota2-margin">
-      <a class="btn btn-small btn-inverse pull-right" href="#"><i class="icon-film icon-white"></i> Watch Replay</a>
+      <a class="btn btn-small btn-inverse pull-right" href="dota2://matchid={{ match2det[0]['match_id'] }}"><i class="icon-film icon-white"></i> Watch Replay</a>
     </div>
   </div>
 	

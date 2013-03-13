@@ -1,3 +1,4 @@
+{% if error %} {{ error }} {% else %}
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
@@ -26,3 +27,4 @@
     chart.draw(data, options);
   }
 </script>
+{% endif %}

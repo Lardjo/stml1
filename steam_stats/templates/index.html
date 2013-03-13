@@ -42,7 +42,7 @@
         </div>
       </div>
       {% if session.logged_in %}
-      <div class="main general">{% include 'header.html' %}</div>
+      <div class="main general">{% if error %} {% include 'header_.html' %} {% else %} {% include 'header.html' %} {% endif %}</div>
       <div class="container">
         {% for message in get_flashed_messages() %}
         <div class="alert alert-margin">
@@ -51,7 +51,7 @@
         </div>
         {% endfor %}
         <div class="row" id="row-pad">
-          <div class="span9">{% include 'statistics.html' %}</div>
+          <div class="span9">{% if error %} {{ error }} {% else %} {% include 'statistics.html' %} {% endif %}</div>
           <div class="span3">{% include 'history.html' %}</div>
         </div>
         {% if error %} {{ error }} {% else %} {% include 'dota2base.html' %} {% endif %}

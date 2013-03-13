@@ -60,10 +60,23 @@ def main(name=None, total=None):
 	else:
 
 		username = session['username']
+
 		name = statistics(username)
 		total = statgames(username)
-		id64 = name['SteamID64']
-		match2stats = dota2stat.match_stats(id64)
+
+		if (name or total) == "Connection Error!":
+
+			flash("Steam API is currently unavailable. Please try again later.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		else:
+
+			pass
+
+		iduser = name['SteamID64']
+
+		match2stats = dota2stat.match_stats(iduser)
 
 		if match2stats == "Connection Error!":
 
@@ -269,4 +282,4 @@ def statgames(name=None):
 
 if __name__ == "__main__":
 #	init_db()
-	app.run()
+	app.run(debug=True)

@@ -1,7 +1,10 @@
 import requests
 import os
-import datetime
 import xml.etree.ElementTree as ET
+
+from datetime import datetime
+
+GameModes = { 1: "All Pick", 5: "All Random"}
 
 def details_match(match=None, apikey=None):
 
@@ -26,6 +29,9 @@ def details_match(match=None, apikey=None):
 		radiant_win = root.find('radiant_win').text
 		time = root.find('start_time').text
 		duration = root.find('duration').text
+		game_mode = root.find('game_mode').text
+		cluster = root.find('cluster').text
+		first_blood_time = root.find('first_blood_time').text
 
 	except:
 
@@ -40,10 +46,15 @@ def details_match(match=None, apikey=None):
 
 		details_match['radiant_win'] = 'False'
 		
-	time = datetime.datetime.fromtimestamp(int(time)).strftime('%d, %B %Y %H:%M:%S')
-	duration = datetime.datetime.fromtimestamp(int(duration)).strftime('%M:%S')
+	time = datetime.fromtimestamp(int(time))
+	timenow = datetime.now()
+	played = timenow - time
+	time = time.strftime('%d, %B %Y %H:%M:%S')
+	#played = played.strftime('%H:%M:%S')
+	duration = datetime.fromtimestamp(int(duration)).strftime('%M:%S')
 	details_match['start_time'] = time
 	details_match['duration'] = duration
+	details_match['played'] = played
 
 	# for total gold value
 	hours = (duration)[:-3]
