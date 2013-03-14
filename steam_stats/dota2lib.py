@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
-# Welcome
-# Dota 2 Heroes Library
-# All Right Reserved
-# Last update: March 12, 2013
+# Welcome to Dota 2 Heroes and Items Library
+# Link: github.com/Lardjo
+# Last update: March 14, 2013
+# All Right Reserved (c) 2013
 
 Heroes = {
 	
@@ -110,7 +109,24 @@ Heroes = {
 Items = {
 
 	0: {'avatar': 'data-src=holder.js/60x45/text:Empty'},
-
+	1: {'name': 'Blink Dagger', 'avatar': 'static/img/dota2items/blink_dagger.png'},
+	2: {'name': 'Blades of Attack', 'avatar': 'static/img/dota2items/blades_of_attack.png'},	
+ 	4: {'name': 'Chainmail', 'avatar': 'static/img/dota2items/chainmail.png'},
+ 	6: {'name': 'Helm of Iron Will', 'avatar': 'static/img/dota2items/helm_of_iron_will.png'},
+ 	7: {'name': 'Javelin', 'avatar': 'static/img/dota2items/javelin.png'},
+ 	8: {'name': 'Mithril Hammer', 'avatar': 'static/img/dota2items/mithril_hammer.png'}, 
+ 	9: {'name': 'Platemail', 'avatar': 'static/img/dota2items/platemail.png'},
+ 	11: {'name': 'Quelling Blade', 'avatar': 'static/img/dota2items/quelling_blade.png'},
+ 	12: {'name': 'Ring of Protection', 'avatar': 'static/img/dota2items/ring_of_protection.png'},
+ 	13: {'name': 'Gauntlets of Strength', 'avatar': 'static/img/dota2items/gauntlets_of_strength.png'},
+	16: {'name': 'Iron Branch', 'avatar': 'static/img/dota2items/iron_branch.png'},
+	17: {'name': 'Belt of Strength', 'avatar': 'static/img/dota2items/belt_of_strength.png'},
+	19: {'name': 'Robe of the Magi', 'avatar': 'static/img/dota2items/robe_of_the_magi.png'},
+ 	21: {'name': 'Ogre Club', 'avatar': 'static/img/dota2items/ogre_club.png'},
+ 	23: {'name': 'Staff of Wizardry', 'avatar': 'static/img/dota2items/staff_of_wizardry.png'},
+	24: {'name': 'Ultimate Orb', 'avatar': 'static/img/dota2items/ultimate_orb.png'},
+	27: {'name': 'Ring of Regen', 'avatar': 'static/img/dota2items/ring_of_regen.png'},
+	29: {'name': 'Boots of Speed', 'avatar': 'static/img/dota2items/boots_of_speed.png'},
 	50: {'name': 'Phase Boots', 'avatar': 'static/img/dota2items/phase_boots.png'},
 	63: {'name': 'Power Treads', 'avatar': 'static/img/dota2items/power_treads.png'},
 	65: {'name': 'Hand of Midas', 'avatar': 'static/img/dota2items/hand_of_midas.png'},
@@ -121,7 +137,6 @@ Items = {
 	172: {'name': 'Mask of Madness', 'avatar': 'static/img/dota2items/mask_of_madness.png'},
 	141: {'name': 'Daedalus', 'avatar': 'static/img/dota2items/daedalus.png'},
 	180: {'name': 'Arcane Boots', 'avatar': 'static/img/dota2items/arcane_boots.png'},
-
 	145: {'name': 'Battlefury', 'avatar': 'static/img/dota2items/battle_fury.png'},
 	116: {'name': 'Black King Bar', 'avatar': 'static/img/dota2items/black_king_bar.png'},
 	121: {'name': 'Bloodstone', 'avatar': 'static/img/dota2items/bloodstone.png'},
@@ -131,8 +146,6 @@ Items = {
 	44: {'name': 'Tango', 'avatar': 'static/img/dota2items/tango.png'},
 	143: {'name': 'Basher', 'avatar': 'static/img/dota2items/skull_basher.png'},
 	214: {'name': 'Tranquil Boots', 'avatar': 'static/img/dota2items/tranquil_boots.png'},
-	8: {'name': 'Mithril Hammer', 'avatar': 'static/img/dota2items/mithril_hammer.png'}, 
-
 	73: {'name': 'Bracer', 'avatar': 'static/img/dota2items/bracer.png'},
 	75: {'name': 'Wraith Band', 'avatar': 'static/img/dota2items/wraith_band.png'},
 	135: {'name': 'Monkey King Bar', 'avatar': 'static/img/dota2items/monkey_king_bar.png'},
@@ -143,7 +156,6 @@ Items = {
 	71: {'name': 'Poor Man\'s Shield', 'avatar': 'static/img/dota2items/poor_mans_shield.png'},
 	52: {'name': 'Eaglesong', 'avatar': 'static/img/dota2items/eaglesong.png'},
 	125: {'name': 'Vanguard', 'avatar': 'static/img/dota2items/vanguard.png'},
-
 	127: {'name': 'Blade Mail', 'avatar': 'static/img/dota2items/blade_mail.png'},
 	108: {'name': 'Aghanim\'s Scepter', 'avatar': 'static/img/dota2items/aghanims_scepter.png'},
 	102: {'name': 'Force Staff', 'avatar': 'static/img/dota2items/force_staff.png'},
@@ -151,12 +163,8 @@ Items = {
 	212: {'name': 'Ring of Aquila', 'avatar': 'static/img/dota2items/ring_of_aquila.png'},
 	185: {'name': 'Drum of Endurance', 'avatar': 'static/img/dota2items/drum_of_endurance.png'},
 	123: {'name': 'Linken\'s Sphere', 'avatar': 'static/img/dota2items/linkens_sphere.png'},
-	16: {'name': 'Iron Branch', 'avatar': 'static/img/dota2items/iron_branch.png'},
 	39: {'name': 'Healing Salve', 'avatar': 'static/img/dota2items/healing_salve.png'},
 	182: {'name': 'Stout Shield', 'avatar': 'static/img/dota2items/stout_shield.png'},
-
-	12: {'name': 'Ring of Protection', 'avatar': 'static/img/dota2items/ring_of_protection.png'},
-	29: {'name': 'Boots of Speed', 'avatar': 'static/img/dota2items/boots_of_speed.png'},
 	114: {'name': 'Heart of Tarrasque', 'avatar': 'static/img/dota2items/heart_of_tarrasque.png'},
 	151: {'name': 'Armlet of Mordiggian', 'avatar': 'static/img/dota2items/armlet_of_mordiggian.png'},
 	98: {'name': 'Orchid Malevolence', 'avatar': 'static/img/dota2items/orchid_malevolence.png'},
@@ -165,24 +173,35 @@ Items = {
  	41: {'name': 'Bottle', 'avatar': 'static/img/dota2items/bottle.png'},
  	160: {'name': 'Eye of Skadi', 'avatar': 'static/img/dota2items/eye_of_skadi.png'},
  	178: {'name': 'Soul Ring', 'avatar': 'static/img/dota2items/soul_ring.png'},
-
  	215: {'name': 'Shadow Amulet', 'avatar': 'static/img/dota2items/shadow_amulet.png'},
  	149: {'name': 'Crystalys', 'avatar': 'static/img/dota2items/crystalys.png'},
- 	27: {'name': 'Ring of Regen', 'avatar': 'static/img/dota2items/ring_of_regen.png'},
- 	17: {'name': 'Belt of Strength', 'avatar': 'static/img/dota2items/belt_of_strength.png'},
  	88: {'name': 'Ring of Basilius', 'avatar': 'static/img/dota2items/ring_of_basilius.png'},
  	42: {'name': 'Observer Ward', 'avatar': 'static/img/dota2items/observer_ward.png'},
- 	19: {'name': 'Robe of the Magi', 'avatar': 'static/img/dota2items/robe_of_the_magi.png'},
  	81: {'name': 'Vladmir\'s Offering', 'avatar': 'static/img/dota2items/vladmirs_offering.png'},
  	90: {'name': 'Pipe of Insight', 'avatar': 'static/img/dota2items/pipe_of_insight.png'},
- 	1: {'name': 'Blink Dagger', 'avatar': 'static/img/dota2items/blink_dagger.png'},
-
  	112: {'name': 'Assault Cuirass', 'avatar': 'static/img/dota2items/assault_cuirass.png'},
  	100: {'name': 'Euls Scepter of Divinity', 'avatar': 'static/img/dota2items/euls_scepter_of_divinity.png'},
  	119: {'name': 'Shiva\'s Guard', 'avatar': 'static/img/dota2items/shivas_guard.png'},
  	208: {'name': 'Abyssal Blade', 'avatar': 'static/img/dota2items/abyssal_blade.png'},
  	210: {'name': 'Heaven\'s Halberd', 'avatar': 'static/img/dota2items/heavens_halberd.png'},
- 	37: {'name': 'Ghost Scepter', 'avatar': 'static/img/dota2items/ghost_scepter.png'}
+ 	37: {'name': 'Ghost Scepter', 'avatar': 'static/img/dota2items/ghost_scepter.png'},
+ 	51: {'name': 'Demon Edge', 'avatar': 'static/img/dota2items/demon_edge.png'},
+ 	96: {'name': 'Scythe of Vyse', 'avatar': 'static/img/dota2items/scythe_of_vyse.png'},
+ 	53: {'name': 'Reaver', 'avatar': 'static/img/dota2items/reaver.png'},
+ 	77: {'name': 'Null Talisman', 'avatar': 'static/img/dota2items/null_talisman.png'},
+ 	137: {'name': 'Radiance', 'avatar': 'static/img/dota2items/radiance.png'},
+ 	204: {'name': 'Dagon Level 5', 'avatar': 'static/img/dota2items/dagon.png'},
+ 	57: {'name': 'Void Stone', 'avatar': 'static/img/dota2items/void_stone.png'},	
+ 	131: {'name': 'Hood of Defiance', 'avatar': 'static/img/dota2items/hood_of_defiance.png'},
+ 	202: {'name': 'Dagon Level 3', 'avatar': 'static/img/dota2items/dagon_3.png'},
+ 	94: {'name': 'Headdress', 'avatar': 'static/img/dota2items/headdress.png'},
+ 	34: {'name': 'Magic Stick', 'avatar': 'static/img/dota2items/magic_stick.png'},
+	38: {'name': 'Clarity', 'avatar': 'static/img/dota2items/clarity.png'},
+ 	40: {'name': 'Dust of Appearance', 'avatar': 'static/img/dota2items/dust_of_appearance.png'},
+ 	60: {'name': 'Point Booster', 'avatar': 'static/img/dota2items/point_booster.png'},
+ 	166: {'name': 'Maelstrom', 'avatar': 'static/img/dota2items/maelstrom.png'},
+ 	154: {'name': 'Sange and Yasha', 'avatar': 'static/img/dota2items/sange_and_yasha.png'},
+ 	69: {'name': 'Perseverance', 'avatar': 'static/img/dota2items/perseverance.png'},
+ 	55: {'name': 'Hyperstone', 'avatar': 'static/img/dota2items/hyperstone.png'}
 
-
-	}
+}
