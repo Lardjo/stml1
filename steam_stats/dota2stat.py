@@ -24,6 +24,14 @@ def match_stats(userid=None):
 	match_details = dota2parser.details_match(match, apikey)
 	match_hero = dota2parser.details_hero(match, apikey)
 
+	lib = dota2lib.GameMode
+	a = int(match_details['game_mode'])
+	if a in lib.keys():
+		match_details['game_mode'] = lib[a]['name']
+		print match_details['game_mode']
+	else:
+		pass
+
 	lib = dota2lib.Heroes
 
 	for it in match_hero:

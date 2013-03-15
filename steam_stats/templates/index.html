@@ -51,13 +51,15 @@
         </div>
         {% endfor %}
         <div class="row" id="row-pad">
-          <div class="span9">{% if error %} {{ error }} {% else %} {% include 'statistics.html' %} {% endif %}</div>
+          <div class="span9">{% include 'statistics.html' %}</div>
           <div class="span3">{% include 'history.html' %}</div>
         </div>
-        {% if error %} {{ error }} {% else %} {% include 'dota2base.html' %} {% endif %}
+          {% include 'dota2base.html' %}
         <div class="well">
+          {% if error %} {{ error }} {% else %}
           <p><i class="icon-time" id="icon"></i><b>Games Total Chart:</b></p>
           <div id="chart_div" style="width: 900px; height: 400px;"></div>
+          {% endif %}
         </div>
       </div>
       {% else %}

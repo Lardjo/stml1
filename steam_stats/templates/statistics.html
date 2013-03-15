@@ -1,13 +1,15 @@
 <div class="page-header">
-  	<h1>Statistics for user <small>{{ name['SteamID'] }}</small></h1>
+  	<h1>Statistics for user <small>{% if error %} Anonymous {% else %} {{ name['SteamID'] }} {% endif %}</small></h1>
 </div>
 <div class="well">
+	{% if error %} {{ error }} {% else %}
 	<p><i class="icon-check" id="icon"></i><b>Real name:</b> {{ name['RealName'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Member since:</b> {{ name['memberSince'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Rating:</b> {{ name['Rating'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Privacy:</b> {{ name['Privacy'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Steam ID:</b> {{ name['SteamID64'] }}</p>
+  	{% endif %}
 </div>
 <div class="well">
-	<p><i class="icon-time" id="icon"></i><b>Total Time:</b> {{ total['HoursTotal'] }} Hours (or {{ total['HoursTotal'] // 24 }} days)</p>
+	{% if error %} {{ error }} {% else %}<p><i class="icon-time" id="icon"></i><b>Total Time:</b> {{ total['HoursTotal'] }} Hours (or {{ total['HoursTotal'] // 24 }} days)</p>{% endif %}
 </div>

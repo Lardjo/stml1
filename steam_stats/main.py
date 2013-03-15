@@ -64,13 +64,31 @@ def main(name=None, total=None):
 		name = statistics(username)
 		total = statgames(username)
 
-		if (name or total) == "Connection Error!":
+		if name == "Connection Error!":
 
 			flash("Steam API is currently unavailable. Please try again later.")
 			error = "Not available"
 			return render_template('index.html', entries=entries, error=error)
 
-		else:
+		elif total == "Connection Error!":
+
+			flash("Steam API is currently unavailable. Please try again later.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		elif name == "No internet":
+
+			flash("No internet connection. Try your internet.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+		
+		elif total == "No internet":
+
+			flash("No internet connection. Try your internet.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		else:	
 
 			pass
 
@@ -116,12 +134,19 @@ def logout():
 def statistics(name):
 
 	error = "Connection Error!"
+	error_http = "No internet"
 
 	STEAMXML = "http://steamcommunity.com/id/{0}?xml=1".format(name)
 
 	file_name = os.path.join(TMP, name + ".xml")
 
-	r = requests.get(STEAMXML)
+	try:
+
+		r = requests.get(STEAMXML)
+
+	except requests.exceptions.ConnectionError:
+
+		return error_http
 
 	if r.status_code in (404, 500, 503):
 
@@ -210,12 +235,19 @@ def statistics(name):
 def statgames(name=None):
 
 	error = "Connection Error!"
+	error_http = "No internet"
 
 	STEAMXMLGAMES = "http://steamcommunity.com/id/{0}/games?xml=1".format(name)
 
 	file_name = os.path.join(TMP, name + "_games.xml")
 
-	r = requests.get(STEAMXMLGAMES)
+	try:
+
+		r = requests.get(STEAMXMLGAMES)
+
+	except requests.exceptions.ConnectionError:
+
+		return error_http
 
 	if r.status_code in (404, 500, 503):
 

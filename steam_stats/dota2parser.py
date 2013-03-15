@@ -46,15 +46,13 @@ def details_match(match=None, apikey=None):
 
 		details_match['radiant_win'] = 'False'
 		
-	time = datetime.fromtimestamp(int(time))
-	timenow = datetime.now()
-	played = timenow - time
-	time = time.strftime('%d, %B %Y %H:%M:%S')
-	#played = played.strftime('%H:%M:%S')
+	time = datetime.fromtimestamp(int(time)).strftime('%d, %B %Y %H:%M:%S')
 	duration = datetime.fromtimestamp(int(duration)).strftime('%M:%S')
+	first_blood_time = datetime.fromtimestamp(int(first_blood_time)).strftime('%M:%S')
 	details_match['start_time'] = time
 	details_match['duration'] = duration
-	details_match['played'] = played
+	details_match['game_mode'] = game_mode
+	details_match['first_blood_time'] = first_blood_time
 
 	# for total gold value
 	hours = (duration)[:-3]
