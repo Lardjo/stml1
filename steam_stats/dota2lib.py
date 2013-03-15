@@ -1,7 +1,17 @@
-# Welcome to Dota 2 Heroes and Items Library
+# Welcome to Dota 2 Library for Steam Stats
 # Link: github.com/Lardjo
 # Last update: March 14, 2013
 # All Right Reserved (c) 2013
+
+GameMode = {
+	
+	1: {'name': 'All Pick'},
+	2: {'name': 'Captains Mode'},
+	3: {'name': 'Random Draft'},
+	4: {'name': 'Single Draft'},
+	5: {'name': 'All Random'}
+	
+}
 
 Heroes = {
 	
