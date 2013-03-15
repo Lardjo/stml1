@@ -202,6 +202,11 @@ Items = {
  	166: {'name': 'Maelstrom', 'avatar': 'static/img/dota2items/maelstrom.png'},
  	154: {'name': 'Sange and Yasha', 'avatar': 'static/img/dota2items/sange_and_yasha.png'},
  	69: {'name': 'Perseverance', 'avatar': 'static/img/dota2items/perseverance.png'},
- 	55: {'name': 'Hyperstone', 'avatar': 'static/img/dota2items/hyperstone.png'}
-
+ 	55: {'name': 'Hyperstone', 'avatar': 'static/img/dota2items/hyperstone.png'},
+ 	28: {'name': 'Sage\'s Mask', 'avatar': 'static/img/dota2items/sages_mask.png'},
+ 	206: {'name': 'Rod of Atos', 'avatar': 'static/img/dota2items/rod_of_atos.png'},
+ 	5: {'name': 'Claymore', 'avatar': 'static/img/dota2items/claymore.png'},
+ 	59: {'name': 'Energy Booster', 'avatar': 'static/img/dota2items/energy_booster.png'},
+ 	30: {'name': 'Gem of True Sight', 'avatar': 'static/img/dota2items/gem_of_true_sight.png'},
+ 	26: {'name': 'Morbid Mask', 'avatar': 'static/img/dota2items/morbid_mask.png'}
 }
