@@ -53,6 +53,7 @@ def details_match(match=None, apikey=None):
 	details_match['duration'] = duration
 	details_match['game_mode'] = game_mode
 	details_match['first_blood_time'] = first_blood_time
+	details_match['cluster'] = cluster
 
 	# for total gold value
 	hours = (duration)[:-3]
