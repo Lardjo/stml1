@@ -28,7 +28,13 @@ def match_stats(userid=None):
 	a = int(match_details['game_mode'])
 	if a in lib.keys():
 		match_details['game_mode'] = lib[a]['name']
-		print match_details['game_mode']
+	else:
+		pass
+
+	lib = dota2lib.Cluster
+	a = int(match_details['cluster'])
+	if a in lib.keys():
+		match_details['game_mode'] = lib[a]['game_mode']
 	else:
 		pass
 
