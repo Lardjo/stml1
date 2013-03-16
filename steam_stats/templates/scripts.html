@@ -1,16 +1,17 @@
+{% if error %} {% else %}
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
   function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Task', 'Hours'],
-    {% for totalstat in total %}[{{ totalstat.BestGame1|tojson|safe }}, {{ totalstat.BestGame1Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}[{{ totalstat.BestGame2|tojson|safe }}, {{ totalstat.BestGame2Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}[{{ totalstat.BestGame3|tojson|safe }}, {{ totalstat.BestGame3Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}[{{ totalstat.BestGame4|tojson|safe }}, {{ totalstat.BestGame4Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}[{{ totalstat.BestGame5|tojson|safe }}, {{ totalstat.BestGame5Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}[{{ totalstat.BestGame6|tojson|safe }}, {{ totalstat.BestGame6Hours }}], {% else %} ['unknown', '0'], {% endfor %}
-    {% for totalstat in total %}["Other", {{ totalstat.OtherHours }}] {% else %} ['unknown', '0'] {% endfor %}
+    [{{ total['BestGame1']|tojson|safe }}, {{ total['BestGame1Hours'] }}], 
+    [{{ total['BestGame2']|tojson|safe }}, {{ total['BestGame2Hours'] }}],  
+    [{{ total['BestGame3']|tojson|safe }}, {{ total['BestGame3Hours'] }}],  
+    [{{ total['BestGame4']|tojson|safe }}, {{ total['BestGame4Hours'] }}],  
+    [{{ total['BestGame5']|tojson|safe }}, {{ total['BestGame5Hours'] }}],
+    [{{ total['BestGame6']|tojson|safe }}, {{ total['BestGame6Hours'] }}], 
+    ["Other", {{ total['OtherHours'] }}]
       ]);
 
   var options = {
@@ -26,3 +27,4 @@
     chart.draw(data, options);
   }
 </script>
+{% endif %}
