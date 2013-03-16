@@ -6,10 +6,13 @@ config = ConfigParser.ConfigParser()
 config.read('config.ini')
 
 apikey = config.get('data', 'apikey')
+nullid = int(config.get('data', 'identifier'))
 
 def match_stats(userid=None):
 
 	error = "Connection Error!"
+
+	steam32 = int(userid) - nullid
 
 	match = dota2parser.dota2match(userid, apikey)
 
@@ -126,5 +129,18 @@ def match_stats(userid=None):
 		else:
 
 			pass
+
+
+	for a in match_hero.keys():
+
+		if steam32 == int(a):
+
+			match_hero[a]['you'] = '1'
+
+		else:
+
+			match_hero[a]['you'] = '0'
+
+	print match_hero
 
 	return match_details, match_hero
