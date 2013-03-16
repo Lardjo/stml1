@@ -8,13 +8,17 @@
       <p><i class="icon-calendar" id="icon"></i><b>Data: </b>{{ match2det[0]['start_time'] }}</p>
       <p><i class="icon-time" id="icon"></i><b>Duration: </b>{{ match2det[0]['duration'] }}</p>
     </div>
-    <div class="span6">
+    <div class="span4">
       <p><i class="icon-list-alt" id="icon"></i><b>Game Mode: </b>{{ match2det[0]['game_mode'] }}</p>
       <p><i class="icon-hdd" id="icon"></i><b>Server: </b>{{ match2det[0]['cluster'] }}</p>
       <p><i class="icon-time" id="icon"></i><b>First Blood: </b>{{ match2det[0]['first_blood_time'] }}</p>
     </div>
-    <div class="span2 dota2-margin">
-      <a class="btn btn-small btn-inverse pull-right" href="dota2://matchid={{ match2det[0]['match_id'] }}"><i class="icon-film icon-white"></i> Watch Replay</a>
+    <div class="span4">
+      <p class="center"><a class="btn btn-small btn-inverse dota2-margin" href="dota2://matchid={{ match2det[0]['match_id'] }}"><i class="icon-film icon-white"></i> Watch Replay</a></p>
+      <div class="row-fluid">
+        <div class="span6"><p class="center text-success"><i class="icon-thumbs-up" id="icon"></i> {{ match2det[0]['positive_votes'] }}</p></div>
+        <div class="span6"><p class="center text-error"><i class="icon-thumbs-down" id="icon"></i> {{ match2det[0]['negative_votes'] }}</p></div>
+      </div>
     </div>
   </div>
 	
@@ -36,8 +40,8 @@
         <tr>
   		</thead>
   		<tbody>
-    		<tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "0" %}
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "0" %}
+    		{% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
       			<td style="width: 80px; padding: 1px;">
               <div style="position: relative;">
                   <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -61,14 +65,11 @@
                 <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
               </div>
             </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}	
     		</tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "1" %}
+        {% else %}
+        {% endfor %}  
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "1" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -92,14 +93,67 @@
                 <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
               </div>
             </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
         </tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "2" %}
+        {% else %}
+        {% endfor %}
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "2" %}  
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
+            <td style="padding: 1px;">              
+              <div style="position: relative;">
+                <img src="{{ match2det[1][key]['avatar'] }}" />
+                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
+              </div>
+            </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
+            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
+            <td>{{ match2det[1][key]['last_hits'] }}</td>
+            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
+            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
+            <td>              
+              <div class="progress progress-margin">
+                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
+                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
+                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
+              </div>
+            </td> 
+        </tr>
+        {% else %}
+        {% endfor %} 
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "3" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
+            <td style="padding: 1px;">              
+              <div style="position: relative;">
+                <img src="{{ match2det[1][key]['avatar'] }}" />
+                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
+              </div>
+            </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
+            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
+            <td>{{ match2det[1][key]['last_hits'] }}</td>
+            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
+            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
+            <td>              
+              <div class="progress progress-margin">
+                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
+                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
+                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
+              </div>
+            </td> 
+        </tr>
+        {% else %}
+        {% endfor %} 
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "4" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -123,74 +177,9 @@
                 <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
               </div>
             </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
         </tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "3" %}
-            <td style="padding: 1px;">              
-              <div style="position: relative;">
-                <img src="{{ match2det[1][key]['avatar'] }}" />
-                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
-              </div>
-            </td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
-            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
-            <td>{{ match2det[1][key]['last_hits'] }}</td>
-            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
-            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
-            <td>              
-              <div class="progress progress-margin">
-                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
-                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
-                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
-              </div>
-            </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
-        </tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "4" %}
-            <td style="padding: 1px;">              
-              <div style="position: relative;">
-                <img src="{{ match2det[1][key]['avatar'] }}" />
-                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
-              </div>
-            </td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
-            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
-            <td>{{ match2det[1][key]['last_hits'] }}</td>
-            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
-            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
-            <td>              
-              <div class="progress progress-margin">
-                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
-                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
-                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
-              </div>
-            </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
-        </tr>
+        {% else %}
+        {% endfor %}  
   		</tbody>
       <thead>
         <tr>
@@ -198,8 +187,36 @@
         </tr>
       </thead>
       <tbody>
-         <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "128" %}
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "128" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
+            <td style="padding: 1px;">              
+              <div style="position: relative;">
+                <img src="{{ match2det[1][key]['avatar'] }}" />
+                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
+              </div>
+            </td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
+            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
+            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
+            <td>{{ match2det[1][key]['last_hits'] }}</td>
+            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
+            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
+            <td>              
+              <div class="progress progress-margin">
+                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
+                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
+                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
+              </div>
+            </td> 
+        </tr>
+        {% else %}
+        {% endfor %} 
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "129" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -223,14 +240,11 @@
                 <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
               </div>
             </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
         </tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "129" %}
+        {% else %}
+        {% endfor %} 
+        {% for key in match2det[1] if match2det[1][key]['player_slot'] == "130" %}
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -254,45 +268,11 @@
                 <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
               </div>
             </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
         </tr>
-        <tr>
-          {% for key in match2det[1] if match2det[1][key]['player_slot'] == "130" %}
-            <td style="padding: 1px;">              
-              <div style="position: relative;">
-                <img src="{{ match2det[1][key]['avatar'] }}" />
-                <div class="label-hero"><h6>{{ match2det[1][key]['level'] }} Level</h6></div>
-              </div>
-            </td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_0'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_1'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_2'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_3'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_4'] }}" /></td>
-            <td style="padding: 1px;"><img src="{{ match2det[1][key]['item_5'] }}" /></td>
-            <td>{% if (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int > 1000 %}{{ ((match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round / 1000)|round(1, 'floor') }}k{% else %}{{ (match2det[0]['goldtime'] * match2det[1][key]['gold_per_min']|float)|round|int }}{% endif %}</td>
-            <td>{{ match2det[1][key]['last_hits'] }}</td>
-            <td>{{ match2det[1][key]['xp_per_min'] }}</td>
-            <td>{{ match2det[1][key]['gold_per_min'] }}</td>
-            <td>              
-              <div class="progress progress-margin">
-                <div class="bar bar-success" style="width: {% if match2det[1][key]['kills']|int > 0 %}{{ (match2det[1][key]['kills']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['kills'] }}</div>
-                <div class="bar bar-danger" style="width: {% if match2det[1][key]['deaths']|int > 0 %}{{ (match2det[1][key]['deaths']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['deaths'] }}</div>
-                <div class="bar bar-warning" style="width: {% if match2det[1][key]['assists']|int > 0 %}{{ (match2det[1][key]['assists']|int * 100 / (match2det[1][key]['kills']|int + match2det[1][key]['deaths']|int + match2det[1][key]['assists']|int))|round(1, 'floor') }}%{% else %}0%{% endif %};">{{ match2det[1][key]['assists'] }}</div>
-              </div>
-            </td>
-          {% else %}
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          {% endfor %}  
-        </tr>
+        {% else %}
+        {% endfor %}  
         {% for key in match2det[1] if match2det[1][key]['player_slot'] == "131" %}
-        <tr>
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
@@ -320,7 +300,7 @@
         {% else %}  
         {% endfor %} 
         {% for key in match2det[1] if match2det[1][key]['player_slot'] == "132" %}
-        <tr>
+        {% if match2det[1][key]['you'] == '1' %}<tr class="you">{% else %}<tr>{% endif %}
             <td style="padding: 1px;">              
               <div style="position: relative;">
                 <img src="{{ match2det[1][key]['avatar'] }}" />
