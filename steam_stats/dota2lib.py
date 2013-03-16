@@ -1,4 +1,5 @@
 # Welcome to Dota 2 Library for Steam Stats
+# Version 0.9
 # Link: github.com/Lardjo
 # Last update: March 16, 2013
 # All Right Reserved (c) 2013
