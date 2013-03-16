@@ -171,7 +171,7 @@ Items = {
 	116: {'name': 'Black King Bar', 'avatar': 'static/img/dota2items/black_king_bar.png'},
 	121: {'name': 'Bloodstone', 'avatar': 'static/img/dota2items/bloodstone.png'},
 	48: {'name': 'Travel Boots', 'avatar': 'static/img/dota2items/boots_of_travel.png'},
-	174: {'name': 'Diffusal Blade', 'avatar': 'static/img/dota2items/diffusal_blade.png'},
+	174: {'name': 'Diffusal Blade Level 1', 'avatar': 'static/img/dota2items/diffusal_blade_1.png'},
 	147: {'name': 'Manta', 'avatar': 'static/img/dota2items/manta_style.png'},
 	44: {'name': 'Tango', 'avatar': 'static/img/dota2items/tango.png'},
 	143: {'name': 'Basher', 'avatar': 'static/img/dota2items/skull_basher.png'},
@@ -238,6 +238,15 @@ Items = {
  	5: {'name': 'Claymore', 'avatar': 'static/img/dota2items/claymore.png'},
  	59: {'name': 'Energy Booster', 'avatar': 'static/img/dota2items/energy_booster.png'},
  	30: {'name': 'Gem of True Sight', 'avatar': 'static/img/dota2items/gem_of_true_sight.png'},
- 	26: {'name': 'Morbid Mask', 'avatar': 'static/img/dota2items/morbid_mask.png'}
+ 	26: {'name': 'Morbid Mask', 'avatar': 'static/img/dota2items/morbid_mask.png'},
+ 	133: {'name': 'Divine Rapier', 'avatar': 'static/img/dota2items/divine_rapier.png'},
+ 	162: {'name': 'Sange', 'avatar': 'static/img/dota2items/sange.png'},
+ 	156: {'name': 'Satanic', 'avatar': 'static/img/dota2items/satanic.png'},
+ 	201: {'name': 'Dagon Level 2', 'avatar': 'static/img/dota2items/dagon_2.png'},
+ 	54: {'name': 'Sacred Relic', 'avatar': 'static/img/dota2items/sacred_relic.png'},
+ 	58: {'name': 'Mystic Staff', 'avatar': 'static/img/dota2items/mystic_staff.png'},
+ 	196: {'name': 'Diffusal Blade Level 2', 'avatar': 'static/img/dota2items/diffusal_blade.png'},
+ 	181: {'name': 'Orb of Venom', 'avatar': 'static/img/dota2items/orb_of_venom.png'},
+ 	31: {'name': 'Cloak', 'avatar': 'static/img/dota2items/cloak.png'}
 
 }
