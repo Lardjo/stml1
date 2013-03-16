@@ -5,7 +5,6 @@
 - **Support for Dota 2**
   - Full information about the last game
   - Table (heroes, items and other informations)
-
 - Small changes in the design
 - If user in-game - displays name game (header)
 - Increased number of last users

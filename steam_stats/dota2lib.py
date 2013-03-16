@@ -1,7 +1,7 @@
 # Welcome to Dota 2 Library for Steam Stats
-# Version 0.9
+# Version 0.9.1
 # Link: github.com/Lardjo
-# Last update: March 16, 2013
+# Last update: March 17, 2013
 # All Right Reserved (c) 2013
 
 GameMode = {
@@ -248,6 +248,8 @@ Items = {
  	58: {'name': 'Mystic Staff', 'avatar': 'static/img/dota2items/mystic_staff.png'},
  	196: {'name': 'Diffusal Blade Level 2', 'avatar': 'static/img/dota2items/diffusal_blade.png'},
  	181: {'name': 'Orb of Venom', 'avatar': 'static/img/dota2items/orb_of_venom.png'},
- 	31: {'name': 'Cloak', 'avatar': 'static/img/dota2items/cloak.png'}
+ 	31: {'name': 'Cloak', 'avatar': 'static/img/dota2items/cloak.png'},
+ 	194: {'name': 'Necronomicon', 'avatar': 'static/img/dota2items/necronomicon.png'},
+ 	32: {'name': 'Talisman of Evasion', 'avatar': 'static/img/dota2items/talisman_of_evasion.png'}
 
 }
