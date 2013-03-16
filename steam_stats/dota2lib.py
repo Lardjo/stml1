@@ -1,6 +1,6 @@
 # Welcome to Dota 2 Library for Steam Stats
 # Link: github.com/Lardjo
-# Last update: March 14, 2013
+# Last update: March 16, 2013
 # All Right Reserved (c) 2013
 
 GameMode = {
@@ -11,6 +11,26 @@ GameMode = {
 	4: {'name': 'Single Draft'},
 	5: {'name': 'All Random'}
 	
+}
+
+Cluster = {
+	
+	111: {'name': 'US West'},
+	121: {'name': 'US East'},
+	122: {'name': 'US East'},
+	131: {'name': 'Europe West'},
+	132: {'name': 'Europe West'},
+	133: {'name': 'Europe West'},
+	151: {'name': 'Southeast Asia'},
+	152: {'name': 'Southeast Asia'},
+	161: {'name': 'China'},
+	163: {'name': 'China'},
+	171: {'name': 'Australia'},
+	181: {'name': 'Russia'},
+	182: {'name': 'Russia'},
+	191: {'name': 'Europe East'},
+	200: {'name': 'South America'}
+
 }
 
 Heroes = {
@@ -219,4 +239,5 @@ Items = {
  	59: {'name': 'Energy Booster', 'avatar': 'static/img/dota2items/energy_booster.png'},
  	30: {'name': 'Gem of True Sight', 'avatar': 'static/img/dota2items/gem_of_true_sight.png'},
  	26: {'name': 'Morbid Mask', 'avatar': 'static/img/dota2items/morbid_mask.png'}
+
 }
