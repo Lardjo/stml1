@@ -32,6 +32,8 @@ def details_match(match=None, apikey=None):
 		game_mode = root.find('game_mode').text
 		cluster = root.find('cluster').text
 		first_blood_time = root.find('first_blood_time').text
+		positive_votes = root.find('positive_votes').text
+		negative_votes = root.find('negative_votes').text
 
 	except:
 
@@ -54,6 +56,8 @@ def details_match(match=None, apikey=None):
 	details_match['game_mode'] = game_mode
 	details_match['first_blood_time'] = first_blood_time
 	details_match['cluster'] = cluster
+	details_match['positive_votes'] = positive_votes
+	details_match['negative_votes'] = negative_votes
 
 	# for total gold value
 	hours = (duration)[:-3]
