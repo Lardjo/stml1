@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
+# Welcome
+
 import sqlite3
-import datetime
-import heapq
 import os
 import re
-import sys
 import requests
+import dota2stat
 import xml.etree.ElementTree as ET
-import math
 
-#from __future__ import with_statement
-#from sqlite3 import dbapi2 as sqlite3
 from contextlib import closing
-from flask import Flask, session, url_for, g, render_template, request, redirect, _app_ctx_stack
+from requests import ConnectionError
+from flask import Flask, session, url_for, g, render_template, request, flash, redirect, _app_ctx_stack
 
 # configuration
 TMP = 'tmp/'
@@ -49,62 +47,130 @@ def close_db_connection(exception):
 @app.route('/')
 def main(name=None, total=None):
 
+	error = None
+
 	db = get_db()
-	cur = db.execute('select id, login from entries order by id desc limit 5')
+	cur = db.execute('select id, login from entries order by id desc limit 8')
 	entries = cur.fetchall()
 
-	if session['logged_in']:
-
-		name = session['username']
-		nameg = session['username']
-		name = statistics(name)
-		total = statgames(nameg)
-		
-
-	else:
+	if not session.get('logged_in'):
 
 		return render_template('index.html', entries=entries)
 
-	return render_template('index.html', entries=entries, name=name, total=total)
+	else:
+
+		username = session['username']
+
+		name = statistics(username)
+		total = statgames(username)
+
+		if name == "Connection Error!":
+
+			flash("Steam API is currently unavailable. Please try again later.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		elif total == "Connection Error!":
+
+			flash("Steam API is currently unavailable. Please try again later.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		elif name == "No internet":
+
+			flash("No internet connection. Try your internet.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+		
+		elif total == "No internet":
+
+			flash("No internet connection. Try your internet.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, error=error)
+
+		else:	
+
+			pass
+
+		iduser = name['SteamID64']
+
+		match2stats = dota2stat.match_stats(iduser)
+
+		if match2stats == "Connection Error!":
+
+			flash("The Dota 2 API is currently unavailable.")
+			error = "Not available"
+			return render_template('index.html', entries=entries, name=name, total=total, error=error)
+
+		else:
+
+			pass
+
+	return render_template('index.html', entries=entries, name=name, total=total, match2det=match2stats)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
 	if request.method == 'POST':
 
+		session['logged_in'] = True
+		session['username'] = request.form['username']
+
 		db = get_db()
 		db.execute('insert into entries (id, login) values (?, ?)', [None, request.form['username']])
 		db.commit()
-		session['username'] = request.form['username']
-		session['logged_in'] = True
+
 		return redirect(url_for('main'))
 
 	return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-	session['logged_in'] = False
+
+	session.pop('logged_in', None)
 	return redirect(url_for('main'))
 
 
 def statistics(name):
 
+	error = "Connection Error!"
+	error_http = "No internet"
+
 	STEAMXML = "http://steamcommunity.com/id/{0}?xml=1".format(name)
 
 	file_name = os.path.join(TMP, name + ".xml")
-	r = requests.get(STEAMXML)
-	with open(file_name, "wb") as code:
-		code.write(r.content)
-
-	tree = ET.parse(file_name)
-	root = tree.getroot()
 
 	try:
 
-		Privacy = root.find('privacyState').text
+		r = requests.get(STEAMXML)
+
+	except requests.exceptions.ConnectionError:
+
+		return error_http
+
+	if r.status_code in (404, 500, 503):
+
+		return error
+
+	else:
+
+		pass
+
+	with open(file_name, "wb") as code:
+		code.write(r.content)
+
+	try:
+
+		tree = ET.parse(file_name)
+		root = tree.getroot()
 
 	except:
 
+		return error
+
+	try:
+		Privacy = root.find('privacyState').text
+	except:
 		Privacy = "none"
 
 	try:
@@ -138,38 +204,68 @@ def statistics(name):
 		RealName = "none"
 
 	try:
-		Avatar = root.find('avatarMedium').text
+		memberSince = root.find('memberSince').text
+	except:
+		memberSince = "none"
+
+	try:
+		inGameInfo = root.find('./inGameInfo/gameName').text
+	except:
+		inGameInfo = "none"
+
+	try:
+		Avatar = root.find('avatarFull').text
 		Avatar = ("src=" + Avatar) 
 	except:
 		Avatar = 'data-src=holder.js/64x64'
 
-	stats = [dict(SteamID = SteamID, 
-					SteamID64 = SteamID64,	
-					Status = Status, 
-					Location = Location, 
-					Rating = Rating,	
-					RealName = RealName,
-					Avatar = Avatar,
-					Privacy = Privacy)]
+	stats = {'SteamID': SteamID, 
+	'SteamID64': SteamID64, 
+	'Status': Status, 
+	'Location': Location, 
+	'Rating': Rating, 
+	'RealName': RealName, 
+	'Avatar': Avatar, 
+	'Privacy': Privacy, 
+	'memberSince': memberSince, 
+	'inGameInfo': inGameInfo}
 
 	return stats
 
-def statgames(nameg):
+def statgames(name=None):
 
-	STEAMXMLGAMES = "http://steamcommunity.com/id/{0}/games?xml=1".format(nameg)
+	error = "Connection Error!"
+	error_http = "No internet"
 
-	gfile_name = os.path.join(TMP, nameg + "_games.xml")
-	gr = requests.get(STEAMXMLGAMES)
-	with open(gfile_name, "wb") as code:
-		code.write(gr.content)
+	STEAMXMLGAMES = "http://steamcommunity.com/id/{0}/games?xml=1".format(name)
 
-	gtree = ET.parse(gfile_name)
-	groot = gtree.getroot()
+	file_name = os.path.join(TMP, name + "_games.xml")
+
+	try:
+
+		r = requests.get(STEAMXMLGAMES)
+
+	except requests.exceptions.ConnectionError:
+
+		return error_http
+
+	if r.status_code in (404, 500, 503):
+
+		return error
+
+	else:
+
+		pass
+
+	with open(file_name, "wb") as code:
+		code.write(r.content)
+
+	tree = ET.parse(file_name)
+	root = tree.getroot()
 
 	Dict = {}
-	#z = ","
 
-	for a in groot.findall('./games/game'):
+	for a in root.findall('./games/game'):
 
 		try:
 
@@ -192,34 +288,30 @@ def statgames(nameg):
 			b = 0
 
 	HoursTotal = sum(Dict.values())
-
 	DictTotal = sorted(Dict, key=Dict.get, reverse=True)[:6]
-	#DictTotal = map(lambda x: re.sub("'|`", "", x), DictTotal)
-	#print(DictTotal)
-
 	ListHoursTotalGames = [Dict.get(DictTotal[0]), Dict.get(DictTotal[1]), Dict.get(DictTotal[2]), Dict.get(DictTotal[3]), Dict.get(DictTotal[4]), Dict.get(DictTotal[5])]
 	TotalHoursBest = sum(ListHoursTotalGames)
 	OtherHours = HoursTotal - TotalHoursBest
 
-	gamestats = [dict(
-		HoursTotal=HoursTotal,
-		BestGame1=DictTotal[0],
-		BestGame2=DictTotal[1],
-		BestGame3=DictTotal[2],
-		BestGame4=DictTotal[3],
-		BestGame5=DictTotal[4],
-		BestGame6=DictTotal[5],
-		BestGame1Hours=Dict.get(DictTotal[0]),
-		BestGame2Hours=Dict.get(DictTotal[1]),
-		BestGame3Hours=Dict.get(DictTotal[2]),
-		BestGame4Hours=Dict.get(DictTotal[3]),
-		BestGame5Hours=Dict.get(DictTotal[4]),
-		BestGame6Hours=Dict.get(DictTotal[5]),
-		OtherHours=OtherHours
-		)]
+	gamestats = {
+		'HoursTotal': HoursTotal,
+		'BestGame1': DictTotal[0],
+		'BestGame2': DictTotal[1],
+		'BestGame3': DictTotal[2],
+		'BestGame4': DictTotal[3],
+		'BestGame5': DictTotal[4],
+		'BestGame6': DictTotal[5],
+		'BestGame1Hours': Dict.get(DictTotal[0]),
+		'BestGame2Hours': Dict.get(DictTotal[1]),
+		'BestGame3Hours': Dict.get(DictTotal[2]),
+		'BestGame4Hours': Dict.get(DictTotal[3]),
+		'BestGame5Hours': Dict.get(DictTotal[4]),
+		'BestGame6Hours': Dict.get(DictTotal[5]),
+		'OtherHours': OtherHours
+		}
 
 	return gamestats
 
 if __name__ == "__main__":
 #	init_db()
-	app.run()
+	app.run(debug=True)
