@@ -223,9 +223,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', end
             }
 
             .dota2-margin {
-                  margin-top: 17px;
+                  margin-top: 10px;
+                  margin-bottom: 10px;
             }
 
             .dota2-table {
                   margin-top: 12px;
+                  border-collapse: collapse;
+            }
+
+            .you {
+
+                  border: 2px solid #468847;
+                  /*border-collapse: none;*/
+            }
+
+            .center {
+
+                  text-align: center;
+                  margin: 0;
             }
