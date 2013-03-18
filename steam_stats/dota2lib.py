@@ -250,6 +250,14 @@ Items = {
  	181: {'name': 'Orb of Venom', 'avatar': 'static/img/dota2items/orb_of_venom.png'},
  	31: {'name': 'Cloak', 'avatar': 'static/img/dota2items/cloak.png'},
  	194: {'name': 'Necronomicon', 'avatar': 'static/img/dota2items/necronomicon.png'},
- 	32: {'name': 'Talisman of Evasion', 'avatar': 'static/img/dota2items/talisman_of_evasion.png'}
+ 	32: {'name': 'Talisman of Evasion', 'avatar': 'static/img/dota2items/talisman_of_evasion.png'},
+ 	104: {'name': 'Dagon Level 1', 'avatar': 'static/img/dota2items/dagon_1.png'},
+ 	67: {'name': 'Oblivion Staff', 'avatar': 'static/img/dota2items/oblivion_staff.png'},
+ 	176: {'name': 'Ethereal Blade', 'avatar': 'static/img/dota2items/ethereal_blade.png'},
+ 	61: {'name': 'Vitality Booster', 'avatar': 'static/img/dota2items/vitality_booster.png'},
+ 	20: {'name': 'Circlet', 'avatar': 'static/img/dota2items/circlet.png'},
+ 	187: {'name': 'medallion_of_courage', 'avatar': 'static/img/dota2items/medallion_of_courage.png'},
+ 	15: {'name': 'Mantle of Intelligence', 'avatar': 'static/img/dota2items/mantle_of_intelligence.png'},
+ 	43: {'name': 'Sentry Ward', 'avatar': 'static/img/dota2items/sentry_ward.png'}
 
 }
