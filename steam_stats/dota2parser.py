@@ -157,6 +157,22 @@ def dota2match(userid=None, apikey=None):
 
 	match = "none"
 
+	try:
+
+		status = root.find('status').text
+
+		if status == "15":
+
+			return "Private"
+
+		else:
+
+			pass
+
+	except:
+
+		pass
+
 	for a in root.findall('./matches/match'):
 
 		try:

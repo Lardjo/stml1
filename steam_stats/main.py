@@ -99,8 +99,8 @@ def main(name=None, total=None):
 		if match2stats == "Connection Error!":
 
 			flash("The Dota 2 API is currently unavailable.")
-			error = "Not available"
-			return render_template('index.html', entries=entries, name=name, total=total, error=error)
+			error_dota = "Not available"
+			return render_template('index.html', entries=entries, name=name, total=total, error_dota=error_dota)
 
 		else:
 
