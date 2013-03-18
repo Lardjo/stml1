@@ -219,6 +219,11 @@ def statistics(name):
 	except:
 		Avatar = 'data-src=holder.js/64x64'
 
+	try:
+		hoursPlayed = root.find('hoursPlayed2Wk').text
+	except:
+		hoursPlayed = "none"
+
 	stats = {'SteamID': SteamID, 
 	'SteamID64': SteamID64, 
 	'Status': Status, 
@@ -228,7 +233,8 @@ def statistics(name):
 	'Avatar': Avatar, 
 	'Privacy': Privacy, 
 	'memberSince': memberSince, 
-	'inGameInfo': inGameInfo}
+	'inGameInfo': inGameInfo,
+	'hoursPlayed': hoursPlayed}
 
 	return stats
 
@@ -264,8 +270,11 @@ def statgames(name=None):
 	root = tree.getroot()
 
 	Dict = {}
+	i = 0
 
 	for a in root.findall('./games/game'):
+
+		i+=1
 
 		try:
 
@@ -307,7 +316,8 @@ def statgames(name=None):
 		'BestGame4Hours': Dict.get(DictTotal[3]),
 		'BestGame5Hours': Dict.get(DictTotal[4]),
 		'BestGame6Hours': Dict.get(DictTotal[5]),
-		'OtherHours': OtherHours
+		'OtherHours': OtherHours,
+		'totalgames': i
 		}
 
 	return gamestats
