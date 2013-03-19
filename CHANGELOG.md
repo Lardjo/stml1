@@ -10,6 +10,7 @@ Minor fixed
 - Update dota2lib
   - Added new items
 - Minor fixed
+- Remove Travis
 
 ## 1.1.0 (March 16, 2013)
 
