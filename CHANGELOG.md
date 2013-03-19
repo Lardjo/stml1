@@ -1,3 +1,16 @@
+## 1.1.1 (March 19, 2013)
+
+Minor fixed
+
+- Fixed crash if user have private statistic in Dota 2
+- Changed statistics wall
+  - Added steam rating (moved)
+  - Added total steam games
+  - Added played past 2Wk
+- Update dota2lib
+  - Added new items
+- Minor fixed
+
 ## 1.1.0 (March 16, 2013)
 
 **Key changes**
