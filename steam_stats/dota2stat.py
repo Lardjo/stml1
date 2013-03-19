@@ -20,6 +20,10 @@ def match_stats(userid=None):
 
 		return error
 
+	elif match == "Private":
+
+		return error
+
 	else:
 
 		pass

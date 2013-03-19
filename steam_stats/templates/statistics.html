@@ -5,11 +5,15 @@
 	{% if error %} {{ error }} {% else %}
 	<p><i class="icon-check" id="icon"></i><b>Real name:</b> {{ name['RealName'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Member since:</b> {{ name['memberSince'] }}</p>
-  	<p><i class="icon-check" id="icon"></i><b>Rating:</b> {{ name['Rating'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Privacy:</b> {{ name['Privacy'] }}</p>
   	<p><i class="icon-check" id="icon"></i><b>Steam ID:</b> {{ name['SteamID64'] }}</p>
   	{% endif %}
 </div>
 <div class="well">
-	{% if error %} {{ error }} {% else %}<p><i class="icon-time" id="icon"></i><b>Total Time:</b> {{ total['HoursTotal'] }} Hours (or {{ total['HoursTotal'] // 24 }} days)</p>{% endif %}
+	{% if error %} {{ error }} {% else %}
+	<p><i class="icon-eye-open" id="icon"></i><b>Games (without DLC):</b> {{ total['totalgames'] }}</p>
+	<p><i class="icon-globe" id="icon"></i><b>Steam rating:</b> {{ name['Rating'] }}</p>
+	<p><i class="icon-time" id="icon"></i><b>Played past 2 weeks:</b> {{ name['hoursPlayed'] }} Hours</p>
+	<p><i class="icon-time" id="icon"></i><b>Total playing time:</b> {{ total['HoursTotal'] }} Hours (or {{ total['HoursTotal'] // 24 }} days)</p>
+	{% endif %}
 </div>
