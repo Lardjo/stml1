@@ -9,7 +9,7 @@ class ConnectError(Exception):
 
 def Download(Link=None):
 
-	filename = os.path("temp.xml")
+	filename = os.path("tmp/temp.xml")
 
 	try:
 		r = requests.get(Link)

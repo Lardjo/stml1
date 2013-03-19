@@ -9,53 +9,23 @@ import dota2stat
 import xml.etree.ElementTree as ET
 
 from contextlib import closing
-from requests import ConnectionError
 from flask import Flask, session, url_for, g, render_template, request, flash, redirect, _app_ctx_stack
 
 # configuration
-TMP = 'tmp/'
-DATABASE = 'data.db'
-DEBUG = True
 SECRET_KEY = "\x8bf\xb86c\xb0[\x93\xed\xce\x05!\x0ee\xbcr\xa3`-W\xb7\xf33\xab"
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
-#def init_db():
-#	with app.app_context():
-#		db = get_db()
-#		with app.open_resource('schema.sql') as f:
-#			db.cursor().executescript(f.read())
-#		db.commit()
-
-def get_db():
-	top = _app_ctx_stack.top
-	if not hasattr(top, 'db'):
-		db = sqlite3.connect(app.config['DATABASE'])
-		db.row_factory = sqlite3.Row
-		top.db = db
-
-	return top.db
-
-@app.teardown_appcontext
-def close_db_connection(exception):
-	top = _app_ctx_stack.top
-	if hasattr(top, 'db'):
-		top.db.close()
-
 @app.route('/')
 def main(name=None, total=None):
 
 	error = None
 
-	db = get_db()
-	cur = db.execute('select id, login from entries order by id desc limit 8')
-	entries = cur.fetchall()
-
 	if not session.get('logged_in'):
 
-		return render_template('index.html', entries=entries)
+		return render_template('index.html')
 
 	else:
 
@@ -68,25 +38,25 @@ def main(name=None, total=None):
 
 			flash("Steam API is currently unavailable. Please try again later.")
 			error = "Not available"
-			return render_template('index.html', entries=entries, error=error)
+			return render_template('index.html', error=error)
 
 		elif total == "Connection Error!":
 
 			flash("Steam API is currently unavailable. Please try again later.")
 			error = "Not available"
-			return render_template('index.html', entries=entries, error=error)
+			return render_template('index.html', error=error)
 
 		elif name == "No internet":
 
 			flash("No internet connection. Try your internet.")
 			error = "Not available"
-			return render_template('index.html', entries=entries, error=error)
+			return render_template('index.html', error=error)
 		
 		elif total == "No internet":
 
 			flash("No internet connection. Try your internet.")
 			error = "Not available"
-			return render_template('index.html', entries=entries, error=error)
+			return render_template('index.html', error=error)
 
 		else:	
 
@@ -100,13 +70,13 @@ def main(name=None, total=None):
 
 			flash("The Dota 2 API is currently unavailable.")
 			error_dota = "Not available"
-			return render_template('index.html', entries=entries, name=name, total=total, error_dota=error_dota)
+			return render_template('index.html', name=name, total=total, error_dota=error_dota)
 
 		else:
 
 			pass
 
-	return render_template('index.html', entries=entries, name=name, total=total, match2det=match2stats)
+	return render_template('index.html', name=name, total=total, match2det=match2stats)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -115,10 +85,6 @@ def login():
 
 		session['logged_in'] = True
 		session['username'] = request.form['username']
-
-		db = get_db()
-		db.execute('insert into entries (id, login) values (?, ?)', [None, request.form['username']])
-		db.commit()
 
 		return redirect(url_for('main'))
 
