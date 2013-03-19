@@ -7,8 +7,6 @@
     <link href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    {% if session.logged_in %} {% include 'scripts.html' %} {% else %} {% endif %}   
   </head>
   <body>
     <div id="wrap">
@@ -42,7 +40,7 @@
         </div>
       </div>
       {% if session.logged_in %}
-      <div class="main general">{% if error %} {% include 'header_.html' %} {% else %} {% include 'header.html' %} {% endif %}</div>
+      <div class="main general"></div>
       <div class="container">
         {% for message in get_flashed_messages() %}
         <div class="alert alert-margin">
@@ -51,15 +49,8 @@
         </div>
         {% endfor %}
         <div class="row" id="row-pad">
-          <div class="span9">{% include 'statistics.html' %}</div>
-          <div class="span3">{% include 'history.html' %}</div>
-        </div>
-          {% include 'dota2base.html' %}
-        <div class="well">
-          {% if error %} {{ error }} {% else %}
-          <p><i class="icon-time" id="icon"></i><b>Games Total Chart:</b></p>
-          <div id="chart_div" style="width: 900px; height: 400px;"></div>
-          {% endif %}
+          <div class="span9"></div>
+          <div class="span3"></div>
         </div>
       </div>
       {% else %}
