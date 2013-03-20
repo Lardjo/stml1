@@ -1,142 +1,73 @@
+# Get all info
+# Steam Stats
 
+import xml.etree.ElementTree as ET
 
-def statistics(name):
-
-	error = "Connection Error!"
-	error_http = "No internet"
-
-	STEAMXML = "http://steamcommunity.com/id/{0}?xml=1".format(name)
-
-	file_name = os.path.join(TMP, name + ".xml")
-
-	try:
-
-		r = requests.get(STEAMXML)
-
-	except requests.exceptions.ConnectionError:
-
-		return error_http
-
-	if r.status_code in (404, 500, 503):
-
-		return error
-
-	else:
-
-		pass
-
-	with open(file_name, "wb") as code:
-		code.write(r.content)
-
-	try:
-
-		tree = ET.parse(file_name)
-		root = tree.getroot()
-
-	except:
-
-		return error
-
+def SteamProfile(root=None):
+	"""Steam Profile Info"""
 	try:
 		Privacy = root.find('privacyState').text
 	except:
 		Privacy = "none"
-
 	try:
 		SteamID = root.find('steamID').text
 	except:
 		SteamID = "none"
-
 	try:
 		SteamID64 = root.find('steamID64').text
 	except:
 		SteamID64 = "none"
-
 	try:
 		Status = root.find('onlineState').text
 	except:
 		Status = "none"
-
 	try:
 		Location = root.find('location').text
 	except:
 		Location = "none"
-
 	try:
 		Rating = root.find('steamRating').text
 	except:
 		Rating = "none"
-
 	try:
 		RealName = root.find('realname').text
 	except:
 		RealName = "none"
-
 	try:
 		memberSince = root.find('memberSince').text
 	except:
 		memberSince = "none"
-
 	try:
 		inGameInfo = root.find('./inGameInfo/gameName').text
 	except:
 		inGameInfo = "none"
-
+	try:
+		hoursPlayed = root.find('hoursPlayed2Wk').text
+	except:
+		hoursPlayed = "none"
 	try:
 		Avatar = root.find('avatarFull').text
 		Avatar = ("src=" + Avatar) 
 	except:
 		Avatar = 'data-src=holder.js/64x64'
 
-	try:
-		hoursPlayed = root.find('hoursPlayed2Wk').text
-	except:
-		hoursPlayed = "none"
 
-	stats = {'SteamID': SteamID, 
-	'SteamID64': SteamID64, 
-	'Status': Status, 
-	'Location': Location, 
-	'Rating': Rating, 
-	'RealName': RealName, 
-	'Avatar': Avatar, 
-	'Privacy': Privacy, 
-	'memberSince': memberSince, 
-	'inGameInfo': inGameInfo,
-	'hoursPlayed': hoursPlayed}
+	post = {"steamid": SteamID, 
+			 "steamid64": SteamID64, 
+			 "status": Status, 
+			 "location": Location, 
+			 "rating": Rating, 
+			 "realName": RealName, 
+			 "avatar": Avatar, 
+			 "privacy": Privacy, 
+			 "membersince": memberSince, 
+			 "ingameinfo": inGameInfo,
+			 "hoursplayed": hoursPlayed}
 
-	return stats
+	return 1
 
-def statgames(name=None):
-
-	error = "Connection Error!"
-	error_http = "No internet"
-
-	STEAMXMLGAMES = "http://steamcommunity.com/id/{0}/games?xml=1".format(name)
-
-	file_name = os.path.join(TMP, name + "_games.xml")
-
-	try:
-
-		r = requests.get(STEAMXMLGAMES)
-
-	except requests.exceptions.ConnectionError:
-
-		return error_http
-
-	if r.status_code in (404, 500, 503):
-
-		return error
-
-	else:
-
-		pass
-
-	with open(file_name, "wb") as code:
-		code.write(r.content)
-
-	tree = ET.parse(file_name)
-	root = tree.getroot()
+def SteamGames(root=None):
+	"""Steam Games Info"""
 
 	Dict = {}
 	i = 0
@@ -171,22 +102,18 @@ def statgames(name=None):
 	TotalHoursBest = sum(ListHoursTotalGames)
 	OtherHours = HoursTotal - TotalHoursBest
 
-	gamestats = {
-		'HoursTotal': HoursTotal,
-		'BestGame1': DictTotal[0],
-		'BestGame2': DictTotal[1],
-		'BestGame3': DictTotal[2],
-		'BestGame4': DictTotal[3],
-		'BestGame5': DictTotal[4],
-		'BestGame6': DictTotal[5],
-		'BestGame1Hours': Dict.get(DictTotal[0]),
-		'BestGame2Hours': Dict.get(DictTotal[1]),
-		'BestGame3Hours': Dict.get(DictTotal[2]),
-		'BestGame4Hours': Dict.get(DictTotal[3]),
-		'BestGame5Hours': Dict.get(DictTotal[4]),
-		'BestGame6Hours': Dict.get(DictTotal[5]),
-		'OtherHours': OtherHours,
-		'totalgames': i
-		}
+	post = {"hourstotal": HoursTotal,
+			"game1": DictTotal[0],
+			"game2": DictTotal[1],
+			"game3": DictTotal[2],
+			"game4": DictTotal[3],
+			"game5": DictTotal[4],
+			"game1hours": Dict.get(DictTotal[0]),
+			"game2hours": Dict.get(DictTotal[1]),
+			"game3hours": Dict.get(DictTotal[2]),
+			"game4hours": Dict.get(DictTotal[3]),
+			"game5hours": Dict.get(DictTotal[4]),
+			"otherhours": OtherHours,
+			"totalgames": i}
 
-	return gamestats
+	return 1
