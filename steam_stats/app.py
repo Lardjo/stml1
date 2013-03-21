@@ -3,6 +3,8 @@
 
 import requests
 import pymongo
+import getinfo
+import getxml
 
 from contextlib import closing
 from pymongo import MongoClient
@@ -12,6 +14,7 @@ from flask import Flask, session, url_for, g, render_template, request, flash, r
 SECRET_KEY = "\x8bf\xb86c\xb0[\x93\xed\xce\x05!\x0ee\xbcr\xa3`-W\xb7\xf33\xab"
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
+db = None
 
 # create application
 app = Flask(__name__)
@@ -19,29 +22,29 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 # connect to the database
-def connect_db(dbase='stats-base'):
+def connect_db():
 	"""Connect to Mongodb"""
 	global db
 	connection = MongoClient(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
-	dbase = connection[dbase]
+	db = connection['stats-base']
 
 @app.route('/')
 def main():
-
+	"""Flask load"""
 	if not session.get('logged_in'):
 		return render_template('index.html')
 	else:
-		pass
-		#sname = session['username']
-		#steamid = "http://steamcommunity.com/id/{0}?xml=1".format(sname)
+		sname = session['username']
+		steamid = "http://steamcommunity.com/id/{0}?xml=1".format(sname)
 		#gamesid = "http://steamcommunity.com/id/{0}/games?xml=1".format(sname)
-		#SteamProfile(download.Download(steamid))
+		getinfo.SteamProfile(getxml.Download(steamid))
+		#print getinfo.SteamGames(getxml.Download(gamesid))
 
 	return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
+	"""Login function"""
 	if request.method == 'POST':
 
 		session['logged_in'] = True
@@ -53,7 +56,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-
+	"""Logout function"""
 	session.pop('logged_in', None)
 	return redirect(url_for('main'))
 

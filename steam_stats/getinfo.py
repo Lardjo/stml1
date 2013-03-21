@@ -1,104 +1,81 @@
 # Get all info
 # Steam Stats
 
+import app
+import pymongo
 import xml.etree.ElementTree as ET
 
 def SteamProfile(root=None):
 	"""Steam Profile Info"""
+	post = {}
 	try:
-		Privacy = root.find('privacyState').text
+		privacy = root.find('privacyState').text
+		post['privacy'] = privacy
+		steamid = root.find('steamID').text
+		post['steamid'] = steamid
+		steamid64 = root.find('steamID64').text
+		post['steamid64'] = steamid64
+		status = root.find('onlineState').text
+		post['status'] = status
+		membersince = root.find('memberSince').text
+		post['membersince'] = membersince
+		avatar = root.find('avatarFull').text
+		post['avatar'] = avatar
 	except:
-		Privacy = "none"
+		pass
 	try:
-		SteamID = root.find('steamID').text
+		location = root.find('location').text
+		post['location'] = location
 	except:
-		SteamID = "none"
+		pass
 	try:
-		SteamID64 = root.find('steamID64').text
+		rating = root.find('steamRating').text
+		post['rating'] = rating
 	except:
-		SteamID64 = "none"
+		pass
 	try:
-		Status = root.find('onlineState').text
+		realname = root.find('realname').text
+		post['realname'] = realname
 	except:
-		Status = "none"
+		pass
 	try:
-		Location = root.find('location').text
+		ingameinfo = root.find('./inGameInfo/gameName').text
+		post['ingameinfo'] = ingameinfo
 	except:
-		Location = "none"
+		pass
 	try:
-		Rating = root.find('steamRating').text
+		hoursplayed = root.find('hoursPlayed2Wk').text
+		post['hoursplayed'] = hoursplayed
 	except:
-		Rating = "none"
-	try:
-		RealName = root.find('realname').text
-	except:
-		RealName = "none"
-	try:
-		memberSince = root.find('memberSince').text
-	except:
-		memberSince = "none"
-	try:
-		inGameInfo = root.find('./inGameInfo/gameName').text
-	except:
-		inGameInfo = "none"
-	try:
-		hoursPlayed = root.find('hoursPlayed2Wk').text
-	except:
-		hoursPlayed = "none"
-	try:
-		Avatar = root.find('avatarFull').text
-		Avatar = ("src=" + Avatar) 
-	except:
-		Avatar = 'data-src=holder.js/64x64'
+		pass
 
-
-	post = {"steamid": SteamID, 
-			 "steamid64": SteamID64, 
-			 "status": Status, 
-			 "location": Location, 
-			 "rating": Rating, 
-			 "realName": RealName, 
-			 "avatar": Avatar, 
-			 "privacy": Privacy, 
-			 "membersince": memberSince, 
-			 "ingameinfo": inGameInfo,
-			 "hoursplayed": hoursPlayed}
+	posts = app.db
+	post_id = posts.insert(post)
 
 	return 1
 
 def SteamGames(root=None):
 	"""Steam Games Info"""
-
-	Dict = {}
-	i = 0
-
+	games = {}
+	count = 0
 	for a in root.findall('./games/game'):
-
-		i+=1
-
+		count+=1
 		try:
-
 			b = a.find('hoursOnRecord').text
 			c = a.find('name').text
-
 			if ',' in b:
-
 				b = b.replace(",", "")
 				b = float(b)
-				Dict[c] = b
-				
+				games[c] = b		
 			else:
-
 				b = float(b)
-				Dict[c] = b
-
+				games[c] = b
 		except:
-
 			b = 0
 
-	HoursTotal = sum(Dict.values())
-	DictTotal = sorted(Dict, key=Dict.get, reverse=True)[:6]
-	ListHoursTotalGames = [Dict.get(DictTotal[0]), Dict.get(DictTotal[1]), Dict.get(DictTotal[2]), Dict.get(DictTotal[3]), Dict.get(DictTotal[4]), Dict.get(DictTotal[5])]
+	HoursTotal = sum(games.values())
+	DictTotal = sorted(games, key=games.get, reverse=True)[:5]
+	ListHoursTotalGames = [games.get(DictTotal[0]), games.get(DictTotal[1]), games.get(DictTotal[2]), games.get(DictTotal[3]), games.get(DictTotal[4])]
 	TotalHoursBest = sum(ListHoursTotalGames)
 	OtherHours = HoursTotal - TotalHoursBest
 
@@ -108,12 +85,12 @@ def SteamGames(root=None):
 			"game3": DictTotal[2],
 			"game4": DictTotal[3],
 			"game5": DictTotal[4],
-			"game1hours": Dict.get(DictTotal[0]),
-			"game2hours": Dict.get(DictTotal[1]),
-			"game3hours": Dict.get(DictTotal[2]),
-			"game4hours": Dict.get(DictTotal[3]),
-			"game5hours": Dict.get(DictTotal[4]),
+			"game1hours": games.get(DictTotal[0]),
+			"game2hours": games.get(DictTotal[1]),
+			"game3hours": games.get(DictTotal[2]),
+			"game4hours": games.get(DictTotal[3]),
+			"game5hours": games.get(DictTotal[4]),
 			"otherhours": OtherHours,
-			"totalgames": i}
+			"totalgames": count}
 
 	return 1
