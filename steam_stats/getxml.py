@@ -9,9 +9,8 @@ class ConnectError(Exception):
 	pass
 
 def Download(Link=None):
-
+	"""Download XML"""
 	filename = os.path.join("tmp/temp.xml")
-
 	try:
 		r = requests.get(Link)
 	except:

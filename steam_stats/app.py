@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # Welcome
 
+import ConfigParser
 import requests
 import pymongo
 import getinfo
 import getxml
+import geturl
 
 from contextlib import closing
 from pymongo import MongoClient
@@ -14,19 +16,28 @@ from flask import Flask, session, url_for, g, render_template, request, flash, r
 SECRET_KEY = "\x8bf\xb86c\xb0[\x93\xed\xce\x05!\x0ee\xbcr\xa3`-W\xb7\xf33\xab"
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-db = None
+
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+apikey = config.get('data', 'apikey')
+nullid = int(config.get('data', 'identifier'))
 
 # create application
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+#def init_db():
+#	"""Clear database"""
+#	connection = MongoClient()
+#	connection.drop_database("stats_base")
+
 # connect to the database
-def connect_db():
-	"""Connect to Mongodb"""
-	global db
-	connection = MongoClient(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
-	db = connection['stats-base']
+def get_db():
+    """Opens a new database connection"""
+    connection = MongoClient()
+    db = connection.stats_base
+    return db
 
 @app.route('/')
 def main():
@@ -34,11 +45,17 @@ def main():
 	if not session.get('logged_in'):
 		return render_template('index.html')
 	else:
-		sname = session['username']
-		steamid = "http://steamcommunity.com/id/{0}?xml=1".format(sname)
-		#gamesid = "http://steamcommunity.com/id/{0}/games?xml=1".format(sname)
-		getinfo.SteamProfile(getxml.Download(steamid))
-		#print getinfo.SteamGames(getxml.Download(gamesid))
+
+		info = getinfo.SteamProfile(getxml.Download(geturl.url['profile'].format(session['username'])))
+		steam32 = int(info['steamid64']) - nullid
+		matchid = getinfo.Matchid(getxml.Download(geturl.url['matchid'].format(info['steamid64'], apikey)))
+		info.update(getinfo.SteamGames(getxml.Download(geturl.url['games'].format(session['username']))))
+		info.update(getinfo.MatchStat(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey))))
+		info.update(getinfo.MatchInfo(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey)), steam32))
+
+		db = get_db()
+		posts = db.posts
+		posts.insert(info)
 
 	return render_template('index.html')
 
@@ -61,5 +78,4 @@ def logout():
 	return redirect(url_for('main'))
 
 if __name__ == "__main__":
-	connect_db()
 	app.run(debug=True)
