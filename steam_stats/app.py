@@ -45,17 +45,8 @@ def main():
 	if not session.get('logged_in'):
 		return render_template('index.html')
 	else:
+		pass
 
-		info = getinfo.SteamProfile(getxml.Download(geturl.url['profile'].format(session['username'])))
-		steam32 = int(info['steamid64']) - nullid
-		matchid = getinfo.Matchid(getxml.Download(geturl.url['matchid'].format(info['steamid64'], apikey)))
-		info.update(getinfo.SteamGames(getxml.Download(geturl.url['games'].format(session['username']))))
-		info.update(getinfo.MatchStat(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey))))
-		info.update(getinfo.MatchInfo(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey)), steam32))
-
-		db = get_db()
-		posts = db.posts
-		posts.insert(info)
 
 	return render_template('index.html')
 
@@ -66,6 +57,15 @@ def login():
 
 		session['logged_in'] = True
 		session['username'] = request.form['username']
+		info = getinfo.SteamProfile(getxml.Download(geturl.url['profile'].format(session['username'])))
+		steam32 = int(info['steamid64']) - nullid
+		matchid = getinfo.Matchid(getxml.Download(geturl.url['matchid'].format(info['steamid64'], apikey)))
+		info.update(getinfo.SteamGames(getxml.Download(geturl.url['games'].format(session['username']))))
+		info.update(getinfo.MatchStat(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey))))
+		info.update(getinfo.MatchInfo(getxml.Download(geturl.url['matchinfo'].format(matchid, apikey)), steam32))
+		db = get_db()
+		posts = db.posts
+		posts.insert(info)
 
 		return redirect(url_for('main'))
 
