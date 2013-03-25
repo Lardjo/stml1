@@ -34,7 +34,7 @@
                                 </ul>
                             </li>
                         {% else %}
-                            <li><a href="{{ url_for('login') }}" id="steam-small"><img src="static/img/sits_small.png" /></a></li>
+                            <li><a href="{{ url_for('login') }}" id="steam-small"><img src="{{ url_for('static', filename='img/sits_small.png') }}" /></a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -42,31 +42,13 @@
         </div>
     </div>
     <div class="main general">
+    {% if g.user %}
         <div class="container">
-            <h1>Steam Stats</h1>
-            <p>Check your Steam stats and share it with your friends!</p>
-            <p><a href="#" class="btn btn-primary btn-large">Get started!</a></p>
-            <hr class="line-hr">
-            <div class="info">
-                <h1>Let's get started!..</h1>
-                <p>Before you begin, make sure you have these settings.</p>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <img src="static/img/tutorial-1.jpg" class="info-img"/>
-                    </div>
-                    <div class="span4">
-                        <img src="static/img/tutorial-2.jpg" class="info-img"/>
-                    </div>
-                    <div class="span4">
-                        <img src="static/img/tutorial-3.jpg" class="info-img"/>
-                    </div>
-                </div>
-                <p>
-                    Steam Stats works only with public profiles. If your profile is private or only friends,
-                    statistics will not work. Change your privacy settings and can begin.
-                </p>
-            </div>
+        Ok!
         </div>
+    {% else %}
+        {% include "start-page.html" %}
+    {% endif %}
     </div>
     {% include 'footer.html' %}
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
