@@ -1,77 +1,76 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
-  <head>
-    <meta charset="utf-8">
-    <title>Steam Stats</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-  </head>
-  <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
-    <div id="wrap">
-
-      <div class="navbar nav-inverse navbar-fixed-top">
+    <head>
+        <meta charset="utf-8">
+        <title>Steam Stats</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    </head>
+    <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
-          <div class="container">
-
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a href="#" class="brand">Steam Stats</a>
-
-            <div class="nav-collapse navbar-responsive-collapse">
-
-                <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">GitHub Project</a></li>
-                </ul>
-
-                <ul class="nav pull-right">
-                    <li class="divider-vertical"></li>
-                    {% if g.user %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ g.user.nickname }}! <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li><a href="{{ url_for('login') }}" id="steam-small"><img src="static/img/sits_small.png" /></a></li>
-                    {% endif %}
-                </ul>
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Steam Stats</a>
+                <div class="nav-collapse navbar-responsive-collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">GitHub Project</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        {% if g.user %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ g.user.nickname }}! <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}" id="steam-small"><img src="static/img/sits_small.png" /></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-
-      {% if g.user %}
-      <div class="main general"></div>
-      <div class="container">
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-margin">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          {{ message }}.
+    </div>
+    <div class="main general">
+        <div class="container">
+            <h1>Steam Stats</h1>
+            <p>Check your Steam stats and share it with your friends!</p>
+            <p><a href="#" class="btn btn-primary btn-large">Get started!</a></p>
+            <hr class="line-hr">
+            <div class="info">
+                <h1>Let's get started!..</h1>
+                <p>Before you begin, make sure you have these settings.</p>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <img src="static/img/tutorial-1.jpg" class="info-img"/>
+                    </div>
+                    <div class="span4">
+                        <img src="static/img/tutorial-2.jpg" class="info-img"/>
+                    </div>
+                    <div class="span4">
+                        <img src="static/img/tutorial-3.jpg" class="info-img"/>
+                    </div>
+                </div>
+                <p>
+                    Steam Stats works only with public profiles. If your profile is private or only friends,
+                    statistics will not work. Change your privacy settings and can begin.
+                </p>
+            </div>
         </div>
-        {% endfor %}
-        <div class="row" id="row-pad">
-          <div class="span9"></div>
-          <div class="span3"></div>
-        </div>
-      </div>
-      {% else %}
-      <div class="main general"></div>
-      {% include 'info.html' %}
-      {% endif %}
-      <div id="push"></div>
     </div>
     {% include 'footer.html' %}
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/holder.js') }}"></script>
-  </body>
+    </body>
 </html>
