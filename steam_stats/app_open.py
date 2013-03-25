@@ -6,22 +6,27 @@ from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
 from pymongo import MongoClient
 
-# setup app
-config = ConfigParser.ConfigParser()
-config.read('config.ini')
 # setup flask
 app = Flask(__name__)
 app.config.update(
-    SECRET_KEY = 'development key',
-    DEBUG = True
+    SECRET_KEY='development key',
+    DEBUG=True
 )
-# setup flask-openid
-oid = OpenID(app)
-_steam_id_re = re.compile('steamcommunity.com/openid/id/(.*?)$')
+
+# config
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
 STEAM_API_KEY = config.get('data', 'apikey')
-# connection
+
+# setup openid
+oid = OpenID(app)
+
+# mongodb
 connection = MongoClient()
 db = connection.stats_base
+
+# other
+_steam_id_re = re.compile('steamcommunity.com/openid/id/(.*?)$')
 
 
 def get_steam_userinfo(steam_id):
