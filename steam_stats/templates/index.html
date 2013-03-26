@@ -41,16 +41,12 @@
             </div>
         </div>
     </div>
-    <div class="main general">
     {% if g.user %}
-        <div class="container">
-        Ok!
-        </div>
+        {% include "stats-page.html" %}
     {% else %}
         {% include "start-page.html" %}
     {% endif %}
-    </div>
-    {% include 'footer.html' %}
+        {% include 'footer.html' %}
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/holder.js') }}"></script>
