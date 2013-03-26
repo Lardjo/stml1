@@ -2,13 +2,34 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span6">
-                <img data-src="holder.js/128x128" class="img-rounded image-size pull-left" />
-                <h2>Lardjo</h2>
-                <p class="city">Russia, Mordovia, Saransk</p>
+                <img src="{{ info.avatar }}" class="img-rounded image-size pull-left" />
+                <h2>{{ info.nickname }} <small>{{ info.realname }}</small></h2>
+                <p class="city">{{ info.location }}</p>
             </div>
             <div class="span6">
                 <h3 class="text-success">Now playing</h3>
                 <p class="game">The Elder Scrolls V: Skyrim</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span5">
+            <div class="well well-large well-margin">
+                <p><strong>Perfonal Info</strong></p>
+                <p><i class="icon-check"></i><strong> Name:</strong> {{ info.realname }}</p>
+                <p><i class="icon-check"></i><strong> Nickname:</strong> {{ info.nickname }}</p>
+                <p><i class="icon-check"></i><strong> Steam ID:</strong> {{ info.steamid }}</p>
+                <p><i class="icon-check"></i><strong> Member Since:</strong> {{ info.membersince }}</p>
+                <p><i class="icon-check"></i><strong> Location:</strong> {{ info.location }}</p>
+                <p><i class="icon-check"></i><strong> Privacy:</strong> {{ info.privacy }}</p>
+
+            </div>
+        </div>
+        <div class="span7">
+            <div class="well well-large well-margin">
+                Span7
             </div>
         </div>
     </div>
