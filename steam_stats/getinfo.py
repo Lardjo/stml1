@@ -1,6 +1,7 @@
 from libs import dota2lib
 from datetime import datetime
 
+
 class ParseError(Exception):
     pass
 
@@ -60,7 +61,7 @@ def steam_games(root=None):
     count = 0
 
     for a in root.findall('./games/game'):
-        count+=1
+        count += 1
         try:
             b = a.find('hoursOnRecord').text
             c = a.find('name').text
@@ -171,7 +172,7 @@ def match_info(root=None):
         try:
             account_id = a.find('account_id').text
             if account_id == "4294967295":
-                hero+=1
+                hero += 1
                 account_id = str(hero)
             else:
                 pass
