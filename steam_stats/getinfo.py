@@ -25,31 +25,31 @@ def steam_profile(root=None):
         location = root.find('location').text
         post['location'] = location
     except:
-        raise ParseError
+        pass
 
     try:
         rating = root.find('steamRating').text
         post['rating'] = rating
     except:
-        raise ParseError
+        pass
 
     try:
         realname = root.find('realname').text
         post['realname'] = realname
     except:
-        raise ParseError
+        pass
 
     try:
         ingameinfo = root.find('./inGameInfo/gameName').text
         post['ingameinfo'] = ingameinfo
     except:
-        raise ParseError
+        pass
 
     try:
         hoursplayed = root.find('hoursPlayed2Wk').text
         post['hoursplayed'] = hoursplayed
     except:
-        raise ParseError
+        pass
 
     return post
 
