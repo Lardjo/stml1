@@ -40,11 +40,6 @@
         margin-bottom: 30px;
     }
 
-    .main p.game {
-        text-align: right;
-        margin-top: 11px;
-    }
-
     .main
     .container {
         position: relative;
@@ -76,10 +71,39 @@
         letter-spacing: -2px;
     }
 
+    .general h2 {
+        text-align: left;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        padding-left: 143px;
+        font-size: 50px;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .general h3 {
+        text-align: right;
+        margin-top: 30px;
+        margin-bottom: 0;
+    }
+
     .general p {
         font-size: 35px;
         font-weight: 200;
         line-height: 1.25;
+    }
+
+    .general p.city {
+        text-align: left;
+        padding-left: 145px;
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .general p.game {
+        text-align: right;
+        font-size: 17px;
+        margin-bottom: 5px;
     }
 
     .general .btn {
