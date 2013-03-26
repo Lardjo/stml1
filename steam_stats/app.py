@@ -15,7 +15,7 @@ app.config.update(
 
 # config
 config = ConfigParser.ConfigParser()
-config.read('config.ini')
+config.read('bin/config.ini')
 STEAM_API_KEY = config.get('data', 'apikey')
 
 # setup openid
