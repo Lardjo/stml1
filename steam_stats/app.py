@@ -5,6 +5,8 @@ import ConfigParser
 from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
 from pymongo import MongoClient
+from getxml import download
+from getinfo import steam_profile
 
 # setup flask
 app = Flask(__name__)
@@ -27,7 +29,7 @@ db = connection.stats_base
 
 # other
 _steam_id_re = re.compile('steamcommunity.com/openid/id/(.*?)$')
-url = {"profile": "http://steamcommunity.com/id/{0}?xml=1",
+url = {"profile": "http://steamcommunity.com/profiles/{0}?xml=1",
        "games": "http://steamcommunity.com/id/{0}/games?xml=1",
        "matchid": "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?format=XML&matches_requested=1&account_id={0}&key={1}",
        "matchinfo": "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?format=XML&match_id={0}&key={1}"}
@@ -52,7 +54,10 @@ def before_request():
 @app.route('/')
 def main():
     """Flask load"""
-    return render_template('index.html')
+    info = None
+    if 'user_id' in session:
+        info = db.posts.find_one({"steamid": session['user_id']})
+    return render_template('index.html', info=info)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -71,10 +76,12 @@ def create_or_login(resp):
     rv = db.posts.find_one({"steamid": match.group(1)})
     if rv is None:
         steamdata = get_steam_userinfo(match.group(1))
+        getinfo = steam_profile(download(url['profile'].format(match.group(1))))
         rv = {"steamid": match.group(1), "nickname": steamdata['personaname']}
-        db.posts.insert(rv)
+        getinfo.update(rv)
+        db.posts.insert(getinfo)
     g.user = rv
-    session['user_id'] = g.user
+    session['user_id'] = g.user['steamid']
     flash('You are logged in as %s' % g.user['nickname'])
     return redirect(oid.get_next_url())
 
