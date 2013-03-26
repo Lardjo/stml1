@@ -1,6 +1,3 @@
-# Download and parser system
-# Steam Stats
-
 import os
 import requests
 import xml.etree.ElementTree as ET
@@ -8,7 +5,7 @@ import xml.etree.ElementTree as ET
 class ConnectError(Exception):
 	pass
 
-def Download(Link=None):
+def download(Link=None):
 	"""Download XML"""
 	filename = os.path.join("tmp/temp.xml")
 	try:
