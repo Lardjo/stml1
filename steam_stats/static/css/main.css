@@ -81,6 +81,11 @@
         letter-spacing: -1px;
     }
 
+    .general h2 small {
+        font-size: 24.5px;
+
+    }
+
     .general h3 {
         text-align: right;
         margin-top: 30px;
@@ -124,8 +129,8 @@
     }
 
     .general img.image-size {
-        width: 70px;
-        height: 70px;
+        width: 128px;
+        height: 128px;
     }
 
     #push,
@@ -275,6 +280,10 @@
     .center {
         text-align: center;
         margin: 0;
+    }
+
+    .well-margin {
+        margin-top: 20px;
     }
 
     /* Responsive Support */
