@@ -86,18 +86,13 @@ def steam_games(root=None):
     otherhours = hourstotal - besthours
 
     post = {"hourstotal": hourstotal,
-            "game1": dictotal[0],
-            "game2": dictotal[1],
-            "game3": dictotal[2],
-            "game4": dictotal[3],
-            "game5": dictotal[4],
-            "game1hours": games.get(dictotal[0]),
-            "game2hours": games.get(dictotal[1]),
-            "game3hours": games.get(dictotal[2]),
-            "game4hours": games.get(dictotal[3]),
-            "game5hours": games.get(dictotal[4]),
+            "totalgames": count,
             "otherhours": otherhours,
-            "totalgames": count}
+            "game1": {"name": dictotal[0], "hours": games.get(dictotal[0])},
+            "game2": {"name": dictotal[1], "hours": games.get(dictotal[1])},
+            "game3": {"name": dictotal[2], "hours": games.get(dictotal[2])},
+            "game4": {"name": dictotal[3], "hours": games.get(dictotal[3])},
+            "game5": {"name": dictotal[4], "hours": games.get(dictotal[4])}}
 
     return post
 
