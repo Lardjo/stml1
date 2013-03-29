@@ -1,3 +1,39 @@
+{% extends "index.html" %}
+
+{% block scripts %}
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+
+    var data = [
+        {
+            value : {{ info.game1.hours }},
+            color : "#999999"
+        },
+        {
+            value : {{ info.game2.hours }},
+            color : "#468847"
+        },
+        {
+            value : {{ info.game3.hours }},
+            color : "#f89406"
+        },
+        {
+            value : {{ info.game4.hours }},
+            color : "#b94a48"
+        },
+        {
+            value : {{ info.game5.hours }},
+            color : "#3a87ad"
+        }
+    ]
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myNewChart = new Chart(ctx).Pie(data);
+
+</script>
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
 <div class="main general">
     <div class="container">
         <div class="row-fluid">
@@ -24,13 +60,21 @@
                 <p><i class="icon-check"></i><strong> Member Since:</strong> {{ info.membersince }}</p>
                 <p><i class="icon-check"></i><strong> Location:</strong> {{ info.location }}</p>
                 <p><i class="icon-check"></i><strong> Privacy:</strong> {{ info.privacy }}</p>
-
             </div>
         </div>
         <div class="span7">
-            <div class="well well-large well-margin">
-                Span7
+            <div class="row-fluid well well-large well-margin">
+                <div class="span5"> <canvas id="myChart" width="250" height="250"></canvas></div>
+                <div class="span5">
+                    <p><strong>Top 5 Games</strong></p>
+                    <p><span class="badge">{{ info.game1.hours }} hours</span> {{ info.game1.name }}</p>
+                    <p><span class="badge badge-success">{{ info.game2.hours }} hours</span> {{ info.game2.name }}</p>
+                    <p><span class="badge badge-warning">{{ info.game3.hours }} hours</span> {{ info.game3.name }}</p>
+                    <p><span class="badge badge-important">{{ info.game4.hours }} hours</span> {{ info.game4.name }}</p>
+                    <p><span class="badge badge-info">{{ info.game5.hours }} hours</span> {{ info.game5.name }}</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}

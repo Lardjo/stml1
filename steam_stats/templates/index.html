@@ -42,13 +42,16 @@
         </div>
     </div>
     {% if g.user %}
-        {% include "stats-page.html" %}
+        {% block content %}{% endblock %}
     {% else %}
         {% include "start-page.html" %}
     {% endif %}
         {% include 'footer.html' %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/holder.js') }}"></script>
+    {% if g.user %}
+    {% block scripts %}{% endblock %}
+    {% else %}{% endif %}
     </body>
-</html>
