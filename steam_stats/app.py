@@ -57,7 +57,7 @@ def main():
     info = None
     if 'user_id' in session:
         info = db.posts.find_one({"steamid": session['user_id']})
-    return render_template('index.html', info=info)
+    return render_template('stats-page.html', info=info)
 
 
 @app.route('/login', methods=['GET', 'POST'])
