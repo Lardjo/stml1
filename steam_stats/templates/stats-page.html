@@ -63,17 +63,25 @@
             </div>
         </div>
         <div class="span7">
-            <div class="row-fluid well well-large well-margin">
-                <div class="span5"> <canvas id="myChart" width="250" height="250"></canvas></div>
-                <div class="span5">
-                    <p><strong>Top 5 Games</strong></p>
-                    <p><span class="badge">{{ info.game1.hours }} hours</span> {{ info.game1.name }}</p>
-                    <p><span class="badge badge-success">{{ info.game2.hours }} hours</span> {{ info.game2.name }}</p>
-                    <p><span class="badge badge-warning">{{ info.game3.hours }} hours</span> {{ info.game3.name }}</p>
-                    <p><span class="badge badge-important">{{ info.game4.hours }} hours</span> {{ info.game4.name }}</p>
-                    <p><span class="badge badge-info">{{ info.game5.hours }} hours</span> {{ info.game5.name }}</p>
+            <div class="well well-large well-margin">
+                <div class="row-fluid">
+                    <div class="span5">
+                        <canvas id="myChart" width="205" height="205"></canvas>
+                    </div>
+                    <div class="span7">
+                        <p><strong>Top 5 Games</strong></p>
+                        <p><span class="badge">{{ info.game1.hours }} hours</span> {{ info.game1.name }}</p>
+                        <p><span class="badge badge-success">{{ info.game2.hours }} hours</span> {{ info.game2.name }}</p>
+                        <p><span class="badge badge-warning">{{ info.game3.hours }} hours</span> {{ info.game3.name }}</p>
+                        <p><span class="badge badge-important">{{ info.game4.hours }} hours</span> {{ info.game4.name }}</p>
+                        <p><span class="badge badge-info">{{ info.game5.hours }} hours</span> {{ info.game5.name }}</p>
+                    </div>
                 </div>
             </div>
+
+
+
+
         </div>
     </div>
 </div>
