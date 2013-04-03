@@ -4,6 +4,7 @@ import ConfigParser
 
 from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
+from datetime import datetime
 from pymongo import MongoClient
 from getinfo import user
 from getdota import last_match
@@ -75,7 +76,7 @@ def create_or_login(resp):
         steamdata = get_steam_userinfo(match.group(1))
         getinfo = user(match.group(1))
         getdota = last_match(match.group(1), STEAM_API_KEY)
-        rv = {"steamid": match.group(1), "nickname": steamdata['personaname']}
+        rv = {"steamid": match.group(1), "nickname": steamdata['personaname'], "lastupdate": datetime.now()}
         rv.update(getinfo)
         rv.update(getdota)
         db.posts.insert(rv)
