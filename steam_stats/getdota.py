@@ -91,6 +91,7 @@ def match_stat(root=None):
                                               'kills': int(a.find('kills').text),
                                               'deaths': int(a.find('deaths').text),
                                               'assists': int(a.find('assists').text),
+                                              'dn': int(a.find('denies').text),
                                               'gpm': int(a.find('gold_per_min').text),
                                               'xpm': int(a.find('xp_per_min').text),
                                               'lh': int(a.find('last_hits').text),
