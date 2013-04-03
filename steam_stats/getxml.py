@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 class ConnectError(Exception):
 	pass
 
-def get_xml(Link=None):
+def download(Link=None):
 	"""Download XML"""
 	filename = os.path.join("tmp/temp.xml")
 	try:

@@ -5,8 +5,7 @@ import ConfigParser
 from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
 from pymongo import MongoClient
-from getxml import get_xml
-from getinfo import steam_profile, steam_games, match_id
+from getinfo import user
 from getdota import last_match
 
 
@@ -31,10 +30,6 @@ db = connection.stats_base
 
 # other
 _steam_id_re = re.compile('steamcommunity.com/openid/id/(.*?)$')
-url = {"profile": "http://steamcommunity.com/profiles/{0}?xml=1",
-       "games": "http://steamcommunity.com/profiles/{0}/games?xml=1",
-       "matchid": "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?format=XML&matches_requested=1&account_id={0}&key={1}",
-       "matchinfo": "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?format=XML&match_id={0}&key={1}"}
 
 
 def get_steam_userinfo(steam_id):
@@ -78,14 +73,12 @@ def create_or_login(resp):
     rv = db.posts.find_one({"steamid": match.group(1)})
     if rv is None:
         steamdata = get_steam_userinfo(match.group(1))
-        getinfo = steam_profile(get_xml(url['profile'].format(match.group(1))))
-        getgames = steam_games(get_xml(url['games'].format(match.group(1))))
-        dota = last_match(match.group(1), STEAM_API_KEY)
+        getinfo = user(match.group(1))
+        getdota = last_match(match.group(1), STEAM_API_KEY)
         rv = {"steamid": match.group(1), "nickname": steamdata['personaname']}
-        getinfo.update(rv)
-        getinfo.update(getgames)
-        getinfo.update(dota)
-        db.posts.insert(getinfo)
+        rv.update(getinfo)
+        rv.update(getdota)
+        db.posts.insert(rv)
     g.user = rv
     session['user_id'] = g.user['steamid']
     flash('You are logged in as %s' % g.user['nickname'])
