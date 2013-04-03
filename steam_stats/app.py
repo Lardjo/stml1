@@ -5,8 +5,10 @@ import ConfigParser
 from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
 from pymongo import MongoClient
-from getxml import download
-from getinfo import steam_profile, steam_games
+from getxml import get_xml
+from getinfo import steam_profile, steam_games, match_id
+from getdota import last_match
+
 
 # setup flask
 app = Flask(__name__)
@@ -76,11 +78,13 @@ def create_or_login(resp):
     rv = db.posts.find_one({"steamid": match.group(1)})
     if rv is None:
         steamdata = get_steam_userinfo(match.group(1))
-        getinfo = steam_profile(download(url['profile'].format(match.group(1))))
-        getgames = steam_games(download(url['games'].format(match.group(1))))
+        getinfo = steam_profile(get_xml(url['profile'].format(match.group(1))))
+        getgames = steam_games(get_xml(url['games'].format(match.group(1))))
+        dota = last_match(match.group(1), STEAM_API_KEY)
         rv = {"steamid": match.group(1), "nickname": steamdata['personaname']}
         getinfo.update(rv)
         getinfo.update(getgames)
+        getinfo.update(dota)
         db.posts.insert(getinfo)
     g.user = rv
     session['user_id'] = g.user['steamid']

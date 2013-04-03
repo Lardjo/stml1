@@ -24,7 +24,7 @@
             value : {{ info.game5.hours }},
             color : "#3a87ad"
         }
-    ]
+            ];
 
     var ctx = document.getElementById("myChart").getContext("2d");
     var myNewChart = new Chart(ctx).Pie(data);
@@ -81,7 +81,57 @@
         </div>
     </div>
     <div class="well well-large">
-        Dota 2
+        <p><i class="icon-flag"></i><b>The last game in Dota 2</b></p>
+        <hr class="dota2-separator">
+        <div class="row-fluid">
+            <div class="span4">
+                <p><i class="icon-globe" id="icon"></i><b>Match:</b> {{ info.lastdota.match_id }}</p>
+                <p><i class="icon-calendar" id="icon"></i><b>Data:</b> {{ info.lastdota.start_time }}</p>
+                <p><i class="icon-time" id="icon"></i><b>Duration:</b> {{ info.lastdota.duration }}</p>
+            </div>
+            <div class="span4">
+                <p><i class="icon-list-alt" id="icon"></i><b>Game Mode:</b> {{ info.lastdota.game_mode }}</p>
+                <p><i class="icon-hdd" id="icon"></i><b>Server:</b> {{ info.lastdota.cluster }}</p>
+                <p><i class="icon-time" id="icon"></i><b>First Blood:</b> {{ info.lastdota.first_blood_time }}</p>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                <tr>
+                    <th>Player</th>
+                    <th>Hero</th>
+                    <th colspan="6">Items</th>
+                    <th>Gold</th>
+                    <th>LH</th>
+                    <th>XPM</th>
+                    <th>GPM</th>
+                    <th>KDA</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key in info.lastdota if info.lastdota[key]['player_slot'] == "0" %}
+                <tr>
+                    <td style="width: 180px;">Anonymous</td>
+                    <td style="width: 80px; padding: 1px;"><img src="{{ info.lastdota[key]['avatar'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.lastdota[key]['item_5'] }}" /></td>
+                    <td>9</td>
+                    <td style="width: 40px;">{{ info.lastdota[key]['last_hits'] }}</td>
+                    <td style="width: 40px;">{{ info.lastdota[key]['xp_per_min'] }}</td>
+                    <td style="width: 40px;">{{ info.lastdota[key]['gold_per_min'] }}</td>
+                    <td style="width: 180px">{{ info.lastdota[key]['kills'] }} /
+                        {{ info.lastdota[key]['deaths'] }} / {{ info.lastdota[key]['assists'] }}</td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

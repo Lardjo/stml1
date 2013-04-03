@@ -118,40 +118,40 @@ def match_id(root=None):
 
 def match_stat(root=None):
     """Get Dota 2 Last Match Statistics"""
-    match = {}
+    match = {'lastdota': {}}
 
     try:
-        match['match_id'] = root.find('match_id').text
-        match['radiant_win'] = root.find('radiant_win').text
-        match['start_time'] = datetime.fromtimestamp(int(root.find('start_time').text)).strftime('%d, %B %Y %H:%M:%S')
-        match['duration'] = datetime.fromtimestamp(int(root.find('duration').text)).strftime('%M:%S')
-        match['game_mode'] = root.find('game_mode').text
-        match['cluster'] = root.find('cluster').text
-        match['positive_votes'] = root.find('positive_votes').text
-        match['negative_votes'] = root.find('negative_votes').text
+        match['lastdota']['match_id'] = root.find('match_id').text
+        match['lastdota']['radiant_win'] = root.find('radiant_win').text
+        match['lastdota']['start_time'] = datetime.fromtimestamp(int(root.find('start_time').text)).strftime('%d, %B %Y %H:%M:%S')
+        match['lastdota']['duration'] = datetime.fromtimestamp(int(root.find('duration').text)).strftime('%M:%S')
+        match['lastdota']['game_mode'] = root.find('game_mode').text
+        match['lastdota']['cluster'] = root.find('cluster').text
+        match['lastdota']['positive_votes'] = root.find('positive_votes').text
+        match['lastdota']['negative_votes'] = root.find('negative_votes').text
     except:
         raise ParseError
 
     try:
-        match['first_blood_time'] = datetime.fromtimestamp(int(root.find('first_blood_time').text)).strftime('%M:%S')
+        match['lastdota']['first_blood_time'] = datetime.fromtimestamp(int(root.find('first_blood_time').text)).strftime('%M:%S')
     except:
         pass
 
-    hours = (match['duration'])[:-3]
-    minutes = (match['duration'])[3:]
-    match['goldtime'] = round(float(hours) + (float(minutes) / 60), 1)
+    hours = (match['lastdota']['duration'])[:-3]
+    minutes = (match['lastdota']['duration'])[3:]
+    match['lastdota']['goldtime'] = round(float(hours) + (float(minutes) / 60), 1)
 
     lib = dota2lib.mode
-    a = int(match['game_mode'])
+    a = int(match['lastdota']['game_mode'])
     if a in lib.keys():
-        match['game_mode'] = lib[a]['name']
+        match['lastdota']['game_mode'] = lib[a]['name']
     else:
         pass
 
     lib = dota2lib.cluster
-    a = int(match['cluster'])
+    a = int(match['lastdota']['cluster'])
     if a in lib.keys():
-        match['cluster'] = lib[a]['name']
+        match['lastdota']['cluster'] = lib[a]['name']
     else:
         pass
 
