@@ -90,6 +90,7 @@
         text-align: right;
         margin-top: 30px;
         margin-bottom: 0;
+        padding-right: 10px;
     }
 
     .general p {
@@ -109,6 +110,7 @@
         text-align: right;
         font-size: 17px;
         margin-bottom: 5px;
+        padding-right: 10px;
     }
 
     .general .btn {
@@ -253,7 +255,7 @@
         margin-top: 20px;
     }
 
-    .dota2-separator {
+    .separator {
         margin: 1px 0 11px;
         border-top: 1px solid #f3f3f3;
         border-bottom: 1px solid #dddddd;
@@ -284,6 +286,10 @@
 
     .well-margin {
         margin-top: 20px;
+    }
+
+    .table th, .table td {
+        vertical-align: inherit;
     }
 
     /* Responsive Support */
