@@ -1,3 +1,11 @@
+###
+# Steam Stats
+# https://github.com/Lardjo/Steam-stats
+#
+# Copyright 2013, Konstantin N.
+# All right reserved
+###
+
 import requests
 import re
 import ConfigParser

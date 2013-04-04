@@ -1,4 +1,14 @@
-import requests
+###
+# Steam Stats (getinfo.py)
+# https://github.com/Lardjo/Steam-stats
+#
+# Copyright 2013, Konstantin N.
+# All right reserved
+#
+# Hi, Valve! Your Steam Web API SUCKS! FF, GGWP.
+# Proxy API required for private-key API with public data, my ass. (c)
+###
+
 from getxml import download
 
 

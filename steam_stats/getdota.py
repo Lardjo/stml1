@@ -1,3 +1,14 @@
+###
+# Steam Stats (getdota.py)
+# https://github.com/Lardjo/Steam-stats
+#
+# Copyright 2013, Konstantin N.
+# All right reserved
+#
+# Hi, Valve! Your Steam Web API SUCKS! FF, GGWP.
+# Proxy API required for private-key API with public data, my ass. (c)
+###
+
 import requests
 
 from libs import dota2lib
