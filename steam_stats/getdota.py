@@ -10,10 +10,16 @@
 ###
 
 import requests
+import ConfigParser
 
 from libs import dota2lib
 from datetime import datetime
 from getxml import download
+
+# config
+config = ConfigParser.ConfigParser()
+config.read('bin/config.ini')
+ZERO_KEY = int(config.get('steam', 'zerokey'))
 
 
 class ParseError(Exception):
@@ -93,10 +99,12 @@ def match_stat(root=None):
             if account_id == "4294967295":
                 hero += 1
                 account_id = str(hero)
+                nickname = "Anonymous"
             else:
-                pass
+                nickname = player_name(int(account_id))
 
             match['last_dota'][account_id] = {'player_slot': int(a.find('player_slot').text),
+                                              'nickname': nickname,
                                               'hero_id': dota2lib.heroes[int(a.find('hero_id').text)]['name'],
                                               'hero_avatar': dota2lib.heroes[int(a.find('hero_id').text)]['avatar'],
                                               'kills': int(a.find('kills').text),
@@ -118,3 +126,15 @@ def match_stat(root=None):
             raise
 
     return match
+
+
+def player_name(steam32=None):
+    """STEAM API SUCKS!"""
+    steam64 = steam32 + ZERO_KEY
+    url = "http://steamcommunity.com/profiles/{0}?xml=1".format(steam64)
+    root = download(url)
+    try:
+        name = root.find('steamID').text
+    except:
+        raise ParseError
+    return name

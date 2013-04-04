@@ -127,7 +127,7 @@
             <tbody>
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 0 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -172,7 +172,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 1 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -217,7 +217,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 2 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -262,7 +262,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 3 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -307,7 +307,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 4 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -361,7 +361,7 @@
             <tbody>
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 128 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -406,7 +406,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 129 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -451,7 +451,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 130 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -496,7 +496,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 131 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
@@ -541,7 +541,7 @@
             {% endfor %}
             {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 132 %}
                 <tr>
-                    <td>Anonymous</td>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
                             <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
