@@ -103,13 +103,33 @@ def match_stat(root=None):
             else:
                 nickname = player_name(int(account_id))
 
+            kills = float(a.find('kills').text)
+            deaths = float(a.find('deaths').text)
+            assists = float(a.find('assists').text)
+
+            if kills > 0:
+                wkills = round((kills * 100 / (kills + deaths + assists)), 3)
+            else:
+                wkills = 0
+            if deaths > 0:
+                wdeaths = round((deaths * 100 / (kills + deaths + assists)), 3)
+            else:
+                wdeaths = 0
+            if assists > 0:
+                wassists = round((assists * 100 / (kills + deaths + assists)), 3)
+            else:
+                wassists = 0
+
             match['last_dota'][account_id] = {'player_slot': int(a.find('player_slot').text),
                                               'nickname': nickname,
                                               'hero_id': dota2lib.heroes[int(a.find('hero_id').text)]['name'],
                                               'hero_avatar': dota2lib.heroes[int(a.find('hero_id').text)]['avatar'],
-                                              'kills': int(a.find('kills').text),
-                                              'deaths': int(a.find('deaths').text),
-                                              'assists': int(a.find('assists').text),
+                                              'kills': int(kills),
+                                              'deaths': int(deaths),
+                                              'assists': int(assists),
+                                              'wkills': wkills,
+                                              'wdeaths': wdeaths,
+                                              'wassists': wassists,
                                               'dn': int(a.find('denies').text),
                                               'gpm': int(a.find('gold_per_min').text),
                                               'xpm': int(a.find('xp_per_min').text),

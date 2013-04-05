@@ -165,22 +165,13 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
@@ -210,26 +201,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -255,26 +236,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -300,26 +271,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -345,26 +306,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -399,26 +350,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -444,26 +385,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -489,26 +420,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -534,26 +455,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
@@ -579,26 +490,16 @@
                     <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
-                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
                                 {{ info.last_dota[key]['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
-                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
                                 {{ info.last_dota[key]['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
-                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
-                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
-                            {% else %}0%{% endif %};">
+                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
                                 {{ info.last_dota[key]['assists'] }}
                             </div>
                         </div>
-
                     </td>
                 </tr>
             {% else %}
