@@ -1,3 +1,11 @@
+###
+# Steam Stats (getxml.py)
+# https://github.com/Lardjo/Steam-stats
+#
+# Copyright 2013, Konstantin N.
+# All right reserved
+###
+
 import os
 import requests
 import xml.etree.ElementTree as ET

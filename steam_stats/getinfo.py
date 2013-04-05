@@ -1,61 +1,68 @@
-from libs import dota2lib
-from datetime import datetime
+###
+# Steam Stats (getinfo.py)
+# https://github.com/Lardjo/Steam-stats
+#
+# Copyright 2013, Konstantin N.
+# All right reserved
+#
+# Hi, Valve! Your Steam Web API SUCKS! FF, GGWP.
+# Proxy API required for private-key API with public data, my ass. (c)
+###
+
+from getxml import download
 
 
 class ParseError(Exception):
     pass
 
 
-def steam_profile(root=None):
+def user(user_id=None):
     """Steam Profile Info"""
-    post = {}
+    post = {'user_info': {}}
+    url = "http://steamcommunity.com/profiles/{0}?xml=1".format(user_id)
+    root = download(url)
 
     try:
-        privacy = root.find('privacyState').text
-        post['privacy'] = privacy
-        status = root.find('onlineState').text
-        post['status'] = status
-        membersince = root.find('memberSince').text
-        post['membersince'] = membersince
-        avatar = root.find('avatarFull').text
-        post['avatar'] = avatar
+        post['user_info']['privacy'] = root.find('privacyState').text
+        post['user_info']['status'] = root.find('onlineState').text
+        post['user_info']['membersince'] = root.find('memberSince').text
+        post['user_info']['avatar'] = root.find('avatarFull').text
     except:
         raise ParseError
 
     try:
-        location = root.find('location').text
-        post['location'] = location
+        post['user_info']['location'] = root.find('location').text
     except:
         pass
 
     try:
-        rating = root.find('steamRating').text
-        post['rating'] = rating
+        post['user_info']['rating'] = root.find('steamRating').text
     except:
         pass
 
     try:
-        realname = root.find('realname').text
-        post['realname'] = realname
+        post['user_info']['realname'] = root.find('realname').text
     except:
         pass
 
     try:
-        ingameinfo = root.find('./inGameInfo/gameName').text
-        post['ingameinfo'] = ingameinfo
+        post['user_info']['ingameinfo'] = root.find('./inGameInfo/gameName').text
     except:
         pass
 
     try:
-        hoursplayed = root.find('hoursPlayed2Wk').text
-        post['hoursplayed'] = hoursplayed
+        post['user_info']['hoursplayed'] = root.find('hoursPlayed2Wk').text
     except:
         pass
+
+    url = "http://steamcommunity.com/profiles/{0}/games?xml=1".format(user_id)
+    root = download(url)
+    post.update(games(root))
 
     return post
 
 
-def steam_games(root=None):
+def games(root=None):
     """Steam Games Info"""
     games = {}
     count = 0
@@ -75,186 +82,22 @@ def steam_games(root=None):
         except:
             pass
 
-    hourstotal = sum(games.values())
-    dictotal = sorted(games, key=games.get, reverse=True)[:5]
-    listhours = [games.get(dictotal[0]),
-                 games.get(dictotal[1]),
-                 games.get(dictotal[2]),
-                 games.get(dictotal[3]),
-                 games.get(dictotal[4])]
-    besthours = sum(listhours)
-    otherhours = hourstotal - besthours
+    time = sum(games.values())
+    best = sorted(games, key=games.get, reverse=True)[:5]
+    best_time = sum([games.get(best[0]),
+                     games.get(best[1]),
+                     games.get(best[2]),
+                     games.get(best[3]),
+                     games.get(best[4])])
+    other_time = time - best_time
 
-    post = {"hourstotal": hourstotal,
-            "totalgames": count,
-            "otherhours": otherhours,
-            "game1": {"name": dictotal[0], "hours": games.get(dictotal[0])},
-            "game2": {"name": dictotal[1], "hours": games.get(dictotal[1])},
-            "game3": {"name": dictotal[2], "hours": games.get(dictotal[2])},
-            "game4": {"name": dictotal[3], "hours": games.get(dictotal[3])},
-            "game5": {"name": dictotal[4], "hours": games.get(dictotal[4])}}
+    post = {"games": {"time": time,
+                      "count": count,
+                      "other_time": other_time,
+                      "best1": {"name": best[0], "hours": games.get(best[0])},
+                      "best2": {"name": best[1], "hours": games.get(best[1])},
+                      "best3": {"name": best[2], "hours": games.get(best[2])},
+                      "best4": {"name": best[3], "hours": games.get(best[3])},
+                      "best5": {"name": best[4], "hours": games.get(best[4])}}}
 
     return post
-
-
-def match_id(root=None):
-    """Get Dota 2 Last Match id"""
-    match = None
-
-    try:
-        status = root.find('status').text
-        if status == "15":
-            return 0
-        else:
-            pass
-    except:
-        pass
-
-    for a in root.findall('./matches/match'):
-        match = a.find('match_id').text
-
-    return match
-
-
-def match_stat(root=None):
-    """Get Dota 2 Last Match Statistics"""
-    match = {}
-
-    try:
-        match['match_id'] = root.find('match_id').text
-        match['radiant_win'] = root.find('radiant_win').text
-        match['start_time'] = datetime.fromtimestamp(int(root.find('start_time').text)).strftime('%d, %B %Y %H:%M:%S')
-        match['duration'] = datetime.fromtimestamp(int(root.find('duration').text)).strftime('%M:%S')
-        match['game_mode'] = root.find('game_mode').text
-        match['cluster'] = root.find('cluster').text
-        match['positive_votes'] = root.find('positive_votes').text
-        match['negative_votes'] = root.find('negative_votes').text
-    except:
-        raise ParseError
-
-    try:
-        match['first_blood_time'] = datetime.fromtimestamp(int(root.find('first_blood_time').text)).strftime('%M:%S')
-    except:
-        pass
-
-    hours = (match['duration'])[:-3]
-    minutes = (match['duration'])[3:]
-    match['goldtime'] = round(float(hours) + (float(minutes) / 60), 1)
-
-    lib = dota2lib.mode
-    a = int(match['game_mode'])
-    if a in lib.keys():
-        match['game_mode'] = lib[a]['name']
-    else:
-        pass
-
-    lib = dota2lib.cluster
-    a = int(match['cluster'])
-    if a in lib.keys():
-        match['cluster'] = lib[a]['name']
-    else:
-        pass
-
-    return match
-
-
-def match_info(root=None):
-    """Get Dota 2 Last Match Heroes"""
-    details = {}
-    hero = 0
-
-    for a in root.findall('./players/player'):
-        try:
-            account_id = a.find('account_id').text
-            if account_id == "4294967295":
-                hero += 1
-                account_id = str(hero)
-            else:
-                pass
-            player_slot = a.find('player_slot').text
-            hero_id = a.find('hero_id').text
-            kills = a.find('kills').text
-            deaths = a.find('deaths').text
-            assists = a.find('assists').text
-            gold_per_min = a.find('gold_per_min').text
-            xp_per_min = a.find('xp_per_min').text
-            last_hits = a.find('last_hits').text
-            level = a.find('level').text
-            item_0 = a.find('item_0').text
-            item_1 = a.find('item_1').text
-            item_2 = a.find('item_2').text
-            item_3 = a.find('item_3').text
-            item_4 = a.find('item_4').text
-            item_5 = a.find('item_5').text
-
-            details[account_id] = {"player_slot": player_slot,
-                                   "hero_id": hero_id,
-                                   "kills": kills,
-                                   "deaths": deaths,
-                                   "assists": assists,
-                                   "gold_per_min": gold_per_min,
-                                   "xp_per_min": xp_per_min,
-                                   "last_hits": last_hits,
-                                   "level": level,
-                                   "item_0": item_0,
-                                   "item_1": item_1,
-                                   "item_2": item_2,
-                                   "item_3": item_3,
-                                   "item_4": item_4,
-                                   "item_5": item_5}
-        except:
-            pass
-
-    lib = dota2lib.heroes
-    for it in details:
-        a = int(details[it]['hero_id'])
-        if a in lib.keys():
-            details[it]['hero_id'] = lib[a]['name']
-            details[it]['avatar'] = lib[a]['avatar']
-        else:
-            pass
-
-    lib = dota2lib.items
-    for it in details:
-        a = int(details[it]['item_0'])
-        if a in lib.keys():
-            details[it]['item_0'] = lib[a]['avatar']
-        else:
-            pass
-
-    for it in details:
-        a = int(details[it]['item_1'])
-        if a in lib.keys():
-            details[it]['item_1'] = lib[a]['avatar']
-        else:
-            pass
-
-    for it in details:
-        a = int(details[it]['item_2'])
-        if a in lib.keys():
-            details[it]['item_2'] = lib[a]['avatar']
-        else:
-            pass
-
-    for it in details:
-        a = int(details[it]['item_3'])
-        if a in lib.keys():
-            details[it]['item_3'] = lib[a]['avatar']
-        else:
-            pass
-
-    for it in details:
-        a = int(details[it]['item_4'])
-        if a in lib.keys():
-            details[it]['item_4'] = lib[a]['avatar']
-        else:
-            pass
-
-    for it in details:
-        a = int(details[it]['item_5'])
-        if a in lib.keys():
-            details[it]['item_5'] = lib[a]['avatar']
-        else:
-            pass
-
-    return details
