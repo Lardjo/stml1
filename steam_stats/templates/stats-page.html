@@ -30,6 +30,23 @@
     var myNewChart = new Chart(ctx).Pie(data);
 
 </script>
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+
+    var data = {
+        labels : ["Total Time","Top 5 Time","Other Time"],
+        datasets : [
+            {
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                data : [{{ info.games.time }},{{ info.games.best_time }},{{ info.games.other_time }}]
+            },
+        ]
+    }
+
+    var ctx = document.getElementById("myBar").getContext("2d");
+    var myNewBars = new Chart(ctx).Bar(data);
+
+</script>
     {{ super() }}
 {% endblock %}
 
@@ -507,5 +524,28 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div class="span7">
+            <div class="well well-large">
+                <p><strong>Games Info</strong></p>
+                <hr class="separator">
+                <div class="row-fluid">
+                    <div class="span7">
+                        <p><i class="icon-eye-open" id="icon"></i><b>Games (without DLC):</b> {{ info.games.count }}</p>
+                        <p><i class="icon-globe" id="icon"></i><b>Steam rating:</b> {{ info.user_info.rating }}</p>
+                        <p><i class="icon-time" id="icon"></i><b>Played past 2 weeks:</b> {{ info.user_info.hoursplayed }} Hours</p>
+                        <p><i class="icon-time" id="icon"></i><b>Total playing time:</b> {{ info.games.time }} Hours (or {{ info.games.time // 24 }} days)</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="well well-large">
+                <canvas id="myBar" width="300" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <p class="muted">This page was last modified on {{ info.lastupdate|datetime('%d %B %Y, at %H:%M:%S') }}</p>
 </div>
 {% endblock %}
