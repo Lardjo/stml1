@@ -106,6 +106,25 @@
                 <p><i class="icon-hdd" id="icon"></i><b>Server:</b> {{ info.last_dota.cluster }}</p>
                 <p><i class="icon-time" id="icon"></i><b>First Blood:</b> {{ info.last_dota.first_blood }}</p>
             </div>
+            <div class="span4">
+                <p class="watch-btn">
+                    <a class="btn btn-small btn-inverse" href="dota2://matchid={{ info.last_dota.match_id }}">
+                        <i class="icon-film icon-white"></i> Watch Replay
+                    </a>
+                </p>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <p class="text-success">
+                            <i class="icon-thumbs-up" id="icon"></i>{{ info.last_dota.positive_votes }}
+                        </p>
+                    </div>
+                    <div class="span6">
+                        <p class="text-error">
+                            <i class="icon-thumbs-down" id="icon"></i>{{ info.last_dota.negative_votes }}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
         <table class="table table-bordered">
             <thead>
