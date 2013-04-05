@@ -9,10 +9,10 @@
 import requests
 import re
 import ConfigParser
+import datetime
 
 from flask import Flask, render_template, g, session, flash, redirect
 from flask_openid import OpenID
-from datetime import datetime
 from pymongo import MongoClient
 from getinfo import user
 from getdota import last_match
@@ -47,6 +47,18 @@ def get_steam_userinfo(steam_id):
     r = requests.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params=options)
     jsnobj = r.json()
     return jsnobj['response']['players'][0] or {}
+
+
+def _jinja2_filter_datetime(date, fmt='%c'):
+    # check whether the value is a datetime object
+    if not isinstance(date, (datetime.date, datetime.datetime)):
+        try:
+            date = datetime.datetime.strptime(str(date), '%Y-%m-%d').date()
+        except Exception, e:
+            return date
+    return date.strftime(fmt)
+
+app.jinja_env.filters['datetime'] = _jinja2_filter_datetime
 
 
 @app.before_request
