@@ -5,26 +5,26 @@
 
     var data = [
         {
-            value : {{ info.game1.hours }},
+            value : {{ info.games.best1.hours }},
             color : "#999999"
         },
         {
-            value : {{ info.game2.hours }},
+            value : {{ info.games.best2.hours }},
             color : "#468847"
         },
         {
-            value : {{ info.game3.hours }},
+            value : {{ info.games.best3.hours }},
             color : "#f89406"
         },
         {
-            value : {{ info.game4.hours }},
+            value : {{ info.games.best4.hours }},
             color : "#b94a48"
         },
         {
-            value : {{ info.game5.hours }},
+            value : {{ info.games.best5.hours }},
             color : "#3a87ad"
         }
-    ]
+            ];
 
     var ctx = document.getElementById("myChart").getContext("2d");
     var myNewChart = new Chart(ctx).Pie(data);
@@ -38,13 +38,19 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span6">
-                <img src="{{ info.avatar }}" class="img-rounded image-size pull-left" />
-                <h2>{{ info.nickname }} <small>{{ info.realname }}</small></h2>
-                <p class="city">{{ info.location }}</p>
+                <img src="{{ info.user_info.avatar }}" class="img-rounded image-size pull-left" />
+                <h2>{{ info.nickname }} <small>{{ info.user_info.realname }}</small></h2>
+                <p class="city">{{ info.user_info.location }}</p>
             </div>
             <div class="span6">
+                {% if info.user_info.status == "in-game" %}
                 <h3 class="text-success">Now playing</h3>
-                <p class="game">The Elder Scrolls V: Skyrim</p>
+                <p class="game">{{ info.user_info.ingameinfo }}</p>
+                {% elif info.user_info.status == "online" %}
+                <h3 class="text-success">Online</h3>
+                {% else %}
+                <h3 class="text-error">Offline</h3>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -54,35 +60,551 @@
         <div class="span5">
             <div class="well well-large well-margin">
                 <p><strong>Perfonal Info</strong></p>
-                <p><i class="icon-check"></i><strong> Name:</strong> {{ info.realname }}</p>
+                <hr class="separator">
+                <p><i class="icon-check"></i><strong> Name:</strong> {{ info.user_info.realname }}</p>
                 <p><i class="icon-check"></i><strong> Nickname:</strong> {{ info.nickname }}</p>
                 <p><i class="icon-check"></i><strong> Steam ID:</strong> {{ info.steamid }}</p>
-                <p><i class="icon-check"></i><strong> Member Since:</strong> {{ info.membersince }}</p>
-                <p><i class="icon-check"></i><strong> Location:</strong> {{ info.location }}</p>
-                <p><i class="icon-check"></i><strong> Privacy:</strong> {{ info.privacy }}</p>
+                <p><i class="icon-check"></i><strong> Member Since:</strong> {{ info.user_info.membersince }}</p>
+                <p><i class="icon-check"></i><strong> Location:</strong> {{ info.user_info.location }}</p>
+                <p><i class="icon-check"></i><strong> Privacy:</strong> {{ info.user_info.privacy }}</p>
             </div>
         </div>
         <div class="span7">
             <div class="well well-large well-margin">
                 <div class="row-fluid">
                     <div class="span5">
-                        <canvas id="myChart" width="205" height="205"></canvas>
+                        <canvas id="myChart" width="218" height="218"></canvas>
                     </div>
                     <div class="span7">
                         <p><strong>Top 5 Games</strong></p>
-                        <p><span class="badge">{{ info.game1.hours }} hours</span> {{ info.game1.name }}</p>
-                        <p><span class="badge badge-success">{{ info.game2.hours }} hours</span> {{ info.game2.name }}</p>
-                        <p><span class="badge badge-warning">{{ info.game3.hours }} hours</span> {{ info.game3.name }}</p>
-                        <p><span class="badge badge-important">{{ info.game4.hours }} hours</span> {{ info.game4.name }}</p>
-                        <p><span class="badge badge-info">{{ info.game5.hours }} hours</span> {{ info.game5.name }}</p>
+                        <p><span class="badge">{{ info.games.best1.hours }} hours</span>
+                            {{ info.games.best1.name }}</p>
+                        <p><span class="badge badge-success">{{ info.games.best2.hours }} hours</span>
+                            {{ info.games.best2.name }}</p>
+                        <p><span class="badge badge-warning">{{ info.games.best3.hours }} hours</span>
+                            {{ info.games.best3.name }}</p>
+                        <p><span class="badge badge-important">{{ info.games.best4.hours }} hours</span>
+                            {{ info.games.best4.name }}</p>
+                        <p><span class="badge badge-info">{{ info.games.best5.hours }} hours</span>
+                            {{ info.games.best5.name }}</p>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
+    </div>
+    <div class="well well-large">
+        <p><b>The last game in Dota 2</b></p>
+        <hr class="separator">
+        <div class="row-fluid">
+            <div class="span4">
+                <p><i class="icon-globe" id="icon"></i><b>Match:</b> {{ info.last_dota.match_id }}</p>
+                <p><i class="icon-calendar" id="icon"></i><b>Data:</b> {{ info.last_dota.start_time }}</p>
+                <p><i class="icon-time" id="icon"></i><b>Duration:</b> {{ info.last_dota.duration }}</p>
+            </div>
+            <div class="span4">
+                <p><i class="icon-list-alt" id="icon"></i><b>Game Mode:</b> {{ info.last_dota.game_mode }}</p>
+                <p><i class="icon-hdd" id="icon"></i><b>Server:</b> {{ info.last_dota.cluster }}</p>
+                <p><i class="icon-time" id="icon"></i><b>First Blood:</b> {{ info.last_dota.first_blood }}</p>
+            </div>
+            <div class="span4">
+                <p class="watch-btn">
+                    <a class="btn btn-small btn-inverse" href="dota2://matchid={{ info.last_dota.match_id }}">
+                        <i class="icon-film icon-white"></i> Watch Replay
+                    </a>
+                </p>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <p class="text-success">
+                            <i class="icon-thumbs-up" id="icon"></i>{{ info.last_dota.positive_votes }}
+                        </p>
+                    </div>
+                    <div class="span6">
+                        <p class="text-error">
+                            <i class="icon-thumbs-down" id="icon"></i>{{ info.last_dota.negative_votes }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-success">
+                        {% if info.last_dota.radiant_win == 'true' %}Radiant Victory!{% else %}The Radiant{% endif %}
+                    </th>
+                <tr>
+                    <th class="muted">Player</th>
+                    <th class="muted">Hero</th>
+                    <th class="muted" colspan="6">Items</th>
+                    <th class="muted">DN</th>
+                    <th class="muted">LH</th>
+                    <th class="muted">XPM</th>
+                    <th class="muted">GPM</th>
+                    <th class="muted">KDA</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 0 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 1 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 2 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 3 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 4 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            </tbody>
+            <thead>
+                <tr>
+                    <th class="text-error" colspan="12">
+                        {% if info.last_dota.radiant_win == 'false' %}Dire Victory!{% else %}The Dire{% endif %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 128 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 129 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 130 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 131 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 132 %}
+                <tr>
+                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
+                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 200px">
+                        <div class="progress progress-margin">
+                            <div class="bar bar-success" style="width: {% if info.last_dota[key]['kills'] > 0 %}
+                                {{ info.last_dota[key]['kills'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['kills'] }}
+                            </div>
+                            <div class="bar bar-danger" style="width: {% if info.last_dota[key]['deaths'] > 0 %}
+                                {{ info.last_dota[key]['deaths'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['deaths'] }}
+                            </div>
+                            <div class="bar bar-warning" style="width: {% if info.last_dota[key]['assists'] > 0 %}
+                                {{ info.last_dota[key]['assists'] * 100 / (info.last_dota[key]['kills'] +
+                                info.last_dota[key]['deaths'] + info.last_dota[key]['assists'])|round(1, 'floor') }}%
+                            {% else %}0%{% endif %};">
+                                {{ info.last_dota[key]['assists'] }}
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}
