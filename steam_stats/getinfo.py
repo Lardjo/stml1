@@ -94,6 +94,7 @@ def games(root=None):
     post = {"games": {"time": time,
                       "count": count,
                       "other_time": other_time,
+                      "best_time": best_time,
                       "best1": {"name": best[0], "hours": games.get(best[0])},
                       "best2": {"name": best[1], "hours": games.get(best[1])},
                       "best3": {"name": best[2], "hours": games.get(best[2])},
