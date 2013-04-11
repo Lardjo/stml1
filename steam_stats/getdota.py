@@ -55,53 +55,48 @@ def last_match(userid=None, apikey=None):
 def match_stat(root=None):
     """Get Dota 2 Last Match Statistics"""
     hero = 0
-    match = {'last_dota': {}}
+    match = {'dota_players': [], 'dota_info': {}}
 
     try:
-        match['last_dota']['match_id'] = root.find('match_id').text
-        match['last_dota']['radiant_win'] = root.find('radiant_win').text
-        match['last_dota']['game_mode'] = root.find('game_mode').text
-        match['last_dota']['cluster'] = root.find('cluster').text
-        match['last_dota']['positive_votes'] = root.find('positive_votes').text
-        match['last_dota']['negative_votes'] = root.find('negative_votes').text
+        match['dota_info']['match_id'] = root.find('match_id').text
+        match['dota_info']['radiant_win'] = root.find('radiant_win').text
+        match['dota_info']['game_mode'] = root.find('game_mode').text
+        match['dota_info']['cluster'] = root.find('cluster').text
+        match['dota_info']['positive_votes'] = root.find('positive_votes').text
+        match['dota_info']['negative_votes'] = root.find('negative_votes').text
     except:
         raise ParseError
 
     try:
         start_time = int(root.find('start_time').text)
         duration = int(root.find('duration').text)
-        match['last_dota']['start_time'] = datetime.fromtimestamp(start_time).strftime('%d, %B %Y %H:%M:%S')
-        match['last_dota']['duration'] = datetime.fromtimestamp(duration).strftime('%M:%S')
+        match['dota_info']['start_time'] = datetime.fromtimestamp(start_time).strftime('%d, %B %Y %H:%M:%S')
+        match['dota_info']['duration'] = datetime.fromtimestamp(duration).strftime('%M:%S')
     except:
         raise ParseError
 
     try:
         first_blood = int(root.find('first_blood_time').text)
-        match['last_dota']['first_blood'] = datetime.fromtimestamp(first_blood).strftime('%M:%S')
+        match['dota_info']['first_blood'] = datetime.fromtimestamp(first_blood).strftime('%M:%S')
     except:
         pass
 
-    a = int(match['last_dota']['game_mode'])
+    a = int(match['dota_info']['game_mode'])
     if a in dota2lib.mode.keys():
-        match['last_dota']['game_mode'] = dota2lib.mode[a]['name']
+        match['dota_info']['game_mode'] = dota2lib.mode[a]['name']
     else:
         pass
 
-    a = int(match['last_dota']['cluster'])
+    a = int(match['dota_info']['cluster'])
     if a in dota2lib.cluster.keys():
-        match['last_dota']['cluster'] = dota2lib.cluster[a]['name']
+        match['dota_info']['cluster'] = dota2lib.cluster[a]['name']
     else:
         pass
 
     for a in root.findall('./players/player'):
         try:
-            account_id = a.find('account_id').text
-            if account_id == "4294967295":
-                hero += 1
-                account_id = str(hero)
-                nickname = "Anonymous"
-            else:
-                nickname = player_name(int(account_id))
+
+            nickname = player_name(int(a.find('account_id').text))
 
             kills = float(a.find('kills').text)
             deaths = float(a.find('deaths').text)
@@ -120,27 +115,26 @@ def match_stat(root=None):
             else:
                 wassists = 0
 
-            match['last_dota'][account_id] = {'player_slot': int(a.find('player_slot').text),
-                                              'nickname': nickname,
-                                              'hero_id': dota2lib.heroes[int(a.find('hero_id').text)]['name'],
-                                              'hero_avatar': dota2lib.heroes[int(a.find('hero_id').text)]['avatar'],
-                                              'kills': int(kills),
-                                              'deaths': int(deaths),
-                                              'assists': int(assists),
-                                              'wkills': wkills,
-                                              'wdeaths': wdeaths,
-                                              'wassists': wassists,
-                                              'dn': int(a.find('denies').text),
-                                              'gpm': int(a.find('gold_per_min').text),
-                                              'xpm': int(a.find('xp_per_min').text),
-                                              'lh': int(a.find('last_hits').text),
-                                              'level': int(a.find('level').text),
-                                              'item_0': dota2lib.items[int(a.find('item_0').text)]['avatar'],
-                                              'item_1': dota2lib.items[int(a.find('item_1').text)]['avatar'],
-                                              'item_2': dota2lib.items[int(a.find('item_2').text)]['avatar'],
-                                              'item_3': dota2lib.items[int(a.find('item_3').text)]['avatar'],
-                                              'item_4': dota2lib.items[int(a.find('item_4').text)]['avatar'],
-                                              'item_5': dota2lib.items[int(a.find('item_5').text)]['avatar']}
+            match['dota_players'].append({'nickname': nickname,
+                                     'hero_id': dota2lib.heroes[int(a.find('hero_id').text)]['name'],
+                                     'hero_avatar': dota2lib.heroes[int(a.find('hero_id').text)]['avatar'],
+                                     'kills': int(kills),
+                                     'deaths': int(deaths),
+                                     'assists': int(assists),
+                                     'wkills': wkills,
+                                     'wdeaths': wdeaths,
+                                     'wassists': wassists,
+                                     'dn': int(a.find('denies').text),
+                                     'gpm': int(a.find('gold_per_min').text),
+                                     'xpm': int(a.find('xp_per_min').text),
+                                     'lh': int(a.find('last_hits').text),
+                                     'level': int(a.find('level').text),
+                                     'item_0': dota2lib.items[int(a.find('item_0').text)]['avatar'],
+                                     'item_1': dota2lib.items[int(a.find('item_1').text)]['avatar'],
+                                     'item_2': dota2lib.items[int(a.find('item_2').text)]['avatar'],
+                                     'item_3': dota2lib.items[int(a.find('item_3').text)]['avatar'],
+                                     'item_4': dota2lib.items[int(a.find('item_4').text)]['avatar'],
+                                     'item_5': dota2lib.items[int(a.find('item_5').text)]['avatar']})
 
         except:
             raise
@@ -150,7 +144,10 @@ def match_stat(root=None):
 
 def player_name(steam32=None):
     """STEAM API SUCKS!"""
-    steam64 = steam32 + ZERO_KEY
+    if steam32 == 4294967295:
+        return "Anonymous"
+    else:
+        steam64 = steam32 + ZERO_KEY
     url = "http://steamcommunity.com/profiles/{0}?xml=1".format(steam64)
     root = download(url)
     try:
