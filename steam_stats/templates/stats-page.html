@@ -30,23 +30,6 @@
     var myNewChart = new Chart(ctx).Pie(data);
 
 </script>
-<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-
-    var data = {
-        labels : ["Total Time","Top 5 Time","Other Time"],
-        datasets : [
-            {
-                fillColor : "rgba(151,187,205,0.5)",
-                strokeColor : "rgba(151,187,205,1)",
-                data : [{{ info.games.time }},{{ info.games.best_time }},{{ info.games.other_time }}]
-            }
-        ]
-    };
-
-    var ctx = document.getElementById("myBar").getContext("2d");
-    var myNewBars = new Chart(ctx).Bar(data);
-
-</script>
     {{ super() }}
 {% endblock %}
 
@@ -149,6 +132,7 @@
                     <th class="text-success">
                         {% if info.dota_info.radiant_win == 'true' %}Radiant Victory!{% else %}The Radiant{% endif %}
                     </th>
+                </tr>
                 <tr>
                     <th class="muted">Player</th>
                     <th class="muted">Hero</th>
@@ -259,11 +243,6 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="span5">
-            <div class="well well-large">
-                <canvas id="myBar" width="300" height="200"></canvas>
             </div>
         </div>
     </div>
