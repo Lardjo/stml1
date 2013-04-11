@@ -39,9 +39,9 @@
                 fillColor : "rgba(151,187,205,0.5)",
                 strokeColor : "rgba(151,187,205,1)",
                 data : [{{ info.games.time }},{{ info.games.best_time }},{{ info.games.other_time }}]
-            },
+            }
         ]
-    }
+    };
 
     var ctx = document.getElementById("myBar").getContext("2d");
     var myNewBars = new Chart(ctx).Bar(data);
@@ -114,30 +114,30 @@
         <hr class="separator">
         <div class="row-fluid">
             <div class="span4">
-                <p><i class="icon-globe" id="icon"></i><b>Match:</b> {{ info.last_dota.match_id }}</p>
-                <p><i class="icon-calendar" id="icon"></i><b>Data:</b> {{ info.last_dota.start_time }}</p>
-                <p><i class="icon-time" id="icon"></i><b>Duration:</b> {{ info.last_dota.duration }}</p>
+                <p><i class="icon-globe" id="icon"></i><b>Match:</b> {{ info.dota_info.match_id }}</p>
+                <p><i class="icon-calendar" id="icon"></i><b>Data:</b> {{ info.dota_info.start_time }}</p>
+                <p><i class="icon-time" id="icon"></i><b>Duration:</b> {{ info.dota_info.duration }}</p>
             </div>
             <div class="span4">
-                <p><i class="icon-list-alt" id="icon"></i><b>Game Mode:</b> {{ info.last_dota.game_mode }}</p>
-                <p><i class="icon-hdd" id="icon"></i><b>Server:</b> {{ info.last_dota.cluster }}</p>
-                <p><i class="icon-time" id="icon"></i><b>First Blood:</b> {{ info.last_dota.first_blood }}</p>
+                <p><i class="icon-list-alt" id="icon"></i><b>Game Mode:</b> {{ info.dota_info.game_mode }}</p>
+                <p><i class="icon-hdd" id="icon"></i><b>Server:</b> {{ info.dota_info.cluster }}</p>
+                <p><i class="icon-time" id="icon"></i><b>First Blood:</b> {{ info.dota_info.first_blood }}</p>
             </div>
             <div class="span4">
                 <p class="watch-btn">
-                    <a class="btn btn-small btn-inverse" href="dota2://matchid={{ info.last_dota.match_id }}">
+                    <a class="btn btn-small btn-inverse" href="dota2://matchid={{ info.dota_info.match_id }}">
                         <i class="icon-film icon-white"></i> Watch Replay
                     </a>
                 </p>
                 <div class="row-fluid">
                     <div class="span6">
                         <p class="text-success">
-                            <i class="icon-thumbs-up" id="icon"></i>{{ info.last_dota.positive_votes }}
+                            <i class="icon-thumbs-up" id="icon"></i>{{ info.dota_info.positive_votes }}
                         </p>
                     </div>
                     <div class="span6">
                         <p class="text-error">
-                            <i class="icon-thumbs-down" id="icon"></i>{{ info.last_dota.negative_votes }}
+                            <i class="icon-thumbs-down" id="icon"></i>{{ info.dota_info.negative_votes }}
                         </p>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
             <thead>
                 <tr>
                     <th class="text-success">
-                        {% if info.last_dota.radiant_win == 'true' %}Radiant Victory!{% else %}The Radiant{% endif %}
+                        {% if info.dota_info.radiant_win == 'true' %}Radiant Victory!{% else %}The Radiant{% endif %}
                     </th>
                 <tr>
                     <th class="muted">Player</th>
@@ -161,365 +161,86 @@
                 </tr>
             </thead>
             <tbody>
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 0 %}
+            {% for item in info.dota_players[:5] %}
                 <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td>{{ item['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                            <img src="{{ item['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ item['level'] }} Level</h6></div>
                         </div>
                     </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ item['dn'] }}</td>
+                    <td style="width: 40px;">{{ item['lh'] }}</td>
+                    <td style="width: 40px;">{{ item['xpm'] }}</td>
+                    <td style="width: 40px;">{{ item['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
+                            <div class="bar bar-success" style="width: {{ item['wkills'] }}%;">
+                                {{ item['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
+                            <div class="bar bar-danger" style="width: {{ item['wdeaths'] }}%;">
+                                {{ item['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
+                            <div class="bar bar-warning" style="width: {{ item['wassists'] }}%;">
+                                {{ item['assists'] }}
                             </div>
                         </div>
 
                     </td>
+
                 </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 1 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 2 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 3 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 4 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
             {% endfor %}
             </tbody>
             <thead>
-                <tr>
-                    <th class="text-error" colspan="12">
-                        {% if info.last_dota.radiant_win == 'false' %}Dire Victory!{% else %}The Dire{% endif %}
-                    </th>
-                </tr>
+            <tr>
+                <th class="text-error" colspan="13">
+                    {% if info.dota_info.radiant_win == 'false' %}Dire Victory!{% else %}The Dire{% endif %}
+                </th>
+            </tr>
             </thead>
             <tbody>
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 128 %}
+            {% for item in info.dota_players[5:] %}
                 <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
+                    <td>{{ item['nickname'] }}</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
+                            <img src="{{ item['hero_avatar'] }}" />
+                            <div class="label-hero"><h6>{{ item['level'] }} Level</h6></div>
                         </div>
                     </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_0'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_1'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_2'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_3'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_4'] }}" /></td>
+                    <td style="width: 60px; padding: 1px;"><img src="{{ item['item_5'] }}" /></td>
+                    <td style="width: 40px;">{{ item['dn'] }}</td>
+                    <td style="width: 40px;">{{ item['lh'] }}</td>
+                    <td style="width: 40px;">{{ item['xpm'] }}</td>
+                    <td style="width: 40px;">{{ item['gpm'] }}</td>
                     <td style="width: 200px">
                         <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
+                            <div class="bar bar-success" style="width: {{ item['wkills'] }}%;">
+                                {{ item['kills'] }}
                             </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
+                            <div class="bar bar-danger" style="width: {{ item['wdeaths'] }}%;">
+                                {{ item['deaths'] }}
                             </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
+                            <div class="bar bar-warning" style="width: {{ item['wassists'] }}%;">
+                                {{ item['assists'] }}
                             </div>
                         </div>
+
                     </td>
+
                 </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 129 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 130 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 131 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-            {% endfor %}
-            {% for key in info.last_dota if info.last_dota[key]['player_slot'] == 132 %}
-                <tr>
-                    <td>{{ info.last_dota[key]['nickname'] }}</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-                            <img src="{{ info.last_dota[key]['hero_avatar'] }}" />
-                            <div class="label-hero"><h6>{{ info.last_dota[key]['level'] }} Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_0'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_1'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_2'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_3'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_4'] }}" /></td>
-                    <td style="width: 60px; padding: 1px;"><img src="{{ info.last_dota[key]['item_5'] }}" /></td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['dn'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['lh'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['xpm'] }}</td>
-                    <td style="width: 40px;">{{ info.last_dota[key]['gpm'] }}</td>
-                    <td style="width: 200px">
-                        <div class="progress progress-margin">
-                            <div class="bar bar-success" style="width: {{ info.last_dota[key]['wkills'] }}%;">
-                                {{ info.last_dota[key]['kills'] }}
-                            </div>
-                            <div class="bar bar-danger" style="width: {{ info.last_dota[key]['wdeaths'] }}%;">
-                                {{ info.last_dota[key]['deaths'] }}
-                            </div>
-                            <div class="bar bar-warning" style="width: {{ info.last_dota[key]['wassists'] }}%;">
-                                {{ info.last_dota[key]['assists'] }}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
             {% endfor %}
             </tbody>
         </table>
@@ -546,6 +267,6 @@
             </div>
         </div>
     </div>
-    <p class="muted">This page was last modified on {{ info.lastupdate|datetime('%d %B %Y, at %H:%M:%S') }}</p>
+    <p class="muted">This page was last updated on {{ info.lastupdate|datetime('%d %B %Y, at %H:%M:%S') }}</p>
 </div>
 {% endblock %}
