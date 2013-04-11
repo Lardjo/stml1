@@ -23,6 +23,10 @@
         {
             value : {{ info.games.best5.hours }},
             color : "#3a87ad"
+        },
+        {
+            value : {{ info.games.best6.hours }},
+            color : "#333333"
         }
             ];
 
@@ -76,7 +80,7 @@
                         <canvas id="myChart" width="218" height="218"></canvas>
                     </div>
                     <div class="span7">
-                        <p><strong>Top 5 Games</strong></p>
+                        <p><strong>Top 6 Games</strong></p>
                         <p><span class="badge">{{ info.games.best1.hours }} hours</span>
                             {{ info.games.best1.name }}</p>
                         <p><span class="badge badge-success">{{ info.games.best2.hours }} hours</span>
@@ -87,6 +91,8 @@
                             {{ info.games.best4.name }}</p>
                         <p><span class="badge badge-info">{{ info.games.best5.hours }} hours</span>
                             {{ info.games.best5.name }}</p>
+                        <p><span class="badge badge-inverse">{{ info.games.best6.hours }} hours</span>
+                            {{ info.games.best6.name }}</p>
                     </div>
                 </div>
             </div>
