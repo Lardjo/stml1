@@ -72,35 +72,35 @@ def games(root=None):
         try:
             b = a.find('hoursOnRecord').text
             c = a.find('name').text
+            d = a.find('logo').text
             if ',' in b:
                 b = b.replace(",", "")
                 b = float(b)
-                games[c] = b
+                games[b] = [c, d]
             else:
                 b = float(b)
-                games[c] = b
+                games[b] = [c, d]
         except:
             pass
 
-    time = sum(games.values())
-    best = sorted(games, key=games.get, reverse=True)[:6]
-    best_time = sum([games.get(best[0]),
-                     games.get(best[1]),
-                     games.get(best[2]),
-                     games.get(best[3]),
-                     games.get(best[4]),
-                     games.get(best[5])])
+    time = sum(games.keys())
+    best = sorted(games, reverse=True)[:10]
+    best_time = sum(best)
     other_time = time - best_time
 
     post = {"games": {"time": time,
                       "count": count,
                       "other_time": other_time,
                       "best_time": best_time,
-                      "best1": {"name": best[0], "hours": games.get(best[0])},
-                      "best2": {"name": best[1], "hours": games.get(best[1])},
-                      "best3": {"name": best[2], "hours": games.get(best[2])},
-                      "best4": {"name": best[3], "hours": games.get(best[3])},
-                      "best5": {"name": best[4], "hours": games.get(best[4])},
-                      "best6": {"name": best[5], "hours": games.get(best[5])}}}
+                      "best1": {"name": games[best[0]][0], "avatar": games[best[0]][1], "hours": best[0]},
+                      "best2": {"name": games[best[1]][0], "avatar": games[best[1]][1], "hours": best[1]},
+                      "best3": {"name": games[best[2]][0], "avatar": games[best[2]][1], "hours": best[2]},
+                      "best4": {"name": games[best[3]][0], "avatar": games[best[3]][1], "hours": best[3]},
+                      "best5": {"name": games[best[4]][0], "avatar": games[best[4]][1], "hours": best[4]},
+                      "best6": {"name": games[best[5]][0], "avatar": games[best[5]][1], "hours": best[5]},
+                      "best7": {"name": games[best[6]][0], "avatar": games[best[6]][1], "hours": best[6]},
+                      "best8": {"name": games[best[7]][0], "avatar": games[best[7]][1], "hours": best[7]},
+                      "best9": {"name": games[best[8]][0], "avatar": games[best[8]][1], "hours": best[8]},
+                      "best10": {"name": games[best[9]][0], "avatar": games[best[9]][1], "hours": best[9]}}}
 
     return post
