@@ -23,10 +23,6 @@
         {
             value : {{ info.games.best5.hours }},
             color : "#3a87ad"
-        },
-        {
-            value : {{ info.games.best6.hours }},
-            color : "#333333"
         }
             ];
 
@@ -72,37 +68,64 @@
                 <p><i class="icon-check"></i><strong> Location:</strong> {{ info.user_info.location }}</p>
                 <p><i class="icon-check"></i><strong> Privacy:</strong> {{ info.user_info.privacy }}</p>
             </div>
-        </div>
-        <div class="span7">
-            <div class="well well-large well-margin">
+            <div class="well well-large">
                 <p><strong>Games Info</strong></p>
                 <hr class="separator">
                 <p><i class="icon-eye-open" id="icon"></i><b>Games (without DLC):</b> {{ info.games.count }}</p>
                 <p><i class="icon-globe" id="icon"></i><b>Steam rating:</b> {{ info.user_info.rating }}</p>
                 <p><i class="icon-time" id="icon"></i><b>Played past 2 weeks:</b> {{ info.user_info.hoursplayed }} Hours</p>
-                <p><i class="icon-time" id="icon"></i><b>Total playing time:</b> {{ info.games.time }} Hours (or {{ info.games.time // 24 }} days)</p>
+                <p><i class="icon-time" id="icon"></i><b>Total playing time:</b> {{ info.games.time }} Hours (or {{ info.games.time / 24 }} days)</p>
             </div>
         </div>
-    </div>
-    <div class="well well-large well-margin">
-        <div class="row-fluid">
-            <div class="span5">
-                <canvas id="myChart" width="300" height="300"></canvas>
-            </div>
-            <div class="span7">
-                <p><strong>Top 6 Games</strong></p>
-                <p><span class="badge">{{ info.games.best1.hours }} hours</span>
-                    {{ info.games.best1.name }}</p>
-                <p><span class="badge badge-success">{{ info.games.best2.hours }} hours</span>
-                    {{ info.games.best2.name }}</p>
-                <p><span class="badge badge-warning">{{ info.games.best3.hours }} hours</span>
-                    {{ info.games.best3.name }}</p>
-                <p><span class="badge badge-important">{{ info.games.best4.hours }} hours</span>
-                    {{ info.games.best4.name }}</p>
-                <p><span class="badge badge-info">{{ info.games.best5.hours }} hours</span>
-                    {{ info.games.best5.name }}</p>
-                <p><span class="badge badge-inverse">{{ info.games.best6.hours }} hours</span>
-                    {{ info.games.best6.name }}</p>
+        <div class="span7">
+            <div class="well well-large well-margin">
+                <p><strong>Top 5 Games</strong></p>
+                <hr class="separator">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ info.games.best1.avatar }}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ info.games.best1.name }}</h4>
+                            {{ info.games.best1.hours }} on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ info.games.best2.avatar }}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ info.games.best2.name }}</h4>
+                        {{ info.games.best2.hours }} on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ info.games.best3.avatar }}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ info.games.best3.name }}</h4>
+                        {{ info.games.best3.hours }} on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ info.games.best4.avatar }}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ info.games.best4.name }}</h4>
+                        {{ info.games.best4.hours }} on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ info.games.best5.avatar }}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ info.games.best5.name }}</h4>
+                        {{ info.games.best5.hours }} on record
+                    </div>
+                </div>
             </div>
         </div>
     </div>
