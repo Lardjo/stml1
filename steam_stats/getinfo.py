@@ -84,7 +84,8 @@ def games(root=None):
             pass
 
     time = sum(games.keys())
-    best = sorted(games, reverse=True)[:10]
+    test = games.keys()
+    best = sorted(games, reverse=True)[:5]
     best_time = sum(best)
     other_time = time - best_time
 
@@ -96,11 +97,6 @@ def games(root=None):
                       "best2": {"name": games[best[1]][0], "avatar": games[best[1]][1], "hours": best[1]},
                       "best3": {"name": games[best[2]][0], "avatar": games[best[2]][1], "hours": best[2]},
                       "best4": {"name": games[best[3]][0], "avatar": games[best[3]][1], "hours": best[3]},
-                      "best5": {"name": games[best[4]][0], "avatar": games[best[4]][1], "hours": best[4]},
-                      "best6": {"name": games[best[5]][0], "avatar": games[best[5]][1], "hours": best[5]},
-                      "best7": {"name": games[best[6]][0], "avatar": games[best[6]][1], "hours": best[6]},
-                      "best8": {"name": games[best[7]][0], "avatar": games[best[7]][1], "hours": best[7]},
-                      "best9": {"name": games[best[8]][0], "avatar": games[best[8]][1], "hours": best[8]},
-                      "best10": {"name": games[best[9]][0], "avatar": games[best[9]][1], "hours": best[9]}}}
+                      "best5": {"name": games[best[4]][0], "avatar": games[best[4]][1], "hours": best[4]}}}
 
     return post
