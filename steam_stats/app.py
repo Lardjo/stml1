@@ -96,7 +96,10 @@ def create_or_login(resp):
         steamdata = get_steam_userinfo(match.group(1))
         getinfo = user(match.group(1))
         getdota = last_match(match.group(1), STEAM_API_KEY)
-        rv = {"steamid": match.group(1), "nickname": steamdata['personaname'], "lastupdate": datetime.datetime.now()}
+        rv = {"steamid": match.group(1),
+              "nickname": steamdata['personaname'],
+              "profileurl": steamdata['profileurl'],
+              "lastupdate": datetime.datetime.now()}
         rv.update(getinfo)
         rv.update(getdota)
         db.posts.insert(rv)
