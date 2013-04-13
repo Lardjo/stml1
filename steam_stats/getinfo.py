@@ -70,33 +70,32 @@ def games(root=None):
     for a in root.findall('./games/game'):
         count += 1
         try:
-            b = a.find('hoursOnRecord').text
-            c = a.find('name').text
-            d = a.find('logo').text
-            if ',' in b:
-                b = b.replace(",", "")
-                b = float(b)
-                games[b] = [c, d]
+            hours = a.find('hoursOnRecord').text
+            name = a.find('name').text
+            logo = a.find('logo').text
+            appid = a.find('appID').text
+            if ',' in hours:
+                hours = hours.replace(",", "")
+                games[appid] = {"name": name, "hours": float(hours), "logo": logo}
             else:
-                b = float(b)
-                games[b] = [c, d]
+                games[appid] = {"name": name, "hours": float(hours), "logo": logo}
         except:
             pass
 
-    time = sum(games.keys())
-    test = games.keys()
-    best = sorted(games, reverse=True)[:5]
-    best_time = sum(best)
+    time = reduce(lambda a, b: a + b, map(lambda x: x[1]['hours'], games.items()))
+    dict_as_list = games.values()
+    best = sorted(dict_as_list, key=lambda k: k['hours'], reverse=True)[:5]
+    best_time = reduce(lambda a, b: a + b, map(lambda x: x['hours'], best))
     other_time = time - best_time
 
     post = {"games": {"time": time,
                       "count": count,
                       "other_time": other_time,
                       "best_time": best_time,
-                      "best1": {"name": games[best[0]][0], "avatar": games[best[0]][1], "hours": best[0]},
-                      "best2": {"name": games[best[1]][0], "avatar": games[best[1]][1], "hours": best[1]},
-                      "best3": {"name": games[best[2]][0], "avatar": games[best[2]][1], "hours": best[2]},
-                      "best4": {"name": games[best[3]][0], "avatar": games[best[3]][1], "hours": best[3]},
-                      "best5": {"name": games[best[4]][0], "avatar": games[best[4]][1], "hours": best[4]}}}
+                      "best1": {"name": best[0]['name'], "avatar": best[0]['logo'], "hours": best[0]['hours']},
+                      "best2": {"name": best[1]['name'], "avatar": best[1]['logo'], "hours": best[1]['hours']},
+                      "best3": {"name": best[2]['name'], "avatar": best[2]['logo'], "hours": best[2]['hours']},
+                      "best4": {"name": best[3]['name'], "avatar": best[3]['logo'], "hours": best[3]['hours']},
+                      "best5": {"name": best[4]['name'], "avatar": best[4]['logo'], "hours": best[4]['hours']}}}
 
     return post
