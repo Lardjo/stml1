@@ -84,7 +84,7 @@ def games(root=None):
 
     time = reduce(lambda a, b: a + b, map(lambda x: x[1]['hours'], games.items()))
     dict_as_list = games.values()
-    best = sorted(dict_as_list, key=lambda k: k['hours'], reverse=True)[:5]
+    best = sorted(dict_as_list, key=lambda k: k['hours'], reverse=True)[:10]
     best_time = reduce(lambda a, b: a + b, map(lambda x: x['hours'], best))
     other_time = time - best_time
 
@@ -96,6 +96,11 @@ def games(root=None):
                       "best2": {"name": best[1]['name'], "avatar": best[1]['logo'], "hours": best[1]['hours']},
                       "best3": {"name": best[2]['name'], "avatar": best[2]['logo'], "hours": best[2]['hours']},
                       "best4": {"name": best[3]['name'], "avatar": best[3]['logo'], "hours": best[3]['hours']},
-                      "best5": {"name": best[4]['name'], "avatar": best[4]['logo'], "hours": best[4]['hours']}}}
+                      "best5": {"name": best[4]['name'], "avatar": best[4]['logo'], "hours": best[4]['hours']},
+                      "best6": {"name": best[5]['name'], "avatar": best[5]['logo'], "hours": best[5]['hours']},
+                      "best7": {"name": best[6]['name'], "avatar": best[6]['logo'], "hours": best[6]['hours']},
+                      "best8": {"name": best[7]['name'], "avatar": best[7]['logo'], "hours": best[7]['hours']},
+                      "best9": {"name": best[8]['name'], "avatar": best[8]['logo'], "hours": best[8]['hours']},
+                      "best10": {"name": best[9]['name'], "avatar": best[9]['logo'], "hours": best[9]['hours']}}}
 
     return post
