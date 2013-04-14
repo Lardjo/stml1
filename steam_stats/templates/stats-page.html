@@ -30,6 +30,11 @@
     var myNewChart = new Chart(ctx).Pie(data);
 
 </script>
+<script type="text/javascript">
+    $('.tooltip-demo').tooltip({
+        selector: "a[data-toggle=tooltip]"
+    })
+</script>
     {{ super() }}
 {% endblock %}
 
@@ -58,7 +63,7 @@
 <div class="container">
     <div class="row">
         <div class="span5">
-            <div class="well well-large well-margin">
+            <div class="well well-large well-margin tooltip-demo">
                 <p><strong>Perfonal Info</strong></p>
                 <hr class="separator">
                 <p><i class="icon-check"></i><strong> Name:</strong> {{ info.user_info.realname }}</p>
@@ -77,56 +82,122 @@
                 <p><i class="icon-time" id="icon"></i><b>Total playing time:</b> {{ info.games.time }} Hours (or {{ info.games.time / 24 }} days)</p>
             </div>
         </div>
-        <div class="span7">
-            <div class="well well-large well-margin">
-                <p><strong>Top 5 Games</strong></p>
-                <hr class="separator">
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ info.games.best1.avatar }}">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ info.games.best1.name }}</h4>
-                            {{ info.games.best1.hours }} on record
+        <div class="span7 well-margin">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                Top 5 Games
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best1.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best1.name }}</h4>
+                                        {{ info.games.best1.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best2.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best2.name }}</h4>
+                                        {{ info.games.best2.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best3.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best3.name }}</h4>
+                                        {{ info.games.best3.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best4.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best4.name }}</h4>
+                                        {{ info.games.best4.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best5.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best5.name }}</h4>
+                                        {{ info.games.best5.hours }} on record
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                Top 10 Games
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best6.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best6.name }}</h4>
+                                        {{ info.games.best6.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best7.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best7.name }}</h4>
+                                        {{ info.games.best7.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best8.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best8.name }}</h4>
+                                        {{ info.games.best8.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best9.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best9.name }}</h4>
+                                        {{ info.games.best9.hours }} on record
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ info.games.best10.avatar }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ info.games.best10.name }}</h4>
+                                        {{ info.games.best10.hours }} on record
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ info.games.best2.avatar }}">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ info.games.best2.name }}</h4>
-                        {{ info.games.best2.hours }} on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ info.games.best3.avatar }}">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ info.games.best3.name }}</h4>
-                        {{ info.games.best3.hours }} on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ info.games.best4.avatar }}">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ info.games.best4.name }}</h4>
-                        {{ info.games.best4.hours }} on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ info.games.best5.avatar }}">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ info.games.best5.name }}</h4>
-                        {{ info.games.best5.hours }} on record
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
     <div class="well well-large">
