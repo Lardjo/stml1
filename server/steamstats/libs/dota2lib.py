@@ -1,4 +1,5 @@
-## Dota 2 Lib ##
+# libs\dota2lib.py
+# All right reserved 2013
 
 mode = {1: {"name": 'All Pick'},
         2: {'name': 'Captains Mode'},

@@ -1,3 +1,6 @@
+# steamstats\config.py
+# All right reserved 2013
+#
 # Steam Stats Configuration
 # This is private file. Not for public
 

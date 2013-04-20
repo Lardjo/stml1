@@ -1,4 +1,4 @@
-# Main class
+# steamstats\__init__.py
 # All right reserved 2013
 
 import os
