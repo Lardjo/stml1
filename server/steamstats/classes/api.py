@@ -23,9 +23,9 @@ class MainHandler(BaseHandler):
     """MainHandler"""
     def get(self):
         if self.get_current_user():
-            self.render("index.html", title="Steam Stats", session=self.current_user)
+            self.render("base.html", session=self.current_user)
         else:
-            self.render("login.html", title="Login")
+            self.render("login.html", session=None)
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -58,3 +58,8 @@ class LogoutHandler(BaseHandler):
         self.clear_cookie("stats_user")
         self.redirect("/")
         return
+
+class AboutHandler(BaseHandler):
+    """About Page"""
+    def get(self):
+        self.render("about.html", session=self.current_user)
