@@ -14,10 +14,19 @@ class SteamStats(tornado.web.Application):
     """SteamStats"""
     def __init__(self):
 
+        settings = {
+            "cookie_secret": config.SECRET_KEY,
+            "gzip": True,
+            "login_url": "/auth/login",
+            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
+            "static_path": os.path.join(os.path.dirname(__file__), "static"),
+            }
+
         handlers = [
             ("/", classes.MainHandler),
             ("/auth/login", classes.AuthHandler),
             ("/auth/logout", classes.LogoutHandler),
+            ("/about", classes.AboutHandler),
             ]
 
         try:
@@ -27,14 +36,6 @@ class SteamStats(tornado.web.Application):
         except:
             logging.fatal("Database connection can\'t be established, terminating")
             sys.exit(1)
-
-        settings = {
-            "cookie_secret": config.SECRET_KEY,
-            "gzip": True,
-            "login_url": "/auth/login",
-            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
-            "static_path": os.path.join(os.path.dirname(__file__), "static"),
-            }
 
         super(SteamStats, self).__init__(handlers, **settings)
         self.listen(8888)
