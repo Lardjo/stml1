@@ -1,5 +1,5 @@
+#!/usr/bin/python3
 # steamstats\__init__.py
-# All right reserved 2013
 
 import os
 import logging
@@ -10,10 +10,17 @@ import tornado.web
 from pymongo import MongoClient
 from server.steamstats import classes, config
 
-class SteamStats(tornado.web.Application):
-    """SteamStats"""
-    def __init__(self):
 
+class SteamStats(tornado.web.Application):
+    """
+    Class SteamStats
+    Main, main and main
+    """
+    def __init__(self):
+        """
+        Init function
+        Settings, handlers, connect to db
+        """
         settings = {
             "cookie_secret": config.SECRET_KEY,
             "gzip": True,
@@ -27,11 +34,12 @@ class SteamStats(tornado.web.Application):
             ("/auth/login", classes.AuthHandler),
             ("/auth/logout", classes.LogoutHandler),
             ("/about", classes.AboutHandler),
+            ('/user/(.*)', classes.UserHandler),
             ]
 
         try:
             client = MongoClient("localhost", 27017)
-            self.db = client["stats_base"]
+            self.db = client["users_stats"]
             logging.info("MongoDB is connected")
         except:
             logging.fatal("Database connection can\'t be established, terminating")
