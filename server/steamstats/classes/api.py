@@ -50,9 +50,10 @@ class MainHandler(BaseHandler):
     """MainHandler"""
     def get(self):
         if self.get_current_user():
-            self.render("base.html", session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
+            self.render("index.html", title="Statemile",
+                        session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
         else:
-            self.render("login.html", session=None)
+            self.render("login.html", title="Statemile", session=None)
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -115,7 +116,8 @@ class AboutHandler(BaseHandler):
     Render about page
     """
     def get(self):
-        self.render("about.html", session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
+        self.render("about.html", title="Statemile",
+                    session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
 
 
 class UserHandler(BaseHandler):
