@@ -10,7 +10,7 @@ from tornado import gen
 from datetime import datetime
 from bson import ObjectId
 from server.steamstats import config
-
+from .get import GetUserStats
 
 class BaseHandler(tornado.web.RequestHandler):
     """
@@ -76,7 +76,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             self.steam_id = claimed_id["claimed_id"][-17:]
             rv = self.application.db['sessions'].find_one({"steamid": self.steam_id})
             if not rv:
-                user = self._steam_user()
+                user = GetUserStats(self.steam_id, config.API_KEY).info()
                 user["last_login"] = datetime.now()
                 self.application.db['sessions'].insert(user)
                 self.set_secure_cookie("stats_user", tornado.escape.json_encode(str(user['_id'])))
@@ -86,17 +86,6 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
                 self.redirect("/")
             return
         self.authenticate_redirect()
-
-    def _steam_user(self):
-        """
-        Steam User Function
-        Get information about user
-        P.S. Steam API sucks
-        """
-        options = {"key": config.API_KEY, "steamids": self.steam_id}
-        r = requests.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params=options)
-        json_object = r.json()
-        return json_object["response"]["players"][0] or {}
 
 
 class LogoutHandler(BaseHandler):
