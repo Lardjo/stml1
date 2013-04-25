@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ title }} - {{ session['personaname'] }}</title>
-</head>
-<body>
-<p>Hello, {{ session['realname'] }}!</p>
-<p><a href="/auth/logout">Log out</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}{{ title }} / {{ session['personaname'] }}{% end %}
+{% block main %}
+<form class="search-form">
+    <h2>{{ title }}</h2>
+    <div class="input-append">
+        <input class="input-large" id="appendedInputButton" type="text" placeholder="Search users...">
+        <button class="btn" type="button">Search</button>
+    </div>
+</form>
+{% end %}
