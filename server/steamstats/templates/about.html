@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-{% block title %}About{% end %}
+{% block title %}{{ title }} / About{% end %}
 {% block main %}
     <div class="about">
         <div class="page-header">
-            <h1>Steam Stats <small>About project</small></h1>
+            <h1>Statemile <small>About project</small></h1>
         </div>
-        <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient
-            montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+        <dl>
+            <dt>What is Statemile?</dt>
+            <dd>Statemile resource for blah-blah-blah...</dd>
+        </dl>
     </div>
 {% end %}
