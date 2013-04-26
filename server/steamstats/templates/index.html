@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}{{ title }} / {{ session['personaname'] }}{% end %}
+{% block title %}{{ title }} / {{ session['steam']['steamID'] }}{% end %}
 {% block main %}
-<form class="search-form">
-    <h2>{{ title }}</h2>
+<form action="/search" method="post" class="search-form">
+    <h2>Statsmile;)</h2>
     <div class="input-append">
-        <input class="input-large" id="appendedInputButton" type="text" placeholder="Search users...">
-        <button class="btn" type="button">Search</button>
+        <input type="text" name="search" class="span3">
+        <button class="btn" type="submit">Search</button>
     </div>
 </form>
 {% end %}
