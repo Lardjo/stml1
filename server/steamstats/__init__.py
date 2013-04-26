@@ -35,6 +35,7 @@ class SteamStats(tornado.web.Application):
             ("/auth/logout", classes.LogoutHandler),
             ("/about", classes.AboutHandler),
             ('/user/(.*)', classes.UserHandler),
+            ('/search', classes.SearchHandler),
             ]
 
         try:
