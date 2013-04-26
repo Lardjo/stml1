@@ -50,10 +50,10 @@ class MainHandler(BaseHandler):
     """MainHandler"""
     def get(self):
         if self.get_current_user():
-            self.render("index.html", title="Statemile",
+            self.render("index.html", title="Statsmile",
                         session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
         else:
-            self.render("login.html", title="Statemile", session=None)
+            self.render("login.html", title="Statsmile", session=None)
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -74,9 +74,9 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
         if self.get_argument("openid.mode", None):
             claimed_id = yield self.get_authenticated_user()
             self.steam_id = claimed_id["claimed_id"][-17:]
-            rv = self.application.db['sessions'].find_one({"steamid": self.steam_id})
+            rv = self.application.db['sessions'].find_one({"steam.steamID64": self.steam_id})
             if not rv:
-                user = GetUserStats(self.steam_id, config.API_KEY).info()
+                user = GetUserStats(self.steam_id, config.API_KEY).dict
                 user["last_login"] = datetime.now()
                 self.application.db['sessions'].insert(user)
                 self.set_secure_cookie("stats_user", tornado.escape.json_encode(str(user['_id'])))
@@ -105,7 +105,7 @@ class AboutHandler(BaseHandler):
     Render about page
     """
     def get(self):
-        self.render("about.html", title="Statemile",
+        self.render("about.html", title="Statsmile",
                     session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)}))
 
 
@@ -119,10 +119,35 @@ class UserHandler(BaseHandler):
         Function Get
         Parameters: ../user/<sid>
         """
-        user = self.application.db['sessions'].find_one({"steamid": sid})
+        user = self.application.db['sessions'].find_one({"steam.steamID64": sid})
+        session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)})
+
         if user:
-            self.write("Hello, " + user['personaname'])
-            self.write("\nYou real name is " + user['realname'])
-            self.write("\nYou Steam profile url: " + user['profileurl'])
+            self.render("user.html",
+                        title="Statsmile",
+                        user=user,
+                        session=session)
         else:
-            self.write("User not found")
+            self.render("404.html", title="Statsmile", session=session)
+
+
+class SearchHandler(BaseHandler):
+    """
+    Search users (Beta)
+    """
+    def post(self):
+        """
+        Get text from search input
+        """
+        name = self.get_argument('search', '')
+        user = self.application.db['sessions'].find_one({"steam.steamID": name})
+        session=self.application.db['sessions'].find_one({"_id": ObjectId(self.current_user)})
+
+        if user:
+            self.render("user.html",
+                        title="Statsmile",
+                        user=user,
+                        session=session)
+            self.redirect("/")
+        else:
+            self.render("404.html", title="Statsmile", session=session)
