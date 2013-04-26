@@ -6,3 +6,4 @@ from .api import AuthHandler
 from .api import LogoutHandler
 from .api import AboutHandler
 from .api import UserHandler
+from .api import SearchHandler
