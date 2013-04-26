@@ -1,8 +1,8 @@
 <li class="divider-vertical"></li>
 <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ session['personaname'] }}! <b class="caret"></b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ session['steam']['steamID'] }}! <b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="#">Profile</a></li>
+        <li><a href="/user/{{ session['steam']['steamID64'] }}">Profile</a></li>
         <li><a href="/auth/logout">Log Out</a></li>
     </ul>
 </li>
