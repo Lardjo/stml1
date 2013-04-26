@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} / {{ user['steam']['steamID'] }}{% end %}
+{% block main %}
+<p>Hello, {{ user['steam']['realname'] }}</p>
+{% end %}
