@@ -8,7 +8,7 @@ import tornado.ioloop
 import tornado.web
 
 from pymongo import MongoClient
-from .config import SECRET_KEY
+from steamstats import config
 from steamstats import classes
 
 
@@ -23,7 +23,7 @@ class SteamStats(tornado.web.Application):
         Settings, handlers, connect to db
         """
         settings = {
-            "cookie_secret": SECRET_KEY,
+            "cookie_secret": config.SECRET_KEY,
             "gzip": True,
             "login_url": "/auth/login",
             "template_path": os.path.join(os.path.dirname(__file__), "templates"),
