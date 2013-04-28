@@ -9,7 +9,7 @@ from tornado import gen
 from datetime import datetime
 from bson import ObjectId
 from .get import GetUserStats
-from server import config
+from steamstats import config
 
 class BaseHandler(tornado.web.RequestHandler):
     """
