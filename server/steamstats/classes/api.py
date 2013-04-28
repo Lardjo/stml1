@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # classes\api.py
 
-import requests
 import tornado.auth
 import tornado.escape
 import tornado.web
@@ -9,8 +8,8 @@ import tornado.web
 from tornado import gen
 from datetime import datetime
 from bson import ObjectId
-from server.steamstats import config
 from .get import GetUserStats
+from server import config
 
 class BaseHandler(tornado.web.RequestHandler):
     """

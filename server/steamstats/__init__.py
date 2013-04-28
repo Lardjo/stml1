@@ -8,7 +8,8 @@ import tornado.ioloop
 import tornado.web
 
 from pymongo import MongoClient
-from server.steamstats import classes, config
+from server import config
+from server.steamstats import classes
 
 
 class SteamStats(tornado.web.Application):
