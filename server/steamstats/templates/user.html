@@ -1,5 +1,45 @@
 {% extends "base.html" %}
 {% block title %}{{ title }} / {{ user['steam']['steamID'] }}{% end %}
 {% block main %}
-<p>Hello, {{ user['steam']['realname'] }}</p>
+<div class="user">
+    <div class="row-fluid">
+        <div class="span6">
+            <img src="{{ user['steam']['avatarFull'] }}" class="img-rounded img-size pull-left" />
+            <h1>{{ user['steam']['steamID'] }} <small>{{ user['steam']['realname'] }}</small></h1>
+            <p class="city">{{ user['steam']['location'] }}</p>
+        </div>
+        <div class="span6">
+
+        </div>
+    </div>
+</div>
+<div class="info">
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">User</a></li>
+            <li><a href="#tab2" data-toggle="tab">Games</a></li>
+            <li><a href="#tab3" data-toggle="tab">Dota 2</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                <p>Ho-ho, {{ user['steam']['realname'] }}! Here is some information about you...</p>
+                <p><i class="icon-user"></i><b> Name:</b> {{ user['steam']['realname'] }}</p>
+                <p><i class="icon-home"></i><b> Nickname:</b> {{ user['steam']['steamID'] }}</p>
+                <p><i class="icon-check"></i><b> Steam ID:</b> {{ user['steam']['steamID64'] }}</p>
+                <p><i class="icon-calendar"></i><b> Member since:</b> {{ user['steam']['memberSince'] }}</p>
+                <p><i class="icon-globe"></i><b> Location:</b> {{ user['steam']['location'] }}</p>
+                <p><i class="icon-eye-close"></i><b> Privacy:</b> You have a {{ user['steam']['privacyState'] }} profile</p>
+                <p class="muted">This page was last modified on {{ user['last_login'].strftime('%d, %B %Y %H:%M:%S') }}</p>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <p>So... What about games? Of course!..</p>
+                <p>Coming Soon...</p>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <p>Our specialists have found that you love play to Dota 2!.. Your last game!...</p>
+                <p>Coming Soon...</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% end %}
