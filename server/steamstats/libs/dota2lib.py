@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # libs\dota2lib.py
 # All right reserved 2013
 

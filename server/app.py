@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # server\app.py
 # All right reserved 2013
 #

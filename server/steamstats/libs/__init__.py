@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # libs\__init__.py
 # All right reserved 2013
 

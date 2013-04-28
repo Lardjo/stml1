@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # classes\__init__.py
 
 from .api import MainHandler
