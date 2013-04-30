@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# classes\get.py
 
 import requests
 import xml.etree.ElementTree as ET
