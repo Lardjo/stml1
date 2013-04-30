@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    background: url(../img/grid-18px-masked.png) repeat-x;
+    background: url(../img/grid-18px-masked.png) 0 -20px repeat-x;
 }
 
 .general {
@@ -69,7 +69,7 @@ body {
 }
 
 .user {
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 .user h1 {
@@ -100,7 +100,7 @@ body {
 /* My custom style */
 
 #wrap > .container {
-    padding-top: 105px;
+    padding-top: 80px;
 }
 
 .about .page-header {
