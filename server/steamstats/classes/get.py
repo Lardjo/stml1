@@ -49,7 +49,4 @@ class GetUserStats:
         self.dict['dota-game'] = json['result']
 
 if __name__ == "__main__":
-    # > python get.py
     print("Ok! You just run this file. Don't import")
-    #stats = GetUserStats('76561198017347096', 'E275AE4254A0C40A45E5EBEA4A793203').dict
-    #print (stats)
