@@ -1,4 +1,5 @@
 {% import time %}
+{% from steamstats import libs %}
 
 <div class="row-fluid">
     <div class="span2">
@@ -54,18 +55,60 @@
     {% for dota in user['dota-game']['players'][:5] %}
         <tr>
             <td>{{ dota['account_id'] }}</td>
-            <td style="width: 80px; padding: 1px;">{{ dota['hero_id'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_0'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_1'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_2'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_3'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_4'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_5'] }}</td>
+            <td style="width: 80px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.heroes[dota['hero_id']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/80x45/text:{{ dota['hero_id'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_0']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_0'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_1']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_1'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_2']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_2'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_3']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_3'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_4']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_4'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_5']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_5'] }}" />
+                {% end %}
+            </td>
             <td style="width: 40px;">{{ dota['denies'] }}</td>
             <td style="width: 40px;">{{ dota['last_hits'] }}</td>
             <td style="width: 40px;">{{ dota['xp_per_min'] }}</td>
             <td style="width: 40px;">{{ dota['gold_per_min'] }}</td>
-            <td style="width: 200px">
+            <td style="width: 200px;">
                 <div class="progress progress-margin">
                     <div class="bar bar-success" style="width: {{ (dota['kills'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['kills'] }}</div>
                     <div class="bar bar-danger" style="width: {{ (dota['deaths'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['deaths'] }}</div>
@@ -84,13 +127,55 @@
     {% for dota in user['dota-game']['players'][5:] %}
         <tr>
             <td>{{ dota['account_id'] }}</td>
-            <td style="width: 80px; padding: 1px;">{{ dota['hero_id'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_0'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_1'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_2'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_3'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_4'] }}</td>
-            <td style="width: 60px; padding: 1px;">{{ dota['item_5'] }}</td>
+            <td style="width: 80px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.heroes[dota['hero_id']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:Empty" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_0']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_0'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_1']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_1'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_2']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_2'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_3']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_3'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_4']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_4'] }}" />
+                {% end %}
+            </td>
+            <td style="width: 60px; padding: 1px;">
+                {% try %}
+                    <img src="{{ static_url(libs.items[dota['item_5']]['avatar']) }}" />
+                {% except %}
+                    <img src="data-src=holder.js/60x45/text:{{ dota['item_5'] }}" />
+                {% end %}
+            </td>
             <td style="width: 40px;">{{ dota['denies'] }}</td>
             <td style="width: 40px;">{{ dota['last_hits'] }}</td>
             <td style="width: 40px;">{{ dota['xp_per_min'] }}</td>
