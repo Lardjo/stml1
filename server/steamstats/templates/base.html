@@ -7,7 +7,7 @@
         <link href="{{ static_url("css/bootstrap-responsive.min.css") }}" rel="stylesheet">
         <link href="{{ static_url("css/application.css") }}" rel="stylesheet" media="screen">
     </head>
-    <body>
+    <body data-spy="scroll" data-target=".sidebar">
         <div id="wrap">
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
@@ -23,16 +23,13 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                {% block main %}{% end %}
-            </div>
+            <div class="container">{% block main %}{% end %}</div>
             <div id="push"></div>
         </div>
         {% include footer.html %}
-        <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery.js"></script>
         <script src="{{ static_url("js/jquery.timeago.js") }}"></script>
         <script src="{{ static_url("js/bootstrap.min.js") }}"></script>
-        <script src="{{ static_url("js/holder.js") }}"></script>
         {% block scripts %}{% end %}
     </body>
 </html>
