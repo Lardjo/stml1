@@ -97,6 +97,10 @@ body {
         margin-bottom: 5px;
 }
 
+.progress-margin {
+    margin: 0;
+}
+
 /* My custom style */
 
 #wrap > .container {
