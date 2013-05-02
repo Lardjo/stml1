@@ -67,9 +67,9 @@
             <td style="width: 40px;">{{ dota['gold_per_min'] }}</td>
             <td style="width: 200px">
                 <div class="progress progress-margin">
-                    <div class="bar bar-success" style="width: 35%;"></div>
-                    <div class="bar bar-warning" style="width: 20%;"></div>
-                    <div class="bar bar-danger" style="width: 10%;"></div>
+                    <div class="bar bar-success" style="width: {{ (dota['kills'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['kills'] }}</div>
+                    <div class="bar bar-danger" style="width: {{ (dota['deaths'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['deaths'] }}</div>
+                    <div class="bar bar-warning" style="width: {{ (dota['assists'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['assists'] }}</div>
                 </div>
             </td>
         </tr>
@@ -97,9 +97,9 @@
             <td style="width: 40px;">{{ dota['gold_per_min'] }}</td>
             <td style="width: 200px">
                 <div class="progress progress-margin">
-                    <div class="bar bar-success" style="width: 35%;"></div>
-                    <div class="bar bar-warning" style="width: 20%;"></div>
-                    <div class="bar bar-danger" style="width: 10%;"></div>
+                    <div class="bar bar-success" style="width: {{ (dota['kills'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['kills'] }}</div>
+                    <div class="bar bar-danger" style="width: {{ (dota['deaths'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['deaths'] }}</div>
+                    <div class="bar bar-warning" style="width: {{ (dota['assists'] / (dota['kills'] + dota['deaths'] + dota['assists']))*100 }}%;">{{ dota['assists'] }}</div>
                 </div>
             </td>
         </tr>
