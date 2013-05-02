@@ -1,7 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %}{{ title }} / {{ user['steam']['steamID'] }}{% end %}
+
 {% block main %}
-<div class="user">
+<div class="container">
+    <div class="user">
     <div class="row-fluid">
         <div class="span6">
             <img src="{{ user['steam']['avatarFull'] }}" class="img-rounded img-size pull-left" />
@@ -13,37 +16,55 @@
         </div>
     </div>
 </div>
-<div class="info">
-    <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">User</a></li>
-            <li><a href="#tab2" data-toggle="tab">Games</a></li>
-            <li><a href="#tab3" data-toggle="tab">Dota 2</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab1">
-                <p>Ho-ho, {{ user['steam']['realname'] }}! Here is some information about you...</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span3 sidebar">
+            <ul data-spy="affix" data-offset-top="200" class="nav nav-list sidenav">
+                <li><a href="#user"><i class="icon-chevron-right"></i> User</a></li>
+                <li><a href="#games"><i class="icon-chevron-right"></i> Games</a></li>
+                <li><a href="#dota"><i class="icon-chevron-right"></i> Dota 2</a></li>
+            </ul>
+        </div>
+        <div class="span9">
+            <section id="user">
+                <div class="page-header">
+                    <h1>Main information</h1>
+                    <p>Ho-ho, {{ user['steam']['realname'] }}! Here is some information about you...</p>
+                </div>
                 <p><i class="icon-user"></i><b> Name:</b> {{ user['steam']['realname'] }}</p>
                 <p><i class="icon-home"></i><b> Nickname:</b> {{ user['steam']['steamID'] }}</p>
                 <p><i class="icon-check"></i><b> Steam ID:</b> {{ user['steam']['steamID64'] }}</p>
                 <p><i class="icon-calendar"></i><b> Member since:</b> {{ user['steam']['memberSince'] }}</p>
                 <p><i class="icon-globe"></i><b> Location:</b> {{ user['steam']['location'] }}</p>
                 <p><i class="icon-eye-close"></i><b> Privacy:</b> You have a {{ user['steam']['privacyState'] }} profile</p>
-                <p class="muted">This page was last modified on {{ user['last_login'].strftime('%d, %B %Y %H:%M:%S') }}</p>
-            </div>
-            <div class="tab-pane" id="tab2">
-                <p>So... What about games? Of course!..</p>
+            </section>
+
+            <section id="games">
+                <div class="page-header">
+                    <h1>Games</h1>
+                    <p>So... What about games? Of course!..</p>
+                </div>
                 <p>Coming Soon...</p>
-            </div>
-            <div class="tab-pane" id="tab3">
-                <p>Our specialists have found that you love play to Dota 2!.. Your last game!...</p>
+            </section>
+
+            <section id="dota">
+                <div class="page-header">
+                    <h1>Your Dota 2</h1>
+                    <p>Our specialists have found that you love play to Dota 2!.. Your last game!...</p>
+                </div>
                 {% include dota.html %}
-            </div>
+            </section>
+
+            <p class="muted">This page was last modified on {{ user['last_login'].strftime('%d, %B %Y %H:%M:%S') }}</p>
         </div>
     </div>
 </div>
 {% end %}
+
 {% block scripts %}
+<script src="{{ static_url("js/holder.js") }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery("time.timeago").timeago();
