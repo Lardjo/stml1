@@ -43,3 +43,10 @@
     </div>
 </div>
 {% end %}
+{% block scripts %}
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery("time.timeago").timeago();
+    });
+</script>
+{% end %}
