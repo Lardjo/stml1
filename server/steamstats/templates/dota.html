@@ -1,74 +1,63 @@
 {% import time %}
 {% from steamstats import libs %}
 
-<div class="row-fluid">
-    <div class="span2">
-        <p>
-            <i class="icon-calendar"></i>
-            <b> Data:</b>
-            <time class="timeago" datetime="{{ time.strftime('%d, %B %Y %H:%M:%S', time.gmtime(user['dota-game']['start_time'])) }}"></time>
-        </p>
-    </div>
-    <div class="span2">
-        <p>
-            <i class="icon-globe"></i>
-            <b> Match:</b> {{ user['dota-game']['match_id'] }}
-        </p>
-    </div>
-    <div class="span2">
-        <p>
-            <i class="icon-time"></i>
-            <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(user['dota-game']['duration'])) }}
-        </p>
-    </div>
-    <div class="span2">
-        <p>
-            <i class="icon-time"></i>
-            <b> Game Mode:</b> {{ user['dota-game']['game_mode'] }}
-        </p>
-    </div>
-    <div class="span2">
-        <p>
-            <i class="icon-time"></i>
-            <b> Server:</b> {{ user['dota-game']['cluster'] }}
-        </p>
-    </div>
-</div>
+            <p>
+                <i class="icon-calendar"></i><b> Data:</b>
+                <time class="timeago" datetime="{{ time.strftime('%d, %B %Y %H:%M:%S', time.gmtime(user['dota-game']['start_time'])) }}"></time>
+            </p>
+            <p>
+                <i class="icon-globe"></i><b> Match:</b> {{ user['dota-game']['match_id'] }}
+            </p>
+            <p>
+                <i class="icon-time"></i><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(user['dota-game']['duration'])) }}
+            </p>
+            <p>
+                <i class="icon-time"></i>
+                <b> Game Mode:</b> {% try %}{{ libs.mode[user['dota-game']['game_mode']]['name'] }}{% except %}{{ user['dota-game']['game_mode'] }}{% end %}
+            </p>
+            <p>
+                <i class="icon-time"></i>
+                <b> Server:</b> {% try %}{{ libs.cluster[user['dota-game']['cluster']]['name'] }}{% except %}{{ user['dota-game']['cluster'] }}{% end %}
+            </p>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th class="text-success">Radiant</th>
-        </tr>
-        <tr>
-            <th class="muted">Player</th>
-            <th class="muted">Hero</th>
-            <th class="muted" colspan="6">Items</th>
-            <th class="muted">DN</th>
-            <th class="muted">LH</th>
-            <th class="muted">XPM</th>
-            <th class="muted">GPM</th>
-            <th class="muted">KDA</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for dota in user['dota-game']['players'][:5] %}
-        <tr>
-            <td>{{ dota['account_id'] }}</td>
-            <td style="width: 80px; padding: 1px;">
-                {% try %}
-                    <img src="{{ static_url(libs.heroes[dota['hero_id']]['avatar']) }}" />
-                {% except %}
-                    <img src="data-src=holder.js/80x45/text:{{ dota['hero_id'] }}" />
-                {% end %}
-            </td>
-            <td style="width: 60px; padding: 1px;">
-                {% try %}
-                    <img src="{{ static_url(libs.items[dota['item_0']]['avatar']) }}" />
-                {% except %}
-                    <img src="data-src=holder.js/60x45/text:{{ dota['item_0'] }}" />
-                {% end %}
-            </td>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-success">Radiant</th>
+                </tr>
+                <tr>
+                    <th class="muted">Player</th>
+                    <th class="muted">Hero</th>
+                    <th class="muted" colspan="6">Items</th>
+                    <th class="muted">DN</th>
+                    <th class="muted">LH</th>
+                    <th class="muted">XPM</th>
+                    <th class="muted">GPM</th>
+                    <th class="muted">KDA</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dota in user['dota-game']['players'][:5] %}
+                <tr>
+                    <td>{{ dota['account_id'] }}</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            {% try %}
+                            <img src="{{ static_url(libs.heroes[dota['hero_id']]['avatar']) }}" />
+                            {% except %}
+                            <img src="data-src=holder.js/80x45/text:{{ dota['hero_id'] }}" />
+                            {% end %}
+                            <div class="label-hero"><h6>{{ dota['level'] }} Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        {% try %}
+                        <img src="{{ static_url(libs.items[dota['item_0']]['avatar']) }}" />
+                        {% except %}
+                        <img src="data-src=holder.js/60x45/text:{{ dota['item_0'] }}" />
+                        {% end %}
+                    </td>
             <td style="width: 60px; padding: 1px;">
                 {% try %}
                     <img src="{{ static_url(libs.items[dota['item_1']]['avatar']) }}" />
@@ -118,6 +107,11 @@
         </tr>
     {% end %}
     </tbody>
+                </table>
+
+
+
+            <table class="table table-bordered">
     <thead>
         <tr>
             <th class="text-error" colspan="13">Dire</th>
@@ -128,11 +122,14 @@
         <tr>
             <td>{{ dota['account_id'] }}</td>
             <td style="width: 80px; padding: 1px;">
-                {% try %}
+                <div style="position: relative;">
+                    {% try %}
                     <img src="{{ static_url(libs.heroes[dota['hero_id']]['avatar']) }}" />
-                {% except %}
-                    <img src="data-src=holder.js/60x45/text:Empty" />
-                {% end %}
+                    {% except %}
+                    <img src="data-src=holder.js/80x45/text:{{ dota['hero_id'] }}" />
+                    {% end %}
+                    <div class="label-hero"><h6>{{ dota['level'] }} Level</h6></div>
+                </div>
             </td>
             <td style="width: 60px; padding: 1px;">
                 {% try %}
