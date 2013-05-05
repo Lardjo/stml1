@@ -75,7 +75,7 @@ body {
 
 .user {
     margin-bottom: 50px;
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .user h1 {
@@ -154,6 +154,9 @@ section {
 /* Large desktop */
 @media (min-width: 1200px) {
 
+    #wrap > .container {
+        padding-top: 60px;
+    }
 }
 
 /* Desktop */
