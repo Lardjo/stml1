@@ -77,6 +77,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             if not rv:
                 user = GetUserStats(self.steam_id, config.API_KEY).dict
                 user["last_login"] = datetime.now()
+                user["last_update"] = datetime.now()
                 self.application.db['sessions'].insert(user)
                 self.set_secure_cookie("stats_user", tornado.escape.json_encode(str(user['_id'])))
                 self.redirect("/")
