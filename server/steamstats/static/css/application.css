@@ -140,6 +140,15 @@ body {
     margin-top: 55px;
 }
 
+.watch-btn {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.info-dota {
+    margin: 10px 0 20px
+}
+
 section {
     padding-top: 30px;
 }
