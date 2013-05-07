@@ -25,6 +25,7 @@ class SteamStats(tornado.web.Application):
         settings = {
             "cookie_secret": config.SECRET_KEY,
             "gzip": True,
+            "debug": True,
             "login_url": "/auth/login",
             "template_path": os.path.join(os.path.dirname(__file__), "templates"),
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
