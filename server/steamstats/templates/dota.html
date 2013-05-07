@@ -1,23 +1,12 @@
 {% import time %}
 {% from steamstats import libs %}
-<p>
-    <i class="icon-calendar"></i><b> Data:</b>
-    {{ time.strftime('%d, %B %Y %H:%M:%S', time.localtime(user['dota-game']['start_time'])) }}
-</p>
-<p>
-    <i class="icon-globe"></i><b> Match:</b> {{ user['dota-game']['match_id'] }}
-</p>
-<p>
-    <i class="icon-time"></i><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(user['dota-game']['duration'])) }}
-</p>
-<p>
-    <i class="icon-time"></i>
-    <b> Game Mode:</b> {% try %}{{ libs.mode[user['dota-game']['game_mode']]['name'] }}{% except %}{{ user['dota-game']['game_mode'] }}{% end %}
-</p>
-<p>
-    <i class="icon-time"></i>
-    <b> Server:</b> {% try %}{{ libs.cluster[user['dota-game']['cluster']]['name'] }}{% except %}{{ user['dota-game']['cluster'] }}{% end %}
-</p>
+
+<p><i class="icon-calendar"></i><b> Data:</b>{{ time.strftime('%d, %B %Y %H:%M:%S', time.localtime(user['dota-game']['start_time'])) }}</p>
+<p><i class="icon-globe"></i><b> Match:</b> {{ user['dota-game']['match_id'] }}</p>
+<p><i class="icon-time"></i><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(user['dota-game']['duration'])) }}</p>
+<p><i class="icon-time"></i><b> Game Mode:</b> {% try %}{{ libs.mode[user['dota-game']['game_mode']]['name'] }}{% except %}{{ user['dota-game']['game_mode'] }}{% end %}</p>
+<p><i class="icon-time"></i><b> Server:</b> {% try %}{{ libs.cluster[user['dota-game']['cluster']]['name'] }}{% except %}{{ user['dota-game']['cluster'] }}{% end %}</p>
+<p><i class="icon-time"></i><b> First Blood:</b> {{ time.strftime("%M:%S", time.gmtime(user['dota-game']['first_blood_time'])) }}</p>
 
 <table class="table table-bordered">
     <thead>
