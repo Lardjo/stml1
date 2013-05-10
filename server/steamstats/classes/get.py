@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
+import json
 import xml.etree.ElementTree as ET
 
 
@@ -28,7 +29,8 @@ class GetUserStats:
         Get all information about user
         """
         r = requests.get("http://steamcommunity.com/profiles/{0}?xml=1".format(self.steamid))
-        root = ET.fromstring(r.content)
+        f = r.text
+        root = ET.fromstring(f)
         for child in root:
             self.dict['steam'][child.tag] = child.text
 
@@ -40,12 +42,12 @@ class GetUserStats:
         """
         options = {'matches_requested': '1', 'account_id': self.steamid, 'key': self.apikey} # Options
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params=options)
-        json = r.json() # convert to JSON
-        self.match_id = json['result']['matches'][0]['match_id'] or None # Get ID Match
+        f = json.loads(r.text)
+        self.match_id = f['result']['matches'][0]['match_id'] or None # Get ID Match
         options = {'match_id': self.match_id, 'key': self.apikey} # Set new options for request
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/", params=options)
-        json = r.json()
-        self.dict['dota-game'] = json['result']
+        f = json.loads(r.text)
+        self.dict['dota-game'] = f['result']
 
 if __name__ == "__main__":
     print("Ok! You just run this file. Don't import")
