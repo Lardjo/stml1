@@ -51,3 +51,32 @@ class SteamStats(tornado.web.Application):
         super(SteamStats, self).__init__(handlers, **settings)
         self.listen(8888)
         logging.info("Steam Stats server is started")
+
+
+class UpdateServer(tornado.web.Application):
+    """
+    Main update class
+    """
+    def __init__(self):
+        """
+        Connect to database and run update server
+        """
+        try:
+            client = MongoClient("localhost", 27017)
+            self.db = client["users_stats"]
+            logging.info("MongoDB is connected")
+        except:
+            logging.fatal("Database connection can\'t be established, terminating")
+            sys.exit(1)
+
+        super(UpdateServer, self).__init__()
+        self.scheduler = tornado.ioloop.PeriodicCallback(self.update, 60000 * 1)
+        self.listen(8844)
+        logging.info("Update Server is started")
+
+
+    def update(self):
+        """
+        Get and update
+        """
+        logging.info("Periodic test is complete")
