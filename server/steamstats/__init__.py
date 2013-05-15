@@ -8,8 +8,11 @@ import tornado.ioloop
 import tornado.web
 
 from pymongo import MongoClient
+from datetime import datetime
+from bson import ObjectId
 from . import classes
 from . import config
+from .classes import get
 
 
 class SteamStats(tornado.web.Application):
@@ -70,7 +73,7 @@ class UpdateServer(tornado.web.Application):
             sys.exit(1)
 
         super(UpdateServer, self).__init__()
-        self.scheduler = tornado.ioloop.PeriodicCallback(self.update, 60000 * 1)
+        self.scheduler = tornado.ioloop.PeriodicCallback(self.update, 60000 * 15)
         self.listen(8844)
         logging.info("Update Server is started")
 
@@ -79,4 +82,8 @@ class UpdateServer(tornado.web.Application):
         """
         Get and update
         """
-        logging.info("Periodic test is complete")
+        for users in self.db['sessions'].find():
+            user = get.GetUserStats(users['steam']['steamID64'], config.API_KEY).dict
+            user["last_update"] = datetime.now()
+            self.db['sessions'].update({"_id": ObjectId(users["_id"])}, {"$set": user})
+            logging.info("Update is complete for user %s", users["_id"])
