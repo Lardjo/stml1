@@ -1,0 +1,62 @@
+<p><i class="icon-eye-open"></i><b> Games (without DLC):</b> {{ user['games']['total-games'] }}</p>
+<p><i class="icon-globe"></i><b> Steam rating:</b> {{ user['steam']['steamRating'] }}</p>
+<p><i class="icon-time"></i><b> Played past 2 weeks:</b> {{ user['steam']['hoursPlayed2Wk'] }} Hours</p>
+<p><i class="icon-time"></i><b> Total playing time:</b> {{ round(user['games']['total-time'], 2) }} Hours (or {{ round(user['games']['total-time'] / 24, 2) }} days)</p>
+
+<div class="page-header">
+    <p>Most popular games</p>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-1']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-1']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-1']['hours'] }}</span> hours
+    </div>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-2']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-2']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-2']['hours'] }}</span> hours
+    </div>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-3']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-3']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-3']['hours'] }}</span> hours
+    </div>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-4']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-4']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-4']['hours'] }}</span> hours
+    </div>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-5']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-5']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-5']['hours'] }}</span> hours
+    </div>
+</div>
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="{{ user['games']['best-6']['avatar'] }}">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ user['games']['best-6']['name'] }}</h4>
+        Record on <span class="badge">{{ user['games']['best-6']['hours'] }}</span> hours
+    </div>
+</div>
