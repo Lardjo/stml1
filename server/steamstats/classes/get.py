@@ -32,8 +32,8 @@ class GetUserStats:
         Get all information about user
         """
         r = requests.get("http://steamcommunity.com/profiles/{0}?xml=1".format(self.steamid))
-        f = r.content
-        root = ET.fromstring(f)
+        f = r.text
+        root = ET.fromstring(f.encode('utf-8'))
         for child in root:
             self.dict['steam'][child.tag] = child.text
 
@@ -62,7 +62,7 @@ class GetUserStats:
         total_games = 0
         r = requests.get("http://steamcommunity.com/profiles/{0}/games?xml=1".format(self.steamid))
         f = r.text
-        root = ET.fromstring(f)
+        root = ET.fromstring(f.encode('utf-8'))
 
         for a in root.findall('./games/game'):
 
