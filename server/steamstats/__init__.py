@@ -73,7 +73,7 @@ class UpdateServer(tornado.web.Application):
             sys.exit(1)
 
         super(UpdateServer, self).__init__()
-        self.scheduler = tornado.ioloop.PeriodicCallback(self.update, 60000 * 15)
+        self.scheduler = tornado.ioloop.PeriodicCallback(self.update, 60000 * 1)
         self.listen(8844)
         logging.info("Update Server is started")
 
