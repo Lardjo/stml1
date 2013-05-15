@@ -8,7 +8,7 @@
 import tornado.ioloop
 
 from tornado.options import define, parse_command_line
-from steamstats import UpdateServer
+from statsmile import UpdateServer
 
 if __name__ == "__main__":
 

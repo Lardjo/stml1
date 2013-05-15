@@ -8,7 +8,7 @@
 import tornado.ioloop
 
 from tornado.options import define, parse_command_line
-from steamstats import SteamStats
+from statsmile import SteamStats
 
 if __name__ == "__main__":
 
