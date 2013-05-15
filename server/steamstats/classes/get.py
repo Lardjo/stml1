@@ -32,7 +32,7 @@ class GetUserStats:
         Get all information about user
         """
         r = requests.get("http://steamcommunity.com/profiles/{0}?xml=1".format(self.steamid))
-        f = r.text
+        f = r.content
         root = ET.fromstring(f)
         for child in root:
             self.dict['steam'][child.tag] = child.text
