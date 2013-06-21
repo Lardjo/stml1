@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} / {{ user['steam']['steamID'] }}{% end %}
+
+{% block main %}
+
+<div class="container">
+    <div class="user">
+        <div class="row-fluid">
+            <div class="span6">
+                <img src="{{ user['steam']['avatarFull'] }}" class="img-rounded avatar pull-left" />
+                <h1>{{ user['steam']['steamID'] }} <small>{{ user['steam']['onlineState'] }}</small></h1>
+                <p>{{ user['steam']['location'] }}</p>
+            </div>
+            <div class="span6"></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <section>
+        <div class="page-header">
+            <h1>Main information</h1>
+            <p>Ho-ho, {{ user['steam']['realname'] }}! Here is some information about you...</p>
+        </div>
+        <p><i class="icon-user"></i><b> Name:</b> {{ user['steam']['realname'] }}</p>
+        <p><i class="icon-home"></i><b> Nickname:</b> {{ user['steam']['steamID'] }}</p>
+        <p><i class="icon-check"></i><b> Steam ID:</b> {{ user['steam']['steamID64'] }}</p>
+        <p><i class="icon-calendar"></i><b> Member since:</b> {{ user['steam']['memberSince'] }}</p>
+        <p><i class="icon-globe"></i><b> Location:</b> {{ user['steam']['location'] }}</p>
+        <p><i class="icon-eye-close"></i><b> Privacy:</b> You have a {{ user['steam']['privacyState'] }} profile</p>
+    </section>
+    <section>
+        <div class="page-header">
+            <h1>Games</h1>
+            <p>So... What about games? Of course!..</p>
+        </div>
+        {% include games.html %}
+    </section>
+    <section>
+        <div class="page-header">
+            <h1>Your Dota 2</h1>
+            <p>Our specialists have found that you love play to Dota 2!.. Your last game!...</p>
+        </div>
+        {% include dota.html %}
+    </section>
+    <p class="muted">This page was last modified on {{ user['last_update'].strftime('%d, %B %Y %H:%M:%S') }}</p>
+</div>
+{% end %}
+
+{% block scripts %}
+<script src="{{ static_url("js/holder.js") }}"></script>
+{% end %}
