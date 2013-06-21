@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% end %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ static_url("css/bootstrap.min.css") }}" rel="stylesheet">
+        <link href="{{ static_url("css/bootstrap-responsive.min.css") }}" rel="stylesheet">
+        <link href="{{ static_url("css/application.css") }}" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="/">{{ title }}</a>
+                        <ul class="nav pull-right">
+                            <li><a href="#">GitHub Project</a></li>
+                            <li><a href="/about">About</a></li>
+                            {% if session %}
+                                {% include navbar.html %}
+                            {% else %}{% end %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">{% block main %}{% end %}</div>
+            <div id="push"></div>
+        </div>
+        {% include footer.html %}
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ static_url("js/bootstrap.min.js") }}"></script>
+        {% block scripts %}{% end %}
+    </body>
+</html>
