@@ -122,6 +122,7 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota2heroes/antimage.png'},
           99: {'name': 'Bristleback', 'avatar': 'img/dota2heroes/bristleback.png'},
           100: {'name': 'Tusk', 'avatar': 'img/dota2heroes/tusk.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota2heroes/skywrath_mage.png'}}
+          #102: {'name': 'Elder Titan', 'avatar': 'img/dota2heroes/elder_titan.png'}}
 
 items = {0: {'avatar': 'data-src=holder.js/60x45/text:Empty'},
          1: {'name': 'Blink Dagger', 'avatar': 'img/dota2items/blink_dagger.png'},
