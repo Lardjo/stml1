@@ -1,3 +1,21 @@
+## 2.0.0 (June 21, 2013)
+
+**General changes**
+
+- Python 3
+- Tornado Framework
+- Full code changes
+- Steam ID support
+- MondoDB
+
+**Other changes**
+
+- Responsive support
+- Match Dota 2 refactoring
+- PEP8
+- Update Bootstrap to 2.3.1
+- Structure rework
+
 ## 1.1.1 (March 19, 2013)
 
 Minor fixed
