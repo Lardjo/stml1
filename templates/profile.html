@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Statsmile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}">
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse navbar-style">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/profile">Profile</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
+            </ul>
+            <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">Konstantin N.</a></p>
+        </div>
+    </div>
+    <div class="general">
+        <div class="container">
+           <h1>Lardjo</h1>
+           <h4>Level 10</h4>
+           <h4>Konstantin Nikitanov. Saransk, Mordovia, Russian Federation</h4>
+        </div>
+    </div>
+    <div class="nowplay">
+        <div class="container">
+            <h4>Just now playing in Warhammer 40,000: Dawn of War - Game of the Year Edition</h4>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-3 sidebar">
+
+                    <ul class="nav sidenav">
+                        <li><a href="#">Games <span class="badge">352</span></a></li>
+                        <li><a href="#">Screenshots <span class="badge">1242</span></a></li>
+                        <li><a href="#">Videos <span class="badge">13</span></a></li>
+                        <li><a href="#">Workshop <span class="badge">5</span></a></li>
+                        <li><a href="#">Recommendations <span class="badge">24</span></a></li>
+                        <li><a href="#">Inventory <span class="badge">503</span></a></li>
+                    </ul>
+
+            </div>
+            <div class="col col-lg-9 mainbar">
+                <div class="page-header">
+                    <h1>Info</h1>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-8">
+                        <dl class="dl-horizontal">
+                            <dt>Name</dt><dd>Konstantin N.</dd>
+                            <dt>Nickname</dt><dd>Lardjo</dd>
+                            <dt>Steam ID</dt><dd>7950154687651666</dd>
+                            <dt>Member since</dt><dd>June, 1 2003</dd>
+                            <dt>Privacy</dt><dd>You have a public profile</dd>
+                        </dl>
+                    </div>
+                    <div class="col col-lg-4">
+                        <img src="{{ url_for('static', filename='img/avatar.jpg') }}" class="img-circle pull-left">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/holder.js') }}"></script>
+  </body>
+</html>
