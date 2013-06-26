@@ -3,19 +3,38 @@
   <head>
     <title>Statsmile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}">
   </head>
   <body>
-
-    <div class="container">
-        <div class="panel">
-            <div class="panel-heading">Statsmile</div>
-            Hello!
+  <div class="navbar navbar-fixed-top navbar-inverse navbar-style">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
+            </ul>
+            <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">Konstantin N.</a></p>
         </div>
     </div>
-
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  <div class="general">
+      <div class="container">
+          <div class="head">
+              <h1>Statsmile</h1>
+              <p>Simple and intuitive service statistics for Steam</p>
+              <p><a href="#" class="btn btn-large">Get started today</a></p>
+              <ul class="head-links">
+                  <li><a href="/about">About</a></li>
+                  <li><a href="http://github.com/Lardjo/Statsmile">GitHub Page</a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div class="nowplay">
+        <div class="container">
+            <h4>Latest Update on Github: June 26, 2013 (3.0-alpha)</h4>
+        </div>
+    </div>
   </body>
 </html>
