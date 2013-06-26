@@ -25,6 +25,11 @@ h4 {
     background: #b1584f;
 }
 
+.index {
+    height: 100%;
+    margin: 0 auto -55px;
+}
+
 .general h1 {
     font-weight: 500;
     color: #ffffff;
