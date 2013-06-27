@@ -26,18 +26,31 @@ h4 {
 }
 
 .index {
+    background: #ffffff;
     height: 100%;
     margin: 0 auto -55px;
 }
 
+.about {
+    background: #ffffff;
+    color: #b1584f;
+    border-bottom: 1px solid #dddddd;
+}
+
+.about h4 {
+    color: #666666;
+}
+
 .general h1 {
     font-weight: 500;
-    color: #ffffff;
 }
 
 .general h4 {
     padding-left: 3px;
     font-weight: 300;
+}
+
+.profile {
     color: #ffffff;
 }
 
@@ -74,10 +87,9 @@ h4 {
 .head .btn:hover,
 .head .btn:active {
   color: #ffffff;
-  background-color: #666666;
-  border-color: #666666;
+  background-color: #b1584f;
+  border-color: #b1584f;
 }
-
 
 .head h1 {
     font-size: 100px;
@@ -87,19 +99,19 @@ h4 {
     font-size: 30px;
     margin-left: 15%;
     margin-right: 15%;
-    color: #ffffff;
+    color: #666666;
     font-family: "OpenSans", sans-serif;
     font-weight: 300;
     text-rendering: optimizeLegibility;
 }
 
 .head-links {
-    margin: 20px 0;
+    margin: 100px 0;
     list-style: none;
 }
 
 .head-links a {
-    color: #ffffff;
+    color: #428bca;
 }
 
 .head-links li {
