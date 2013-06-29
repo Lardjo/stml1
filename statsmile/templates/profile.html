@@ -15,7 +15,11 @@
                 <li><a href="/about">About</a></li>
                 <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
             </ul>
-            <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">Konstantin N.</a></p>
+            {% if not session.user_id %}
+
+            {% else %}
+            <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['nickname'] }}</a></p>
+            {% endif %}
         </div>
     </div>
     <div class="general profile">
