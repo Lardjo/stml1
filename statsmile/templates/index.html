@@ -11,12 +11,10 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
+                {% if not session.user_id %}{% else %}<li><a href="/profile">Profile</a></li>{% endif %}
             </ul>
             {% if not session.user_id %}
-
+            <p class="navbar-text pull-right">Welcome!</p>
             {% else %}
             <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['nickname'] }}</a></p>
             {% endif %}
@@ -30,11 +28,15 @@
               {% if not session.user_id %}
               <p><a href="{{ url_for('login') }}" class="btn btn-large">Get started today</a></p>
               {% else %}
-              <p><a href="{{ url_for('logout') }}" class="btn btn-large">Logout</a></p>
+              <p>
+                  <a href="{{ url_for('profile') }}" class="btn btn-large">Your profile</a>
+                  <a href="{{ url_for('logout') }}" class="btn btn-large">Logout</a>
+              </p>
               {% endif %}
               <ul class="head-links">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/about">About</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Statistics</a></li>
                   <li><a href="http://github.com/Lardjo/Statsmile">GitHub Page</a></li>
               </ul>
           </div>

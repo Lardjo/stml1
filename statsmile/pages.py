@@ -17,11 +17,3 @@ def profile():
     if 'user_id' in session:
         user = db.posts.find_one({"steamid": session['user_id']})
     return render_template('profile.html', user=user)
-
-
-@app.route('/about')
-def about():
-    user = None
-    if 'user_id' in session:
-        user = db.posts.find_one({"steamid": session['user_id']})
-    return render_template('about.html', user=user)

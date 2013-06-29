@@ -8,7 +8,6 @@ body {
     padding-top: 50px;
 }
 
-/* Global */
 h1, h2, h3, h4, h5 { font-family: "OpenSans", sans-serif; font-weight: 300; text-rendering: optimizeLegibility; }
 
 h1 {
@@ -20,8 +19,6 @@ h4 {
 }
 
 .general {
-    /*padding-top: 5px;*/
-    /*height: 250px;*/
     background: #b1584f;
 }
 
@@ -111,6 +108,7 @@ h4 {
 
 .head-links {
     margin: 100px 0;
+    padding-left: 0;
     list-style: none;
 }
 
