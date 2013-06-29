@@ -5,7 +5,7 @@ import os
 import configparser
 import datetime
 
-from flask import session, g, redirect, flash
+from flask import session, g, redirect, flash, url_for
 from flask_openid import OpenID
 from statsmile import app, db
 
@@ -58,7 +58,7 @@ def after_login(resp):
     g.user = rv
     session['user_id'] = g.user['steamid']
     flash('You are logged in as %s' % g.user['nickname'])
-    return redirect(oid.get_next_url())
+    return redirect(url_for('profile'))
 
 
 @app.route('/logout')
