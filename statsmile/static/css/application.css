@@ -4,10 +4,6 @@ body {
     height: 100%;
 }
 
-body {
-    /*padding-top: 50px;*/
-}
-
 h1, h2, h3, h4, h5 { font-family: "OpenSans", sans-serif; font-weight: 300; text-rendering: optimizeLegibility; }
 
 h1 {
@@ -147,11 +143,8 @@ h4 {
     border-radius: 5px;
 }
 
-/* Custom Style */
-
 .general .container {
     padding-top: 50px;
-    /*padding-bottom: 25px;*/
 }
 
 .profile .container {
@@ -196,7 +189,6 @@ h4 {
   background-color: #525151;
 }
 
-/* Fonts */
 @font-face { font-family: 'OpenSans'; src: url('../fonts/OpenSans-Light-webfont.eot'); src: url('../fonts/OpenSans-Light-webfont.eot?#iefix') format("embedded-opentype"), url('../fonts/OpenSans-Light-webfont.woff') format("woff"), url('../fonts/OpenSans-Light-webfont.ttf') format("truetype"), url('../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format("svg"); font-weight: light; font-weight: 300; font-style: normal; }
 
 @font-face { font-family: 'OpenSans'; src: url('../fonts/OpenSans-Regular-webfont.eot'); src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format("embedded-opentype"), url('../fonts/OpenSans-Regular-webfont.woff') format("woff"), url('../fonts/OpenSans-Regular-webfont.ttf') format("truetype"), url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format("svg"); font-weight: normal; font-weight: 500; font-style: normal; }
