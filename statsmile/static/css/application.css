@@ -154,6 +154,11 @@ h4 {
     /*padding-bottom: 25px;*/
 }
 
+.profile .container {
+    padding-top: 75px;
+    padding-bottom: 25px;
+}
+
 .general .container h1 {
     margin-top: 10px;
 }
