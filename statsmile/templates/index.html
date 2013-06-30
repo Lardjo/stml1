@@ -11,7 +11,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                {% if not session.user_id %}{% else %}<li><a href="/profile">Profile</a></li>{% endif %}
+                {% if not session.user_id %}{% else %}<li><a href="{{ url_for('profile') }}">Profile</a></li>{% endif %}
             </ul>
             {% if not session.user_id %}
             <p class="navbar-text pull-right">Welcome!</p>
@@ -20,8 +20,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Signed in as {{ user['nickname'] }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Your profile</a> </li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="{{ url_for('profile') }}">Your profile</a> </li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     </ul>
                 </li>
             </ul>
