@@ -158,6 +158,11 @@ h4 {
     margin-top: 10px;
 }
 
+.avatar {
+    width: 164px;
+    height: 164px;
+}
+
 .sidebar .nav > li > a {
   display: block;
   color: #666;
