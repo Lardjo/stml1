@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import render_template, session
+from flask import render_template, session, redirect, url_for
 from statsmile import app, db
 
 
@@ -13,7 +13,7 @@ def index():
 
 @app.route('/profile')
 def profile():
-    user = None
     if 'user_id' in session:
         user = db.posts.find_one({"steamid": session['user_id']})
-    return render_template('profile.html', user=user)
+        return render_template('profile.html', user=user)
+    return redirect(url_for('login'))
