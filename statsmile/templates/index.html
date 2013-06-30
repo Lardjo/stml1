@@ -20,8 +20,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Signed in as {{ user['nickname'] }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('profile') }}">Your profile</a> </li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        <li><a href="{{ url_for('profile') }}"><span class="glyphicon glyphicon-user"></span> Your profile</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                     </ul>
                 </li>
             </ul>
