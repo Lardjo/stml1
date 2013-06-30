@@ -52,6 +52,8 @@ def after_login(resp):
         data = get_steam(match.group(1))
         rv = {"steamid": match.group(1),
               "nickname": data['personaname'],
+              "realname": data['realname'],
+              "avatar": data['avatarfull'],
               "url": data['profileurl'],
               "lastlogin": datetime.datetime.now()}
         db.posts.insert(rv)
@@ -65,4 +67,4 @@ def after_login(resp):
 def logout():
     session.pop('user_id', None)
     flash('You are logout')
-    return redirect(oid.get_next_url())
+    return redirect(url_for('index'))
