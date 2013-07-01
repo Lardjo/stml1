@@ -43,44 +43,53 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col col-lg-3 sidebar">
-
-                    <ul class="nav sidenav">
-                        <li><a href="#">Games <span class="badge">0</span></a></li>
-                        <li><a href="#">Screenshots <span class="badge">0</span></a></li>
-                        <li><a href="#">Videos <span class="badge">0</span></a></li>
-                        <li><a href="#">Workshop <span class="badge">0</span></a></li>
-                        <li><a href="#">Recommendations <span class="badge">0</span></a></li>
-                        <li><a href="#">Inventory <span class="badge">0</span></a></li>
-                    </ul>
-
-            </div>
-            <div class="col col-lg-9 mainbar">
-                <div class="page-header">
-                    <h1>Info</h1>
-                </div>
-                <div class="row">
-                    <div class="col col-lg-3">
-                        <img src="{{ user['avatar'] }}" class="img-thumbnail pull-left avatar">
-                    </div>
-                    <div class="col col-lg-9 fix">
-                        <p><span class="glyphicon glyphicon-user"></span><b> Name:</b> {{ user['realname'] }}</p>
-                        <p><span class="glyphicon glyphicon-home"></span><b> Nickname:</b> {{ user['nickname'] }}</p>
-                        <p><span class="glyphicon glyphicon-barcode"></span><b> Steam ID:</b> {{ user['steamid'] }}</p>
-                        <p><span class="glyphicon glyphicon-calendar"></span><b> Member since:</b> %none%</p>
-                        <p><span class="glyphicon glyphicon-globe"></span><b> Location:</b> %none%</p>
-                        <p><span class="glyphicon glyphicon-eye-close"></span><b> Privacy:</b> %none%</p>
-                    </div>
-                </div>
-
-                <div class="page-header">
-                    <h1>Games</h1>
-                </div>
-
-
-            </div>
+        <div class="page-header">
+            <h1>Dota 2 <small>Performance in game</small></h1>
         </div>
+
+        Coming Soon...
+
+        <div class="page-header">
+            <h1>Dota 2 <small>Recent matches</small></h1>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Match ID</th>
+                <th>Result</th>
+                <th>Duration</th>
+                <th>The Radiant</th>
+                <th>The Dire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="success">
+                <td><a href="#">232345961</a></td>
+                <td>Win</td>
+                <td>34:51</td>
+                <td>Noobs</td>
+                <td>Noobs</td>
+            </tr>
+            <tr class="danger">
+                <td><a href="#">232345960</a></td>
+                <td>Lose</td>
+                <td>15:13</td>
+                <td>Noobs</td>
+                <td>Noobs</td>
+            </tr>
+            <tr class="success">
+                <td><a href="#">232345959</a></td>
+                <td>Win</td>
+                <td>41:13</td>
+                <td>Noobs</td>
+                <td>Noobs</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
     </div>
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/holder.js') }}"></script>

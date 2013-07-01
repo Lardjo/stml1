@@ -1,5 +1,7 @@
 html,
 body {
+  /*  font-family: "OpenSans", sans-serif;*/
+   /* font-weight: 400;*/
     position: relative;
     height: 100%;
 }
@@ -178,6 +180,24 @@ h4 {
 
 .navbar-style {
     background-color: #666666;
+}
+
+.accordion-info {
+    margin: 0;
+    padding: 8px 15px;
+}
+
+.win {
+    color: #28bb28;
+}
+
+.lose {
+    color: #d43f3a;
+}
+
+h1 small,
+.h1 small {
+  font-weight: 300;
 }
 
 .label {
