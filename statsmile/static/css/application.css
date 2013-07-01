@@ -153,7 +153,12 @@ h4 {
 }
 
 .general .container h1 {
+    padding-left: 66px;
     margin-top: 10px;
+}
+
+.profile .container h1 {
+    padding-left: 0;
 }
 
 .avatar {
@@ -173,6 +178,18 @@ h4 {
 
 .navbar-style {
     background-color: #666666;
+}
+
+.label {
+    display: inline;
+    background-color: #ffffff;
+    border-radius: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 300;
+    padding: 0px 0px 0px 5px;
+    color: #666666;
+    vertical-align: super;
 }
 
 .navbar-style .navbar-nav > .active > a,
