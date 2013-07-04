@@ -7,13 +7,13 @@ from statsmile import app, db
 def index():
     user = None
     if 'user_id' in session:
-        user = db.user.find_one({"steamid": session['user_id']})
+        user = db.users.find_one({"steamid": session['user_id']})
     return render_template('index.html', user=user)
 
 
 @app.route('/profile')
 def profile():
     if 'user_id' in session:
-        user = db.user.find_one({"steamid": session['user_id']})
+        user = db.users.find_one({"steamid": session['user_id']})
         return render_template('profile.html', user=user)
     return redirect(url_for('login'))
