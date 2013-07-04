@@ -47,7 +47,7 @@ def login():
 @oid.after_login
 def after_login(resp):
     match = _steam_id_re.search(resp.identity_url)
-    rv = db.posts.find_one({"steamid": match.group(1)})
+    rv = db.users.find_one({"steamid": match.group(1)})
     if rv is None:
         data = get_steam(match.group(1))
         rv = {"steamid": match.group(1),
@@ -56,7 +56,7 @@ def after_login(resp):
               "avatar": data['avatarfull'],
               "url": data['profileurl'],
               "lastlogin": datetime.datetime.now()}
-        db.posts.insert(rv)
+        db.users.insert(rv)
     g.user = rv
     session['user_id'] = g.user['steamid']
     flash('You are logged in as %s' % g.user['nickname'])
