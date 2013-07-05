@@ -53,6 +53,12 @@
             <h1>Dota 2 <small>Recent matches</small></h1>
         </div>
 
+        <p><a href="{{ url_for('update') }}" class="btn btn-primary">Update</a></p>
+
+        {% for message in get_flashed_messages() %}
+        {{ message }}
+        {% endfor %}
+
         <table class="table">
             <thead>
             <tr>

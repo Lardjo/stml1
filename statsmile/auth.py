@@ -1,18 +1,12 @@
 #!/usr/bin/env python3
 import requests
 import re
-import os
-import configparser
+
 import datetime
 
 from flask import session, g, redirect, flash, url_for
 from flask_openid import OpenID
-from statsmile import app, db
-
-# silence gold
-config = configparser.ConfigParser()
-config.read(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'core', 'core.ini'))
-STEAM_API_KEY = config.get('data', 'apikey')
+from statsmile import app, db, STEAM_API_KEY
 
 # openid
 oid = OpenID(app)
@@ -55,7 +49,8 @@ def after_login(resp):
               "realname": data['realname'],
               "avatar": data['avatarfull'],
               "url": data['profileurl'],
-              "lastlogin": datetime.datetime.now()}
+              "lastlogin": datetime.datetime.now(),
+              "matches": []}
         db.users.insert(rv)
     g.user = rv
     session['user_id'] = g.user['steamid']
