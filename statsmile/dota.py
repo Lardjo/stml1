@@ -18,6 +18,7 @@ class GetDota:
     def dota(self):
 
         last = []
+        update = []
 
         options = {'key': self.apikey, 'account_id': self.steamid}
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params=options)
@@ -34,4 +35,6 @@ class GetDota:
             if key in slices['matches']:
                 pass
             else:
-                self.db.users.update({"steamid": self.steamid}, { '$push': {"matches": key}})
+                update.append(key)
+
+        self.db.users.update({"steamid": self.steamid}, { '$push': {"matches": {"$each": update}}})
