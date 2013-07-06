@@ -21,6 +21,9 @@ def profile():
 
 @app.route('/update')
 def update():
-    dota.GetDota(session['user_id'], STEAM_API_KEY)
-    flash("Update complete!")
+    upd = dota.GetDota(session['user_id'], STEAM_API_KEY).dota()
+    if upd is None:
+        flash("No new games for update. Come back later...")
+    else:
+        flash("Update complete! Add {0} new games.".format(upd))
     return redirect(url_for('profile'))
