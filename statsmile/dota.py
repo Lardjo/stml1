@@ -7,7 +7,6 @@ from statsmile import db
 
 class GetDota:
 
-
     def __init__(self, steamid, apikey):
         """
 
@@ -17,8 +16,6 @@ class GetDota:
         self.db = db
         self.steamid = steamid
         self.apikey = apikey
-        #self.dota()
-
 
     def dota(self):
 
@@ -33,7 +30,7 @@ class GetDota:
             last.append(mid['match_id'])
 
         last.sort()
-        slices = db.users.find_one({"steamid": self.steamid}, { "matches": { "$slice": 25 } } )
+        slices = db.users.find_one({"steamid": self.steamid}, {"matches": {"$slice": 25}})
 
         for key in last:
 
