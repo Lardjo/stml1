@@ -9,10 +9,15 @@ class GetDota:
 
 
     def __init__(self, steamid, apikey):
+        """
+
+        :param steamid:
+        :param apikey:
+        """
         self.db = db
         self.steamid = steamid
         self.apikey = apikey
-        self.dota()
+        #self.dota()
 
 
     def dota(self):
@@ -37,4 +42,9 @@ class GetDota:
             else:
                 update.append(key)
 
-        self.db.users.update({"steamid": self.steamid}, { '$push': {"matches": {"$each": update}}})
+        if not update:
+            return None
+        else:
+            length = len(update)
+            self.db.users.update({"steamid": self.steamid}, { '$push': {"matches": {"$each": update}}})
+            return length
