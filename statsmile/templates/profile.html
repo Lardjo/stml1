@@ -43,21 +43,19 @@
         </div>
     </div>
     <div class="container">
-        <div class="page-header">
-            <h1>Dota 2 <small>Performance in game</small></h1>
-        </div>
 
-        Coming Soon...
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Well done!</strong> {{ message }}
+        </div>
+        {% endfor %}
 
         <div class="page-header">
             <h1>Dota 2 <small>Recent matches</small></h1>
         </div>
 
         <p><a href="{{ url_for('update') }}" class="btn btn-primary">Update</a></p>
-
-        {% for message in get_flashed_messages() %}
-        {{ message }}
-        {% endfor %}
 
         <table class="table">
             <thead>
@@ -70,27 +68,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="success">
-                <td><a href="#">232345961</a></td>
-                <td>Win</td>
-                <td>34:51</td>
-                <td>Noobs</td>
-                <td>Noobs</td>
+            {% for matches in user['matches'][-5:]|reverse %}
+            <tr>
+                <td><a href="#">{{ matches }}</a></td>
+                <td>%none%</td>
+                <td>%none%</td>
+                <td>%none%</td>
+                <td>%none%</td>
             </tr>
-            <tr class="danger">
-                <td><a href="#">232345960</a></td>
-                <td>Lose</td>
-                <td>15:13</td>
-                <td>Noobs</td>
-                <td>Noobs</td>
-            </tr>
-            <tr class="success">
-                <td><a href="#">232345959</a></td>
-                <td>Win</td>
-                <td>41:13</td>
-                <td>Noobs</td>
-                <td>Noobs</td>
-            </tr>
+            {% endfor %}
             </tbody>
         </table>
 
