@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from flask import render_template, session, redirect, url_for, flash
-from statsmile import app, db, STEAM_API_KEY, dota
+from statsmile import app, db, API_KEY, dota
 
 
 @app.route('/')
@@ -21,7 +21,7 @@ def profile():
 
 @app.route('/update')
 def update():
-    upd = dota.GetDota(session['user_id'], STEAM_API_KEY).dota()
+    upd = dota.GetDota(session['user_id'], API_KEY).dota()
     if upd is None:
         flash("No new games for update. Come back later...")
     else:

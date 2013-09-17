@@ -20,5 +20,5 @@ except errors.ConnectionFailure:
 
 db = connection.statsmile
 
-import statsmile.pages
+import statsmile.routes
 import statsmile.auth
