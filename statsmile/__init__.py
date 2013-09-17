@@ -1,28 +1,24 @@
 #!/usr/bin/env python3
 import sys
-import os
-import configparser
 
 from flask import Flask
-from pymongo import MongoClient
+from pymongo import MongoClient, errors
+
+# Steam API key #
+#################
+API_KEY = 'E275AE4254A0C40A45E5EBEA4A793203'
 
 app = Flask(__name__)
 app.config.update(
-    SECRET_KEY = 'development key'
+    SECRET_KEY='va1+wR&CgHJM/[9 kW9nBF-<_l)s/q|GTlyUHo-jfB/&OQtHW#Mn(s@S|!Y+WykT'
 )
-
-# silence gold
-config = configparser.ConfigParser()
-config.read(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'core', 'core.ini'))
-STEAM_API_KEY = config.get('data', 'apikey')
 
 try:
     connection = MongoClient()
-    db = connection.statsmile
-    app.logger.info('Mongo database is connected')
-except:
-    app.logger.fatal('Mongo database connection can\'t be established')
+except errors.ConnectionFailure:
     sys.exit(1)
+
+db = connection.statsmile
 
 import statsmile.pages
 import statsmile.auth
