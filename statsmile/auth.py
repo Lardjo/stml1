@@ -6,7 +6,7 @@ import datetime
 
 from flask import session, g, redirect, flash, url_for
 from flask_openid import OpenID
-from statsmile import app, db, STEAM_API_KEY
+from statsmile import app, db, API_KEY
 
 # openid
 oid = OpenID(app)
@@ -17,7 +17,7 @@ _steam_id_re = re.compile('steamcommunity.com/openid/id/(.*?)$')
 
 def get_steam(steam_id):
     """ Get Steam JSON file """
-    options = {'key': STEAM_API_KEY, 'steamids': steam_id}
+    options = {'key': API_KEY, 'steamids': steam_id}
     r = requests.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params=options)
     user = r.json()
     return user['response']['players'][0] or {}
