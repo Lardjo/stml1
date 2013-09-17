@@ -2,7 +2,8 @@
 import sys
 
 from flask import Flask
-from pymongo import MongoClient, errors
+from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
 
 # Steam API key #
 #################
@@ -15,7 +16,7 @@ app.config.update(
 
 try:
     connection = MongoClient()
-except errors.ConnectionFailure:
+except ConnectionFailure:
     sys.exit(1)
 
 db = connection.statsmile
