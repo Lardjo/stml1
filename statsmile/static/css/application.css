@@ -63,8 +63,12 @@ h4 {
     color: #ffffff;
     opacity: .7;
     float: left;
-    width: 550px;
+    /*width: 550px;*/
     font-size: 14px;
+}
+
+.nowplay a {
+    color: #525151;
 }
 
 .fix {
@@ -73,8 +77,8 @@ h4 {
 
 .head {
     text-align: center;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 175px;
+    /*padding-bottom: 100px;*/
 }
 
 .head .btn {
@@ -184,6 +188,12 @@ h4 {
 
 .navbar-style {
     background-color: #666666;
+    border-width: 0;
+}
+
+.navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .accordion-info {
@@ -211,9 +221,21 @@ h1 small,
     text-align: center;
     font-size: 24px;
     font-weight: 300;
-    padding: 0px 0px 0px 5px;
+    padding: 0 0 0 5px;
     color: #666666;
     vertical-align: super;
+}
+
+.footer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 75px;
+    color: #777777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.footer p {
+    margin-bottom: 0;
 }
 
 .navbar-style .navbar-nav > .active > a,
