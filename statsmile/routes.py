@@ -27,3 +27,19 @@ def update():
     else:
         flash("Update complete! Add {0} new games.".format(upd))
     return redirect(url_for('profile'))
+
+
+@app.route('/license')
+def license():
+    user = None
+    if 'user_id' in session:
+        user = db.users.find_one({"steamid": session['user_id']})
+    return render_template('license.html', user=user)
+
+
+@app.route('/privacy')
+def privacy():
+    user = None
+    if 'user_id' in session:
+        user = db.users.find_one({"steamid": session['user_id']})
+    return render_template('privacy.html', user=user)
