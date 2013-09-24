@@ -12,20 +12,27 @@ mode = {1: {"name": 'All Pick'},
         14: {'name': 'Compendium Matchmaking'}}
 
 cluster = {111: {'name': 'US West'},
+           112: {'name': 'US West'},
            121: {'name': 'US East'},
            122: {'name': 'US East'},
+           123: {'name': 'US East'},
            131: {'name': 'Europe West'},
            132: {'name': 'Europe West'},
            133: {'name': 'Europe West'},
+           143: {'name': 'Hong Kong'},
            151: {'name': 'Southeast Asia'},
            152: {'name': 'Southeast Asia'},
+           153: {'name': 'Southeast Asia'},
            161: {'name': 'China'},
            163: {'name': 'China'},
            171: {'name': 'Australia'},
            181: {'name': 'Russia'},
            182: {'name': 'Russia'},
            191: {'name': 'Europe East'},
-           200: {'name': 'South America'}}
+           200: {'name': 'South America'},
+           211: {'name': 'South Africa'},
+           221: {'name': 'China'},
+           222: {'name': 'China'}}
 
 heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           2: {'name': 'Axe', 'avatar': 'img/dota/heroes/axe.png'},

@@ -4,6 +4,6 @@
 # URL: http://github.com/Lardjo
 
 __author__ = 'Konstantin N.'
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 
 from .dota2lib import (mode, items, heroes, cluster)
