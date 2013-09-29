@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block title %}/ Privacy{% endblock %}
 {% block menu %}
-    <li><a href="/">Home</a></li>
+    <li class="active"><a href="/">Home</a></li>
     {% if not session.user_id %}{% else %}<li><a href="{{ url_for('profile') }}">Profile</a></li>{% endif %}
+    <li><p class="navbar-text">Privacy</p></li>
 {% endblock %}
 {% block login %}
     {% if not session.user_id %}
@@ -15,7 +16,7 @@
     <div class="general profile">
         <div class="container">
             <h1>Privacy Policy</h1>
-            <h4>Our commitment</h4>
+            <h4>Copyright and other rights.</h4>
         </div>
     </div>
     <div class="nowplay">
@@ -24,11 +25,8 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
 
-            </div>
-            <div class="col-md-9" role="main">
+
                 <div class="page-header">
                     <h1>Privacy Policy</h1>
                 </div>
@@ -49,13 +47,15 @@
                     If we make material changes to this policy, we will notify you here or by means of a notice on our
                     homepage so that you are aware of what information we collect, how we use it, and under what
                     circumstances, if any, we disclose it.</p>
-            </div>
+                <h3>Copyrights</h3>
+                <p>2013, Statsmile; Powered by Steam; Dota 2 is a registered trademark of Valve Corporation.</p>
+
+    </div>
+{% endblock %}
+{% block footer %}
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <p>Designed and built by Konstantin N.</p>
-            <p>Statsmile LLC.</p>
-        </div>
-    </footer>
 {% endblock %}
