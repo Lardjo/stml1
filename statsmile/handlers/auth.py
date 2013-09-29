@@ -8,6 +8,7 @@ from datetime import datetime
 from .base import BaseHandler
 from statsmile.data import GetUser
 from statsmile.data import APIKEY
+from statsmile.data import steam64to32
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
     """
@@ -27,6 +28,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             rv = self.application.db["users"].find_one({"steamid": self.steamid})
             if not rv:
                 user = GetUser(self.steamid, APIKEY).user
+                user["steamID32"] = steam64to32(self.steamid)
                 user["last_login"] = datetime.now()
                 user["last_update"] = datetime.now()
                 user["registration"] = datetime.now()
