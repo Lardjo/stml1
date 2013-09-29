@@ -1,25 +1,46 @@
 #!/usr/bin/env python3
 import sys
+import logging
+import os
+import tornado.ioloop
+import tornado.web
 
-from flask import Flask
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+from statsmile import handlers
 
-# Steam API key #
-#################
-API_KEY = 'E275AE4254A0C40A45E5EBEA4A793203'
+APIKEY = "E275AE4254A0C40A45E5EBEA4A793203"
 
-app = Flask(__name__)
-app.config.update(
-    SECRET_KEY='va1+wR&CgHJM/[9 kW9nBF-<_l)s/q|GTlyUHo-jfB/&OQtHW#Mn(s@S|!Y+WykT'
-)
+class Statsmile(tornado.web.Application):
+    """
 
-try:
-    connection = MongoClient()
-except ConnectionFailure:
-    sys.exit(1)
+    """
+    def __init__(self):
+        """
+        Settings, handlers, connect to database
+        """
+        settings = {
+            "cookie_secret": "#B&.Cu4QDe%{-m!`BbVa$YM+oXWk_5VT=iVEx@r97OBNflH>v_u]hcd?1#m.DF<",
+            "gzip": True,
+            "debug": True,
+            "login_url": "/auth/login",
+            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
+            "static_path": os.path.join(os.path.dirname(__file__), "static")}
 
-db = connection.statsmile
+        handlers_list = [
+            ("/", handlers.MainHandler),
+            ("/auth/login", handlers.AuthHandler),
+            ("/auth/logout", handlers.LogoutHandler),
+            ("/user/(.*)", handlers.UserHandler)]
 
-import statsmile.routes
-import statsmile.auth
+        try:
+            client = MongoClient("localhost", 27017)
+            self.db = client["statsmile"]
+            logging.info("Mongo database is connected")
+        except ConnectionFailure:
+            logging.fatal("Database connection can\'t be established, terminating!")
+            sys.exit(1)
+
+        super(Statsmile, self).__init__(handlers_list, **settings)
+        self.listen(8888)
+        logging.info("Statsmile server is started!")

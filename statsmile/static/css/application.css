@@ -1,12 +1,12 @@
 html,
 body {
-  /*  font-family: "OpenSans", sans-serif;*/
-   /* font-weight: 400;*/
-    position: relative;
     height: 100%;
 }
 
-h1, h2, h3, h4, h5 { font-family: "OpenSans", sans-serif; font-weight: 300; text-rendering: optimizeLegibility; }
+h1, h2, h3, h4, h5 {
+    font-family: "OpenSans", sans-serif;
+    font-weight: 300;
+}
 
 h1 {
     font-size: 50px;
@@ -18,13 +18,123 @@ h4 {
 
 .general {
     background: #b1584f;
+    height: 100%;
 }
 
-.index {
-    background: #ffffff;
-    height: 100%;
-    margin: 0 auto -55px;
+/*****************/
+/* NAV-BAR STYLE */
+
+.navbar-gray {
+    background-color: #666666;
+    border-width: 0;
+    margin-bottom: 0;
 }
+
+.navbar-gray .navbar-nav > .active > a,
+.navbar-gray .navbar-nav > .active > a:hover,
+.navbar-gray .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #525151;
+}
+
+.navbar-gray .navbar-nav > .open > a,
+.navbar-gray .navbar-nav > .open > a:hover,
+.navbar-gray .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #525151;
+}
+
+/***    END    ***/
+/*****************/
+
+/*****************/
+/*** MAIN PAGE ***/
+
+.main {
+    margin-top: 150px;
+    text-align: center;
+    background: #ffffff;
+}
+
+.main h1 {
+    padding-left: 66px;
+    font-weight: 500;
+    font-size: 100px;
+}
+
+.main p {
+    font-size: 30px;
+    color: #666666;
+    font-family: "OpenSans", sans-serif;
+    font-weight: 300;
+}
+
+.main .btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 20px 25px;
+    font-size: 22px;
+    color: #a4524b;
+    background-color: #ffffff;
+    border-color: #e5e5e5;
+}
+
+.main .btn:hover,
+.main .btn:active {
+    color: #ffffff;
+    background-color: #b1584f;
+    border-color: #b1584f;
+}
+
+.head-links {
+    margin-top: 100px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.head-links a {
+    color: #428bca;
+}
+
+.head-links li {
+    display: inline;
+    color: #666666;
+}
+
+.head-links li + li {
+    margin-left: 20px;
+}
+
+/***    END    ***/
+/*****************/
+
+/*****************/
+/***** OTHER *****/
+
+#footer {
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+.img-style {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+/***    END    ***/
+/*****************/
 
 .about {
     background: #ffffff;
@@ -42,6 +152,7 @@ h4 {
 
 .general h1 {
     font-weight: 500;
+    margin-top: 5px;
 }
 
 .general h4 {
@@ -75,61 +186,8 @@ h4 {
     margin-top: 5px;
 }
 
-.head {
-    text-align: center;
-    padding-top: 175px;
-    /*padding-bottom: 100px;*/
-}
 
-.head .btn {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 20px 25px;
-    font-size: 22px;
-    color: #a4524b;
-    background-color: #ffffff;
-    border-color: #e5e5e5;
-}
 
-.head .btn:hover,
-.head .btn:active {
-  color: #ffffff;
-  background-color: #b1584f;
-  border-color: #b1584f;
-}
-
-.head h1 {
-    font-size: 100px;
-}
-
-.head p {
-    font-size: 30px;
-    margin-left: 15%;
-    margin-right: 15%;
-    color: #666666;
-    font-family: "OpenSans", sans-serif;
-    font-weight: 300;
-    text-rendering: optimizeLegibility;
-}
-
-.head-links {
-    margin: 100px 0;
-    padding-left: 0;
-    list-style: none;
-}
-
-.head-links a {
-    color: #428bca;
-}
-
-.head-links li {
-    display: inline;
-    color: #666666;
-}
-
-.head-links li + li {
-    margin-left: 20px;
-}
 
 .navbar-text {
     padding-right: 5px;
@@ -153,18 +211,9 @@ h4 {
     border-radius: 5px;
 }
 
-.general .container {
-    padding-top: 50px;
-}
-
 .profile .container {
-    padding-top: 75px;
+    padding-top: 25px;
     padding-bottom: 25px;
-}
-
-.general .container h1 {
-    padding-left: 66px;
-    margin-top: 10px;
 }
 
 .profile .container h1 {
@@ -189,6 +238,7 @@ h4 {
 .navbar-style {
     background-color: #666666;
     border-width: 0;
+    margin-bottom: 0;
 }
 
 .navbar-collapse {
@@ -224,32 +274,6 @@ h1 small,
     padding: 0 0 0 5px;
     color: #666666;
     vertical-align: super;
-}
-
-.footer {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-top: 75px;
-    color: #777777;
-    border-top: 1px solid #e5e5e5;
-}
-
-.footer p {
-    margin-bottom: 0;
-}
-
-.navbar-style .navbar-nav > .active > a,
-.navbar-style .navbar-nav > .active > a:hover,
-.navbar-style .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #525151;
-}
-
-.navbar-style .navbar-nav > .open > a,
-.navbar-style .navbar-nav > .open > a:hover,
-.navbar-style .navbar-nav > .open > a:focus {
-  color: #ffffff;
-  background-color: #525151;
 }
 
 @font-face { font-family: 'OpenSans'; src: url('../fonts/OpenSans-Light-webfont.eot'); src: url('../fonts/OpenSans-Light-webfont.eot?#iefix') format("embedded-opentype"), url('../fonts/OpenSans-Light-webfont.woff') format("woff"), url('../fonts/OpenSans-Light-webfont.ttf') format("truetype"), url('../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format("svg"); font-weight: light; font-weight: 300; font-style: normal; }

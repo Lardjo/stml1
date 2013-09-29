@@ -1,61 +1,56 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Statsmile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}">
-  </head>
-  <body>
-    <div class="navbar navbar-fixed-top navbar-inverse navbar-style">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li class="active"><a href="{{ url_for('profile') }}">Profile</a></li>
-            </ul>
-            {% if not session.user_id %}
-
-            {% else %}
-            <ul class="nav navbar-nav pull-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Signed in as {{ user['nickname'] }} <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('profile') }}"><span class="glyphicon glyphicon-user"></span> Your profile</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            {% endif %}
-        </div>
-    </div>
+{% extends "base.html" %}
+{% block title %}/ {{ user['steamID'] }}{% end %}
+{% block menu %}
+    <li><a href="/">Home</a></li>
+    <li class="active"><a href="/user/{{ session['steamID64'] }}">Profile</a></li>
+{% end %}
+{% block login %}
+    {% if session %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatarIcon'] }}" class="img-circle pull-left img-style">Signed in as {{ session['steamID'] }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/user/{{ session['steamID64'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        </ul>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
+{% block content %}
     <div class="general profile">
         <div class="container">
-           <h1>{{ user['nickname'] }}</h1>
-           <h4>Level %none%</h4>
-           <h4>{{ user['realname'] }}. %none%</h4>
+           <h1>{{ session['steamID'] }}</h1>
+           <h4>{{ session['location'] }}</h4>
+           <h4>{{ session['realname'] }}</h4>
         </div>
     </div>
     <div class="nowplay">
         <div class="container">
-            <h4>Just now playing in %none%</h4>
+            {% if session['onlineState'] == "in-game" %}
+            <h4>Just now playing in {{ session['stateMessage'][12:] }}</h4>
+            {% elif session['onlineState'] == "offline" %}
+            <h4>Currently {{ session['onlineState'] }}. {{ session['stateMessage'] }}</h4>
+            {% else %}
+            <h4>Currently {{ session['onlineState'] }}</h4>
+            {% end %}
         </div>
     </div>
     <div class="container">
-
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Well done!</strong> {{ message }}
+        <div class="page-header">
+            <h1>Steam <small>User information</small></h1>
         </div>
-        {% endfor %}
+
+        <p><span class="glyphicon glyphicon-calendar"></span> <strong>Member Since: </strong>{{ session['memberSince'] }}</p>
+        <p><span class="glyphicon glyphicon-eye-close"></span> <strong>Privacy: </strong>You have a {{ session['privacyState'] }} profile</p>
+        <p><span class="glyphicon glyphicon-transfer"></span> <strong>Trade ban: </strong>{{ session['tradeBanState'] }}</p>
+        <br />
+        <p><span class="glyphicon glyphicon-comment"></span> <strong>Bio: </strong>{{ session['summary'] }}</p>
+
 
         <div class="page-header">
             <h1>Dota 2 <small>Recent matches</small></h1>
         </div>
-
-        <p><a href="{{ url_for('update') }}" class="btn btn-primary">Update</a></p>
 
         <table class="table">
             <thead>
@@ -68,23 +63,23 @@
             </tr>
             </thead>
             <tbody>
-            {% for matches in user['matches'][-5:]|reverse %}
+
             <tr>
-                <td><a href="#">{{ matches }}</a></td>
+                <td><a href="#">%none%</a></td>
                 <td>%none%</td>
                 <td>%none%</td>
                 <td>%none%</td>
                 <td>%none%</td>
             </tr>
-            {% endfor %}
+
             </tbody>
         </table>
-
-
-
     </div>
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/holder.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  </body>
-</html>
+{% end %}
+{% block footer %}
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
+        </div>
+    </div>
+{% end %}
