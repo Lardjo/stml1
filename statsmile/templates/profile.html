@@ -44,6 +44,8 @@
         <p><span class="glyphicon glyphicon-calendar"></span> <strong>Member Since: </strong>{{ session['memberSince'] }}</p>
         <p><span class="glyphicon glyphicon-eye-close"></span> <strong>Privacy: </strong>You have a {{ session['privacyState'] }} profile</p>
         <p><span class="glyphicon glyphicon-transfer"></span> <strong>Trade ban: </strong>{{ session['tradeBanState'] }}</p>
+        <p><span class="glyphicon glyphicon-qrcode"></span> <strong>Steam ID: </strong>{{ session['steamID64'] }}
+        <a href="#"><span class="glyphicon glyphicon-save"></span></a></p>
         <br />
         <p><span class="glyphicon glyphicon-comment"></span> <strong>Bio: </strong>{{ session['summary'] }}</p>
 
