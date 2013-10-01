@@ -4,3 +4,4 @@ from .auth import AuthHandler
 from .user import UserHandler
 from .exit import LogoutHandler
 from .privacy import PrivacyHandler
+from .about import AboutHandler

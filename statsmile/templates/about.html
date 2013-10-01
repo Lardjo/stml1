@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}/ About{% end %}
+{% block menu %}
+    <li class="active"><a href="/">Home</a></li>
+    {% if session %}<li><a href="/user/{{ session['steamID64'] }}">Profile</a></li>{% else %}{% end %}
+{% end %}
+{% block login %}
+    {% if session %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatarIcon'] }}" class="img-circle pull-left img-style">Signed in as {{ session['steamID'] }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/user/{{ session['steamID64'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        </ul>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
+{% block content %}
+    <div class="general profile">
+        <div class="container">
+            <h1>About</h1>
+            <h4>Who are we?..</h4>
+        </div>
+    </div>
+    <div class="nowplay">
+        <div class="container">
+            <h4>Dear users! Statsmile only begins its development. You can help him develop. Please, read <a href="#">this page.</a></h4>
+        </div>
+    </div>
+    <div class="container">
+                <div class="page-header">
+                    <h1>Statsmile is...</h1>
+                </div>
+                <p>Service was conceived as a convenient place to store all of your information about your
+                    Steam™ profile. What for? It's a long question. We wanted to collect all the information
+                    in one place, so that the user does not "jumping" from one service to another.</p>
+                <p>Statsmile is hobby. So everything here is created exclusively on the enthusiasm and desire to learn.</p>
+                <p>Developer team.</p>
+                <h3>Development</h3>
+                <p>Want help with development service? Check our GitHub!..</p>
+    </div>
+{% end %}
+{% block footer %}
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
+        </div>
+    </div>
+{% end %}
