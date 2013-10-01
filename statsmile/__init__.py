@@ -31,7 +31,8 @@ class Statsmile(tornado.web.Application):
             ("/", handlers.MainHandler),
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
-            ("/user/(.*)", handlers.UserHandler)]
+            ("/user/(.*)", handlers.UserHandler),
+            ("/privacy", handlers.PrivacyHandler)]
 
         try:
             client = MongoClient("localhost", 27017)

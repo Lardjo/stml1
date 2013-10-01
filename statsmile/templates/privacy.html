@@ -1,17 +1,22 @@
 {% extends "base.html" %}
-{% block title %}/ Privacy{% endblock %}
+{% block title %}/ Privacy{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
-    {% if not session.user_id %}{% else %}<li><a href="{{ url_for('profile') }}">Profile</a></li>{% endif %}
-    <li><p class="navbar-text">Privacy</p></li>
-{% endblock %}
+    {% if session %}<li><a href="/user/{{ session['steamID64'] }}">Profile</a></li>{% else %}{% end %}
+{% end %}
 {% block login %}
-    {% if not session.user_id %}
-        <p class="navbar-text pull-right">Sign in with <a href="{{ url_for('login') }}">Steam ID</a></p>
+    {% if session %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatarIcon'] }}" class="img-circle pull-left img-style">Signed in as {{ session['steamID'] }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/user/{{ session['steamID64'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        </ul>
     {% else %}
-        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['nickname'] }}</a></p>
-    {% endif %}
-{% endblock %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
 {% block content %}
     <div class="general profile">
         <div class="container">
@@ -51,11 +56,11 @@
                 <p>2013, Statsmile; Powered by Steam; Dota 2 is a registered trademark of Valve Corporation.</p>
 
     </div>
-{% endblock %}
+{% end %}
 {% block footer %}
     <div id="footer">
         <div class="container">
             <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
         </div>
     </div>
-{% endblock %}
+{% end %}
