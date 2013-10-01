@@ -3,6 +3,7 @@
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li class="active"><a href="/user/{{ session['steamID64'] }}">Profile</a></li>
+    <li><a href="/settings">Settings</a></li>
 {% end %}
 {% block login %}
     {% if session %}

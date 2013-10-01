@@ -2,7 +2,10 @@
 {% block title %}{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
-    {% if not session %}{% else %}<li><a href="/user/{{ session['steamID64'] }}">Profile</a></li>{% end %}
+    {% if session %}
+        <li><a href="/user/{{ session['steamID64'] }}">Profile</a></li>
+        <li><a href="/settings">Settings</a></li>
+    {% else %}{% end %}
 {% end %}
 {% block login %}
     {% if session %}
