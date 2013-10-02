@@ -8,7 +8,7 @@ from datetime import datetime
 from .base import BaseHandler
 from statsmile.data import GetUser
 from statsmile.data import APIKEY
-from statsmile.data import steam64to32
+
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
     """
@@ -24,13 +24,10 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
         """
         if self.get_argument("openid.mode", None):
             claimed_id = yield self.get_authenticated_user()
-            self.steamid = claimed_id["claimed_id"][-17:]
-            rv = self.application.db["users"].find_one({"steamid": self.steamid})
+            steamid = claimed_id["claimed_id"][-17:]
+            rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
-                user = GetUser(self.steamid, APIKEY).user
-                user["steamID32"] = steam64to32(self.steamid)
-                user["last_login"] = datetime.now()
-                user["last_update"] = datetime.now()
+                user = GetUser(steamid, APIKEY).user
                 user["registration"] = datetime.now()
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
@@ -39,4 +36,5 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(rv["_id"])))
                 self.redirect("/")
             return
-        self.authenticate_redirect()
+        else:
+            yield self.authenticate_redirect()

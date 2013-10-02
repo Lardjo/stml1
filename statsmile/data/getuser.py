@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 import requests
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import ParseError
 
+from xml.etree.ElementTree import ParseError
+from datetime import datetime
+from .steam32 import steam64to32
 
 class GetUser:
 
     def __init__(self, steamid, steamkey):
         self.steamid = steamid
         self.steamkey = steamkey
-        self.user = {"dt2mt": []}
+        self.user = {}
         self.steam()
 
     def steam(self):
@@ -22,3 +24,7 @@ class GetUser:
                 self.user[child.tag] = child.text
             except ParseError:
                 self.user[child.tag] = None
+
+        self.user["steamID32"] = steam64to32(self.steamid)
+        self.user["last_login"] = datetime.now()
+        self.user["last_update"] = datetime.now()
