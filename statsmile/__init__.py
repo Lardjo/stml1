@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
-import sys
 import logging
 import os
 import tornado.ioloop
 import tornado.web
 
-from pymongo import MongoClient
-from pymongo.errors import ConnectionFailure
 from statsmile import handlers
+from statsmile.data import db
 
 
 class Statsmile(tornado.web.Application):
-    """
 
-    """
     def __init__(self):
         """
         Settings, handlers, connect to database
@@ -35,13 +31,7 @@ class Statsmile(tornado.web.Application):
             ("/about", handlers.AboutHandler),
             ("/settings", handlers.SettingsHandler)]
 
-        try:
-            client = MongoClient("localhost", 27017)
-            self.db = client["statsmile"]
-            logging.info("Mongo database is connected")
-        except ConnectionFailure:
-            logging.fatal("Database connection can\'t be established, terminating!")
-            sys.exit(1)
+        self.db = db
 
         super(Statsmile, self).__init__(handlers_list, **settings)
         self.listen(8888)
