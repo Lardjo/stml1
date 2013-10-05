@@ -66,15 +66,15 @@
             </tr>
             </thead>
             <tbody>
-
+            {% for matches in session['dt2mt'][-5:] %}
             <tr>
-                <td><a href="#">%none%</a></td>
+                <td><a href="#">{{ matches }}</a></td>
                 <td>%none%</td>
                 <td>%none%</td>
                 <td>%none%</td>
                 <td>%none%</td>
             </tr>
-
+            {% end %}
             </tbody>
         </table>
     </div>
