@@ -49,7 +49,76 @@
         <a href="#"><span class="glyphicon glyphicon-save"></span></a></p>
         <br />
         <p><span class="glyphicon glyphicon-comment"></span> <strong>Bio: </strong>{{ session['summary'] }}</p>
+        <br />
+        <p><span class="glyphicon glyphicon-send"></span> <strong>Games: </strong>{{ session['games']['total-games'] }}</p>
 
+        <div class="page-header">
+            <h1><small>Top Se7en best games ever</small></h1>
+        </div>
+
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-1']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-1']['name'] }}</h4>
+                        {{ session['games']['best-1']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-2']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-2']['name'] }}</h4>
+                        {{ session['games']['best-2']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-3']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-3']['name'] }}</h4>
+                        {{ session['games']['best-3']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-4']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-4']['name'] }}</h4>
+                        {{ session['games']['best-4']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-5']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-5']['name'] }}</h4>
+                        {{ session['games']['best-5']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-6']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-6']['name'] }}</h4>
+                        {{ session['games']['best-6']['hours'] }} hrs on record
+                    </div>
+                </div>
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ session['games']['best-7']['avatar'] }}" >
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ session['games']['best-7']['name'] }}</h4>
+                        {{ session['games']['best-7']['hours'] }} hrs on record
+                    </div>
+                </div>
 
         <div class="page-header">
             <h1>Dota 2 <small>Recent matches</small></h1>
