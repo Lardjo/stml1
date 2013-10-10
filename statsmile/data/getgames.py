@@ -43,7 +43,7 @@ class GetGames:
 
         time = reduce(lambda a, b: a + b, map(lambda x: x[1]['hours'], games.items()))
         dict_as_list = games.values()
-        best = sorted(dict_as_list, key=lambda k: k['hours'], reverse=True)[:6]
+        best = sorted(dict_as_list, key=lambda k: k['hours'], reverse=True)[:7]
         best_time = reduce(lambda a, b: a + b, map(lambda x: x['hours'], best))
         other_time = time - best_time
         self.games = {"total-time": time,
@@ -55,4 +55,5 @@ class GetGames:
                       "best-3": {"name": best[2]['name'], "avatar": best[2]['logo'], "hours": best[2]['hours']},
                       "best-4": {"name": best[3]['name'], "avatar": best[3]['logo'], "hours": best[3]['hours']},
                       "best-5": {"name": best[4]['name'], "avatar": best[4]['logo'], "hours": best[4]['hours']},
-                      "best-6": {"name": best[5]['name'], "avatar": best[5]['logo'], "hours": best[5]['hours']}}
+                      "best-6": {"name": best[5]['name'], "avatar": best[5]['logo'], "hours": best[5]['hours']},
+                      "best-7": {"name": best[6]['name'], "avatar": best[6]['logo'], "hours": best[6]['hours']}}
