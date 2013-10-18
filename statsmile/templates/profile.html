@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% block title %}/ {{ user['steamID'] }}{% end %}
+{% block title %}/ {{ user['steamid'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
-    <li class="active"><a href="/user/{{ session['steamID64'] }}">Profile</a></li>
-    <li><a href="/settings">Settings</a></li>
+    <li class="active"><a href="/user/{{ session['steamid'] }}">Profile</a></li>
 {% end %}
 {% block login %}
     {% if session %}
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatarIcon'] }}" class="img-circle pull-left img-style">Signed in as {{ session['steamID'] }} <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="/user/{{ session['steamID64'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
             <li class="divider"></li>
             <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
@@ -21,131 +20,33 @@
 {% block content %}
     <div class="general profile">
         <div class="container">
-           <h1>{{ session['steamID'] }}</h1>
-           <h4>{{ session['location'] }}</h4>
+           <h1>{{ session['personaname'] }}</h1>
+           <h4>{{ session['loccountrycode'] }}</h4>
            <h4>{{ session['realname'] }}</h4>
         </div>
     </div>
     <div class="nowplay">
-        <div class="container">
-            {% if session['onlineState'] == "in-game" %}
-            <h4>Just now playing in {{ session['stateMessage'][12:] }}</h4>
-            {% elif session['onlineState'] == "offline" %}
-            <h4>Currently {{ session['onlineState'] }}. {{ session['stateMessage'] }}</h4>
-            {% else %}
-            <h4>Currently {{ session['onlineState'] }}</h4>
-            {% end %}
-        </div>
+        <div class="container"></div>
     </div>
     <div class="container">
-        <div class="page-header">
-            <h1>Steam <small>User information</small></h1>
+        <div class="row">
+            <div class="col-md-8">
+                 <div class="page-header">
+                     <h1>Favorite Heroes<small> All time</small></h1>
+                 </div>
+            </div>
+            <div class="col-md-4">
+                 <div class="page-header">
+                     <h1>Overview<small> Last</small></h1>
+                 </div>
+            </div>
         </div>
-
-        <p><span class="glyphicon glyphicon-calendar"></span> <strong>Member Since: </strong>{{ session['memberSince'] }}</p>
-        <p><span class="glyphicon glyphicon-eye-close"></span> <strong>Privacy: </strong>You have a {{ session['privacyState'] }} profile</p>
-        <p><span class="glyphicon glyphicon-transfer"></span> <strong>Trade ban: </strong>{{ session['tradeBanState'] }}</p>
-        <p><span class="glyphicon glyphicon-qrcode"></span> <strong>Steam ID: </strong>{{ session['steamID64'] }}
-        <a href="#"><span class="glyphicon glyphicon-save"></span></a></p>
-        <br />
-        <p><span class="glyphicon glyphicon-comment"></span> <strong>Bio: </strong>{{ session['summary'] }}</p>
-        <br />
-        <p><span class="glyphicon glyphicon-send"></span> <strong>Games: </strong>{{ session['games']['total-games'] }}</p>
-
         <div class="page-header">
-            <h1><small>Top Se7en best games ever</small></h1>
+            <h1>Recent Match<small> At the time of update</small></h1>
         </div>
-
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-1']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-1']['name'] }}</h4>
-                        {{ session['games']['best-1']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-2']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-2']['name'] }}</h4>
-                        {{ session['games']['best-2']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-3']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-3']['name'] }}</h4>
-                        {{ session['games']['best-3']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-4']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-4']['name'] }}</h4>
-                        {{ session['games']['best-4']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-5']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-5']['name'] }}</h4>
-                        {{ session['games']['best-5']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-6']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-6']['name'] }}</h4>
-                        {{ session['games']['best-6']['hours'] }} hrs on record
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="{{ session['games']['best-7']['avatar'] }}" >
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ session['games']['best-7']['name'] }}</h4>
-                        {{ session['games']['best-7']['hours'] }} hrs on record
-                    </div>
-                </div>
-
         <div class="page-header">
-            <h1>Dota 2 <small>Recent matches</small></h1>
+            <h1>Latest Matches<small> Full list</small></h1>
         </div>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Match ID</th>
-                <th>Result</th>
-                <th>Duration</th>
-                <th>The Radiant</th>
-                <th>The Dire</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for matches in session['dt2mt'][-5:] %}
-            <tr>
-                <td><a href="#">{{ matches }}</a></td>
-                <td>%none%</td>
-                <td>%none%</td>
-                <td>%none%</td>
-                <td>%none%</td>
-            </tr>
-            {% end %}
-            </tbody>
-        </table>
     </div>
 {% end %}
 {% block footer %}
