@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-from .getuser import GetUser
-from .getdota import GetDota
-from .getgames import GetGames
-from .api import APIKEY
-from .steam32 import steam64to32
+from .user import get_steam_user
+from .api import apikey
+from .steam32 import steamid
 from .mongo import db

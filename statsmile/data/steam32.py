@@ -2,7 +2,7 @@
 
 STEAMNULL = 76561197960265728
 
-def steam64to32(steam64):
+def steamid(steam64):
     """
     Converter Steam ID 64 to 32
     All rights reserved. 2013. Konstantin N.
