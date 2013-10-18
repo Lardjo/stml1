@@ -2,22 +2,39 @@
 import requests
 import json
 
+from .api import apikey
+from .mongo import db
 
-class GetDota:
+def get_dota_matches_id(steamid, **options):
 
-    def __init__(self, steamid, apikey):
-        self.steamid = steamid
-        self.apikey = apikey
-        self.dt2mt = []
-        self.dota()
+        last = []
+        update = []
 
-    def dota(self):
-
-        options = {'key': self.apikey, 'account_id': self.steamid}
+        options = {'key': apikey, 'account_id': steamid}
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params=options)
         f = json.loads(r.text)
 
         for mid in f['result']['matches']:
-            self.dt2mt.append(mid['match_id'])
+            last.append(mid['match_id'])
 
-        self.dt2mt.sort()
+        last.sort()
+
+        if options.get("update") == "True":
+
+            slices = db.users.find_one({"steamid": steamid}, {"matches": {"$slice": 100}})
+
+            for key in last:
+
+                if key in slices['matches']:
+                    pass
+                else:
+                    update.append(key)
+
+            if not update:
+                pass
+            else:
+                db.users.update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
+
+        if options.get("auth") == "True":
+
+            return last
