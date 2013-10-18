@@ -13,7 +13,7 @@ class UserHandler(BaseHandler):
         Function Get
         Parameters: ../user/<sid>
         """
-        user = self.application.db['users'].find_one({"steamID64": sid})
+        user = self.application.db['users'].find_one({"steamid": sid})
         session=self.application.db['users'].find_one({"_id": ObjectId(self.current_user)})
 
         if user:

@@ -6,10 +6,7 @@ import tornado.web
 from tornado import gen
 from datetime import datetime
 from .base import BaseHandler
-from statsmile.data import GetUser
-from statsmile.data import GetDota
-from statsmile.data import GetGames
-from statsmile.data import APIKEY
+from statsmile.data import get_steam_user
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -29,12 +26,8 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             steamid = claimed_id["claimed_id"][-17:]
             rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
-                user = GetUser(steamid, APIKEY).user
-                games = GetGames(steamid).games
-                dota = GetDota(steamid, APIKEY).dt2mt
+                user = get_steam_user(steamid)
                 user["registration"] = datetime.now()
-                user["dt2mt"] = dota
-                user["games"] = games
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
                 self.redirect("/")
