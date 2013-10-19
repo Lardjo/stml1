@@ -5,7 +5,7 @@ import json
 from .api import apikey
 from .mongo import db
 
-def get_dota_matches_id(steamid, **options):
+def get_dota_matches_id(steamid, **arg):
 
         last = []
         update = []
@@ -19,7 +19,7 @@ def get_dota_matches_id(steamid, **options):
 
         last.sort()
 
-        if options.get("update") == "True":
+        if arg.get("update") == "True":
 
             slices = db.users.find_one({"steamid": steamid}, {"matches": {"$slice": 100}})
 
@@ -35,6 +35,6 @@ def get_dota_matches_id(steamid, **options):
             else:
                 db.users.update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
 
-        if options.get("auth") == "True":
+        elif arg.get("update") == "False":
 
             return last
