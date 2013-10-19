@@ -4,6 +4,9 @@ import os
 import tornado.ioloop
 import tornado.web
 
+from functools import partial
+from tornado import gen
+from tornado.ioloop import IOLoop
 from statsmile import handlers
 from statsmile.data import db
 
@@ -11,9 +14,7 @@ from statsmile.data import db
 class Statsmile(tornado.web.Application):
 
     def __init__(self):
-        """
-        Settings, handlers, connect to database
-        """
+
         settings = {
             "cookie_secret": "#B&.Cu4QDe%{-m!`BbVa$YM+oXWk_5VT=iVEx@r97OBNflH>v_u]hcd?1#m.DF<",
             "gzip": True,
@@ -27,10 +28,10 @@ class Statsmile(tornado.web.Application):
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
             ("/user/(.*)", handlers.UserHandler),
-            ("/privacy", handlers.PrivacyHandler),
             ("/about", handlers.AboutHandler),
             ("/settings", handlers.SettingsHandler)]
 
+        # Database initialization
         self.db = db
 
         super(Statsmile, self).__init__(handlers_list, **settings)
