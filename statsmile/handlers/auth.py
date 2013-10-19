@@ -27,7 +27,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
                 user, dota = [get_steam_user(steamid),
-                              get_dota_matches_id(steamid, update='False')]
+                              get_dota_matches_id(steamid)]
                 user["registration"] = datetime.now()
                 user["matches"] = dota
                 self.application.db["users"].insert(user)
