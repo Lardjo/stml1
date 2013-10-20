@@ -39,7 +39,7 @@ class GetDota(object):
             self.logging.info("User '{}' has been updated. New matches not found".format(steamid))
         else:
             self.db['users'].update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
-            self.logging.info("User '{}' has been updated. Added {} new matches".format(steamid), len(update))
+            self.logging.info("User '{}' has been updated. Added '{}' matches".format(steamid, len(update)))
 
         self.db['users'].update(
             {"steamid": steamid},
