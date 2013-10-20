@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}/ {{ user['steamid'] }}{% end %}
+{% block title %}/ {{ user['personaname'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li class="active"><a href="/user/{{ session['steamid'] }}">Profile</a></li>
@@ -47,6 +47,26 @@
         <div class="page-header">
             <h1>Latest Matches<small> Full list</small></h1>
         </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Match ID</th>
+                    <th>Result</th>
+                    <th>The Radiant</th>
+                    <th>The Dire</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for matches in reversed(session['matches'][-5:]) %}
+                <tr>
+                    <td>{{ matches }}</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            {% end %}
+            </tbody>
+        </table>
     </div>
 {% end %}
 {% block footer %}

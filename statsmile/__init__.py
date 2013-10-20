@@ -1,17 +1,33 @@
 #!/usr/bin/env python3
 import logging
 import os
+import sys
 import tornado.ioloop
 import tornado.web
 
 from functools import partial
-from tornado import gen
+from pymongo import ASCENDING
 from tornado.ioloop import IOLoop
+from tornado import gen
 from statsmile import handlers
-from statsmile.data import db
+from statsmile.data import GetDota
+from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
 
 
 class Statsmile(tornado.web.Application):
+
+    @gen.coroutine
+    def periodic(self, user):
+        self.logger.debug("Started updating '{}' user".format(user['steamid']))
+
+        yield GetDota(self.db, self.logger).get_dota_matches_id(user['steamid'])
+        self.__update.remove(user['_id'])
+
+        new_match = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}}, sort=[('next_update', ASCENDING)], limit=1)
+
+        IOLoop.instance().add_timeout(new_match['next_update'].timestamp(), partial(self.periodic, new_match))
+        self.__update.append(new_match['_id'])
 
     def __init__(self):
 
@@ -31,9 +47,31 @@ class Statsmile(tornado.web.Application):
             ("/about", handlers.AboutHandler),
             ("/settings", handlers.SettingsHandler)]
 
-        # Database initialization
-        self.db = db
+        # Logger
+        if settings['debug']:
+            logging.getLogger().setLevel(logging.DEBUG)
+
+        self.logger = logging.getLogger('log')
+        self.logger.info("Log initialization complete")
+
+        # Database
+        try:
+            client = MongoClient("localhost", 27017)
+            self.logger.info("Mongo database is connected")
+        except ConnectionFailure:
+            self.logger.fatal("Database connection can\'t be established, terminating!")
+            sys.exit(1)
+
+        self.db = client['statsmile']
+
+        # Background updater
+        self.__update = []
+
+        users = self.db['users'].find({}).sort('next_update').limit(5)
+        for it in users:
+            IOLoop.instance().add_timeout(it['next_update'].timestamp(), partial(self.periodic, it))
+            self.__update.append(it['_id'])
 
         super(Statsmile, self).__init__(handlers_list, **settings)
         self.listen(8888)
-        logging.info("Statsmile server is started!")
+        self.logger.info("Statsmile server is started!")

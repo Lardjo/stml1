@@ -4,7 +4,7 @@ import tornado.escape
 import tornado.web
 
 from tornado import gen
-from datetime import datetime
+from datetime import datetime, timedelta
 from .base import BaseHandler
 from statsmile.data import get_steam_user, get_dota_matches_id
 
@@ -29,6 +29,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
                 user, dota = [get_steam_user(steamid),
                               get_dota_matches_id(steamid)]
                 user["registration"] = datetime.now()
+                user["next_update"] = datetime.now()
                 user["matches"] = dota
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
