@@ -26,7 +26,7 @@ class GetDota(object):
             last.append(mid['match_id'])
 
         last.sort()
-        slices = self.db['users'].find_one({"steamid": steamid}, {"matches": {"$slice": 100}})
+        slices = self.db['users'].find_one({"steamid": steamid}, {"matches": {"$slice": -100}})
 
         for key in last:
 
@@ -44,6 +44,6 @@ class GetDota(object):
         self.db['users'].update(
             {"steamid": steamid},
             {'$set': {
-                'next_update': datetime.now() + timedelta(minutes=2)
+                'next_update': datetime.now() + timedelta(minutes=1)
             }}
         )
