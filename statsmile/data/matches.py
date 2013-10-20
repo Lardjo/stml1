@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-import requests
-import json
+import tornado.escape
 
 from tornado import gen
+from tornado.httputil import url_concat
+from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
 from statsmile.data import apikey
 
 
 class GetDota(object):
+
     def __init__(self, db, log):
         self.db = db
         self.logging = log
@@ -18,11 +20,18 @@ class GetDota(object):
         last = []
         update = []
 
-        options = {'key': apikey, 'account_id': steamid}
-        r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params=options)
-        f = json.loads(r.text)
+        params = {"key": apikey, "account_id": steamid}
+        url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
 
-        for mid in f['result']['matches']:
+        response = yield AsyncHTTPClient().fetch(url)
+
+        if response.error:
+            self.logging.info("User '{}' has not updated. Remote server not respond.".format(steamid))
+            return
+        else:
+            array = tornado.escape.json_decode(response.body)
+
+        for mid in array['result']['matches']:
             last.append(mid['match_id'])
 
         last.sort()
@@ -41,9 +50,4 @@ class GetDota(object):
             self.db['users'].update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
             self.logging.info("User '{}' has been updated. Added '{}' matches".format(steamid, len(update)))
 
-        self.db['users'].update(
-            {"steamid": steamid},
-            {'$set': {
-                'next_update': datetime.now() + timedelta(minutes=1)
-            }}
-        )
+        self.db['users'].update({"steamid": steamid}, {'$set': {'next_update': datetime.now() + timedelta(minutes=1)}})
