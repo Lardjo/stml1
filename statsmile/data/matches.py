@@ -50,4 +50,4 @@ class GetDota(object):
             self.db['users'].update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
             self.logging.info("User '{}' has been updated. Added '{}' matches".format(steamid, len(update)))
 
-        self.db['users'].update({"steamid": steamid}, {'$set': {'next_update': datetime.now() + timedelta(minutes=1)}})
+        self.db['users'].update({"steamid": steamid}, {'$set': {'next_update': datetime.now() + timedelta(minutes=15)}})
