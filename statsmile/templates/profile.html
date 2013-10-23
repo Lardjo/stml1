@@ -21,12 +21,13 @@
     <div class="general profile">
         <div class="container">
            <h1>{{ session['personaname'] }}</h1>
-           <h4>{{ session['loccountrycode'] }}</h4>
            <h4>{{ session['realname'] }}</h4>
         </div>
     </div>
     <div class="nowplay">
-        <div class="container"></div>
+        <div class="container">
+            <h4>Dear users! Statsmile only begins its development. You can help him develop. Please, read <a href="#">this page.</a></h4>
+        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -34,16 +35,178 @@
                  <div class="page-header">
                      <h1>Favorite Heroes<small> All time</small></h1>
                  </div>
+                <!-- Top 1 -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="data-src=holder.js/80x45">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">%hero%</h4>
+                        %s Matches Played
+                    </div>
+                </div>
+                <!-- Top 2 -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="data-src=holder.js/80x45">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">%hero%</h4>
+                        %s Matches Played
+                    </div>
+                </div>
+                <!-- Top 3 -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="data-src=holder.js/80x45">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">%hero%</h4>
+                        %s Matches Played
+                    </div>
+                </div>
+                <!-- Top 4 -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="data-src=holder.js/80x45">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">%hero%</h4>
+                        %s Matches Played
+                    </div>
+                </div>
+                <!-- Top 5 -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="data-src=holder.js/80x45">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">%hero%</h4>
+                        %s Matches Played
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
                  <div class="page-header">
                      <h1>Overview<small> Last</small></h1>
                  </div>
+                <p><strong>Last Match:</strong> %none%</p>
+                <p><strong>Total:</strong> %none%</p>
+                <p>
+                    <strong>Win Rate:</strong>    %none%
+                    <div class="progress progress-margin">
+                        <div class="progress-bar progress-bar-success" style="width: 50%">
+                            %s Wins
+                        </div>
+                        <div class="progress-bar progress-bar-danger" style="width: 50%">
+                            %s Loses
+                        </div>
+                    </div>
+                </p>
+
             </div>
         </div>
         <div class="page-header">
             <h1>Recent Match<small> At the time of update</small></h1>
         </div>
+        <table class="table table-bordered">
+                <thead>
+                <tr><th class="text-success" colspan="13">The Radiant</tr>
+                <tr>
+                    <th class="muted">Player</th>
+                    <th class="muted">Hero</th>
+                    <th class="muted" colspan="6">Items</th>
+                    <th class="muted">DN</th>
+                    <th class="muted">LH</th>
+                    <th class="muted">XPM</th>
+                    <th class="muted">GPM</th>
+                    <th class="muted">KDA</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="muted">Anonymous</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ static_url('img/dota/heroes/pudge.png') }}" />
+                            <div class="label-hero"><h6>25 Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 40px;">4</td>
+                    <td style="width: 40px;">142</td>
+                    <td style="width: 40px;">547</td>
+                    <td style="width: 40px;">412</td>
+                    <td style="width: 200px;">
+                        <div class="progress progress-margin">
+                            <div class="progress-bar progress-bar-success" style="width: 34%;">34</div>
+                            <div class="progress-bar progress-bar-danger" style="width: 54%;">54</div>
+                            <div class="progress-bar progress-bar-warning" style="width: 12%;">12</div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <thead>
+                <tr><th class="text-danger" colspan="13">The Dire</tr>
+                </thead>
+            <tbody>
+                <tr>
+                    <td class="muted">Anonymous</td>
+                    <td style="width: 80px; padding: 1px;">
+                        <div style="position: relative;">
+                            <img src="{{ static_url('img/dota/heroes/pudge.png') }}" />
+                            <div class="label-hero"><h6>25 Level</h6></div>
+                        </div>
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 60px; padding: 1px;">
+                        <img src="data-src=holder.js/60x45" />
+                    </td>
+                    <td style="width: 40px;">4</td>
+                    <td style="width: 40px;">142</td>
+                    <td style="width: 40px;">547</td>
+                    <td style="width: 40px;">412</td>
+                    <td style="width: 200px;">
+                        <div class="progress progress-margin">
+                            <div class="progress-bar progress-bar-success" style="width: 34%;">34</div>
+                            <div class="progress-bar progress-bar-danger" style="width: 54%;">54</div>
+                            <div class="progress-bar progress-bar-warning" style="width: 12%;">12</div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         <div class="page-header">
             <h1>Latest Matches<small> Full list</small></h1>
         </div>
