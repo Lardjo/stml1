@@ -2,13 +2,12 @@
 import requests
 import json
 
-from .api import apikey
-
-def get_dota_matches_id(steamid):
+def get_dota_matches_id(db, steamid):
 
     first = []
 
-    options = {'key': apikey, 'account_id': steamid}
+    key = db["settings"].find_one()
+    options = {'key': key["apikey"], 'account_id': steamid}
     r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params=options)
     f = json.loads(r.text)
 

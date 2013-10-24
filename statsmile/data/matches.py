@@ -5,7 +5,6 @@ from tornado import gen
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
-from statsmile.data import apikey
 
 
 class GetDota(object):
@@ -19,8 +18,8 @@ class GetDota(object):
 
         last = []
         update = []
-
-        params = {"key": apikey, "account_id": steamid}
+        key = self.db["settings"].find_one()
+        params = {"key": key["apikey"], "account_id": steamid}
         url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
 
         response = yield AsyncHTTPClient().fetch(url)

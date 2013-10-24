@@ -4,7 +4,7 @@ import tornado.escape
 import tornado.web
 
 from tornado import gen
-from datetime import datetime, timedelta
+from datetime import datetime
 from .base import BaseHandler
 from statsmile.data import get_steam_user, get_dota_matches_id
 
@@ -26,8 +26,8 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             steamid = claimed_id["claimed_id"][-17:]
             rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
-                user, dota = [get_steam_user(steamid),
-                              get_dota_matches_id(steamid)]
+                user, dota = [get_steam_user(self.application.db, steamid),
+                              get_dota_matches_id(self.application.db, steamid)]
                 user["registration"] = datetime.now()
                 user["next_update"] = datetime.now()
                 user["matches"] = dota

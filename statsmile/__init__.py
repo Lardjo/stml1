@@ -64,6 +64,10 @@ class Statsmile(tornado.web.Application):
 
         self.db = client['statsmile']
 
+        # Settings
+        if not 'settings' in self.db.collection_names():
+            self.db.create_collection('settings')
+
         # Background updater
         self.__update = []
 
