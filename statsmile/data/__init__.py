@@ -2,4 +2,4 @@
 from .user import get_steam_user
 from .steam32 import steamid
 from .matchid import get_dota_matches_id
-from .matches import GetDota
+from .matches import UpdateMatches

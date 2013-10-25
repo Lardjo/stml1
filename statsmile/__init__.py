@@ -10,7 +10,7 @@ from pymongo import ASCENDING
 from tornado.ioloop import IOLoop
 from tornado import gen
 from statsmile import handlers
-from statsmile.data import GetDota
+from statsmile.data import UpdateMatches
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
@@ -21,7 +21,7 @@ class Statsmile(tornado.web.Application):
     def periodic(self, user):
         self.logger.debug("Started updating '{}' user".format(user['steamid']))
 
-        yield GetDota(self.db, self.logger).get_dota_matches_id(user['steamid'])
+        yield UpdateMatches(self.db, self.logger).get_dota_matches_id(user['steamid'])
         self.__update.remove(user['_id'])
 
         new_match = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}}, sort=[('next_update', ASCENDING)], limit=1)

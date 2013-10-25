@@ -7,7 +7,7 @@ from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
 
 
-class GetDota(object):
+class UpdateMatches(object):
 
     def __init__(self, db, log):
         self.db = db
