@@ -14,7 +14,7 @@ class UpdateMatches(object):
         self.logging = log
 
     @gen.coroutine
-    def get_dota_matches_id(self, steamid):
+    def update_matches_id(self, steamid):
 
         last = []
         update = []
