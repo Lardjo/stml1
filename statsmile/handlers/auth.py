@@ -6,7 +6,7 @@ import tornado.web
 from tornado import gen
 from datetime import datetime
 from .base import BaseHandler
-from statsmile.data import get_steam_user, get_dota_matches_id
+from statsmile.data import get_steam_user, GetMatchesID
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -26,14 +26,15 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             steamid = claimed_id["claimed_id"][-17:]
             rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
-                user, dota = [get_steam_user(self.application.db, steamid),
-                              get_dota_matches_id(self.application.db, steamid)]
+                user = get_steam_user(self.application.db,
+                                      self.application.logger,
+                                      steamid)
                 user["registration"] = datetime.now()
                 user["next_update"] = datetime.now()
-                user["matches"] = dota
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
                 self.redirect("/")
+                yield GetMatchesID(self.application.db, self.application.logger).get_matches(steamid)
             else:
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(rv["_id"])))
                 self.redirect("/")
