@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 from .user import get_steam_user
-from .steam32 import steamid
-from .matchid import GetMatchesID
-from .matches import UpdateMatches
+from .converter import converter
+from .getmatches import getting_matches_id
+from .update import UpdateMatches
