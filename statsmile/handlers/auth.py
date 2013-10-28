@@ -6,7 +6,7 @@ import tornado.web
 from tornado import gen
 from datetime import datetime
 from .base import BaseHandler
-from statsmile.data import get_steam_user, GetMatchesID
+from statsmile.data import get_steam_user, getting_matches_id
 
 
 class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
@@ -34,7 +34,7 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
                 self.redirect("/")
-                yield GetMatchesID(self.application.db, self.application.logger).get_matches(steamid)
+                yield getting_matches_id(steamid, self.application.db, self.application.logger)
             else:
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(rv["_id"])))
                 self.redirect("/")
