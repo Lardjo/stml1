@@ -2,8 +2,6 @@
 import tornado.escape
 import requests
 
-from tornado import httpclient
-from tornado.httputil import url_concat
 from .base import BaseHandler
 from bson import ObjectId
 
@@ -33,9 +31,7 @@ class MainHandler(BaseHandler):
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key={}".format(apikey))
 
         if r.status_code in (401, 500, 404):
-            self.application.logger.fatal("Error! API invalid!")
             return False
-        self.application.logger.info("API is valid! Ok")
         return True
 
     def post(self):

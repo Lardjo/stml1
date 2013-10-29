@@ -32,7 +32,7 @@ class Statsmile(tornado.web.Application):
     def __init__(self):
 
         settings = {
-            "cookie_secret": "#B&.Cu4QDe%{-m!`BbVa$YM+oXWk_5VT=iVEx@r97OBNflH>v_u]hcd?1#m.DF<",
+            "cookie_secret": "develop",
             "gzip": True,
             "debug": True,
             "login_url": "/auth/login",
@@ -57,7 +57,7 @@ class Statsmile(tornado.web.Application):
         # Database
         try:
             client = MongoClient("localhost", 27017)
-            self.logger.info("Mongo database is connected")
+            self.logger.info("Database is connected")
         except ConnectionFailure:
             self.logger.fatal("Database connection can\'t be established, terminating!")
             sys.exit(1)
