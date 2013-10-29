@@ -23,7 +23,8 @@ class Statsmile(tornado.web.Application):
         yield UpdateMatches(self.db, self.logger).update_matches_id(user['steamid'])
         self.__update.remove(user['_id'])
 
-        new_match = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}}, sort=[('next_update', ASCENDING)], limit=1)
+        new_match = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}},
+                                              sort=[('next_update', ASCENDING)], limit=1)
 
         IOLoop.instance().add_timeout(new_match['next_update'].timestamp(), partial(self.periodic, new_match))
         self.__update.append(new_match['_id'])

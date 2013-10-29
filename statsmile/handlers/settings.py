@@ -2,9 +2,6 @@
 from .base import BaseHandler
 from bson import ObjectId
 
-default = {
-    'updates': 5
-}
 
 class SettingsHandler(BaseHandler):
     """

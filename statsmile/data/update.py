@@ -46,7 +46,7 @@ class UpdateMatches(object):
         if not update:
             self.logging.info("User '{}' has been updated. New matches not found".format(steamid))
         else:
-            self.db['users'].update({"steamid": steamid}, { '$push': {"matches": {"$each": update}}})
+            self.db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": update}}})
             self.logging.info("User '{}' has been updated. Added '{}' matches".format(steamid, len(update)))
 
         self.db['users'].update({"steamid": steamid}, {'$set': {'next_update': datetime.now() + timedelta(minutes=15)}})

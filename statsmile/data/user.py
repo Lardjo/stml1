@@ -4,6 +4,7 @@ import tornado.escape
 from tornado import httpclient
 from tornado.httputil import url_concat
 
+
 def get_steam_user(db, log, steamid):
 
     array = None

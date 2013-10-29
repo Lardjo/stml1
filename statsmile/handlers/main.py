@@ -2,14 +2,14 @@
 import tornado.escape
 import requests
 
+from tornado import httpclient
+from tornado.httputil import url_concat
 from .base import BaseHandler
 from bson import ObjectId
 
 
 class MainHandler(BaseHandler):
-    """
-    MainHandler
-    """
+
     def get(self):
 
         settings = self.application.db['settings'].find_one({"apikey": {"$exists": 'true'}})
@@ -29,13 +29,13 @@ class MainHandler(BaseHandler):
                 self.render("index.html", session=None)
 
     def check_apikey(self, apikey):
-        """
-        Validator for Steam API key
-        """
+
         r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key={}".format(apikey))
 
         if r.status_code in (401, 500, 404):
+            self.application.logger.fatal("Error! API invalid!")
             return False
+        self.application.logger.info("API is valid! Ok")
         return True
 
     def post(self):
@@ -48,5 +48,5 @@ class MainHandler(BaseHandler):
             self.application.db["settings"].insert(settings)
             self.redirect("/")
         else:
-            error_msg = "?error=" + tornado.escape.url_escape("Your Steam API key a invalid. Please, recheck and enter again")
+            error_msg = "?error=" + tornado.escape.url_escape("Your Steam API key a invalid. Please, enter again")
             self.redirect("/" + error_msg)

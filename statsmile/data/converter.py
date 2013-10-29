@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 def converter(steam64):
     """
     Converter Steam ID 64 to 32
@@ -9,5 +10,5 @@ def converter(steam64):
     return steam32
 
 if __name__ == "__main__":
-    value  = int(input("Please, enter your Steam ID 64: "))
+    value = int(input("Please, enter your Steam ID 64: "))
     print("Your Steam ID 32:", converter(value))
