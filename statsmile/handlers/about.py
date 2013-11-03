@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
+
 from .base import BaseHandler
 from bson import ObjectId
 
 
 class AboutHandler(BaseHandler):
-    """
-    AboutHandler
-    """
     def get(self):
         if self.get_current_user():
             self.render("about.html",

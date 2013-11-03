@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}/ {{ user['personaname'] }}{% end %}
+{% block title %}/ {{ session['personaname'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li class="active"><a href="/user/{{ session['steamid'] }}">Profile</a></li>
