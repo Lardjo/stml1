@@ -1,16 +1,29 @@
 #!/usr/bin/env python3
-import tornado.escape
-import requests
 
-from tornado import httpclient
+import tornado.escape
+
+from datetime import datetime
+from tornado.httpclient import HTTPClient, HTTPError
 from tornado.httputil import url_concat
 
 
 def get_steam_user(db, log, steamid):
 
-    key = db["settings"].find_one()
-    params = {'key': key['apikey'], 'steamids': steamid}
-    r = requests.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params=params)
-    response = r.json()
+    user = {}
 
-    return response['response']['players'][0] or {}
+    key = db["settings"].find_one()
+    params = {"key": key["apikey"], "steamids": steamid}
+    url = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params)
+
+    http_client = HTTPClient()
+
+    try:
+        response = http_client.fetch(url)
+        user = tornado.escape.json_decode(response.body)['response']['players'][0]
+        user["registration"] = datetime.now()
+        user["next_update"] = datetime.now()
+    except HTTPError as e:
+        log.error("Error: {}".format(e))
+
+    http_client.close()
+    return user

@@ -1,26 +1,24 @@
 #!/usr/bin/env python3
-import logging
+
 import os
-import sys
-import tornado.ioloop
+import logging
 import tornado.web
 
-from functools import partial
 from tornado import gen
 from tornado.ioloop import IOLoop
+from functools import partial
 from pymongo import MongoClient, ASCENDING
 from pymongo.errors import ConnectionFailure
 from statsmile import handlers
-from statsmile.data import UpdateMatches
+from statsmile.data import update_matches_id
 
 
 class Statsmile(tornado.web.Application):
-
     @gen.coroutine
     def periodic(self, user):
         self.logger.debug("Started updating '{}' user".format(user['steamid']))
 
-        yield UpdateMatches(self.db, self.logger).update_matches_id(user['steamid'])
+        yield update_matches_id(self.db, self.logger, user['steamid'])
         self.__update.remove(user['_id'])
 
         new_match = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}},
@@ -30,52 +28,48 @@ class Statsmile(tornado.web.Application):
         self.__update.append(new_match['_id'])
 
     def __init__(self):
-
-        settings = {
-            "cookie_secret": "develop",
-            "gzip": True,
-            "debug": True,
-            "login_url": "/auth/login",
-            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
-            "static_path": os.path.join(os.path.dirname(__file__), "static")}
-
         handlers_list = [
             ("/", handlers.MainHandler),
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
             ("/user/(.*)", handlers.UserHandler),
             ("/about", handlers.AboutHandler),
-            ("/settings", handlers.SettingsHandler)]
-
-        # Logger
-        if settings['debug']:
-            logging.getLogger().setLevel(logging.DEBUG)
-
-        self.logger = logging.getLogger('log')
-        self.logger.info("Log initialization complete")
+        ]
+        settings = dict(
+            cookie_secret="Developed_key",
+            gzip=True,
+            debug=True,
+            login_url="/auth/login",
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static")
+        )
 
         # Database
         try:
             client = MongoClient("localhost", 27017)
-            self.logger.info("Database is connected")
+            self.db = client["Statsmile"]
         except ConnectionFailure:
-            self.logger.fatal("Database connection can\'t be established, terminating!")
-            sys.exit(1)
+            logging.fatal("Database connection can\'t be established, terminating!")
+            exit(1)
 
-        self.db = client['statsmile']
+        # Logger
+        if settings["debug"]:
+            logging.getLogger().setLevel(logging.DEBUG)
+        self.logger = logging.getLogger("high log")
 
         # Settings
-        if not 'settings' in self.db.collection_names():
-            self.db.create_collection('settings')
+        if not "settings" in self.db.collection_names():
+            self.db.create_collection("settings")
 
         # Background updater
         self.__update = []
 
-        users = self.db['users'].find({}).sort('next_update').limit(5)
+        users = self.db["users"].find({}).sort("next_update").limit(5)
         for it in users:
-            IOLoop.instance().add_timeout(it['next_update'].timestamp(), partial(self.periodic, it))
-            self.__update.append(it['_id'])
+            IOLoop.instance().add_timeout(it["next_update"].timestamp(), partial(self.periodic, it))
+            self.__update.append(it["_id"])
 
-        super(Statsmile, self).__init__(handlers_list, **settings)
+        super().__init__(handlers_list, **settings)
+
         self.listen(8888)
         self.logger.info("Statsmile server is started!")

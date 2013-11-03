@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
+
+import tornado.web
 import tornado.auth
 import tornado.escape
-import tornado.web
 
 from tornado import gen
-from datetime import datetime
 from .base import BaseHandler
 from statsmile.data import get_steam_user, getting_matches_id
 
@@ -18,23 +18,16 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
     @tornado.web.asynchronous
     @gen.coroutine
     def get(self):
-        """
-        Auth, cookie
-        """
         if self.get_argument("openid.mode", None):
             claimed_id = yield self.get_authenticated_user()
             steamid = claimed_id["claimed_id"][-17:]
             rv = self.application.db["users"].find_one({"steamid": steamid})
             if not rv:
-                user = get_steam_user(self.application.db,
-                                      self.application.logger,
-                                      steamid)
-                user["registration"] = datetime.now()
-                user["next_update"] = datetime.now()
+                user = get_steam_user(self.application.db, self.application.logger, steamid)
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
                 self.redirect("/")
-                yield getting_matches_id(steamid, self.application.db, self.application.logger)
+                yield getting_matches_id(self.application.db, self.application.logger, steamid)
             else:
                 self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(rv["_id"])))
                 self.redirect("/")

@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
+
 import tornado.escape
 
 from tornado import gen
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 
-@gen.coroutine
-def getting_matches_id(steamid, db, log):
 
+@gen.coroutine
+def getting_matches_id(db, log, steamid):
     matches = []
     start_time = 0
     remaining = 1
 
     while remaining:
-
         key = db["settings"].find_one()
         params = {'key': key['apikey'], 'account_id': steamid, 'date_max': start_time}
         url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
