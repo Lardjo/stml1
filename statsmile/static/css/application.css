@@ -5,6 +5,7 @@ body {
 
 body {
     overflow-y: scroll;
+    background-color: #fefefe;
 }
 
 h1, h2, h3, h4, h5 {
@@ -21,7 +22,7 @@ h4 {
 }
 
 .general {
-    background: #b1584f;
+    background: #666;
     height: 100%;
 }
 
@@ -57,7 +58,6 @@ h4 {
 .main {
     margin-top: 150px;
     text-align: center;
-    background: #ffffff;
 }
 
 .main h1 {
@@ -79,7 +79,6 @@ h4 {
     padding: 20px 25px;
     font-size: 22px;
     color: #a4524b;
-    background-color: #ffffff;
     border-color: #e5e5e5;
 }
 
@@ -155,35 +154,22 @@ h4 {
 }
 
 .general h1 {
-    font-weight: 500;
-    margin-top: 5px;
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 30px;
 }
 
 .general h4 {
-    padding-left: 3px;
+    padding-left: 1px;
+    margin-top: 5px;
+    margin-bottom: 0;
     font-weight: 300;
+    font-size: 18px;
 }
 
 .profile {
     color: #ffffff;
-}
-
-.nowplay {
-    background-color: #a4524b;
-    padding: 10px 0;
-}
-
-.nowplay h4 {
-    padding-left: 3px;
-    color: #ffffff;
-    opacity: .7;
-    float: left;
-    /*width: 550px;*/
-    font-size: 14px;
-}
-
-.nowplay a {
-    color: #525151;
 }
 
 .fix {
@@ -232,7 +218,7 @@ h4 {
 }
 
 .profile .container {
-    padding-top: 25px;
+    padding-top: 10px;
     padding-bottom: 25px;
 }
 
@@ -241,8 +227,24 @@ h4 {
 }
 
 .avatar {
-    width: 180px;
-    height: 180px;
+    height: 64px;
+    padding-left: 15px;
+    padding-right: 12px;
+    float: left;
+}
+
+.information {
+    width: 400px;
+    min-height: 1px;
+    float: left;
+}
+
+.last-update {
+    color: #b1584f;
+    min-height: 1px;
+    float: right;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .sidebar .nav > li > a {
@@ -286,7 +288,6 @@ h1 small,
 
 .label {
     display: inline;
-    background-color: #ffffff;
     border-radius: 0;
     text-align: center;
     font-size: 24px;

@@ -2,9 +2,6 @@
 {% block title %}{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
-    {% if session %}
-        <li><a href="/user/{{ session['steamid'] }}">Profile</a></li>
-    {% else %}{% end %}
 {% end %}
 {% block login %}
     {% if session %}
@@ -23,7 +20,7 @@
     <div class="container">
         <div class="main">
                 <h1> Statsmile<span class="label">Alpha</span></h1>
-                <p>Simple and intuitive service statistics for Steam</p>
+                <p>Simple and intuitive service statistics Steam and Dota 2</p>
                 {% if not session %}
                     <p>
                         <a href="/auth/login" class="btn btn-large">Get started today</a>

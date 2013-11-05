@@ -2,17 +2,13 @@
 {% block title %}/ {{ session['personaname'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
-    <li class="active"><a href="/user/{{ session['steamid'] }}">Profile</a></li>
+    <li><a href="/">Matches</a></li>
+    <li><a href="/">Players</a></li>
 {% end %}
 {% block login %}
     {% if session %}
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-            <li class="divider"></li>
-            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-        </ul>
+        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ session['personaname'] }}</a></p>
+        <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
     {% else %}
         <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
     {% end %}
@@ -20,13 +16,19 @@
 {% block content %}
     <div class="general profile">
         <div class="container">
-           <h1>{{ session['personaname'] }}</h1>
-           <h4>{{ session['realname'] }}</h4>
-        </div>
-    </div>
-    <div class="nowplay">
-        <div class="container">
-            <h4>Dear users! Statsmile only begins its development. You can help him develop. Please, read <a href="#">this page.</a></h4>
+            <div class="avatar">
+                <img src="{{ session['avatarmedium'] }}" class="img-circle pull-left" />
+            </div>
+            <div class="information">
+                <h1>{{ session['personaname'] }}</h1>
+                <h4>{{ session['realname'] }}</h4>
+            </div>
+            <div class="last-update">
+                <h4>
+                    <span class="glyphicon glyphicon-time"></span>
+                    Last update: {{ datetime.datetime.strftime(session['last_update'], format='%d %B %Y, %H:%M') }}
+                </h4>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -208,7 +210,7 @@
                 </tbody>
             </table>
         <div class="page-header">
-            <h1>Latest Matches<small> Full list</small></h1>
+            <h1>Latest Matches<small> The last ten games</small></h1>
         </div>
         <table class="table table-striped">
             <thead>
@@ -220,7 +222,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for matches in reversed(session['matches'][-5:]) %}
+            {% for matches in reversed(session['matches'][-10:]) %}
                 <tr>
                     <td>{{ matches }}</td>
                     <td>2</td>
