@@ -7,7 +7,7 @@
 {% end %}
 {% block login %}
     {% if current_user %}
-        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['personaname'] }}</a></p>
+        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ session['personaname'] }}</a></p>
         <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
     {% else %}
         <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
