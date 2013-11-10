@@ -2,9 +2,11 @@
 {% block title %}{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
+    <li><a href="/matches">Matches</a></li>
+    <li><a href="/players">Players</a></li>
 {% end %}
 {% block login %}
-    {% if session %}
+    {% if current_user %}
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -19,9 +21,9 @@
 {% block content %}
     <div class="container">
         <div class="main">
-                <h1> Statsmile<span class="label">Alpha</span></h1>
+                <h1>Statsmile</h1>
                 <p>Simple and intuitive service statistics Steam and Dota 2</p>
-                {% if not session %}
+                {% if not current_user %}
                     <p>
                         <a href="/auth/login" class="btn btn-large">Get started today</a>
                     </p>
@@ -35,7 +37,7 @@
                     <li><a href="#"><strong>For new users</strong></a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="http://github.com/Lardjo/Statsmile">GitHub Page</a></li>
-                    <li>Version 2.1</li>
+                    <li>Version 2.1-alpha</li>
                 </ul>
         </div>
     </div>
