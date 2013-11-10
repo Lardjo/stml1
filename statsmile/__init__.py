@@ -33,19 +33,20 @@ class Statsmile(tornado.web.Application):
         self.logger.info("Start receiving data match '{}'...".format(match))
 
         yield update_matches(self.db, self.logger, match)
-        #self.__matches.remove(match)
+
+        complete = self.db["matches"].aggregate({"$group": {"_id": "matches", "items": {"$addToSet": "$match_id"}}})
 
         new_matches = self.db["users"].aggregate([
             {"$unwind": "$matches"},
             {"$project": {"matches": 1}},
             {"$group": {"_id": "$matches"}},
-            {"$match": {"_id": {"$not": {"$in": self.__matches}}}},
-            {"$sort": {"_id": -1}}, {"$limit": 1}
+            {"$match": {"_id": {"$not": {"$in": complete["result"][0]["items"]}}}},
+            {"$sort": {"_id": -1}},
+            {"$limit": 1}
         ])
 
-        IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=2)).timestamp(),
+        IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=5)).timestamp(),
                                       partial(self.periodic_matches, new_matches["result"][0]["_id"]))
-        self.__matches.append(new_matches["result"][0]["_id"])
 
     def __init__(self):
         handlers_list = [
@@ -53,6 +54,8 @@ class Statsmile(tornado.web.Application):
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
             ("/user/(.*)", handlers.UserHandler),
+            ("/matches", handlers.MatchesHandler),
+            ("/players", handlers.PlayersHandler),
             ("/about", handlers.AboutHandler),
         ]
         settings = dict(
@@ -94,19 +97,27 @@ class Statsmile(tornado.web.Application):
             self.__update.append(it["_id"])
 
         # Matches updater
-        self.__matches = []
-
-        matches = self.db["users"].aggregate([
-            {"$unwind": "$matches"},
-            {"$project": {"matches": 1}},
-            {"$group": {"_id": "$matches"}},
-            {"$sort": {"_id": -1}},
-            {"$limit": 5}
-        ])
+        complete = self.db["matches"].aggregate({"$group": {"_id": "matches", "items": {"$addToSet": "$match_id"}}})
+        if not complete["result"]:
+            matches = self.db["users"].aggregate([
+                {"$unwind": "$matches"},
+                {"$project": {"matches": 1}},
+                {"$group": {"_id": "$matches"}},
+                {"$sort": {"_id": -1}},
+                {"$limit": 1}
+            ])
+        else:
+            matches = self.db["users"].aggregate([
+                {"$unwind": "$matches"},
+                {"$project": {"matches": 1}},
+                {"$group": {"_id": "$matches"}},
+                {"$match": {"_id": {"$not": {"$in": complete["result"][0]["items"]}}}},
+                {"$sort": {"_id": -1}},
+                {"$limit": 1}
+            ])
         for mt in matches["result"]:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=2)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.periodic_matches, mt["_id"]))
-            self.__matches.append(mt["_id"])
 
         super().__init__(handlers_list, **settings)
 
