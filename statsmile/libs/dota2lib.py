@@ -28,6 +28,8 @@ cluster = {111: {'name': 'US West'},
            171: {'name': 'Australia'},
            181: {'name': 'Russia'},
            182: {'name': 'Russia'},
+           183: {'name': 'Russia'},
+           184: {'name': 'Russia'},
            191: {'name': 'Europe East'},
            200: {'name': 'South America'},
            211: {'name': 'South Africa'},
@@ -134,7 +136,8 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           99: {'name': 'Bristleback', 'avatar': 'img/dota/heroes/bristleback.png'},
           100: {'name': 'Tusk', 'avatar': 'img/dota/heroes/tusk.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
-          102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'}}
+          102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
+          103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'}}
 
 items = {0: {'avatar': 'data-src=holder.js/60x45/text:Empty'},
          1: {'name': 'Blink Dagger', 'avatar': 'img/dota/items/blink_dagger.png'},
