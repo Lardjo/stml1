@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}/ {{ session['personaname'] }}{% end %}
+{% block title %}/ {{ user['personaname'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
-    <li><a href="/">Matches</a></li>
-    <li><a href="/">Players</a></li>
+    <li><a href="/matches">Matches</a></li>
+    <li><a href="/players">Players</a></li>
 {% end %}
 {% block login %}
-    {% if session %}
-        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ session['personaname'] }}</a></p>
+    {% if current_user %}
+        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['personaname'] }}</a></p>
         <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
     {% else %}
         <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
@@ -17,16 +17,16 @@
     <div class="general profile">
         <div class="container">
             <div class="avatar">
-                <img src="{{ session['avatarmedium'] }}" class="img-circle pull-left" />
+                <img src="{{ user['avatarmedium'] }}" class="img-circle pull-left" />
             </div>
             <div class="information">
-                <h1>{{ session['personaname'] }}</h1>
-                <h4>{{ session['realname'] }}</h4>
+                <h1>{{ user['personaname'] }}</h1>
+                <h4>{{ user['realname'] }}</h4>
             </div>
             <div class="last-update">
                 <h4>
                     <span class="glyphicon glyphicon-time"></span>
-                    Last update: {{ datetime.datetime.strftime(session['last_update'], format='%d %B %Y, %H:%M') }}
+                    Last update: {{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}
                 </h4>
             </div>
         </div>
@@ -222,14 +222,14 @@
                 </tr>
             </thead>
             <tbody>
-            {% for match in matches %}
+
                 <tr>
-                    <td>{{ match['match_id'] }}</td>
+                    <td>1</td>
                     <td>2</td>
                     <td>3</td>
                     <td>4</td>
                 </tr>
-            {% end %}
+
             </tbody>
         </table>
     </div>
