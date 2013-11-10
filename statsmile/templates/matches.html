@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}/ Matches{% end %}
+{% block menu %}
+    <li><a href="/">Home</a></li>
+    <li class="active"><a href="/matches">Matches</a></li>
+    <li><a href="/players">Players</a></li>
+{% end %}
+{% block login %}
+    {% if session %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        </ul>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Summary <small>of recent games</small></h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Match ID</th>
+                <th>Result</th>
+                <th>Mode</th>
+                <th>Server</th>
+                <th>Duration</th>
+                <th>Radiant</th>
+                <th>Dire</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% from statsmile import libs %}
+            {% for mt in matches %}
+            <tr>
+                <td><a href="/matches/{{ mt['result']['match_id'] }}">{{ mt['result']['match_id'] }}</a></td>
+                <td>{% if mt['result']['radiant_win'] %}<p class="text-success">Radiant Victory</p>{% else %}<p class="text-danger">Dire Victory</p>{% end %}</td>
+                <td>{% try %}{{ libs.mode[mt['result']['game_mode']]['name'] }}{% except %}{{ mt['result']['game_mode'] }}{% end %}</td>
+                <td>{% try %}{{ libs.cluster[mt['result']['cluster']]['name'] }}{% except %}{{ mt['result']['cluster'] }}{% end %}</td>
+                <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['result']['duration'])) }}</td>
+                <td>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][0]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][0]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][1]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][1]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][2]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][2]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][3]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][3]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][4]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][4]['hero_id'] }}{% end %}"></div>
+                </td>
+                <td>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][5]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][5]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][6]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][6]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][7]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][7]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][8]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][8]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['result']['players'][9]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['result']['players'][9]['hero_id'] }}{% end %}"></div>
+                </td>
+            </tr>
+            {% end %}
+            </tbody>
+        </table>
+    </div>
+{% end %}
