@@ -61,7 +61,7 @@ h4 {
 }
 
 .main h1 {
-    padding-left: 66px;
+    text-align: center;
     font-weight: 500;
     font-size: 100px;
 }
@@ -286,7 +286,7 @@ h1 small,
   font-weight: 300;
 }
 
-.label {
+.label-1 {
     display: inline;
     border-radius: 0;
     text-align: center;
@@ -316,4 +316,21 @@ h1 small,
     src: url('../fonts/OpenSans-Semibold-webfont.woff');
     font-weight: 600;
     font-style: normal;
+}
+
+.hero-container {
+    display: inline-block;
+    height: 25px;
+}
+
+.hero-container img {
+    height: 25px;
+}
+
+.table tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table p {
+    margin-bottom: 0;
 }
