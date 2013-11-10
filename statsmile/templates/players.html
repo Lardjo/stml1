@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}/ Players{% end %}
+{% block menu %}
+    <li><a href="/">Home</a></li>
+    <li><a href="/matches">Matches</a></li>
+    <li class="active"><a href="/players">Players</a></li>
+{% end %}
+{% block login %}
+    {% if current_user %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        </ul>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Players <small>The Best</small></h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Total Matches Played</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set n = 0 %}
+            {% for pl in players['result'] %}
+            {% set n += 1 %}
+            <tr>
+                <td>{{ n }}</td>
+                <td><a href="/user/{{ pl['steam'] }}"><img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['_id'] }}</a></td>
+                <td>{{ pl['number'] }} Matches</td>
+            </tr>
+            {% end %}
+            </tbody>
+        </table>
+    </div>
+{% end %}
