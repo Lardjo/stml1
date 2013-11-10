@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 {% block title %}/ About{% end %}
 {% block menu %}
-    <li class="active"><a href="/">Home</a></li>
-    {% if session %}
-        <li><a href="/user/{{ session['steamid'] }}">Profile</a></li>
-    {% else %}{% end %}
+    <li><a href="/">Home</a></li>
+    <li><a href="/matches">Matches</a></li>
+    <li><a href="/players">Players</a></li>
+{% end %}
+{% block login %}
+    {% if current_user %}
+        <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['personaname'] }}</a></p>
+        <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
 {% end %}
 {% block content %}
     <div class="general profile">
         <div class="container">
             <h1>About</h1>
             <h4>Who are we?..</h4>
-        </div>
-    </div>
-    <div class="nowplay">
-        <div class="container">
-            <h4>Dear users! Statsmile only begins its development. You can help him develop. Please, read <a href="#">this page.</a></h4>
         </div>
     </div>
     <div class="container">
@@ -27,7 +29,11 @@
                     in one place, so that the user does not "jumping" from one service to another.</p>
                 <p>Statsmile is hobby. So everything here is created exclusively on the enthusiasm and desire to learn.</p>
                 <p>Developer team.</p>
-                <h3>Development</h3>
+                <h3>For Developers</h3>
                 <p>Want help with development service? Check our GitHub!..</p>
+                <h3>For Users</h3>
+                <p>Dear users! Statsmile only begins its development. You can help him develop. Please, read <a href="#">this page.</a></p>
+                <h3>...and thank you</h3>
+                <p>Valve Software for the amazing game and "amazing" API access</p>
     </div>
 {% end %}
