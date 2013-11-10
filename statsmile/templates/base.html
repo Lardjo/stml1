@@ -18,7 +18,21 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        {% block login %}{% end %}
+                        {% block login %}
+                        {% if current_user %}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+                        </ul>
+                        {% else %}
+                        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+                        {% end %}
+                        {% end %}
                     </li>
                 </ul>
             </div>
@@ -26,8 +40,14 @@
     </nav>
     {% block content %}{% end %}
     </div>
-    {% block footer %}{% end %}
-    <script src="{{ static_url("js/jquery.js") }}"></script>
-    <script src="{{ static_url("js/holder.js") }}"></script>
-    <script src="{{ static_url("js/bootstrap.min.js") }}"></script>
+    {% block footer %}
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
+        </div>
+    </div>
+    {% end %}
+    <script src="{{ static_url('js/jquery.js') }}"></script>
+    <script src="{{ static_url('js/holder.js') }}"></script>
+    <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 </body>

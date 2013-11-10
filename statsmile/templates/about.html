@@ -6,19 +6,6 @@
         <li><a href="/user/{{ session['steamid'] }}">Profile</a></li>
     {% else %}{% end %}
 {% end %}
-{% block login %}
-    {% if session %}
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-            <li class="divider"></li>
-            <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-        </ul>
-    {% else %}
-        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
-    {% end %}
-{% end %}
 {% block content %}
     <div class="general profile">
         <div class="container">
@@ -42,12 +29,5 @@
                 <p>Developer team.</p>
                 <h3>Development</h3>
                 <p>Want help with development service? Check our GitHub!..</p>
-    </div>
-{% end %}
-{% block footer %}
-    <div id="footer">
-        <div class="container">
-            <p class="text-muted credit">Designed and built by Konstantin N. Statsmile LLC.</p>
-        </div>
     </div>
 {% end %}
