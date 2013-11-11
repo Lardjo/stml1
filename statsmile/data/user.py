@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from tornado.escape import json_decode
 from tornado.httpclient import HTTPClient, HTTPError
 from tornado.httputil import url_concat
+from .converter import converter
 
 
 def get_steam_user(db, log, steamid):
@@ -20,6 +21,7 @@ def get_steam_user(db, log, steamid):
         response = http_client.fetch(url)
         user = json_decode(response.body)['response']['players'][0]
         user["registration"] = datetime.now()
+        user["steamid32"] = converter(steamid)
         user["next_update"] = datetime.now() + timedelta(minutes=1)
     except HTTPError as e:
         log.error("Error: {}".format(e))
