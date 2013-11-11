@@ -45,8 +45,16 @@ class Statsmile(tornado.web.Application):
             {"$limit": 1}
         ])
 
-        IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=5)).timestamp(),
+        IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                       partial(self.periodic_matches, new_matches["result"][0]["_id"]))
+
+    def init_db(self):
+        try:
+            client = MongoClient("localhost", 27017)
+            return client["Statsmile"]
+        except ConnectionFailure:
+            logging.fatal("Database connection can\'t be established, terminating!")
+            exit(1)
 
     def __init__(self):
         handlers_list = [
@@ -68,23 +76,17 @@ class Statsmile(tornado.web.Application):
         )
 
         # Database
-        try:
-            client = MongoClient("localhost", 27017)
-            self.db = client["Statsmile"]
-        except ConnectionFailure:
-            logging.fatal("Database connection can\'t be established, terminating!")
-            exit(1)
+        self.db = self.init_db()
 
         # Logger
         if settings["debug"]:
             logging.getLogger().setLevel(logging.DEBUG)
         self.logger = logging.getLogger("high log")
 
-        # Settings
+        # Settings and Matches
         if not "settings" in self.db.collection_names():
             self.db.create_collection("settings")
 
-        # Matches
         if not "matches" in self.db.collection_names():
             self.db.create_collection("matches")
 
