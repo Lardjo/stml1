@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import tornado.escape
-
 from tornado import gen
+from tornado.escape import json_decode
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 
@@ -20,7 +19,7 @@ def getting_matches_id(db, log, steamid):
 
         response = yield AsyncHTTPClient().fetch(url)
 
-        pack = tornado.escape.json_decode(response.body)
+        pack = json_decode(response.body)
 
         for match in pack['result']['matches']:
 

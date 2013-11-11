@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import tornado.escape
-
 from tornado import gen
+from tornado.escape import json_decode
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 
@@ -18,7 +17,7 @@ def update_matches(db, log, match_id):
         log.info("Match #'{}' not updated. Remote server not respond".format(match_id))
         return
     else:
-        array = tornado.escape.json_decode(response.body)
+        array = json_decode(response.body)
 
     db["matches"].insert({"match_id": match_id, "result": array["result"]})
     log.info("Match #'{}' added to database".format(match_id))

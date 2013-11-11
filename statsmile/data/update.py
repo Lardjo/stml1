@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import tornado.escape
-
 from tornado import gen
+from tornado.escape import json_decode
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
@@ -23,7 +22,7 @@ def update_matches_id(db, log, steamid):
                                                            "last_update": datetime.now()}})
         return
     else:
-        array = tornado.escape.json_decode(response.body)
+        array = json_decode(response.body)
 
     for mid in array['result']['matches']:
         last.append(mid['match_id'])

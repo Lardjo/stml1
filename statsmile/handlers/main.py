@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-import tornado.escape
-
 from .base import BaseHandler
 from bson import ObjectId
+from tornado.escape import url_escape
 from tornado.httpclient import HTTPClient, HTTPError
 
 
@@ -45,6 +44,6 @@ class MainHandler(BaseHandler):
             self.application.db["settings"].insert(settings)
             self.redirect("/")
         else:
-            error_msg = "?error=" + tornado.escape.url_escape("Your API key a invalid or Steam servers not available. "
-                                                              "Please, enter again")
+            error_msg = "?error=" + url_escape("Your API key a invalid or Steam servers not available. "
+                                               "Please, enter again")
             self.redirect("/" + error_msg)

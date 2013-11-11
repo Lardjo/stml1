@@ -2,9 +2,9 @@
 
 import tornado.web
 import tornado.auth
-import tornado.escape
 
 from tornado import gen
+from tornado.escape import json_encode
 from .base import BaseHandler
 from statsmile.data import get_steam_user, getting_matches_id
 
@@ -25,11 +25,11 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
             if not rv:
                 user = get_steam_user(self.application.db, self.application.logger, steamid)
                 self.application.db["users"].insert(user)
-                self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(user["_id"])))
+                self.set_secure_cookie("statsmile_user", json_encode(str(user["_id"])))
                 self.redirect("/")
                 yield getting_matches_id(self.application.db, self.application.logger, steamid)
             else:
-                self.set_secure_cookie("statsmile_user", tornado.escape.json_encode(str(rv["_id"])))
+                self.set_secure_cookie("statsmile_user", json_encode(str(rv["_id"])))
                 self.redirect("/")
             return
         else:
