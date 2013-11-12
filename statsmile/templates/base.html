@@ -23,7 +23,7 @@
                                 <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
                             {% else %}
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{ session.avatar }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b>
+                                    <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/{{ session['steamid'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>

@@ -26,7 +26,7 @@
             <div class="last-update">
                 <h4>
                     <span class="glyphicon glyphicon-time"></span>
-                    Last update: {% try %}{{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}{% else %}None{% end %}
+                    Last update: {% try %}{{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}{% except %}None{% end %}
                 </h4>
             </div>
         </div>
