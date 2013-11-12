@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}/ First start{% end %}
+{% block login %}{% end %}
 {% block menu %}
     <li class="active"><a href="/">First start</a></li>
 {% end %}
@@ -9,16 +9,14 @@
         <h1>Welcome <small>Default settings</small></h1>
     </div>
     <form method="post">
-    {% if errormessage %}
-    <div class="alert alert-danger">{{ errormessage }}</div>
-    {% else %}{% end %}
     <div class="panel panel-primary">
         <div class="panel-heading">
             Steam API key
         </div>
         <div class="panel-body">
-            <input type="text" class="form-control" placeholder="Please enter your personal Steam API key" name="apikey">
-            <span class="help-block">No Steam API key? Get on <a href="http://steamcommunity.com/dev/apikey">steamcommunity.com/dev/apikey</a></span>
+            <div class="form-group">
+                <input type="text" class="form-control" id="inputError" placeholder="Enter your Steam key" name="apikey">
+            </div>
         </div>
     </div>
     <button type="submit" class="btn btn-success btn-lg">Save and start</button>

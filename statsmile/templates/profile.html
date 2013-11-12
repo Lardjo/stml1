@@ -26,7 +26,7 @@
             <div class="last-update">
                 <h4>
                     <span class="glyphicon glyphicon-time"></span>
-                    Last update: {{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}
+                    Last update: {% try %}{{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}{% else %}None{% end %}
                 </h4>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <!-- Top 1 -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="data-src=holder.js/80x45">
+
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">%hero%</h4>
@@ -50,7 +50,7 @@
                 <!-- Top 2 -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="data-src=holder.js/80x45">
+
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">%hero%</h4>
@@ -60,7 +60,7 @@
                 <!-- Top 3 -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="data-src=holder.js/80x45">
+
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">%hero%</h4>
@@ -70,7 +70,7 @@
                 <!-- Top 4 -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="data-src=holder.js/80x45">
+
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">%hero%</h4>
@@ -80,7 +80,7 @@
                 <!-- Top 5 -->
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="data-src=holder.js/80x45">
+
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">%hero%</h4>
@@ -130,27 +130,27 @@
                     <td class="muted">Anonymous</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
-                            <img src="data-src=holder.js/80x45" />
+
                             <div class="label-hero"><h6>25 Level</h6></div>
                         </div>
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 40px;">4</td>
                     <td style="width: 40px;">142</td>
@@ -173,27 +173,27 @@
                     <td class="muted">Anonymous</td>
                     <td style="width: 80px; padding: 1px;">
                         <div style="position: relative;">
-                            <img src="data-src=holder.js/80x45" />
+
                             <div class="label-hero"><h6>25 Level</h6></div>
                         </div>
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 60px; padding: 1px;">
-                        <img src="data-src=holder.js/60x45" />
+
                     </td>
                     <td style="width: 40px;">4</td>
                     <td style="width: 40px;">142</td>
