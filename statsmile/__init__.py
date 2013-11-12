@@ -5,9 +5,9 @@ import logging
 import tornado.web
 
 from datetime import datetime, timedelta
+from functools import partial
 from tornado import gen
 from tornado.ioloop import IOLoop
-from functools import partial
 from pymongo import MongoClient, ASCENDING
 from pymongo.errors import ConnectionFailure
 from statsmile import handlers
@@ -59,6 +59,7 @@ class Statsmile(tornado.web.Application):
     def __init__(self):
         handlers_list = [
             ("/", handlers.MainHandler),
+            ("/start", handlers.StartHandler),
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
             ("/user/(.*)", handlers.UserHandler),
@@ -66,14 +67,14 @@ class Statsmile(tornado.web.Application):
             ("/players", handlers.PlayersHandler),
             ("/about", handlers.AboutHandler),
         ]
-        settings = dict(
-            cookie_secret="Developed_key",
-            gzip=True,
-            debug=True,
-            login_url="/auth/login",
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static")
-        )
+        settings = {
+            "cookie_secret": "Developed_key",
+            "gzip": True,
+            "debug": True,
+            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
+            "static_path": os.path.join(os.path.dirname(__file__), "static"),
+            "login_url": "/auth/login"
+        }
 
         # Database
         self.db = self.init_db()
