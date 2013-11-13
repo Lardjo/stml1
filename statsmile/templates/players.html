@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}/ Players{% end %}
+{% block title %}Statsmile / Players{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
@@ -24,7 +24,7 @@
             {% set n += 1 %}
             <tr>
                 <td>{{ n }}</td>
-                <td><a href="/user/{{ pl['steam'] }}"><img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['_id'] }}</a></td>
+                <td><a href="/user/{{ pl['_id'] }}"><img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['name'] }}</a></td>
                 <td>{{ pl['number'] }} Matches</td>
             </tr>
             {% end %}

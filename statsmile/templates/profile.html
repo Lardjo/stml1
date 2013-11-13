@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}/ {{ user['personaname'] }}{% end %}
+{% block title %}Statsmile / {{ user['personaname'] }}{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
@@ -14,6 +14,8 @@
     {% end %}
 {% end %}
 {% block content %}
+    {% import time %}
+    {% from statsmile import libs %}
     <div class="general profile">
         <div class="container">
             <div class="avatar">
@@ -22,12 +24,6 @@
             <div class="information">
                 <h1>{{ user['personaname'] }}</h1>
                 <h4>{{ user['realname'] }}</h4>
-            </div>
-            <div class="last-update">
-                <h4>
-                    <span class="glyphicon glyphicon-time"></span>
-                    Last update: {% try %}{{ datetime.datetime.strftime(user['last_update'], format='%d %B %Y, %H:%M') }}{% except %}None{% end %}
-                </h4>
             </div>
         </div>
     </div>
@@ -47,52 +43,12 @@
                         %s Matches Played
                     </div>
                 </div>
-                <!-- Top 2 -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">%hero%</h4>
-                        %s Matches Played
-                    </div>
-                </div>
-                <!-- Top 3 -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">%hero%</h4>
-                        %s Matches Played
-                    </div>
-                </div>
-                <!-- Top 4 -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">%hero%</h4>
-                        %s Matches Played
-                    </div>
-                </div>
-                <!-- Top 5 -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">%hero%</h4>
-                        %s Matches Played
-                    </div>
-                </div>
             </div>
             <div class="col-md-4">
                  <div class="page-header">
                      <h1>Overview<small> Last</small></h1>
                  </div>
-                <p><strong>Last Match:</strong> %none%</p>
+                <p><strong>Last Match:</strong> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
                 <p><strong>Total:</strong> %none%</p>
                 <p>
                     <strong>Win Rate:</strong>    %none%
@@ -111,125 +67,182 @@
         <div class="page-header">
             <h1>Recent Match<small> At the time of update</small></h1>
         </div>
-        <table class="table table-bordered">
+
+        <div class="row recent-info">
+    <div class="col-md-4">
+        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="{{ match['match_id'] }}">{{ match['match_id'] }}</a></p>
+        <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
+        <p><span class="glyphicon glyphicon-time"></span><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
+    </div>
+    <div class="col-md-4">
+        <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
+        <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
+        <p><span class="glyphicon glyphicon-time"></span><b> First Blood:</b> {% try %}{{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
+    </div>
+</div>
+
+        <!-- Panel The Radiant -->
+        <div class="panel panel-success">
+            <div class="panel-heading">{% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
+            <!-- Table The Radiant -->
+            <table class="table">
                 <thead>
-                <tr><th class="text-success" colspan="13">The Radiant</tr>
-                <tr>
-                    <th class="muted">Player</th>
-                    <th class="muted">Hero</th>
-                    <th class="muted" colspan="6">Items</th>
-                    <th class="muted">DN</th>
-                    <th class="muted">LH</th>
-                    <th class="muted">XPM</th>
-                    <th class="muted">GPM</th>
-                    <th class="muted">KDA</th>
-                </tr>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="muted">Anonymous</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-
-                            <div class="label-hero"><h6>25 Level</h6></div>
+                {% for radiant in match['players'][:5] %}
+                    <tr>
+                        {% if radiant['account_id'] == 4294967295 %}<td style="width: 200px;" class="text-muted">Anonymous</td>{% else %}<td style="width: 200px;">{{ radiant['account_id'] }}</td>{% end %}
+                        <td style="width: 80px; padding: 1px;">
+                            <div style="position: relative;">
+                                <img src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}" />
+                                <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
+                            </div>
+                        </td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_0']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_1']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_2']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_3']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_4']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[radiant['item_5']]['avatar']) }}{% except %}holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}" /></td>
+                        <td>{{ radiant['gold_spent'] }}</td>
+                        <td>{{ radiant['denies'] }}</td>
+                        <td>{{ radiant['last_hits'] }}</td>
+                        <td>{{ radiant['hero_healing'] }}</td>
+                        <td>{{ radiant['xp_per_min'] }}</td>
+                        <td>{{ radiant['gold_per_min'] }}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width: {{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['kills'] }}</div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['deaths'] }}</div>
+                                <div class="progress-bar progress-bar-warning" style="width: {{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['assists'] }}</div>
                         </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 40px;">4</td>
-                    <td style="width: 40px;">142</td>
-                    <td style="width: 40px;">547</td>
-                    <td style="width: 40px;">412</td>
-                    <td style="width: 200px;">
-                        <div class="progress progress-margin">
-                            <div class="progress-bar progress-bar-success" style="width: 34%;">34</div>
-                            <div class="progress-bar progress-bar-danger" style="width: 54%;">54</div>
-                            <div class="progress-bar progress-bar-warning" style="width: 12%;">12</div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-                <thead>
-                <tr><th class="text-danger" colspan="13">The Dire</tr>
-                </thead>
-            <tbody>
-                <tr>
-                    <td class="muted">Anonymous</td>
-                    <td style="width: 80px; padding: 1px;">
-                        <div style="position: relative;">
-
-                            <div class="label-hero"><h6>25 Level</h6></div>
-                        </div>
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 60px; padding: 1px;">
-
-                    </td>
-                    <td style="width: 40px;">4</td>
-                    <td style="width: 40px;">142</td>
-                    <td style="width: 40px;">547</td>
-                    <td style="width: 40px;">412</td>
-                    <td style="width: 200px;">
-                        <div class="progress progress-margin">
-                            <div class="progress-bar progress-bar-success" style="width: 34%;">34</div>
-                            <div class="progress-bar progress-bar-danger" style="width: 54%;">54</div>
-                            <div class="progress-bar progress-bar-warning" style="width: 12%;">12</div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                {% end %}
                 </tbody>
             </table>
+        </div>
+
+        <!-- Panel The Dire -->
+        <div class="panel panel-danger">
+            <div class="panel-heading">{% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <!-- Table The Dire -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for dire in match['players'][5:] %}
+                    <tr>
+                        {% if dire['account_id'] == 4294967295 %}
+                            {% if dire['leaver_status'] == 3 %}
+                                <td style="width: 200px;" class="text-muted">Anonymous (Leave)</td>
+                            {% else %}
+                                <td style="width: 200px;" class="text-muted">Anonymous</td>
+                            {% end %}
+                        {% else %}
+                            {% if dire['leaver_status'] == 3 %}
+                                <td style="width: 200px;">{{ dire['account_id'] }} (Leave)</td>
+                            {% else %}
+                                <td style="width: 200px;">{{ dire['account_id'] }}</td>
+                            {% end %}
+                        {% end %}
+                        <td style="width: 80px; padding: 1px;">
+                            <div style="position: relative;">
+                                <img src="{% try %}{{ static_url(libs.heroes[dire['hero_id']]['avatar']) }}{% except %}holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}" />
+                                <div class="label-hero"><h6>{{ dire['level'] }} Level</h6></div>
+                            </div>
+                        </td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_0']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_0'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_1']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_1'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_2']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_2'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_3']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_3'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_4']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_4'] }}{% end %}" /></td>
+                        <td style="width: 60px; padding: 1px;"><img src="{% try %}{{ static_url(libs.items[dire['item_5']]['avatar']) }}{% except %}holder.js/60x45/text:{{ dire['item_5'] }}{% end %}" /></td>
+                        <td>{{ dire['gold_spent'] }}</td>
+                        <td>{{ dire['denies'] }}</td>
+                        <td>{{ dire['last_hits'] }}</td>
+                        <td>{{ dire['hero_healing'] }}</td>
+                        <td>{{ dire['xp_per_min'] }}</td>
+                        <td>{{ dire['gold_per_min'] }}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width: {{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['kills'] }}</div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['deaths'] }}</div>
+                                <div class="progress-bar progress-bar-warning" style="width: {{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['assists'] }}</div>
+                        </div>
+                        </td>
+                    </tr>
+                {% end %}
+                </tbody>
+            </table>
+        </div>
+
         <div class="page-header">
             <h1>Latest Matches<small> The last ten games</small></h1>
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Match ID</th>
+                    <th>Hero</th>
                     <th>Result</th>
-                    <th>The Radiant</th>
-                    <th>The Dire</th>
+                    <th>Match ID</th>
+                    <th>Mode</th>
+                    <th>Server</th>
+                    <th>Duration</th>
+                    <th>Kills / Deaths / Assists</th>
                 </tr>
             </thead>
             <tbody>
-
+            {% for mt in matches %}
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>
+                    <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players']['hero_id']]['avatar']) }}{% except %}holder.js/80x45/text:{{ mt['players']['hero_id'] }}{% end %}"></div>
+                    <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[mt['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+                    </td>
+                    {% if mt['radiant_win'] and mt['players']['player_slot'] in [0, 1, 2, 3, 4] %}
+                    <td><p class="text-success"><strong>Won Match</strong></p></td>
+                    {% elif not mt['radiant_win'] and mt['players']['player_slot'] in [128, 129, 130, 131, 132] %}
+                    <td><p class="text-success"><strong>Won Match</strong></p></td>
+                    {% else %}
+                    <td><p class="text-danger">Lost Match</p></td>
+                    {% end %}
+                    <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+                    <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+                    <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+                    <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" style="width: {{ round(mt['players']['kills'] * 100 / float(mt['players']['kills'] + mt['players']['deaths'] + mt['players']['assists']), 3) }}%;">{{ mt['players']['kills'] }}</div>
+                            <div class="progress-bar progress-bar-danger" style="width: {{ round(mt['players']['deaths'] * 100 / float(mt['players']['kills'] + mt['players']['deaths'] + mt['players']['assists']), 3) }}%;">{{ mt['players']['deaths'] }}</div>
+                            <div class="progress-bar progress-bar-warning" style="width: {{ round(mt['players']['assists'] * 100 / float(mt['players']['kills'] + mt['players']['deaths'] + mt['players']['assists']), 3) }}%;">{{ mt['players']['assists'] }}</div>
+                        </div>
+                    </td>
                 </tr>
-
+            {% end %}
             </tbody>
         </table>
     </div>

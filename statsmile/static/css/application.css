@@ -327,10 +327,27 @@ h1 small,
     height: 25px;
 }
 
+.hero-name {
+    display: inline-block;
+    margin-left: 5px;
+}
+
 .table tbody>tr>td {
     vertical-align: middle;
 }
 
 .table p {
     margin-bottom: 0;
+}
+
+.progress {
+    margin-bottom: 0;
+}
+
+.text-hero {
+    color: #666;
+}
+
+.recent-info {
+    margin-bottom: 15px;
 }

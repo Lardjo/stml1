@@ -11,9 +11,9 @@ class PlayersHandler(BaseHandler):
             {"$unwind": "$matches"},
             {"$project": {"avatar": 1, "steamid": 1, "matches": 1, "personaname": 1, "count": {"$add": [1]}}},
             {"$group": {
-                "_id": "$personaname",
+                "_id": "$_id",
                 "number": {"$sum": "$count"},
-                "steam": {"$first": "$steamid"},
+                "name": {"$first": "$personaname"},
                 "avatar": {"$first": "$avatar"}
             }},
             {"$sort": {"number": -1}},

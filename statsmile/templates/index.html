@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{% end %}
+{% block title %}Statsmile{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
@@ -9,14 +9,14 @@
     <div class="container">
         <div class="main">
                 <h1>Statsmile</h1>
-                <p>Simple and intuitive service statistics Steam and Dota 2</p>
+                <p>Simple and intuitive service statistics for Dota 2</p>
                 {% if not current_user %}
                     <p>
                         <a href="/auth/login" class="btn btn-large">Get started today</a>
                     </p>
                 {% else %}
                     <p>
-                        <a href="/user/{{ session['steamid'] }}" class="btn btn-large">Your profile</a>
+                        <a href="/user/{{ current_user }}" class="btn btn-large">Your profile</a>
                         <a href="/auth/logout" class="btn btn-large">Logout</a>
                     </p>
                 {% end %}
