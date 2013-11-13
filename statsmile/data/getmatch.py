@@ -19,5 +19,5 @@ def update_matches(db, log, match_id):
     else:
         array = json_decode(response.body)
 
-    db["matches"].insert({"match_id": match_id, "result": array["result"]})
+    db["matches"].insert(array["result"])
     log.info("Match #'{}' added to database".format(match_id))
