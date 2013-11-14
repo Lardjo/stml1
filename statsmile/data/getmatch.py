@@ -8,6 +8,9 @@ from tornado.httpclient import AsyncHTTPClient
 
 @gen.coroutine
 def update_matches(db, log, match_id):
+    if match_id is None:
+        log.info("All matches updated! Waiting new matches for getting")
+        return
     key = db["settings"].find_one()
     params = {"match_id": match_id, "key": key["apikey"]}
     url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/", params)
