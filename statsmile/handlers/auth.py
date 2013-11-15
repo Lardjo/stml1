@@ -26,11 +26,11 @@ class AuthHandler(BaseHandler, tornado.auth.OpenIdMixin):
                 user = get_steam_user(self.application.db, self.application.logger, steamid)
                 self.application.db["users"].insert(user)
                 self.set_secure_cookie("statsmile_user", json_encode(str(user["_id"])))
-                self.redirect("/")
+                self.redirect("/user/{}".format(user["_id"]))
                 yield getting_matches_id(self.application.db, self.application.logger, steamid)
             else:
                 self.set_secure_cookie("statsmile_user", json_encode(str(rv["_id"])))
-                self.redirect("/")
+                self.redirect("/user/{}".format(rv["_id"]))
             return
         else:
             yield self.authenticate_redirect()
