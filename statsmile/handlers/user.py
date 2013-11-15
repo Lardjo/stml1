@@ -12,10 +12,25 @@ class UserHandler(BaseHandler):
             {"$match": {"players.account_id": user["steamid32"]}},
             {"$sort": {"match_id": -1}},
             {"$limit": 10}
-        ])
+        ])['result']
         match = self.application.db["matches"].aggregate([
             {"$match": {"players.account_id": user["steamid32"]}},
             {"$sort": {"match_id": -1}},
             {"$limit": 1}
-        ])
-        self.render("profile.html", user=user, matches=matches["result"], match=match['result'][0])
+        ])['result']
+        favorites = self.application.db["matches"].aggregate([
+            {"$project": {"players": 1}},
+            {"$unwind": "$players"},
+            {"$project": {
+                "_id": 0,
+                "hero": "$players.hero_id",
+                "account_id": "$players.account_id",
+                "count": {"$add": [1]}
+            }},
+            {"$match": {"account_id": user["steamid32"]}},
+            {"$group": {"_id": "$hero", "sum": {"$sum": "$count"}}},
+            {"$sort": {"sum": -1}},
+            {"$limit": 10}
+        ])['result']
+        self.render("profile.html",
+                    user=user, matches=matches, match=match, favorites=favorites)
