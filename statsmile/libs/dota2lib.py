@@ -8,6 +8,8 @@ mode = {1: {"name": 'All Pick'},
         3: {'name': 'Random Draft'},
         4: {'name': 'Single Draft'},
         5: {'name': 'All Random'},
+        7: {'name': 'Diretide'},
+        9: {'name': 'Greeviling 2012'},
         12: {'name': 'Least Played'},
         14: {'name': 'Compendium Matchmaking'}}
 
@@ -137,7 +139,9 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           100: {'name': 'Tusk', 'avatar': 'img/dota/heroes/tusk.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
           102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
-          103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'}}
+          103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
+          106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
+          107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}}
 
 items = {0: {'avatar': 'holder.js/60x45/text:Empty'},
          1: {'name': 'Blink Dagger', 'avatar': 'img/dota/items/blink_dagger.png'},
