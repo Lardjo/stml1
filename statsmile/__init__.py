@@ -45,8 +45,12 @@ class Statsmile(tornado.web.Application):
             {"$limit": 1}
         ])
 
-        IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=30)).timestamp(),
-                                      partial(self.periodic_matches, new_matches["result"][0]["_id"]))
+        if not new_matches['result']:
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
+                                          partial(self.periodic_matches, None))
+        else:
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
+                                          partial(self.periodic_matches, new_matches['result'][0]['_id']))
 
     def init_db(self):
         try:
@@ -108,7 +112,7 @@ class Statsmile(tornado.web.Application):
                 {"$group": {"_id": "$matches"}},
                 {"$sort": {"_id": -1}},
                 {"$limit": 1}
-            ])
+            ])['result']
         else:
             matches = self.db["users"].aggregate([
                 {"$unwind": "$matches"},
@@ -117,9 +121,9 @@ class Statsmile(tornado.web.Application):
                 {"$match": {"_id": {"$not": {"$in": complete["result"][0]["items"]}}}},
                 {"$sort": {"_id": -1}},
                 {"$limit": 1}
-            ])
-        for mt in matches["result"]:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=30)).timestamp(),
+            ])['result']
+        for mt in matches:
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.periodic_matches, mt["_id"]))
 
         super().__init__(handlers_list, **settings)
