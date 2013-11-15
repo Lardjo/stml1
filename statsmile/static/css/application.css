@@ -323,6 +323,10 @@ h1 small,
     height: 25px;
 }
 
+.favorite {
+    height: 15px;
+}
+
 .hero-container img {
     height: 25px;
 }
@@ -350,4 +354,13 @@ h1 small,
 
 .recent-info {
     margin-bottom: 15px;
+}
+
+.dashboard-wait {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.dashboard-wait h1 {
+    font-size: 85px;
 }
