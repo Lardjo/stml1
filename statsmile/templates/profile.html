@@ -8,7 +8,7 @@
 {% block login %}
     {% if current_user %}
         <p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">{{ user['personaname'] }}</a></p>
-        <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
+        <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a></li>
     {% else %}
         <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
     {% end %}
@@ -28,62 +28,57 @@
         </div>
     </div>
     <div class="container">
+
+        {% if matches %}
         <div class="row">
             <div class="col-md-8">
                  <div class="page-header">
                      <h1>Favorite Heroes<small> All time</small></h1>
                  </div>
                 <!-- Top 1 -->
-                <div class="media">
-                    <a class="pull-left" href="#">
 
+                <div class="list-group">
+                    {% for fav in favorites %}
+                    <a class="list-group-item" href="#">
+                        <span class="badge">{% try %}{{ fav['sum'] }}{% except %}0{% end %} Matches Played</span>
+                        <div class="hero-container favorite"><img class="media-object" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}holder.js/80x45/text:{{ fav['_id'] }}{% end %}" /></div>
+                        <div class="hero-name"><strong>{% try %}{{ libs.heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></div>
                     </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">%hero%</h4>
-                        %s Matches Played
-                    </div>
+                    {% end %}
                 </div>
+
+
             </div>
             <div class="col-md-4">
                  <div class="page-header">
                      <h1>Overview<small> Last</small></h1>
                  </div>
-                <p><strong>Last Match:</strong> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
+                <p><strong>Last Match:</strong> {% try %}{{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match[0]['start_time'])) }}{% except %}None{% end %}</p>
                 <p><strong>Total:</strong> %none%</p>
-                <p>
-                    <strong>Win Rate:</strong>    %none%
-                    <div class="progress progress-margin">
-                        <div class="progress-bar progress-bar-success" style="width: 50%">
-                            %s Wins
-                        </div>
-                        <div class="progress-bar progress-bar-danger" style="width: 50%">
-                            %s Loses
-                        </div>
-                    </div>
-                </p>
-
             </div>
         </div>
         <div class="page-header">
             <h1>Recent Match<small> At the time of update</small></h1>
         </div>
+        {% for mt in match %}
+
 
         <div class="row recent-info">
     <div class="col-md-4">
-        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="{{ match['match_id'] }}">{{ match['match_id'] }}</a></p>
-        <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
-        <p><span class="glyphicon glyphicon-time"></span><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
+        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
+        <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
+        <p><span class="glyphicon glyphicon-time"></span><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</p>
     </div>
     <div class="col-md-4">
-        <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
-        <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
-        <p><span class="glyphicon glyphicon-time"></span><b> First Blood:</b> {% try %}{{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
+        <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
+        <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</p>
+        <p><span class="glyphicon glyphicon-time"></span><b> First Blood:</b> {% try %}{{ time.strftime("%M:%S", time.gmtime(mt['first_blood_time'])) }}{% except %}None{% end %}</p>
     </div>
 </div>
 
         <!-- Panel The Radiant -->
         <div class="panel panel-success">
-            <div class="panel-heading">{% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
+            <div class="panel-heading">{% if mt['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
             <!-- Table The Radiant -->
             <table class="table">
                 <thead>
@@ -101,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for radiant in match['players'][:5] %}
+                {% for radiant in mt['players'][:5] %}
                     <tr>
                         {% if radiant['account_id'] == 4294967295 %}<td style="width: 200px;" class="text-muted">Anonymous</td>{% else %}<td style="width: 200px;">{{ radiant['account_id'] }}</td>{% end %}
                         <td style="width: 80px; padding: 1px;">
@@ -137,7 +132,7 @@
 
         <!-- Panel The Dire -->
         <div class="panel panel-danger">
-            <div class="panel-heading">{% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <div class="panel-heading">{% if not mt['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
             <!-- Table The Dire -->
             <table class="table">
                 <thead>
@@ -155,7 +150,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for dire in match['players'][5:] %}
+                {% for dire in mt['players'][5:] %}
                     <tr>
                         {% if dire['account_id'] == 4294967295 %}
                             {% if dire['leaver_status'] == 3 %}
@@ -200,10 +195,12 @@
                 </tbody>
             </table>
         </div>
+        {% end %}
 
         <div class="page-header">
             <h1>Latest Matches<small> The last ten games</small></h1>
         </div>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -245,5 +242,16 @@
             {% end %}
             </tbody>
         </table>
+        <p class="text-muted">*All of your matches will be added in order from newest to oldest. Priority is given to the most recent matches</p>
+        {% else %}
+        <div class="dashboard-wait">
+            <h1><span class="glyphicon glyphicon-download-alt"></span></h1>
+            <h4>Great! You have successfully passed the authorization and your data will be obtained soon.</h4>
+            <h4>Your data will be obtained within 5-10 minutes. May be hot coffee will facilitate your waiting? ;)</h4>
+            <br/>
+            <h4>...or you can <a href="/matches">show games</a> for other users.</h4>
+        </div>
+        {% end %}
+
     </div>
 {% end %}
