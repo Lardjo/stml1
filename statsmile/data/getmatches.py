@@ -12,6 +12,8 @@ def getting_matches_id(db, log, steamid):
     start_time = 0
     remaining = 1
 
+    log.info("Getting all matches for user '{}'...".format(steamid))
+
     while remaining:
         key = db["settings"].find_one()
         params = {'key': key['apikey'], 'account_id': steamid, 'date_max': start_time}
@@ -32,5 +34,5 @@ def getting_matches_id(db, log, steamid):
     else:
         matches.sort()
         db['users'].update({"steamid": steamid}, {'$set': {"matches": matches}})
-        log.info("New user {} successfully added to the database. Added '{}' matches".format(steamid,
-                                                                                             len(matches)))
+        log.info("User '{}' successfully added to the database. Added '{}' matches".format(steamid,
+                                                                                           len(matches)))
