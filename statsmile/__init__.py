@@ -13,10 +13,6 @@ from pymongo.errors import ConnectionFailure
 from statsmile import handlers
 from statsmile.data import update_matches_id, update_matches
 
-from tornado.options import define
-
-define("port", default=8888, help="run on the given port", type=int)
-
 
 class Statsmile(tornado.web.Application):
     @gen.coroutine
