@@ -8,3 +8,4 @@ from .logout import LogoutHandler
 from .matches import MatchesHandler
 from .players import PlayersHandler
 from .start import StartHandler
+from .match import MatchHandler
