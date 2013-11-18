@@ -5,7 +5,7 @@ from bson import ObjectId
 
 
 class UserHandler(BaseHandler):
-    def get(self, sid=None):
+    def get(self, sid):
         session = self.application.db["users"].find_one({"_id": ObjectId(self.current_user)})
         user = self.application.db["users"].find_one({"_id": ObjectId(sid)})
         matches = self.application.db["matches"].aggregate([
@@ -31,7 +31,7 @@ class UserHandler(BaseHandler):
             {"$match": {"account_id": user["steamid32"]}},
             {"$group": {"_id": "$hero", "sum": {"$sum": "$count"}}},
             {"$sort": {"sum": -1}},
-            {"$limit": 10}
+            {"$limit": 7}
         ])['result']
         self.render("profile.html",
                     user=user, session=session, matches=matches, match=match, favorites=favorites)
