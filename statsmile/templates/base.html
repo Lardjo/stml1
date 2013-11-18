@@ -31,11 +31,13 @@
     </nav>
     {% block content %}{% end %}
     </div>
+    {% block footer %}
     <div id="footer">
         <div class="container">
             <p class="text-muted credit">Copyright (c) 2013 Statsmile LLC. Designed and built by Konstantin N.</p>
         </div>
     </div>
+    {% end %}
     <script src="{{ static_url('js/holder.js') }}"></script>
     <script src="{{ static_url('js/jquery.js') }}"></script>
     <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
