@@ -32,18 +32,18 @@
                 <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
                 <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
                 <td>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][1]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][1]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][2]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][2]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][3]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][3]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][4]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][4]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][1]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][1]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][2]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][2]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][3]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][3]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][4]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][4]['hero_id'] }}{% end %}"></div>
                 </td>
                 <td>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][5]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][5]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][6]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][6]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][7]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][7]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][8]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][8]['hero_id'] }}{% end %}"></div>
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][9]['hero_id']]['avatar']) }}{% except %}data-src=holder.js/80x45/text:{{ mt['players'][9]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][5]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][5]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][6]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][6]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][7]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][7]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][8]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][8]['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][9]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][9]['hero_id'] }}{% end %}"></div>
                 </td>
             </tr>
             {% end %}

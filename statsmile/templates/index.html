@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}Statsmile{% end %}
 {% block menu %}
     <li class="active"><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
@@ -10,23 +9,17 @@
         <div class="main">
                 <h1>Statsmile</h1>
                 <p>Simple and intuitive service statistics for Dota 2</p>
-                {% if not current_user %}
-                    <p>
-                        <a href="/auth/login" class="btn btn-large">Get started today</a>
-                    </p>
-                {% else %}
-                    <p>
-                        <a href="/user/{{ current_user }}" class="btn btn-large">Your profile</a>
-                        <a href="/auth/logout" class="btn btn-large">Logout</a>
-                    </p>
+                {% if not current_user %}<p><a href="/auth/login" class="btn btn-large">Get started today</a></p>
+                {% else %}<p><a href="/user/{{ current_user }}" class="btn btn-large">Your profile</a>
+                        <a href="/auth/logout" class="btn btn-large">Logout</a></p>
                 {% end %}
                 <ul class="head-links">
                     <li><a href="#"><strong>For new users</strong></a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="http://github.com/Lardjo/Statsmile">GitHub Page</a></li>
+                    <li><a href="http://youtrack.statsmile.com/">Youtrack</a></li>
                     <li>Version 2.1-alpha</li>
                 </ul>
         </div>
     </div>
 {% end %}
-{% block footer %}{% end %}
