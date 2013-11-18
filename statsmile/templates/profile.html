@@ -23,7 +23,7 @@
             </div>
             <div class="information">
                 <h1>{{ user['personaname'] }}</h1>
-                <h4>{{ user['realname'] }}</h4>
+                <h4>{% try %}{{ user['realname'] }}{% except %}Private account{% end %}</h4>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
 
         <div class="row recent-info">
     <div class="col-md-4">
-        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
+        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
         <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
         <p><span class="glyphicon glyphicon-time"></span><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</p>
     </div>
