@@ -10,25 +10,26 @@ class UserHandler(BaseHandler):
         user = self.application.db["users"].find_one({"_id": ObjectId(sid)})
         matches = self.application.db["matches"].aggregate([
             {"$unwind": "$players"},
-            {"$match": {"players.account_id": user["steamid32"]}},
+            {"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}}},
             {"$sort": {"match_id": -1}},
             {"$limit": 10}
         ])['result']
         match = self.application.db["matches"].aggregate([
-            {"$match": {"players.account_id": user["steamid32"]}},
+            {"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}}},
             {"$sort": {"match_id": -1}},
             {"$limit": 1}
         ])['result']
         favorites = self.application.db["matches"].aggregate([
-            {"$project": {"players": 1}},
+            {"$project": {"players": 1, "game_mode": 1}},
             {"$unwind": "$players"},
             {"$project": {
                 "_id": 0,
                 "hero": "$players.hero_id",
                 "account_id": "$players.account_id",
+                "game_mode": "$game_mode",
                 "count": {"$add": [1]}
             }},
-            {"$match": {"account_id": user["steamid32"]}},
+            {"$match": {"account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}}},
             {"$group": {"_id": "$hero", "sum": {"$sum": "$count"}}},
             {"$sort": {"sum": -1}},
             {"$limit": 7}
