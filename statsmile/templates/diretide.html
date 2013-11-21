@@ -50,7 +50,7 @@
             {% for mt in diretide %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
-                <td>{{ time.strftime("%d, %B %Y @ %H:%M:%S", time.gmtime(mt['start_time'])) }}</td>
+                <td>{{ time.strftime("%d, %B %Y @ %H:%M:%S", time.localtime(mt['start_time'])) }}</td>
                 <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
                 <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
                 <td>
