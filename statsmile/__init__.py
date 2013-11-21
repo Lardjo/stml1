@@ -45,10 +45,10 @@ class Statsmile(tornado.web.Application):
         ])
 
         if not new_matches['result']:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=30)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.periodic_matches, None))
         else:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=30)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.periodic_matches, new_matches['result'][0]['_id']))
 
     def init_db(self):
