@@ -119,12 +119,25 @@ h4 {
     background-color: #f5f5f5;
 }
 
+#footer {
+    height: 60px;
+}
+
 .container .credit {
     margin: 20px 0;
 }
 
 #wrap {
   min-height: 100%;
+  height: auto !important;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+  position:relative;
+}
+
+#events {
+  min-height: 100%;
+  background: #000 url(../img/dota/web/diretide.jpg?1) no-repeat top center;
   height: auto !important;
   margin: 0 auto -60px;
   padding: 0 0 60px;
@@ -393,4 +406,43 @@ h1 small,
 
 .menu-list-active a {
     color: #666;
+}
+
+/* TEST BLUR */
+.navbar-dire {
+    background-color: transparent;
+    border-width: 0;
+    margin-bottom: 100px;
+}
+.navbar-dire .navbar-nav>li>a {
+    color: #296776;
+}
+
+.navbar-dire .navbar-text {
+    color: #296776;
+}
+
+.navbar-dire .navbar-link {
+    color: #296776;
+}
+
+.navbar-dire .navbar-nav>.dropdown>a .caret {
+    border-top-color: inherit;
+    border-bottom-color: inherit;
+}
+
+.navbar-dire .navbar-nav>.open>a,
+.navbar-dire .navbar-nav>.open>a:hover,
+.navbar-dire .navbar-nav>.open>a:focus {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+
+.diretide {
+    color: #ffffff;
+}
+
+.diretide a {
+    color: #296776;
 }

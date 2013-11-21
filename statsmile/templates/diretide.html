@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Statsmile / Matches{% end %}
+{% block title %}Statsmile / Events / Diretide{% end %}
+{% block body %}<div id="events">{% end %}
+{% block navbar %}<nav class="navbar navbar-inverse navbar-dire">{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
-    <li class="active"><a href="/matches">Matches</a></li>
+    <li><a href="/matches">Matches</a></li>
     <li><a href="/players">Players</a></li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
@@ -12,17 +14,30 @@
         </ul>
     </li>
 {% end %}
+{% block login %}
+    {% if current_user %}
+        <p class="navbar-text pull-right"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as <a href="/user/{{ current_user }}" class="navbar-link">{{ session['personaname'] }}</a></p>
+        <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a></li>
+    {% else %}
+        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
+    {% end %}
+{% end %}
 {% block content %}
-    <div class="container">
+    <div class="container diretide">
         <div class="page-header">
-            <h1>Summary <small>of recent games</small></h1>
+            <h1>Latest Matches <small>Diretide 2013</small></h1>
         </div>
-        <table class="table table-striped">
+
+        <p class="text-muted text-center">Diretide 2013 is a Halloween event that began on November 14, 2013. It features a game
+            mode similar to Diretide 2012 with some changes, most notably that Roshan must now be killed repeatedly
+            to obtain the server record, instead of being killed the fastest. Special crafting recipes were also
+            introduced for this event.</p>
+
+        <table class="table">
             <thead>
             <tr>
                 <th>Match ID</th>
-                <th>Result</th>
-                <th>Mode</th>
+                <th>Start Time</th>
                 <th>Server</th>
                 <th>Duration</th>
                 <th>Radiant</th>
@@ -30,14 +45,14 @@
             </tr>
             </thead>
             <tbody>
+            {% import time %}
             {% from statsmile import libs %}
-            {% for mt in matches %}
+            {% for mt in diretide %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
-                <td>{% if mt['radiant_win'] %}<p class="text-success">Radiant Victory</p>{% else %}<p class="text-danger">Dire Victory</p>{% end %}</td>
-                <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+                <td>{{ time.strftime("%d, %B %Y @ %H:%M:%S", time.gmtime(mt['start_time'])) }}</td>
                 <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
-                <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+                <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
                 <td>
                 <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
                 <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][1]['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ mt['players'][1]['hero_id'] }}{% end %}"></div>
@@ -56,5 +71,13 @@
             {% end %}
             </tbody>
         </table>
+
     </div>
 {% end %}
+    {% block footer %}
+    <div id="footer-dire">
+        <div class="container">
+            <p class="text-muted credit">Copyright (c) 2013 Statsmile LLC. Designed and built by Konstantin N.</p>
+        </div>
+    </div>
+    {% end %}

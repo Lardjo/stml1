@@ -7,8 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{{ static_url("css/application.css") }}">
     </head>
 <body>
-    <div id="wrap">
-    <nav class="navbar navbar-default navbar-static-top navbar-inverse navbar-gray" role="navigation">
+    {% block body %}<div id="wrap">{% end %}
+    {% block navbar %}<nav class="navbar navbar-default navbar-static-top navbar-inverse navbar-gray">{% end %}
         <div class="container">
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">{% block menu %}{% end %}</ul>
