@@ -154,10 +154,10 @@
                         <td>{{ radiant['gold_per_min'] }}</td>
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width: {{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width: {{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width: {{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}%;">{{ radiant['assists'] }}</div>
-                        </div>
+                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['kills'] }}</div>
+                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['deaths'] }}</div>
+                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['assists'] }}</div>
+                            </div>
                         </td>
                     </tr>
                 {% end %}
