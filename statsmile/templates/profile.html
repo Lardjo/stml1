@@ -232,10 +232,10 @@
                         <td>{{ dire['gold_per_min'] }}</td>
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width: {{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width: {{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width: {{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}%;">{{ dire['assists'] }}</div>
-                        </div>
+                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['kills'] }}</div>
+                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['deaths'] }}</div>
+                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['assists'] }}</div>
+                            </div>
                         </td>
                     </tr>
                 {% end %}
