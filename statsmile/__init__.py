@@ -67,6 +67,7 @@ class Statsmile(tornado.web.Application):
             ("/auth/logout", handlers.LogoutHandler),
             ("/user/(.*)", handlers.UserHandler),
             ("/events/diretide", handlers.DiretideHandler),
+            ("/events/greeviling", handlers.GreevilingHandler),
             ("/matches/([0-9]+)", handlers.MatchHandler),
             ("/matches", handlers.MatchesHandler),
             ("/players", handlers.PlayersHandler),

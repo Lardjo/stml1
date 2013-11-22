@@ -135,9 +135,17 @@ h4 {
   position:relative;
 }
 
-#events {
+#diretide {
   min-height: 100%;
-  background: #000 url(../img/dota/web/diretide.jpg?1) no-repeat top center;
+  background: #000 url(../img/dota/web/diretide.jpg) no-repeat top center;
+  height: auto !important;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+#greeviling {
+  min-height: 100%;
+  background: #fff url(../img/dota/web/greev.jpg?1) no-repeat top center;
   height: auto !important;
   margin: 0 auto -60px;
   padding: 0 0 60px;
@@ -167,7 +175,7 @@ h4 {
 }
 
 .general h1 {
-    font-weight: 300;
+    font-weight: 500;
     margin-top: 0;
     margin-bottom: 5px;
     font-size: 30px;
@@ -244,6 +252,11 @@ h4 {
     padding-left: 15px;
     padding-right: 12px;
     float: left;
+}
+
+.avatar img {
+    width: 64px;
+    height: 64px;
 }
 
 .information {
@@ -438,9 +451,42 @@ h1 small,
     background-color: rgba(0, 0, 0, 0.45);
 }
 
+.navbar-greev {
+    background-color: transparent;
+    border-width: 0;
+    margin-bottom: 300px;
+}
+
+.navbar-greev .navbar-nav>li>a {
+    color: #429E49;
+}
+
+.navbar-greev .navbar-text {
+    color: #429E49;
+}
+
+.navbar-greev .navbar-link {
+    color: #429E49;
+}
+
+.navbar-greev .navbar-nav>.dropdown>a .caret {
+    border-top-color: inherit;
+    border-bottom-color: inherit;
+}
+
+.navbar-greev .navbar-nav>.open>a,
+.navbar-greev .navbar-nav>.open>a:hover,
+.navbar-greev .navbar-nav>.open>a:focus {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.45);
+}
 
 .diretide {
     color: #ffffff;
+}
+
+.greeviling {
+    color: #000000;
 }
 
 .diretide a {

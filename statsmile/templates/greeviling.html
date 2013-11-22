@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Statsmile / Events / Diretide{% end %}
-{% block body %}<div id="diretide">{% end %}
-{% block navbar %}<nav class="navbar navbar-inverse navbar-dire">{% end %}
+{% block title %}Statsmile / Events / The Greeviling{% end %}
+{% block body %}<div id="greeviling">{% end %}
+{% block navbar %}<nav class="navbar navbar-inverse navbar-greev">{% end %}
 {% block menu %}
     <li><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
@@ -23,15 +23,13 @@
     {% end %}
 {% end %}
 {% block content %}
-    <div class="container diretide">
+    <div class="container greeviling">
         <div class="page-header">
-            <h1>Latest Matches <small>Diretide 2013</small></h1>
+            <h1>Latest Matches <small>The Greeviling 2012</small></h1>
         </div>
 
-        <p class="text-muted text-center">Diretide 2013 is a Halloween event that began on November 14, 2013. It features a game
-            mode similar to Diretide 2012 with some changes, most notably that Roshan must now be killed repeatedly
-            to obtain the server record, instead of being killed the fastest. Special crafting recipes were also
-            introduced for this event.</p>
+        <p class="text-muted text-center">The Greeviling is a Dota 2 event taking place during the Holidays. Greevils
+            have stolen the Shopkeeper's stock, and it's up to you to get it back!</p>
 
         <table class="table">
             <thead>
@@ -47,7 +45,7 @@
             <tbody>
             {% import time %}
             {% from statsmile import libs %}
-            {% for mt in diretide %}
+            {% for mt in greeviling %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
                 <td>{{ time.strftime("%d, %B %Y @ %H:%M:%S", time.localtime(mt['start_time'])) }}</td>
