@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # All right reserved 2013
-# Description: Dota 2 Library (inc. items, heroes)
+# Description: Dota 2 Library (inc. items, heroes, clusters, modes)
 # URL: http://github.com/Lardjo
 
 mode = {1: {"name": 'All Pick'},
@@ -272,8 +272,9 @@ items = {0: {'avatar': 'holder.js/60x45/text:Empty'},
          187: {'name': 'Medallion of Courage', 'avatar': 'img/dota/items/medallion_of_courage.png'},
          188: {'name': 'Smoke of Deceit', 'avatar': 'img/dota/items/smoke_of_deceit.png'},
          190: {'name': 'Veil of Discord', 'avatar': 'img/dota/items/veil_of_discord.png'},
+         193: {'name': 'Necronomicon: Level 2', 'avatar': 'img/dota/items/necronomicon_2.png'},
          194: {'name': 'Necronomicon', 'avatar': 'img/dota/items/necronomicon.png'},
-         196: {'name': 'Diffusal Blade Level 2', 'avatar': 'img/dota/items/diffusal_blade.png'},
+         196: {'name': 'Diffusal Blade: Level 2', 'avatar': 'img/dota/items/diffusal_blade.png'},
          201: {'name': 'Dagon Level 2', 'avatar': 'img/dota/items/dagon_2.png'},
          202: {'name': 'Dagon Level 3', 'avatar': 'img/dota/items/dagon_3.png'},
          203: {'name': 'Dagon Level 4', 'avatar': 'img/dota/items/dagon_4.png'},
@@ -283,4 +284,12 @@ items = {0: {'avatar': 'holder.js/60x45/text:Empty'},
          210: {'name': 'Heaven\'s Halberd', 'avatar': 'img/dota/items/heavens_halberd.png'},
          212: {'name': 'Ring of Aquila', 'avatar': 'img/dota/items/ring_of_aquila.png'},
          214: {'name': 'Tranquil Boots', 'avatar': 'img/dota/items/tranquil_boots.png'},
-         215: {'name': 'Shadow Amulet', 'avatar': 'img/dota/items/shadow_amulet.png'}}
+         215: {'name': 'Shadow Amulet', 'avatar': 'img/dota/items/shadow_amulet.png'},
+         229: {'name': 'Xmas Stocking', 'avatar': 'img/dota/items/xmas_stocking.png'},
+         230: {'name': 'Speed Skates', 'avatar': 'img/dota/items/speed_skates.png'},
+         231: {'name': 'Fruit-bit Cake', 'avatar': 'img/dota/items/fruit-bit_cake.png'},
+         232: {'name': 'Wizard Cookie', 'avatar': 'img/dota/items/wizard_cookie.png'},
+         233: {'name': 'Cocoa with Marshmallows', 'avatar': 'img/dota/items/cocoa.png'},
+         234: {'name': 'Clove Studded Ham', 'avatar': 'img/dota/items/clove_studded_ham.png'},
+         235: {'name': 'Greevil Whistle', 'avatar': 'img/dota/items/greevil_whistle.png'},
+         236: {'name': 'Kringle', 'avatar': 'img/dota/items/kringle.png'}}
