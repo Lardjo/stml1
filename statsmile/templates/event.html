@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Statsmile / Events / Diretide{% end %}
+{% block title %}Statsmile / Events / {{ title }}{% end %}
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h1>Diretide <small>2013</small></h1>
+            <h1>{{ title }} <small>Event</small></h1>
         </div>
         <table class="table">
             <thead>
@@ -19,7 +19,7 @@
             <tbody>
             {% import time %}
             {% from statsmile import libs %}
-            {% for mt in diretide %}
+            {% for mt in event %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
                 <td>{{ time.strftime("%d, %B %Y @ %H:%M:%S", time.localtime(mt['start_time'])) }}</td>

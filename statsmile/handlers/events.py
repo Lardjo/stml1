@@ -10,8 +10,8 @@ class EventsHandler(BaseHandler):
         if source not in ('diretide', 'greeviling'):
             return self.send_error(404)
         elif source == "diretide":
-            diretide = self.application.db["matches"].find({"game_mode": 7}).sort("match_id", -1).limit(20)
-            self.render("diretide.html", session=session, diretide=diretide)
+            event = self.application.db["matches"].find({"game_mode": 7}).sort("match_id", -1).limit(20)
+            self.render("event.html", title="Diretide", session=session, event=event)
         elif source == "greeviling":
-            greeviling = self.application.db["matches"].find({"game_mode": 9}).sort("match_id", -1).limit(20)
-            self.render("greeviling.html", session=session, greeviling=greeviling)
+            event = self.application.db["matches"].find({"game_mode": 9}).sort("match_id", -1).limit(20)
+            self.render("event.html", title="The Greeviling", session=session, event=event)
