@@ -70,7 +70,7 @@ class Statsmile(tornado.web.Application):
             ("/matches/([0-9]+)", handlers.MatchHandler),
             ("/matches", handlers.MatchesHandler),
             ("/players", handlers.PlayersHandler),
-            ("/about", handlers.AboutHandler),
+            ("/page/(.*)", handlers.PageHandler)
         ]
         settings = {
             "cookie_secret": "Developed_key",
