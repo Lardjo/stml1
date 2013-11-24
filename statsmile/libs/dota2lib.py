@@ -11,6 +11,7 @@ mode = {1: {"name": 'All Pick'},
         7: {'name': 'Diretide'},
         9: {'name': 'Greeviling'},
         12: {'name': 'Least Played'},
+        13: {'name': 'Limited Hero Pool'},
         14: {'name': 'Compendium Matchmaking'}}
 
 cluster = {111: {'name': 'US West'},
