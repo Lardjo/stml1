@@ -129,5 +129,5 @@ class Statsmile(tornado.web.Application):
 
         super().__init__(handlers_list, **settings)
 
-        self.listen(80)
+        self.listen(8888)
         self.logger.info("Statsmile server is started!")
