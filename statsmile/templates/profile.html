@@ -1,37 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / {{ user['personaname'] }}{% end %}
-{% block menu %}
-    <li><a href="/">Home</a></li>
-    <li><a href="/matches">Matches</a></li>
-    <li><a href="/players">Players</a></li>
-        <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/events/diretide">Diretide</a></li>
-          <li><a href="/events/greeviling">The Greeviling</a></li>
-        </ul>
-    </li>
-{% end %}
-{% block login %}
-    {% if current_user %}
-        <p class="navbar-text pull-right">Signed in as <a href="/user/{{ current_user }}" class="navbar-link">{{ session['personaname'] }}</a></p>
-        <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a></li>
-    {% else %}
-        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
-    {% end %}
-{% end %}
 {% block content %}
     {% import time %}
     {% from statsmile import libs %}
     <div class="general profile">
         <div class="container">
-            <div class="avatar">
-                <img src="{{ user['avatarfull'] }}" class="img-circle pull-left" />
-            </div>
-            <div class="information">
-                <h1>{{ user['personaname'] }}</h1>
-                <h4>{% try %}{{ user['realname'] }}{% except %}Private account{% end %}</h4>
-            </div>
+            <img src="{{ user['avatarfull'] }}" class="img-circle pull-left" />
+            <h1>{{ user['personaname'] }} <small>{% try %}{{ user['realname'] }}{% except %}{% end %}</small></h1>
         </div>
     </div>
     <div class="container">
@@ -54,203 +29,69 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                 <div class="page-header">
-                     <h1>Favorite Heroes<small> All time</small></h1>
-                 </div>
-                <!-- Top 1 -->
-
-                <div class="list-group">
-                    {% for fav in favorites %}
-                    <a class="list-group-item" href="#">
-                        <span class="badge">{% try %}{{ fav['sum'] }}{% except %}0{% end %} Matches Played</span>
-                        <div class="hero-container favorite"><img class="media-object" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}"></div>
-                        <div class="hero-name"><strong>{% try %}{{ libs.heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></div>
-                    </a>
-                    {% end %}
+            <div class="col-md-7">
+                <div class="page-header">
+                    <h1>Recent Match<small> At the time of update</small></h1>
                 </div>
-
-
+                {% for mt in match %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
+                        <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
+                        <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</p>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Hero</th>
+                        <th>Level</th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for heroes in mt['players'] %}
+                    <tr>
+                        <td>
+                            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[heroes['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+                        </td>
+                        <td>{{ heroes['level'] }}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(heroes['kills'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['kills'] }}</div>
+                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(heroes['deaths'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['deaths'] }}</div>
+                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(heroes['assists'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['assists'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% end %}
+                    </tbody>
+                </table>
+                {% end %}
             </div>
-            <div class="col-md-4">
-                 <div class="page-header">
-                     <h1>Overview<small> Last</small></h1>
-                 </div>
-                <p><strong>Last Match:</strong> {% try %}{{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match[0]['start_time'])) }}{% except %}None{% end %}</p>
-                <p><strong>Winrate:</strong></p>
-                <p><strong>Wins:</strong></p>
-                <p><strong>Lose:</strong></p>
-                <p><strong>Total:</strong></p>
+            <div class="col-md-5">
+                <div class="page-header">
+                    <h1>Favorite Heroes<small> All time*</small></h1>
+                </div>
+                {% for fav in favorites %}
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{% try %}{{ libs.heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</h4>
+                        {% try %}{{ fav['sum'] }}{% except %}0{% end %} Matches Played
+                    </div>
+                </div>
+                {% end %}
             </div>
         </div>
         <div class="page-header">
-            <h1>Recent Match<small> At the time of update</small></h1>
+            <h1>Latest Matches</h1>
         </div>
-        {% for mt in match %}
-
-
-        <div class="row recent-info">
-    <div class="col-md-4">
-        <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
-        <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
-        <p><span class="glyphicon glyphicon-time"></span><b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</p>
-    </div>
-    <div class="col-md-4">
-        <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
-        <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</p>
-        <p><span class="glyphicon glyphicon-time"></span><b> First Blood:</b> {% try %}{{ time.strftime("%M:%S", time.gmtime(mt['first_blood_time'])) }}{% except %}None{% end %}</p>
-    </div>
-</div>
-
-        <!-- Panel The Radiant -->
-        <div class="panel panel-success">
-            <div class="panel-heading">{% if mt['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
-            <!-- Table The Radiant -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Hero</th>
-                        <th colspan="6">Items</th>
-                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
-                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
-                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
-                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
-                        <th>Kills / Deaths / Assists</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for radiant in mt['players'][:5] %}
-                    <tr>
-                        {% if radiant['account_id'] == 4294967295 %}<td style="width: 200px;" class="text-muted">Anonymous</td>{% else %}<td style="width: 200px;">{{ radiant['account_id'] }}</td>{% end %}
-                        <td style="width: 80px; padding: 1px;">
-                            <div style="position: relative;">
-                                <img src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
-                                <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
-                            </div>
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}">
-                        </td>
-                        <td>{{ radiant['gold_spent'] }}</td>
-                        <td>{{ radiant['denies'] }}</td>
-                        <td>{{ radiant['last_hits'] }}</td>
-                        <td>{{ radiant['hero_healing'] }}</td>
-                        <td>{{ radiant['xp_per_min'] }}</td>
-                        <td>{{ radiant['gold_per_min'] }}</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['assists'] }}</div>
-                            </div>
-                        </td>
-                    </tr>
-                {% end %}
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Panel The Dire -->
-        <div class="panel panel-danger">
-            <div class="panel-heading">{% if not mt['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
-            <!-- Table The Dire -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Hero</th>
-                        <th colspan="6">Items</th>
-                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
-                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
-                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
-                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
-                        <th>Kills / Deaths / Assists</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for dire in mt['players'][5:] %}
-                    <tr>
-                        {% if dire['account_id'] == 4294967295 %}
-                            {% if dire['leaver_status'] == 3 %}
-                                <td style="width: 200px;" class="text-muted">Anonymous (Leave)</td>
-                            {% else %}
-                                <td style="width: 200px;" class="text-muted">Anonymous</td>
-                            {% end %}
-                        {% else %}
-                            {% if dire['leaver_status'] == 3 %}
-                                <td style="width: 200px;">{{ dire['account_id'] }} (Leave)</td>
-                            {% else %}
-                                <td style="width: 200px;">{{ dire['account_id'] }}</td>
-                            {% end %}
-                        {% end %}
-                        <td style="width: 80px; padding: 1px;">
-                            <div style="position: relative;">
-                                <img src="{% try %}{{ static_url(libs.heroes[dire['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}">
-                                <div class="label-hero"><h6>{{ dire['level'] }} Level</h6></div>
-                            </div>
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_0'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_1'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_2'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_3'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_4'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_5'] }}{% end %}">
-                        </td>
-                        <td>{{ dire['gold_spent'] }}</td>
-                        <td>{{ dire['denies'] }}</td>
-                        <td>{{ dire['last_hits'] }}</td>
-                        <td>{{ dire['hero_healing'] }}</td>
-                        <td>{{ dire['xp_per_min'] }}</td>
-                        <td>{{ dire['gold_per_min'] }}</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['assists'] }}</div>
-                            </div>
-                        </td>
-                    </tr>
-                {% end %}
-                </tbody>
-            </table>
-        </div>
-        {% end %}
-
-        <div class="page-header">
-            <h1>Latest Matches<small> The last ten games</small></h1>
-        </div>
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -292,7 +133,7 @@
             {% end %}
             </tbody>
         </table>
-        <p class="text-muted">*All of your matches will be added in order from newest to oldest. Priority is given to the most recent matches</p>
+        <p class="text-muted">*All of your matches will be added in order from newest to oldest. Priority is given to the most recent matches. Getting more accurate data may take some time</p>
         {% else %}
         <div class="dashboard-wait">
             <h1><span class="glyphicon glyphicon-download-alt"></span></h1>
@@ -302,6 +143,5 @@
             <h4>...or you can <a href="/matches">show games</a> for other users.</h4>
         </div>
         {% end %}
-
     </div>
 {% end %}
