@@ -1,36 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Events / The Greeviling{% end %}
-{% block body %}<div id="greeviling">{% end %}
-{% block navbar %}<nav class="navbar navbar-inverse navbar-greev">{% end %}
-{% block menu %}
-    <li><a href="/">Home</a></li>
-    <li><a href="/matches">Matches</a></li>
-    <li><a href="/players">Players</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/events/diretide">Diretide</a></li>
-          <li><a href="/events/greeviling">The Greeviling</a></li>
-        </ul>
-    </li>
-{% end %}
-{% block login %}
-    {% if current_user %}
-        <p class="navbar-text pull-right"><img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as <a href="/user/{{ current_user }}" class="navbar-link">{{ session['personaname'] }}</a></p>
-        <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a></li>
-    {% else %}
-        <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>
-    {% end %}
-{% end %}
 {% block content %}
-    <div class="container greeviling">
+    <div class="container">
         <div class="page-header">
-            <h1>Latest Matches <small>The Greeviling 2012</small></h1>
+            <h1>The Greeviling <small>2012</small></h1>
         </div>
-
-        <p class="text-muted text-center">The Greeviling is a Dota 2 event taking place during the Holidays. Greevils
-            have stolen the Shopkeeper's stock, and it's up to you to get it back!</p>
-
         <table class="table">
             <thead>
             <tr>
@@ -69,13 +43,5 @@
             {% end %}
             </tbody>
         </table>
-
     </div>
 {% end %}
-    {% block footer %}
-    <div id="footer-dire">
-        <div class="container">
-            <p class="text-muted credit">Copyright (c) 2013 Statsmile LLC. Designed and built by Konstantin N.</p>
-        </div>
-    </div>
-    {% end %}

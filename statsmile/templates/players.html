@@ -4,13 +4,6 @@
     <li><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
     <li class="active"><a href="/players">Players</a></li>
-        <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/events/diretide">Diretide</a></li>
-          <li><a href="/events/greeviling">The Greeviling</a></li>
-        </ul>
-    </li>
 {% end %}
 {% block content %}
     <div class="container">
@@ -31,7 +24,8 @@
             {% set n += 1 %}
             <tr>
                 <td>{{ n }}</td>
-                <td><a href="/user/{{ pl['_id'] }}"><img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['name'] }}</a></td>
+                <td><a href="/user/{{ pl['_id'] }}">
+                    <img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['name'] }}</a></td>
                 <td>{{ pl['number'] }} Matches</td>
             </tr>
             {% end %}

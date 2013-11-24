@@ -1,17 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
-{% block menu %}
-    <li><a href="/">Home</a></li>
-    <li><a href="/matches">Matches</a></li>
-    <li><a href="/players">Players</a></li>
-        <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/events/diretide">Diretide</a></li>
-          <li><a href="/events/greeviling">The Greeviling</a></li>
-        </ul>
-    </li>
-{% end %}
 {% block content %}
     {% import time %}
     {% from statsmile import libs %}
@@ -31,18 +19,19 @@
             </div>
             <div class="col-md-4">
                 <p><span class="glyphicon glyphicon-list-alt"></span>
-                    <b> Game Mode:</b> {% try %}{{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
+                    <b> Game Mode:</b> {% try %}
+                    {{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
                 <p><span class="glyphicon glyphicon-hdd"></span>
-                    <b> Server:</b> {% try %}{{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
+                    <b> Server:</b> {% try %}
+                    {{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
                 <p><span class="glyphicon glyphicon-time"></span>
-                    <b> First Blood:</b> {% try %}{{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
+                    <b> First Blood:</b> {% try %}
+                    {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
             </div>
         </div>
-
-        <!-- Panel The Radiant -->
         <div class="panel panel-success">
-            <div class="panel-heading">{% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
-            <!-- Table The Radiant -->
+            <div class="panel-heading">
+                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
             <table class="table">
                 <thead>
                     <tr>
@@ -104,12 +93,8 @@
                 </tbody>
             </table>
         </div>
-
-
-         <!-- Panel The Dire -->
         <div class="panel panel-danger">
             <div class="panel-heading">{% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
-            <!-- Table The Dire -->
             <table class="table">
                 <thead>
                     <tr>
@@ -183,7 +168,5 @@
                 </tbody>
             </table>
         </div>
-
-
     </div>
 {% end %}

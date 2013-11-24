@@ -7,23 +7,38 @@
     <link rel="stylesheet" type="text/css" href="{{ static_url("css/application.css") }}">
     </head>
 <body>
-    {% block body %}<div id="wrap">{% end %}
-    {% block navbar %}<nav class="navbar navbar-default navbar-static-top navbar-inverse navbar-gray">{% end %}
+    <div id="wrap">
+    <nav class="navbar navbar-default navbar-static-top navbar-inverse navbar-gray">
         <div class="container">
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">{% block menu %}{% end %}</ul>
+                <ul class="nav navbar-nav">
+                    {% block menu %}
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/matches">Matches</a></li>
+                    <li><a href="/players">Players</a></li>
+                    {% end %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/events/diretide">Diretide</a></li>
+                            <li><a href="/events/greeviling">The Greeviling</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">{% block login %}{% if not current_user %}
+                    <li class="dropdown">{% if not current_user %}
                     <p class="navbar-text pull-right">Sign in with <a href="/auth/login">Steam ID</a></p>{% else %}
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">Signed in as {{ session['personaname'] }} <b class="caret"></b>
+                    <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">
+                        Signed in as {{ session['personaname'] }} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/{{ current_user }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                        <li><a href="/user/{{ current_user }}">
+                            <span class="glyphicon glyphicon-user"></span> Profile</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-                    </ul>{% end %}{% end %}
+                    </ul>{% end %}
                     </li>
                 </ul>
             </div>
@@ -34,7 +49,8 @@
     {% block footer %}
     <div id="footer">
         <div class="container">
-            <p class="text-muted credit">Copyright (c) 2013 Statsmile LLC. Designed and built by Konstantin N.</p>
+            <p class="text-muted credit">Copyright (c) 2013 Statsmile LLC.
+                Dota 2 is a registered trademark of Valve Corporation.</p>
         </div>
     </div>
     {% end %}

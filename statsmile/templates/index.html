@@ -3,13 +3,6 @@
     <li class="active"><a href="/">Home</a></li>
     <li><a href="/matches">Matches</a></li>
     <li><a href="/players">Players</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Events <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/events/diretide">Diretide</a></li>
-          <li><a href="/events/greeviling">The Greeviling</a></li>
-        </ul>
-    </li>
 {% end %}
 {% block content %}
     <div class="container">
@@ -17,15 +10,20 @@
                 <h1>Statsmile</h1>
                 <p>Simple and intuitive service statistics for Dota 2</p>
                 {% if not current_user %}<p><a href="/auth/login" class="btn btn-large">Get started today</a></p>
-                {% else %}<p><a href="/user/{{ current_user }}" class="btn btn-large">Your profile</a>
-                        <a href="/auth/logout" class="btn btn-large">Logout</a></p>
+                {% else %}
+                <p><a href="/user/{{ current_user }}" class="btn">Your profile</a>
+                   <a href="#" class="btn">Settings</a>
+                   <a href="/auth/logout" class="btn">Logout</a>
+                </p>
                 {% end %}
                 <ul class="head-links">
-                    <li><a href="#"><strong>For new users</strong></a></li>
+                    <li><a href="#">New users</a></li>
+                    <li><a href="#">Statistics</a></li>
+                    <li><a href="#">Privacy</a></li>
                     <li><a href="/about">About</a></li>
-                    <li><a href="http://github.com/Lardjo/Statsmile">GitHub Page</a></li>
+                    <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
                     <li><a href="http://youtrack.statsmile.com/">Youtrack</a></li>
-                    <li>Version 2.1.131122pa</li>
+                    <li>Version 2.1.131124.1</li>
                 </ul>
         </div>
     </div>
