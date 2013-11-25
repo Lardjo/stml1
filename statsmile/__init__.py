@@ -74,8 +74,8 @@ class Statsmile(tornado.web.Application):
         ]
         settings = {
             "cookie_secret": "Developed_key",
-            "gzip": False,
-            "debug": False,
+            "gzip": True,
+            "debug": True,
             "template_path": os.path.join(os.path.dirname(__file__), "templates"),
             "static_path": os.path.join(os.path.dirname(__file__), "static"),
             "login_url": "/auth/login"
