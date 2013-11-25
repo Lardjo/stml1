@@ -9,12 +9,12 @@ class PlayersHandler(BaseHandler):
         session = self.application.db["users"].find_one({"_id": ObjectId(self.current_user)})
         players = self.application.db["users"].aggregate([
             {"$unwind": "$matches"},
-            {"$project": {"avatar": 1, "steamid": 1, "matches": 1, "personaname": 1, "count": {"$add": [1]}}},
+            {"$project": {"avatarfull": 1, "steamid": 1, "matches": 1, "personaname": 1, "count": {"$add": [1]}}},
             {"$group": {
                 "_id": "$_id",
                 "number": {"$sum": "$count"},
                 "name": {"$first": "$personaname"},
-                "avatar": {"$first": "$avatar"}
+                "avatar": {"$first": "$avatarfull"}
             }},
             {"$sort": {"number": -1}},
             {"$limit": 50}
