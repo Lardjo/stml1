@@ -50,7 +50,13 @@
                 <tbody>
                 {% for radiant in match['players'][:5] %}
                     <tr>
-                        {% if radiant['account_id'] == 4294967295 %}<td style="width: 200px;" class="text-muted">Anonymous</td>{% else %}<td style="width: 200px;">{{ radiant['account_id'] }}</td>{% end %}
+                        {% if not 'account_id' in radiant %}
+                        <td style="width: 200px;" class="text-muted">Anonymous</td>
+                        {% elif radiant['account_id'] == 4294967295 %}
+                        <td style="width: 200px;" class="text-muted">Anonymous</td>
+                        {% else %}
+                        <td style="width: 200px;">{{ radiant['account_id'] }}</td>
+                        {% end %}
                         <td style="width: 80px; padding: 1px;">
                             <div style="position: relative;">
                                 <img src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
@@ -113,18 +119,12 @@
                 <tbody>
                 {% for dire in match['players'][5:] %}
                     <tr>
-                        {% if dire['account_id'] == 4294967295 %}
-                            {% if dire['leaver_status'] == 3 %}
-                                <td style="width: 200px;" class="text-muted">Anonymous (Leave)</td>
-                            {% else %}
-                                <td style="width: 200px;" class="text-muted">Anonymous</td>
-                            {% end %}
+                        {% if not 'account_id' in dire %}
+                        <td style="width: 200px;" class="text-muted">Anonymous</td>
+                        {% elif dire['account_id'] == 4294967295 %}
+                        <td style="width: 200px;" class="text-muted">Anonymous</td>
                         {% else %}
-                            {% if dire['leaver_status'] == 3 %}
-                                <td style="width: 200px;">{{ dire['account_id'] }} (Leave)</td>
-                            {% else %}
-                                <td style="width: 200px;">{{ dire['account_id'] }}</td>
-                            {% end %}
+                        <td style="width: 200px;">{{ dire['account_id'] }}</td>
                         {% end %}
                         <td style="width: 80px; padding: 1px;">
                             <div style="position: relative;">
