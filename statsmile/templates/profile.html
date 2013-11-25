@@ -56,7 +56,7 @@
                     {% for heroes in mt['players'] %}
                     <tr>
                         <td>
-                            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[heroes['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+                            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[heroes['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong>{% if heroes['account_id'] == user['steamid32'] %} <span class="glyphicon glyphicon-check"></span>{% else %}{% end %}</p></div>
                         </td>
                         <td>{{ heroes['level'] }}</td>
                         <td>
