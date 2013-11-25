@@ -34,5 +34,4 @@ class UserHandler(BaseHandler):
             {"$sort": {"sum": -1}},
             {"$limit": 7}
         ])['result']
-        self.render("profile.html",
-                    user=user, session=session, matches=matches, match=match, favorites=favorites)
+        self.render("profile.html", user=user, session=session, matches=matches, match=match, favorites=favorites)
