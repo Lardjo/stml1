@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from functools import partial
 from tornado import gen
 from tornado.ioloop import IOLoop
-from pymongo import MongoClient, ASCENDING
+from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import ConnectionFailure
 from statsmile import handlers
 from statsmile.data import update_matches_id, update_matches
@@ -84,17 +84,14 @@ class Statsmile(tornado.web.Application):
         # Database
         self.db = self.init_db()
 
+        # Database initialization indexes
+        self.db['matches'].ensure_index([("players.account_id", ASCENDING), ("game_mode", ASCENDING)])
+        self.db['matches'].ensure_index([("start_time", DESCENDING)])
+
         # Logger
         if settings["debug"]:
             logging.getLogger().setLevel(logging.DEBUG)
         self.logger = logging.getLogger("high log")
-
-        # Settings and Matches
-        if not "settings" in self.db.collection_names():
-            self.db.create_collection("settings")
-
-        if not "matches" in self.db.collection_names():
-            self.db.create_collection("matches")
 
         # Users updater
         self.__update = []
