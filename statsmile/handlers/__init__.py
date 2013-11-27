@@ -10,3 +10,4 @@ from .players import PlayersHandler
 from .start import StartHandler
 from .match import MatchHandler
 from .events import EventsHandler
+from .heroes import HeroesHandler

@@ -45,7 +45,7 @@ class Statsmile(tornado.web.Application):
         ])
 
         if not new_matches['result']:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.periodic_matches, None))
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
@@ -70,7 +70,8 @@ class Statsmile(tornado.web.Application):
             ("/matches/([0-9]+)", handlers.MatchHandler),
             ("/matches", handlers.MatchesHandler),
             ("/players", handlers.PlayersHandler),
-            ("/page/(.*)", handlers.PageHandler)
+            ("/page/(.*)", handlers.PageHandler),
+            ("/heroes", handlers.HeroesHandler)
         ]
         settings = {
             "cookie_secret": "Developed_key",
