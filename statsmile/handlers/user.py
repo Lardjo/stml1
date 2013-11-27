@@ -9,10 +9,13 @@ class UserHandler(BaseHandler):
     def get(self, sid):
         session = self.application.db["users"].find_one({"_id": ObjectId(self.current_user)})
         user = self.application.db["users"].find_one({"_id": ObjectId(sid)})
+        if user is None:
+            return self.send_error(404)
         matches = list(self.application.db["matches"].find(
             {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}},
             {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1, "match_id": 1, "radiant_win": 1,
-             "players": {"$elemMatch": {"account_id": user["steamid32"]}}}).sort("start_time", DESCENDING).limit(10))
+             "players": {"$elemMatch": {"account_id": user["steamid32"]}}}
+        ).sort("start_time", DESCENDING).limit(10))
         match = list(self.application.db["matches"].find(
             {"players.account_id": user["steamid32"],
              "game_mode": {"$nin": [7, 9]}}).sort("start_time", DESCENDING).limit(1))
@@ -25,4 +28,4 @@ class UserHandler(BaseHandler):
             {"$sort": {"sum": -1}},
             {"$limit": 7}
         ])['result']
-        self.render("profile.html", user=user, session=session, matches=matches, match=match, favorites=favorites)
+        self.render("dashboard.html", user=user, session=session, matches=matches, match=match, favorites=favorites)

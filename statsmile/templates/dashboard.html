@@ -15,18 +15,6 @@
             <div class="menu-list menu-list-active">
                 <h3><a href="#">Dashboard</a></h3>
             </div>
-            <div class="menu-list">
-                <h3><a href="#">Matches</a></h3>
-            </div>
-            <div class="menu-list">
-                <h3><a href="#">Records</a></h3>
-            </div>
-            <div class="menu-list">
-                <h3><a href="#">Diretide</a></h3>
-            </div>
-            <div class="menu-list">
-                <h3><a href="#">The Greeviling</a></h3>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-7">
@@ -79,7 +67,7 @@
                 {% for fav in favorites %}
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
+                        <img class="media-object hero" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">{% try %}{{ libs.heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</h4>

@@ -33,6 +33,19 @@ h4 {
     color: #999!important;
 }
 
+.thumbnail {
+    display: inline-block;
+}
+
+.heroes {
+    text-align: center;
+}
+
+.hero {
+    width: 80px;
+    height: 45px;
+}
+
 /*****************/
 /* NAV-BAR STYLE */
 

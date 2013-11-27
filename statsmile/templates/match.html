@@ -59,7 +59,7 @@
                         {% end %}
                         <td style="width: 80px; padding: 1px;">
                             <div style="position: relative;">
-                                <img src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
+                                <img class="hero" src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
                                 <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
                             </div>
                         </td>
@@ -128,7 +128,7 @@
                         {% end %}
                         <td style="width: 80px; padding: 1px;">
                             <div style="position: relative;">
-                                <img src="{% try %}{{ static_url(libs.heroes[dire['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}">
+                                <img class="hero" src="{% try %}{{ static_url(libs.heroes[dire['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}">
                                 <div class="label-hero"><h6>{{ dire['level'] }} Level</h6></div>
                             </div>
                         </td>
