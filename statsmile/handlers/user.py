@@ -16,18 +16,12 @@ class UserHandler(BaseHandler):
         match = list(self.application.db["matches"].find(
             {"players.account_id": user["steamid32"],
              "game_mode": {"$nin": [7, 9]}}).sort("start_time", DESCENDING).limit(1))
-        favorites = self.application.db["matches"].aggregate([
-            {"$project": {"players": 1, "game_mode": 1}},
+        favorites = self.application.db.matches.aggregate([
+            {"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}}},
+            {"$project": {"players.hero_id": 1, "players.account_id": 1, "players.count": {"$add": [1]}}},
             {"$unwind": "$players"},
-            {"$project": {
-                "_id": 0,
-                "hero": "$players.hero_id",
-                "account_id": "$players.account_id",
-                "game_mode": "$game_mode",
-                "count": {"$add": [1]}
-            }},
-            {"$match": {"account_id": user["steamid32"], "game_mode": {"$nin": [7, 9]}}},
-            {"$group": {"_id": "$hero", "sum": {"$sum": "$count"}}},
+            {"$match": {"players.account_id": user["steamid32"]}},
+            {"$group": {"_id": "$players.hero_id", "sum": {"$sum": "$players.count"}}},
             {"$sort": {"sum": -1}},
             {"$limit": 7}
         ])['result']
