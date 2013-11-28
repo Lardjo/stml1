@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block login %}{% end %}
+{% block menu %}
+    <li class="active"><a href="/">First start</a></li>
+{% end %}
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Welcome <small>Default settings</small></h1>
+    </div>
+    <form method="post">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Steam API key
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <input type="text" class="form-control" id="inputError" placeholder="Enter your Steam key" name="apikey">
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg">Save and start</button>
+    </form>
+</div>
+{% end %}
