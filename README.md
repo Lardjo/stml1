@@ -1,6 +1,6 @@
 Statsmile
 =========
-Version: 2.1.131127.2a
+Version: 2.1b1
 
 Overview
 --------
