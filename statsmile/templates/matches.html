@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / Matches{% end %}
+{% block menu %}
+    <li><a href="/">Home</a></li>
+    <li class="active"><a href="/matches">Matches</a></li>
+    <li><a href="/players">Players</a></li>
+    <li><a href="/heroes">Heroes</a></li>
+{% end %}
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Summary <small>of recent games</small></h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Match ID</th>
+                <th>Result</th>
+                <th>Mode</th>
+                <th>Server</th>
+                <th>Duration</th>
+                <th>Radiant</th>
+                <th>Dire</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% from statsmile import libs %}
+            {% for mt in matches %}
+            <tr>
+                <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+                <td>{% if mt['radiant_win'] %}<p class="text-success">Radiant Victory</p>{% else %}<p class="text-danger">Dire Victory</p>{% end %}</td>
+                <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+                <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+                <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+                <td>
+                {% for ev in mt['players'][:5] %}
+                {% if not ev['hero_id'] == 0 %}
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                {% else %}{% end %}
+                {% end %}
+                </td>
+                <td>
+                 {% for ev in mt['players'][5:] %}
+                {% if not ev['hero_id'] == 0 %}
+                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                {% else %}{% end %}
+                {% end %}
+                </td>
+            </tr>
+            {% end %}
+            </tbody>
+        </table>
+    </div>
+{% end %}
