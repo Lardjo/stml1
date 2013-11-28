@@ -1,3 +1,7 @@
+2.1b1
+-----
+ - Changing versioning. Stage beta test
+
 2.1.131127.2a
 -------------
  - Added new page for heroes (Beta)
