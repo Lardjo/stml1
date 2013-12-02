@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import logging
+
 from tornado import gen
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
@@ -8,35 +10,56 @@ from datetime import datetime, timedelta
 
 
 @gen.coroutine
-def update_matches_id(db, log, steamid):
-    last = []
-    update = []
+def update_matches_id(db, steamid):
     key = db["settings"].find_one()
-    params = {"key": key["apikey"], "account_id": steamid}
-    params2 = {"key": key["apikey"], "steamids": steamid}
-    url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
-    url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", params2)
-    response = yield AsyncHTTPClient().fetch(url)
-    response2 = yield AsyncHTTPClient().fetch(url2)
-    if response.error or response2.error:
-        log.warning("User '{}' has not updated. Remote server not respond".format(steamid))
-        db['users'].update({"steamid": steamid}, {'$set': {"next_update": datetime.now() + timedelta(minutes=15),
-                                                           "last_update": datetime.now()}})
-        return
+    url1 = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
+                      {"key": key["apikey"], "account_id": steamid})
+    url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
+                      {"key": key["apikey"], "steamids": steamid})
+
+    http_client = AsyncHTTPClient()
+
+    http_client.fetch(url1, callback=(yield gen.Callback("dota_key")))
+    http_client.fetch(url2, callback=(yield gen.Callback("steam_key")))
+
+    response_dota = yield gen.Wait("dota_key")
+    response_steam = yield gen.Wait("steam_key")
+
+    if response_dota.error:
+        logging.warning("New matches for user %s has not updated. Remote server not respond. "
+                        "Code: %s. Error: %s" % (steamid, response_dota.code, response_dota.error))
+        db["status"].update({"status": "api_dota"}, {"$set": {"value": "false", "time": datetime.now()}})
     else:
-        array = json_decode(response.body)
-        user = json_decode(response2.body)['response']['players'][0]
-    for mid in array['result']['matches']:
-        last.append(mid['match_id'])
+        array = json_decode(response_dota.body)
+        new_matches = []
+        for_update = []
+        for mid in array['result']['matches']:
+            new_matches.append(mid['match_id'])
+        new_matches.sort()
+        slices = db['users'].find_one({"steamid": steamid}, {"matches": {"$slice": -100}})
+        for key in new_matches:
+            if not key in slices['matches']:
+                for_update.append(key)
+        db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": for_update}}})
+        db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}})
+        logging.info("User %s has been updated. New matches: %s" % (steamid, len(for_update)))
 
-    last.sort()
-    slices = db['users'].find_one({"steamid": steamid}, {"matches": {"$slice": -100}})
+    if response_steam.error:
+        logging.warning("User profile %s has not updated. Remote server not respond. "
+                        "Code: %s. Error: %s" % (steamid, response_steam.code, response_steam.error))
+        db["status"].update({"status": "api_steam"}, {"$set": {"value": "false", "time": datetime.now()}})
+    else:
+        all_user = json_decode(response_steam.body)['response']['players'][0]
+        user = {"steamid": all_user['steamid'],
+                "personaname": all_user['personaname'],
+                "profileurl": all_user['profileurl'],
+                "avatar": all_user['avatarfull']}
+        if 'realname' in all_user.keys():
+            user["realname"] = all_user["realname"]
+        else:
+            user["realname"] = None
+        db["users"].update({"steamid": steamid}, {"$set": user})
+        db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
+        logging.info("User profile %s has been updated." % steamid)
 
-    for key in last:
-        if not key in slices['matches']:
-            update.append(key)
-    db['users'].update({"steamid": steamid}, {'$set': user})
-    db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": update}}})
-    db['users'].update({"steamid": steamid}, {'$set': {"next_update": datetime.now() + timedelta(minutes=15),
-                                                       "last_update": datetime.now()}})
-    log.info("User '{}' has been updated. Added '{}' matches".format(steamid, len(update)))
+    db["users"].update({"steamid": steamid}, {"$set": {"next_update": datetime.now() + timedelta(minutes=15)}})

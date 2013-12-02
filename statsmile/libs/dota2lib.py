@@ -65,6 +65,7 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           21: {'name': 'Windrunner', 'avatar': 'img/dota/heroes/windrunner.png'},
           22: {'name': 'Zeus', 'avatar': 'img/dota/heroes/zuus.png'},
           23: {'name': 'Kunkka', 'avatar': 'img/dota/heroes/kunkka.png'},
+          #24
           25: {'name': 'Lina', 'avatar': 'img/dota/heroes/lina.png'},
           26: {'name': 'Lion', 'avatar': 'img/dota/heroes/lion.png'},
           27: {'name': 'Shadow Shaman', 'avatar': 'img/dota/heroes/shadow_shaman.png'},
@@ -131,7 +132,7 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           88: {'name': 'Nyx Assassin', 'avatar': 'img/dota/heroes/nyx_assassin.png'},
           89: {'name': 'Naga Siren', 'avatar': 'img/dota/heroes/naga_siren.png'},
           90: {'name': 'Keeper of the Light', 'avatar': 'img/dota/heroes/keeper_of_the_light.png'},
-          91: {'name': 'Wisp', 'avatar': 'img/dota/heroes/wisp.png'},
+          91: {'name': 'Io', 'avatar': 'img/dota/heroes/wisp.png'},
           92: {'name': 'Visage', 'avatar': 'img/dota/heroes/visage.png'},
           93: {'name': 'Slark', 'avatar': 'img/dota/heroes/slark.png'},
           94: {'name': 'Medusa', 'avatar': 'img/dota/heroes/medusa.png'},
@@ -144,6 +145,8 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
           102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
           103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
+          #104
+          #105
           106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
           107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}}
 

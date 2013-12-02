@@ -16,9 +16,9 @@ from statsmile.data import update_matches_id, update_matches
 class Statsmile(tornado.web.Application):
     @gen.coroutine
     def periodic(self, user):
-        self.logger.debug("Started updating '{}' user".format(user["steamid"]))
+        self.logger.debug("Started updating %s user" % user["steamid"])
 
-        yield update_matches_id(self.db, self.logger, user["steamid"])
+        yield update_matches_id(self.db, user["steamid"])
         self.__update.remove(user["_id"])
 
         new_match = self.db["users"].find_one({"_id": {"$not": {"$in": self.__update}}},
@@ -29,9 +29,9 @@ class Statsmile(tornado.web.Application):
 
     @gen.coroutine
     def periodic_matches(self, match):
-        self.logger.info("Start receiving data match '{}'...".format(match))
+        self.logger.info("Start receiving data match %s" % match)
 
-        yield update_matches(self.db, self.logger, match)
+        yield update_matches(self.db, match)
 
         complete = self.db["matches"].aggregate({"$group": {"_id": "matches", "items": {"$addToSet": "$match_id"}}})
 
@@ -45,19 +45,11 @@ class Statsmile(tornado.web.Application):
         ])
 
         if not new_matches['result']:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=5)).timestamp(),
                                           partial(self.periodic_matches, None))
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.periodic_matches, new_matches['result'][0]['_id']))
-
-    def init_db(self):
-        try:
-            client = MongoClient("localhost", 27017)
-            return client["Statsmile"]
-        except ConnectionFailure:
-            logging.fatal("Database connection can\'t be established, terminating!")
-            exit(1)
 
     def __init__(self):
         handlers_list = [
@@ -65,13 +57,12 @@ class Statsmile(tornado.web.Application):
             ("/start", handlers.StartHandler),
             ("/auth/login", handlers.AuthHandler),
             ("/auth/logout", handlers.LogoutHandler),
-            ("/user/(.*)", handlers.UserHandler),
+            ("/user/([0-9a-fA-F]{24})(?:/(.*))?", handlers.UserHandler),
             ("/events/(.*)", handlers.EventsHandler),
             ("/matches/([0-9]+)", handlers.MatchHandler),
             ("/matches", handlers.MatchesHandler),
             ("/players", handlers.PlayersHandler),
-            ("/page/(.*)", handlers.PageHandler),
-            ("/heroes", handlers.HeroesHandler)
+            ("/page/(.*)", handlers.PageHandler)
         ]
         settings = {
             "cookie_secret": "Developed_key",
@@ -83,7 +74,17 @@ class Statsmile(tornado.web.Application):
         }
 
         # Database
-        self.db = self.init_db()
+        try:
+            client = MongoClient("localhost", 27017)
+            self.db = client["Statsmile"]
+        except ConnectionFailure:
+            logging.fatal("Database connection can\'t be established, terminating!")
+            exit(1)
+
+        if not 'status' in self.db.collection_names():
+            self.db.create_collection("status")
+            self.db["status"].insert({"status": "api_dota", "value": "false", "time": datetime.now()})
+            self.db["status"].insert({"status": "api_steam", "value": "false", "time": datetime.now()})
 
         # Database initialization indexes
         self.db['matches'].ensure_index([("players.account_id", ASCENDING), ("game_mode", ASCENDING)])

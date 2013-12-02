@@ -1,3 +1,12 @@
+2.1b2
+-----
+ - Fixed problem of getting new games when the remote server can not be available
+ - Added status page. Dota 2 and Steam server status
+ - **Updated user page**
+   - Added matches page
+ - Changed structure template for user. A more intuitive structure
+ -
+
 2.1b1
 -----
  - Changing versioning. Stage beta test
