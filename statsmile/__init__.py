@@ -4,11 +4,13 @@ import tornado.web
 
 
 from datetime import datetime, timedelta
+from random import choice
+from string import ascii_letters, digits
 from functools import partial
 from tornado import gen
 from tornado.ioloop import IOLoop
 from pymongo import MongoClient, ASCENDING, DESCENDING
-from pymongo.errors import ConnectionFailure
+from pymongo.errors import ConnectionFailure, DuplicateKeyError
 from statsmile import handlers
 from statsmile.data import update_matches_id, update_matches
 
@@ -51,6 +53,14 @@ class Statsmile(tornado.web.Application):
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.periodic_matches, new_matches['result'][0]['_id']))
 
+    def get_cookies(self, key):
+        _ = self.db['settings'].find_one({'key': key}, fields={'value': 1, '_id': 0})
+
+        if _ is None:
+            raise ParameterNotFound
+        else:
+            return _['value']
+
     def __init__(self):
         handlers_list = [
             ("/", handlers.MainHandler),
@@ -64,14 +74,6 @@ class Statsmile(tornado.web.Application):
             ("/players", handlers.PlayersHandler),
             ("/page/(.*)", handlers.PageHandler)
         ]
-        settings = {
-            "cookie_secret": "Developed_key",
-            "gzip": True,
-            "debug": True,
-            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
-            "static_path": os.path.join(os.path.dirname(__file__), "static"),
-            "login_url": "/auth/login"
-        }
 
         # Database
         try:
@@ -86,14 +88,18 @@ class Statsmile(tornado.web.Application):
             self.db["status"].insert({"status": "api_dota", "value": "false", "time": datetime.now()})
             self.db["status"].insert({"status": "api_steam", "value": "false", "time": datetime.now()})
 
+        # Secret
+        self.db['settings'].ensure_index('key', unique=True)
+        try:
+            self.db["settings"].insert({"key": "cookie_secret",
+                                        "value": "".join([choice(ascii_letters + digits) for _ in range(30)])},
+                                       continue_on_error=True)
+        except DuplicateKeyError:
+            pass
+
         # Database initialization indexes
         self.db['matches'].ensure_index([("players.account_id", ASCENDING), ("game_mode", ASCENDING)])
         self.db['matches'].ensure_index([("start_time", DESCENDING)])
-
-        # Logger
-        if settings["debug"]:
-            logging.getLogger().setLevel(logging.DEBUG)
-        self.logger = logging.getLogger("high log")
 
         # Users updater
         self.__update = []
@@ -125,6 +131,20 @@ class Statsmile(tornado.web.Application):
         for mt in matches:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.periodic_matches, mt["_id"]))
+
+        settings = {
+            "cookie_secret": self.get_cookies("cookie_secret"),
+            "gzip": True,
+            "debug": True,
+            "template_path": os.path.join(os.path.dirname(__file__), "templates"),
+            "static_path": os.path.join(os.path.dirname(__file__), "static"),
+            "login_url": "/auth/login"
+        }
+
+        # Logger
+        if settings["debug"]:
+            logging.getLogger().setLevel(logging.DEBUG)
+        self.logger = logging.getLogger("high log")
 
         super().__init__(handlers_list, **settings)
 
