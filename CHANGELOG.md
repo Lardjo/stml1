@@ -1,11 +1,11 @@
-2.1b2
+2.1b2_test
 -----
  - Fixed problem of getting new games when the remote server can not be available
  - Added status page. Dota 2 and Steam server status
  - **Updated user page**
    - Added matches page
  - Changed structure template for user. A more intuitive structure
- -
+ - Cookie Secret move to database
 
 2.1b1
 -----
