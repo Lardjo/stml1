@@ -1,4 +1,4 @@
-2.1b2_test
+2.1b2
 -----
  - Fixed problem of getting new games when the remote server can not be available
  - Added status page. Dota 2 and Steam server status
