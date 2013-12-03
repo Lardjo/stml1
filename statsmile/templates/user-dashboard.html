@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <p><span class="glyphicon glyphicon-globe"></span><b> Match:</b> <a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></p>
-                <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
+                <p><span class="glyphicon glyphicon-time"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(mt['start_time'])) }}</p>
             </div>
             <div class="col-md-6">
                 <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
@@ -44,7 +44,7 @@
     </div>
     <div class="col-md-5">
         <div class="page-header">
-            <h1>Favorite Heroes<small> All time*</small></h1>
+            <h1>Favorite Heroes</h1>
         </div>
         {% for fav in favorites %}
         <div class="media">
