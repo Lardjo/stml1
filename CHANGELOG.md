@@ -1,3 +1,7 @@
+2.1b3
+-----
+ - Added responsive design (Beta)
+
 2.1b2
 -----
  - Fixed problem of getting new games when the remote server can not be available

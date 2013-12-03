@@ -448,3 +448,43 @@ h1 small,
 .menu-list-active a {
     color: #666;
 }
+
+/* Responsive */
+@media (max-width: 767px) {
+    .main h1 {
+        font-size: 90px;
+    }
+
+    .text-update-status {
+        padding-left: 75px;
+        padding-right: 75px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main h1 {
+        font-size: 45px;
+    }
+
+    .main p {
+        font-size: 17px;
+    }
+
+    .main .btn {
+        font-size: 14px;
+    }
+
+    .text-update-status {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    h1 {
+        font-size: 44px;
+    }
+
+    .container .credit {
+        margin: 10px 0;
+    }
+
+}
