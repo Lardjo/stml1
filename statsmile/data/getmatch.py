@@ -14,9 +14,9 @@ def update_matches(db, match_id):
     if match_id is None:
         logging.info("All matches updated! Waiting new matches for getting...")
         return
-    key = db["settings"].find_one()
+    key = db["settings"].find_one({"key": "apikey"})
     url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/",
-                     {"match_id": match_id, "key": key["apikey"]})
+                     {"match_id": match_id, "key": key["value"]})
     http_client = AsyncHTTPClient()
     http_client.fetch(url, callback=(yield gen.Callback("match_key")))
     response = yield gen.Wait("match_key")

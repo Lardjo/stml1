@@ -11,11 +11,11 @@ from datetime import datetime, timedelta
 
 @gen.coroutine
 def update_matches_id(db, steamid):
-    key = db["settings"].find_one()
+    key = db["settings"].find_one({"key": "apikey"})
     url1 = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
-                      {"key": key["apikey"], "account_id": steamid})
+                      {"key": key["value"], "account_id": steamid})
     url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
-                      {"key": key["apikey"], "steamids": steamid})
+                      {"key": key["value"], "steamids": steamid})
 
     http_client = AsyncHTTPClient()
 

@@ -18,9 +18,9 @@ def converter(steam_id):
 
 def get_steam_user(db, steam_id):
     user = None
-    key = db["settings"].find_one()
+    key = db["settings"].find_one({"key": "apikey"})
     url = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
-                     {"key": key["apikey"], "steamids": steam_id})
+                     {"key": key["value"], "steamids": steam_id})
     http_client = HTTPClient()
     try:
         response = http_client.fetch(url)

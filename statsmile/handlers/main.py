@@ -6,7 +6,7 @@ from bson import ObjectId
 
 class MainHandler(BaseHandler):
     def get(self):
-        settings = self.application.db['settings'].find_one({"apikey": {"$exists": 'true'}})
+        settings = self.application.db['settings'].find_one({'key': "apikey", "value": {"$exists": "true"}})
         if settings is None:
             self.redirect("/start")
             return

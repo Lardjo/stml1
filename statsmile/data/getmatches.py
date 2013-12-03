@@ -16,8 +16,8 @@ def getting_matches_id(db, steamid):
     remaining = 1
 
     while remaining:
-        key = db["settings"].find_one()
-        params = {'key': key['apikey'], 'account_id': steamid, 'date_max': start_time}
+        key = db["settings"].find_one({"key": "apikey"})
+        params = {'key': key['value'], 'account_id': steamid, 'date_max': start_time}
         url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
         response = yield AsyncHTTPClient().fetch(url)
         pack = json_decode(response.body)
