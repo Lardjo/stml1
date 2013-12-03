@@ -12,6 +12,7 @@
                 {% if not current_user %}<p><a href="/auth/login" class="btn btn-large">Get started today</a></p>
                 {% else %}
                 <p><a href="/user/{{ current_user }}" class="btn">Your profile</a>
+                   <a href="/user/settings" class="btn">Settings</a>
                    <a href="/auth/logout" class="btn">Logout</a>
                 </p>
                 {% end %}

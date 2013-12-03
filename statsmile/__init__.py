@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import logging
 import tornado.web
@@ -72,7 +74,8 @@ class Statsmile(tornado.web.Application):
             ("/matches/([0-9]+)", handlers.MatchHandler),
             ("/matches", handlers.MatchesHandler),
             ("/players", handlers.PlayersHandler),
-            ("/page/(.*)", handlers.PageHandler)
+            ("/page/(.*)", handlers.PageHandler),
+            ("/user/settings", handlers.SettingsHandler)
         ]
 
         # Database
