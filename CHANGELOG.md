@@ -2,10 +2,13 @@
 -----
  - Fixed problem of getting new games when the remote server can not be available
  - Added status page. Dota 2 and Steam server status
+ - Added settings page! Check settings page for more info about your getting matches
  - **Updated user page**
    - Added matches page
+ - Removed hero page (no ideas for implementation, temporarily removed)
  - Changed structure template for user. A more intuitive structure
  - Cookie Secret move to database
+ - Many more minor fixes and changes
 
 2.1b1
 -----
