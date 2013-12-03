@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <p><span class="glyphicon glyphicon-globe"></span>
                     <b> Match:</b> {{ match['match_id'] }}</p>
-                <p><span class="glyphicon glyphicon-calendar"></span>
+                <p><span class="glyphicon glyphicon-time"></span>
                     <b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
                 <p><span class="glyphicon glyphicon-time"></span>
                     <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>

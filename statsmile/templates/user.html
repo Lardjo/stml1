@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / {{ user['personaname'] }} {% if title == "Dashboard" %}{% else %}/ {{ title }}{% end %}{% end %}
+{% block content %}
+    {% import time %}
+    {% from statsmile import libs %}
+    <div class="general profile">
+        <div class="container">
+            <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
+            <h1>{{ user['personaname'] }} <small>{% try %}{{ user['realname'] }}{% except %}{% end %}</small></h1>
+        </div>
+    </div>
+    <div class="container">
+        {% if matches %}
+        {% if title == "Dashboard" %}
+        <div class="user-menu">
+            <div class="menu-list menu-list-active">
+                <h3><a href="/user/{{ user['_id'] }}">Dashboard</a></h3>
+            </div>
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
+            </div>
+        </div>
+        {% include "user-dashboard.html" %}
+        {% elif title == "Matches" %}
+        <div class="user-menu">
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}">Dashboard</a></h3>
+            </div>
+            <div class="menu-list menu-list-active">
+                <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
+            </div>
+        </div>
+        {% include "user-matches.html" %}
+        {% end %}
+        {% else %}
+        {% include "user-wait.html" %}
+        {% end %}
+    </div>
+{% end %}

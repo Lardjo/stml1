@@ -12,7 +12,7 @@ class StartHandler(BaseHandler):
         self.render("start.html")
 
     def post(self):
-        settings = {"apikey": self.get_argument("apikey", "")}
+        settings = {"key": "apikey", "value": self.get_argument("apikey", "")}
         self.application.db["settings"].insert(settings)
         self.redirect("/")
         return

@@ -28,13 +28,18 @@ h4 {
 }
 
 .text-update-status {
-    margin-top: 50px;
+    margin-top: 100px;
     font-size: 14px!important;
     color: #999!important;
 }
 
 .thumbnail {
     display: inline-block;
+    opacity: 0.9;
+}
+
+.thumbnail:hover {
+    opacity: 1;
 }
 
 .heroes {
@@ -44,6 +49,16 @@ h4 {
 .hero {
     width: 80px;
     height: 45px;
+}
+
+.panel-settings {
+    border-color: #ffffff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.sr-only {
+    position: inherit;
 }
 
 /*****************/
@@ -305,11 +320,6 @@ h4 {
     background-color: #666666;
     border-width: 0;
     margin-bottom: 0;
-}
-
-.navbar-collapse {
-    padding-left: 0;
-    padding-right: 0;
 }
 
 .accordion-info {
