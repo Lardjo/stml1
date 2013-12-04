@@ -1,6 +1,10 @@
 2.1b3
 -----
  - Added responsive design (Beta)
+ - **Added display of the player names when viewed at full match**
+   - Note: if a player does not registered - it appears as anonymous
+ - Added records page (only kills and deaths)
+
 
 2.1b2
 -----
