@@ -1,0 +1,81 @@
+<div class="page-header">
+    <h1>Records</h1>
+</div>
+<div class="row">
+  <div class="col-md-6">
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Highest Number Of Kills</h3>
+          </div>
+          <table class="table">
+              <thead>
+              <tr>
+                  <th>Hero</th>
+                  <th>Result</th>
+                  <th>Match ID</th>
+                  <th>Kills</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>
+                      <div class="hero-container">
+                          <img src="{% try %}{{ static_url(libs.heroes[records[0][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[0][0]['players']['hero_id'] }}{% end %}">
+                      </div>
+                      <div class="hero-name">{% try %}{{ libs.heroes[records[0][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                  </td>
+                  {% if records[0][0]['radiant_win'] and records[0][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
+                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  {% elif not records[0][0]['radiant_win'] and records[0][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
+                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  {% else %}
+                  <td><p class="text-danger">Lost Match</p></td>
+                  {% end %}
+                  <td><a href="/matches/{{ records[0][0]['match_id'] }}">{{ records[0][0]['match_id'] }}</a></td>
+                  <td>{{ records[0][0]['players']['kills'] }}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </div>
+  <div class="col-md-6">
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Highest Number Of Deaths</h3>
+          </div>
+           <table class="table">
+              <thead>
+              <tr>
+                  <th>Hero</th>
+                  <th>Result</th>
+                  <th>Match ID</th>
+                  <th>Deaths</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>
+                      <div class="hero-container">
+                          <img src="{% try %}{{ static_url(libs.heroes[records[1][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[1][0]['players']['hero_id'] }}{% end %}">
+                      </div>
+                      <div class="hero-name">{% try %}{{ libs.heroes[records[1][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                  </td>
+                  {% if records[1][0]['radiant_win'] and records[1][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
+                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  {% elif not records[1][0]['radiant_win'] and records[1][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
+                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  {% else %}
+                  <td><p class="text-danger">Lost Match</p></td>
+                  {% end %}
+                  <td><a href="/matches/{{ records[1][0]['match_id'] }}">{{ records[1][0]['match_id'] }}</a></td>
+                  <td>{{ records[1][0]['players']['deaths'] }}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </div>
+</div>

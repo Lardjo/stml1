@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="container">
-        {% if matches %}
+        {% if alr %}
         {% if title == "Dashboard" %}
         <div class="user-menu">
             <div class="menu-list menu-list-active">
@@ -18,6 +18,9 @@
             </div>
             <div class="menu-list">
                 <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
+            </div>
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}/records">Records</a></h3>
             </div>
         </div>
         {% include "user-dashboard.html" %}
@@ -29,8 +32,24 @@
             <div class="menu-list menu-list-active">
                 <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
             </div>
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}/records">Records</a></h3>
+            </div>
         </div>
         {% include "user-matches.html" %}
+        {% elif title == "Records" %}
+        <div class="user-menu">
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}">Dashboard</a></h3>
+            </div>
+            <div class="menu-list">
+                <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
+            </div>
+            <div class="menu-list menu-list-active">
+                <h3><a href="/user/{{ user['_id'] }}/records">Records</a></h3>
+            </div>
+        </div>
+        {% include "user-records.html" %}
         {% end %}
         {% else %}
         {% include "user-wait.html" %}
