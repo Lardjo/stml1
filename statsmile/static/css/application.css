@@ -449,6 +449,18 @@ h1 small,
     color: #666;
 }
 
+.match-table .table tbody>tr>td {
+    padding: 8px;
+}
+
+.navbar-inverse .navbar-collapse {
+    border-color: #666;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #B4B4B4;
+}
+
 /* Responsive */
 @media (max-width: 767px) {
     .main h1 {
@@ -461,13 +473,13 @@ h1 small,
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .main h1 {
-        font-size: 45px;
+        font-size: 55px;
     }
 
     .main p {
-        font-size: 17px;
+        font-size: 20px;
     }
 
     .main .btn {
@@ -483,8 +495,35 @@ h1 small,
         font-size: 44px;
     }
 
-    .container .credit {
-        margin: 10px 0;
+    h3 {
+        font-size: 14px;
     }
 
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .container .credit {
+        font-size: 11px;
+    }
+    #footer {
+        height: 70px;
+    }
+
+    .navbar-text {
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .general h1 {
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    .table p {
+        font-size: 10px;
+    }
+
+    .table a {
+        font-size: 10px;
+    }
 }
