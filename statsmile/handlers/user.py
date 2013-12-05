@@ -61,6 +61,25 @@ class UserHandler(BaseHandler):
                 {"$sort": {"players.deaths": -1}},
                 {"$limit": 1}
             ])['result']
-            self.render("user.html", title="Records", user=user, session=session, records=(kills, deaths), alr=alr)
+            assists = self.application.db["matches"].aggregate([
+                {"$match": {"players.account_id": user["steamid_32"], "game_mode": {"$nin": [7, 9]}}},
+                {"$project": {"match_id": 1, "radiant_win": 1, "start_time": 1, "players.assists": 1,
+                              "players.account_id": 1, "players.player_slot": 1, "players.hero_id": 1}},
+                {"$unwind": "$players"},
+                {"$match": {"players.account_id": user["steamid_32"]}},
+                {"$sort": {"players.assists": -1}},
+                {"$limit": 1}
+            ])['result']
+            gpm = self.application.db["matches"].aggregate([
+                {"$match": {"players.account_id": user["steamid_32"], "game_mode": {"$nin": [7, 9]}}},
+                {"$project": {"match_id": 1, "radiant_win": 1, "start_time": 1, "players.gold_per_min": 1,
+                              "players.account_id": 1, "players.player_slot": 1, "players.hero_id": 1}},
+                {"$unwind": "$players"},
+                {"$match": {"players.account_id": user["steamid_32"]}},
+                {"$sort": {"players.gold_per_min": -1}},
+                {"$limit": 1}
+            ])['result']
+            self.render("user.html", title="Records", user=user, session=session, records=(kills, deaths, assists, gpm),
+                        alr=alr)
         else:
             return self.send_error(404)
