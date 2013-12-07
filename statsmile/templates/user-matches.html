@@ -1,0 +1,44 @@
+<div class="page-header">
+    <h1>All matches <small>Personal games here. All...</small></h1>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Hero</th>
+        <th>Result</th>
+        <th>Match ID</th>
+        <th>Mode</th>
+        <th>Server</th>
+        <th>Duration</th>
+        <th>Kills / Deaths / Assists</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for mt in matches %}
+    <tr>
+        <td>
+            <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+        </td>
+        {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
+        <td><p class="text-success"><strong>Won Match</strong></p></td>
+        {% elif not mt['radiant_win'] and mt['players'][0]['player_slot'] in [128, 129, 130, 131, 132] %}
+        <td><p class="text-success"><strong>Won Match</strong></p></td>
+        {% else %}
+        <td><p class="text-danger">Lost Match</p></td>
+        {% end %}
+        <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+        <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+        <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+        <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+        <td>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: {% try %}{{ round(mt['players'][0]['kills'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['kills'] }}</div>
+                <div class="progress-bar progress-bar-danger" style="width: {% try %}{{ round(mt['players'][0]['deaths'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['deaths'] }}</div>
+                <div class="progress-bar progress-bar-warning" style="width: {% try %}{{ round(mt['players'][0]['assists'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['assists'] }}</div>
+            </div>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>

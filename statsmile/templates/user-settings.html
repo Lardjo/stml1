@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / {{ session['personaname'] }} / Settings{% end %}
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1><span class="glyphicon glyphicon-cog" style="font-size: 28px;"></span> Settings</h1>
+    </div>
+
+    <div class="panel panel-default panel-settings">
+        <div class="panel-heading">Account</div>
+        <div class="panel-body">
+            <p><span class="glyphicon glyphicon-time"></span> <strong>Member Since:</strong> {{ datetime.datetime.strftime(session['registration'], format='%B %d, %Y') }}</p>
+            <p><span class="glyphicon glyphicon-link"></span> <strong>Steam Profile URL:</strong> <a href="{{ session['profileurl'] }}">{{ session['profileurl'] }}</a></p>
+        </div>
+    </div>
+
+     <div class="panel panel-default panel-settings">
+        <div class="panel-heading">Matches</div>
+        <div class="panel-body">
+            <p>Here you can see the status of your received matches. Don't forget: your matches getting are not immediately. Priority is given to the most recent.</p>
+            <p><span class="glyphicon glyphicon-cloud-upload"></span> <strong>Matches in the database:</strong> {{ progress_on_base }}</p>
+            <p><span class="glyphicon glyphicon-list-alt"></span> <strong>All Matches:</strong> {{ progress }}</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {% try %}{{ (progress_on_base * 100) / progress }}{% except %}0{% end %}%">
+                    {% try %}{{ round((progress_on_base * 100) / progress, 2) }}{% except %}0{% end %}%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default panel-settings">
+        <div class="panel-heading">Sessions</div>
+        <div class="panel-body">
+            <p>This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</p>
+            <div class="list-group">
+                {% from user_agents import parse %}
+                {% set n = 1 %}
+                {% for sess in sessions %}
+                {% set user_agent = parse(sess['user_agent']) %}
+                <div class="list-group-item{% if sess['_id'] == current_user %} active{% else %}{% end %}">
+                     <div class="row">
+                        <div class="col-md-1 session-margin">
+                            <span class="glyphicon glyphicon-eye-{% if sess['_id'] == current_user %}open{% else %}close{% end %}" style="margin-left: 30px;" data-toggle="tooltip" data-placement="bottom" title="{{ sess['user_agent'] }}"></span>
+                        </div>
+                        <div class="col-md-10">
+                            <strong>{{ sess['ip'] }}</strong>
+                            <p class="session-current">
+                                {% if sess['_id'] == current_user %}Your current session{% else %}Last accessed: {{ datetime.datetime.strftime(sess['last_accessed'], format='%B %d, %Y %H:%M') }}{% end %}
+                                <button type="button" class="btn btn-link btn-xs active{% if sess['_id'] == current_user %}{% else %} collapsed{% end%} btn-session" data-toggle="collapse" data-target="#session_{{ n }}"></button></p>
+                            <div id="session_{{ n }}" class="collapse{% if sess['_id'] == current_user %} in{% else %}{% end %}">
+                                <p></p>
+                                <p><strong>{{ user_agent.browser.family }}</strong> on {{ user_agent.os.family }}</p>
+                                <strong>Last accessed:</strong>
+                                <p>{{ datetime.datetime.strftime(sess['last_accessed'], format='%B %d, %Y %H:%M') }}</p>
+                                <strong>Signed in:</strong>
+                                <p>{{ datetime.datetime.strftime(sess['signed_in'], format='%B %d, %Y %H:%M') }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1 session-margin">
+                            {% if sess['_id'] == current_user %}{% else %}<button value="{{ sess['_id'] }}" type="submit" class="btn btn-danger btn-xs">Revoke</button>{% end %}
+                        </div>
+                    </div>
+                </div>
+
+                {% set n += 1 %}
+                {% end %}
+            </div>
+        </div>
+    </div>
+</div>
+{% end %}

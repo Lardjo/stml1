@@ -55,7 +55,15 @@ class Statsmile(Application):
         handler_ls = [
             (r'/', handlers.MainHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
-            (r'/auth/logout', handlers.AuthLogoutHandler)
+            (r'/auth/logout', handlers.AuthLogoutHandler),
+            (r'/matches', handlers.MatchesHandler),
+            (r'/matches/page/([0-9]*)', handlers.MatchesHandler),
+            (r'/players', handlers.PlayersHandler),
+            (r'/page/(.*)', handlers.PagesHandler),
+            (r'/user/([0-9a-fA-F]{24})(?:/(.*))?', handlers.UserHandler),
+            (r'/user/settings', handlers.SettingsHandler),
+            (r'/session/(.*)', handlers.SessionHandler),
+            ("/matches/([0-9]+)", handlers.MatchHandler),
         ]
 
         # Database connect

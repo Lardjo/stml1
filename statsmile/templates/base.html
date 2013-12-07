@@ -22,25 +22,18 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="/matches">Matches</a></li>
-                        <li><a href="/players">Players</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/events/diretide">Diretide</a></li>
-                                <li><a href="/events/greeviling">The Greeviling</a></li>
-                            </ul>
-                        </li>
+                        {% if active == "home" %}<li class="active">{% else %}<li>{% end %}<a href="/">Home</a></li>
+                        {% if active == "matches" %}<li class="active">{% else %}<li>{% end %}<a href="/matches">Matches</a></li>
+                        {% if active == "players" %}<li class="active">{% else %}<li>{% end %}<a href="/players">Players</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             {% if current_user %}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ user['avatar'] }}" class="img-circle pull-left img-style">
-                                    {{ user['personaname'] }} <b class="caret"></b></a>
+                                <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">
+                                    {{ session['personaname'] }} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user/{{ user['_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                <li><a href="/user/{{ session['_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                                 <li><a href="/user/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                                 <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                             </ul>
@@ -65,5 +58,7 @@
     </div>
     <script src="{{ static_url('js/jquery.js') }}"></script>
     <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/statsmile.js') }}"></script>
+    <script src="{{ static_url('js/holder.js') }}"></script>
   </body>
 </html>

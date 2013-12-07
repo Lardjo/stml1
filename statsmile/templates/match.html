@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
+{% block content %}
+    {% import time %}
+    {% from statsmile.common import libs %}
+    <div class="container match-table">
+        <div class="page-header">
+            <h1>Match details <small>#{{ match['match_id'] }}</small></h1>
+        </div>
+
+        <div class="row recent-info">
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-globe"></span>
+                    <b> Match:</b> {{ match['match_id'] }}</p>
+                <p><span class="glyphicon glyphicon-calendar"></span>
+                    <b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
+                <p><span class="glyphicon glyphicon-time"></span>
+                    <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
+            </div>
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-list-alt"></span>
+                    <b> Game Mode:</b> {% try %}
+                    {{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-hdd"></span>
+                    <b> Server:</b> {% try %}
+                    {{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-time"></span>
+                    <b> First Blood:</b> {% try %}
+                    {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
+            </div>
+        </div>
+        <div class="panel panel-success" style="margin-top: 10px;">
+            <div class="panel-heading">
+                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% include "match-radiant.html %}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% include "match-dire.html %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% end %}

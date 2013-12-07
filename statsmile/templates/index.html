@@ -11,7 +11,7 @@
     <p>
         {% if ready %}
         {% if current_user %}
-        <a href="/user/{{ user['_id'] }}" class="btn btn-main-style">Your profile</a>
+        <a href="/user/{{ session['_id'] }}" class="btn btn-main-style">Your profile</a>
         <a href="/user/settings" class="btn btn-main-style">Settings</a>
         <a href="/auth/logout" class="btn btn-main-style">Logout</a>
         {% else %}

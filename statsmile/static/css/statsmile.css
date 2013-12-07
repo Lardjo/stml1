@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
+h1 small, .h1 small {
+    font-weight: 300;
+}
+
 #wrap {
     min-height: 100%;
     height: auto ;
@@ -32,6 +36,109 @@ h1, h2, h3, h4, h5, h6 {
     height: 20px;
     width: 20px;
     margin-right: 10px;
+}
+
+/* Settings page */
+
+.panel-settings {
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+div.list-group-item.active {
+    z-index: 2;
+    color: #333;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    border-color: #ddd;
+}
+
+.list-group-item:hover {
+    background-color: #fcf8e3;
+}
+
+.list-group-item {
+    background-color: #f8f8f8;
+}
+
+.list-group {
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.btn-session:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+.btn-session.collapsed:after {
+    content: "\e080";
+}
+
+.btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.session-current {
+    margin-bottom: 0;
+}
+
+.session-margin {
+    margin-top: 10px;
+}
+
+/* Profile page */
+
+.favorite-hero h4 {
+    font-size: 21px;
+}
+
+.favorite-hero img {
+    height: 47px;
+}
+
+.user-profile-header {
+    border-bottom: 1px solid #eee;
+    height: 70px;
+}
+
+.user-profile-header img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.user-menu {
+    margin-top: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-menu .active {
+    border-bottom: 2px solid #666;
+}
+
+.user-menu .active a {
+    color: #666;
+}
+
+.user-menu a {
+    text-decoration: none;
+    color: #999;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.user-menu a:hover {
+    color: #666;
+}
+
+.user-menu-tabs {
+    display: inline-block;
+    margin-right: 20px;
 }
 
 /* Main Page */
@@ -129,7 +236,59 @@ h1, h2, h3, h4, h5, h6 {
 
 /* End Main Page */
 
+/* Matches Page */
+.hero-container {
+    display: inline-block;
+    height: 25px;
+}
+
+.hero-name {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.hero-container img {
+    height: 25px;
+}
+
+.table p {
+    margin-bottom: 0;
+}
+
+.table tbody>tr>td {
+    vertical-align: middle;
+    padding: 6px;
+}
+/* End */
+
+/* Match page */
+
+.label-hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 45px;
+}
+
+.label-hero h6 {
+    font-weight: 500;
+    margin: 25px 3px 5px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.8), 0 0 30px rgba(0,0,0,.075);
+}
+
+.hero {
+    height: 45px;
+}
+
+/* End */
+
 /* Custom CSS */
+
+.table .progress {
+    margin-bottom: 0;
+}
 
 #wrap > .container {
     padding: 60px 15px 0;
