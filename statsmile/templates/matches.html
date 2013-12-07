@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ title }}{% end %}
 {% block content %}
-    <div class="container">
+
         <div class="page-header">
             <h1>Summary <small>of recent games</small></h1>
         </div>
@@ -56,5 +56,5 @@
             {% if page == 9 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/9">9</a></li>
             {% if page == 10 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/10">10</a></li>
         </ul>
-    </div>
+
 {% end %}

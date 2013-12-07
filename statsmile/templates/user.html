@@ -3,21 +3,21 @@
 {% block content %}
     {% import time %}
     {% from statsmile.common import libs %}
-    <div class="container">
+
         <div class="user-profile-header">
             <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
             <h1>{{ user['personaname'] }} <small>{% if not user['realname'] is None %}{{ user['realname'] }}{% else %}{% end %}</small></h1>
         </div>
-    </div>
+
     {% if not wait %}
-    <div class="container">
+
          <div class="user-menu">
             {% if title == "Dashboard" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}">Dashboard</a></div>
             {% if title == "Matches" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/matches">Matches</a></div>
             {% if title == "Records" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/records">Records</a></div>
         </div>
-    </div>
-    <div class="container">
+
+
         {% if title == "Dashboard" %}
         {% include "user-dashboard.html" %}
         {% elif title == "Matches" %}
@@ -25,10 +25,10 @@
         {% elif title == "Records" %}
         {% include "user-records.html" %}
         {% end %}
-    </div>
+
     {% else %}
-    <div class="container">
+
     {% include "user-wait.html" %}
-    </div>
+
     {% end %}
 {% end %}

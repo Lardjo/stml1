@@ -284,6 +284,39 @@ div.list-group-item.active {
 
 /* End */
 
+/* Heroes page */
+
+.heroes-row {
+    margin-top: 25px;
+}
+
+.heroes .img-thumbnail,
+.favorite-hero .img-thumbnail {
+    padding: 1px;
+}
+
+.heroes a,
+.favorite-hero a {
+    opacity: 0.85;
+}
+
+.heroes a:hover,
+.favorite-hero a:hover {
+    opacity: 1;
+}
+
+.heroes .page-header {
+    margin-top: 0;
+}
+
+.heroes .page-header h1 {
+    font-size: 24px;
+}
+
+.heroes img {
+    height: 61px;
+}
+
 /* Custom CSS */
 
 .table .progress {

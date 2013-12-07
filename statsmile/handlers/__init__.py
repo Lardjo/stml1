@@ -8,3 +8,4 @@ from .user import UserHandler
 from .settings import SettingsHandler
 from .session import SessionHandler
 from .match import MatchHandler
+from .heroes import HeroesHandler, HeroHandler

@@ -63,7 +63,9 @@ class Statsmile(Application):
             (r'/user/([0-9a-fA-F]{24})(?:/(.*))?', handlers.UserHandler),
             (r'/user/settings', handlers.SettingsHandler),
             (r'/session/(.*)', handlers.SessionHandler),
-            ("/matches/([0-9]+)", handlers.MatchHandler),
+            (r'/matches/([0-9]+)', handlers.MatchHandler),
+            (r'/heroes', handlers.HeroesHandler),
+            (r'/heroes/(.*)', handlers.HeroHandler)
         ]
 
         # Database connect
