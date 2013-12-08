@@ -6,7 +6,7 @@ from tornado.escape import json_decode
 from tornado.httpclient import HTTPClient, HTTPError
 from tornado.httputil import url_concat
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def converter(steamid):
@@ -28,7 +28,7 @@ def get_steam_user(db, steamid):
                 'profileurl': get_user['profileurl'],
                 'avatar': get_user['avatarfull'],
                 'registration': datetime.now(),
-                'update': datetime.now(),
+                'update': datetime.now() + timedelta(minutes=1),
                 'dota_count': 0,
                 'dota_wins': 0,
                 'dota_loses': 0}

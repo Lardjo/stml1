@@ -73,7 +73,8 @@ class Statsmile(Application):
 
         # Ensure indexes
         self.db['server'].ensure_index('key', unique=True)
-        self.db['sessions'].ensure_index('last_activity', expireAfterSeconds=30 * 24 * 60 * 60)
+        self.db['sessions'].ensure_index('last_accessed', expireAfterSeconds=30 * 24 * 60 * 60)
+        self.db['sessions'].ensure_index('last_accessed', DESCENDING)
         self.db['matches'].ensure_index([('players.account_id', ASCENDING), ('game_mode', ASCENDING)])
         self.db['matches'].ensure_index('start_time', DESCENDING)
         self.db['users'].ensure_index('dota_count', DESCENDING)
@@ -86,7 +87,7 @@ class Statsmile(Application):
         # User profile updater
         self.__update = []
 
-        users = self.db['users'].find({}).sort('update').limit(5)
+        users = self.db['users'].find({}).sort('update', ASCENDING).limit(2)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
@@ -114,7 +115,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db, 'cookie_secret'),
             'gzip': True,
-            'debug': True,
+            'debug': False,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
