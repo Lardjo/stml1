@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from .base import BaseHandler
-from bson import ObjectId
 
 
 class PlayersHandler(BaseHandler):
