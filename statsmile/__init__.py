@@ -75,7 +75,8 @@ class Statsmile(Application):
         self.db['server'].ensure_index('key', unique=True)
         self.db['sessions'].ensure_index('last_activity', expireAfterSeconds=30 * 24 * 60 * 60)
         self.db['matches'].ensure_index([('players.account_id', ASCENDING), ('game_mode', ASCENDING)])
-        self.db['matches'].ensure_index([('start_time', DESCENDING)])
+        self.db['matches'].ensure_index('start_time', DESCENDING)
+        self.db['users'].ensure_index('dota_count', DESCENDING)
 
         # Prepare status collection
         if not 'status' in self.db.collection_names():

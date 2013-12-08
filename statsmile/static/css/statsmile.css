@@ -102,13 +102,9 @@ div.list-group-item.active {
     height: 47px;
 }
 
-.user-profile-header {
-    border-bottom: 1px solid #eee;
-    height: 70px;
-}
-
 .user-profile-header img {
     height: 40px;
+    margin-top: 20px;
     margin-right: 10px;
 }
 

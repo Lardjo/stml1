@@ -8,6 +8,8 @@ from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
 
+from statsmile.common import getrate
+
 
 @gen.coroutine
 def update_user(db, steamid):
@@ -62,4 +64,10 @@ def update_user(db, steamid):
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
         logging.info("User profile %s has been updated." % steamid)
 
+    # Update user for wins and count.
+    user = db['users'].find_one({'steamid': steamid})
+    matches = list(db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9]}}))
+    rate = getrate.dota_rate(matches, user['steamid32'])
+
+    db['users'].update({'steamid': steamid}, {'$set': rate})
     db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=15)}})
