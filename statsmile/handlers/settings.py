@@ -30,7 +30,7 @@ class SettingsHandler(BaseHandler):
             try:
                 obj = IPWhois(offset['ip'])
                 results = obj.lookup(False)
-                sessions[offset]['country'] = countries[results['nets'][0]['country']]
+                sessions[country]['country'] = countries[results['nets'][0]['country']]
             except IPDefinedError:
                 sessions[country]['country'] = "Unknown Country"
 
