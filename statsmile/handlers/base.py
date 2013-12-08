@@ -1,25 +1,30 @@
 #!/usr/bin/env python3
 
-import tornado.web
-import tornado.escape
+from tornado.web import RequestHandler
+from tornado import escape
 
 from datetime import datetime
 from bson import ObjectId
 
 
-class BaseHandler(tornado.web.RequestHandler):
-    def get_current_user(self):
-        jusr = self.get_secure_cookie("statsmile_user")
-        if not jusr:
-            return None
-        return tornado.escape.json_decode(jusr)
+class BaseHandler(RequestHandler):
 
-    def session_now(self):
-        date = {"last_login": datetime.now()}
-        return date
+    def get_current_user(self):
+        token = self.get_secure_cookie('user_session')
+        if not token:
+            return None
+        return ObjectId(escape.json_decode(token))
+
+    def session_data(self):
+        data = {
+            'ip': self.request.remote_ip,
+            'user_agent': self.request.headers.get("User-Agent", ""),
+            'last_accessed': datetime.now()
+        }
+        return data
 
     def prepare(self):
         token = self.get_current_user()
         if ObjectId.is_valid(token):
-            if self.application.db["users"].find_one({"_id": ObjectId(token)}):
-                self.application.db["users"].update({"_id": ObjectId(token)}, {"$set": self.session_now()})
+            if self.application.db['sessions'].find_one({'_id': token}):
+                self.application.db['sessions'].update({'_id': token}, {'$set': self.session_data()})

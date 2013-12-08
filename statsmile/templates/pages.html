@@ -1,29 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / {{ title }}{% end %}
 {% block content %}
-    <div class="general profile">
-        <div class="container">
+
+    <div class="container">
+        <div class="page-header">
             <h1>{{ title }}</h1>
         </div>
     </div>
+
     <div class="container">
 
         {% if title == "About" %}
-        <div class="page-header">
-            <h1>Statsmile is...</h1>
-        </div>
+        <h3>Statsmile is...</h3>
         <p>Service was conceived as a convenient place to store all of your information about your
             Steam™ profile. What for? It's a long question. We wanted to collect all the information
             in one place, so that the user does not "jumping" from one service to another.</p>
         <p>Statsmile is hobby. So everything here is created exclusively on the enthusiasm and desire to learn.</p>
         <p>Developer team.</p>
         <h3>For Developers</h3>
-        <p>Want help with development service? Check our GitHub!..</p>
+        <p>Want help with development service? Write!</p>
         <h3>For Users</h3>
-        <p>Dear users! Statsmile only begins its development. You can help him develop. Please, read
-            <a href="#">this page.</a></p>
+        <p>Dear users! Statsmile only begins its development. You can help him develop.
         <h3>...and thank you</h3>
-        <p>Valve Software for the amazing game and "amazing" API access</p>
+        <p>Valve Software for the Dota 2 game.</p>
         {% elif title == "Privacy Policy" %}
         <h3>Privacy Policy</h3>
         <p>Statsmile LLC collects e-mail addresses of people who send us e-mail. We also collect information on what
@@ -45,44 +44,33 @@
             If we make material changes to this policy, we will notify you here or by means of a notice on our
             homepage so that you are aware of what information we collect, how we use it, and under what circumstances,
             if any, we disclose it.</p>
-        {% elif title == "Getting started" %}
+        {% elif title == "FAQ" %}
         <h3>Enable Statistics</h3>
         <p>
         After the update of 26 July 2013 Valve shut off by default view statistics of user. In order to allow us to
-        collect your data, you need to enable sharing matches in the Dota 2 client. To do this, run your Steam and
-        perform the following operations:</p>
-        <div class="row getstarted">
-            <div class="col-lg-4">
-
-
-                    <img src="{{ static_url("img/web/getstarted-1.png") }}" class="img-thumbnail">
-
-            </div>
-            <div class="col-lg-4">
-
-                    <img src="{{ static_url("img/web/getstarted-2.png") }}" class="img-thumbnail">
-
-            </div>
-            <div class="col-lg-4">
-
-                    <img src="{{ static_url("img/web/getstarted-3.png") }}" class="img-thumbnail">
-
-            </div>
-        </div>
+        collect your data, you need to enable sharing matches in the Dota 2 client. To do this, run your Steam, Dota 2 clients
+        and enable "Share Match History" on game settings page.</p>
+        <h3>When I want login on this site, required to enter a login and password Steam. You want steal my data!?</h3>
+        <p>No!.. Registration through the official website Steam with Steam ID auth. We only get your unique
+            profile ID and nothing more. We don't need your hats.</p>
+        <h3>Your win rate statistics is wrong!</h3>
+        <p>You are right partly. But this problem is of a global nature. Even sites such as, for example Dotabuff,
+            confirm the existence of this problem. The matter is that the API, which provides the Valve, does not give
+            an exact answer was the match ended or not. If in the future API will give such an opportunity - we will
+            gladly fix it. However, we try to get more accurate indicators to allow users to assess their capabilities.</p>
         {% elif title == "Status" %}
-        <h3>Server problems</h3>
         <p>Sometime servers Dota and Steam may be unavailable.
             So, if your new matches do not appear in your profile - check this page - perhaps, servers unavailable.</p>
-        <div class="page-header">
-            <h2>Dota 2 API <small>As of {{ datetime.datetime.strftime(dota['time'], format='%B, %d @ %H:%M:%S') }}</small></h2>
-        </div>
+
+            <h3>Dota 2 API <small>As of {{ datetime.datetime.strftime(dota['time'], format='%B, %d @ %H:%M:%S') }}</small></h3>
+
         {% if dota['value'] == "true" %}
         <div class="alert alert-success"><strong>All right!</strong> All systems operational.</div>{% else %}
         <div class="alert alert-danger">
             <strong>Server are not available.</strong> New matches will be obtained after recovery access.</div>{% end %}
-        <div class="page-header">
-            <h2>Steam API <small>As of {{ datetime.datetime.strftime(steam['time'], format='%B, %d @ %H:%M:%S') }}</small></h2>
-        </div>
+
+            <h3>Steam API <small>As of {{ datetime.datetime.strftime(steam['time'], format='%B, %d @ %H:%M:%S') }}</small></h3>
+
         {% if steam['value'] == "true" %}
         <div class="alert alert-success"><strong>All right!</strong> All systems operational.</div>{% else %}
         <div class="alert alert-danger">

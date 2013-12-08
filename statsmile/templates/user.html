@@ -2,38 +2,38 @@
 {% block title %}Statsmile / {{ user['personaname'] }} {% if title == "Dashboard" %}{% else %}/ {{ title }}{% end %}{% end %}
 {% block content %}
     {% import time %}
-    {% from statsmile import libs %}
-    <div class="general profile">
-        <div class="container">
-            <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
-            <h1>{{ user['personaname'] }} <small>{% try %}{{ user['realname'] }}{% except %}{% end %}</small></h1>
+    {% from statsmile.common import libs %}
+
+        {% if not wait %}
+
+        <div class="row user-profile-header">
+            <div class="col-md-7">
+                <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
+                <h1>{{ user['personaname'] }} <small>{% if not user['realname'] is None %}{{ user['realname'] }}{% else %}{% end %}</small></h1>
+            </div>
+            <div class="col-md-5">
+                <h1><small class="text-success">Wins: {{ user['dota_wins'] }}</small><small> / </small><small class="text-danger">Loses: {{ user['dota_loses'] }}</small><small> / Winrate: {% try %}{{ round((user['dota_wins'] / user['dota_count'])*100, 2)}}{% except %}0{% end %}%</small></h1>
+            </div>
         </div>
-    </div>
-    <div class="container">
-        {% if matches %}
+
+         <div class="user-menu">
+            {% if title == "Dashboard" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}">Dashboard</a></div>
+            {% if title == "Matches" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/matches">Matches</a></div>
+            {% if title == "Records" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/records">Records</a></div>
+        </div>
+
+
         {% if title == "Dashboard" %}
-        <div class="user-menu">
-            <div class="menu-list menu-list-active">
-                <h3><a href="/user/{{ user['_id'] }}">Dashboard</a></h3>
-            </div>
-            <div class="menu-list">
-                <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
-            </div>
-        </div>
         {% include "user-dashboard.html" %}
         {% elif title == "Matches" %}
-        <div class="user-menu">
-            <div class="menu-list">
-                <h3><a href="/user/{{ user['_id'] }}">Dashboard</a></h3>
-            </div>
-            <div class="menu-list menu-list-active">
-                <h3><a href="/user/{{ user['_id'] }}/matches">Matches</a></h3>
-            </div>
-        </div>
         {% include "user-matches.html" %}
+        {% elif title == "Records" %}
+        {% include "user-records.html" %}
         {% end %}
-        {% else %}
-        {% include "user-wait.html" %}
-        {% end %}
-    </div>
+
+    {% else %}
+
+    {% include "user-wait.html" %}
+
+    {% end %}
 {% end %}

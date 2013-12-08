@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-
 from .main import MainHandler
-from .auth import AuthHandler
-from .user import UserHandler
-from .page import PageHandler
-from .logout import LogoutHandler
+from .auth import AuthLoginHandler, AuthLogoutHandler
 from .matches import MatchesHandler
 from .players import PlayersHandler
-from .start import StartHandler
-from .match import MatchHandler
-from .events import EventsHandler
+from .pages import PagesHandler
+from .user import UserHandler
 from .settings import SettingsHandler
+from .session import SessionHandler
+from .match import MatchHandler
+from .heroes import HeroesHandler, HeroHandler

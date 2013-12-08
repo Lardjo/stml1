@@ -1,12 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Statsmile / Matches{% end %}
-{% block menu %}
-    <li><a href="/">Home</a></li>
-    <li class="active"><a href="/matches">Matches</a></li>
-    <li><a href="/players">Players</a></li>
-{% end %}
+{% block title %}{{ title }}{% end %}
 {% block content %}
-    <div class="container">
+
         <div class="page-header">
             <h1>Summary <small>of recent games</small></h1>
         </div>
@@ -23,7 +18,7 @@
             </tr>
             </thead>
             <tbody>
-            {% from statsmile import libs %}
+            {% from statsmile.common import libs %}
             {% for mt in matches %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
@@ -49,5 +44,17 @@
             {% end %}
             </tbody>
         </table>
-    </div>
+        <ul class="pagination">
+            {% if page == 1 %}<li class="active">{% else %}<li>{% end %}<a href="/matches">1</a></li>
+            {% if page == 2 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/2">2</a></li>
+            {% if page == 3 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/3">3</a></li>
+            {% if page == 4 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/4">4</a></li>
+            {% if page == 5 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/5">5</a></li>
+            {% if page == 6 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/6">6</a></li>
+            {% if page == 7 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/7">7</a></li>
+            {% if page == 8 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/8">8</a></li>
+            {% if page == 9 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/9">9</a></li>
+            {% if page == 10 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/10">10</a></li>
+        </ul>
+
 {% end %}

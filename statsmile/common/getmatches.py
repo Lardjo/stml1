@@ -2,23 +2,24 @@
 
 import logging
 
-from tornado import gen
+from tornado.gen import coroutine
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 
 
-@gen.coroutine
-def getting_matches_id(db, steamid):
-    logging.info("Getting all matches for user '{}'...".format(steamid))
+@coroutine
+def getting_matches(db, steamid):
+    logging.info('Getting all matches for user %s...' % steamid)
+
     matches = []
     start_time = 0
     remaining = 1
 
     while remaining:
-        key = db["settings"].find_one({"key": "apikey"})
+        key = db['server'].find_one({'key': 'apikey'})
         params = {'key': key['value'], 'account_id': steamid, 'date_max': start_time}
-        url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/", params)
+        url = url_concat('https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/', params)
         response = yield AsyncHTTPClient().fetch(url)
         pack = json_decode(response.body)
         for match in pack['result']['matches']:
@@ -28,6 +29,5 @@ def getting_matches_id(db, steamid):
         remaining = pack['result']['results_remaining']
     else:
         matches.sort()
-        db['users'].update({"steamid": steamid}, {'$set': {"matches": matches}})
-        logging.info("User '{}' successfully added to the database. Added '{}' matches".format(steamid,
-                                                                                               len(matches)))
+        db['users'].update({'steamid': steamid}, {'$set': {'matches': matches}})
+        logging.info('User %s successfully added to the database. Added %s matches' % (steamid, len(matches)))

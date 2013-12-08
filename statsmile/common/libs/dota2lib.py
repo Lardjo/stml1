@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # All right reserved 2013
-# Description: Dota 2 Library (inc. items, heroes, clusters, modes)
+# Description: Dota 2 Library
 # URL: http://github.com/Lardjo
 
 mode = {1: {"name": 'All Pick'},
@@ -12,7 +12,8 @@ mode = {1: {"name": 'All Pick'},
         9: {'name': 'Greeviling'},
         12: {'name': 'Least Played'},
         13: {'name': 'Limited Hero'},
-        14: {'name': 'Compendium Matchmaking'}}
+        14: {'name': 'Compendium Matchmaking'},
+        16: {'name': 'Captains Draft'}}
 
 cluster = {111: {'name': 'US West'},
            112: {'name': 'US West'},
@@ -36,6 +37,7 @@ cluster = {111: {'name': 'US West'},
            182: {'name': 'Russia'},
            183: {'name': 'Russia'},
            184: {'name': 'Russia'},
+           185: {'name': 'Russia'},
            191: {'name': 'Europe East'},
            200: {'name': 'South America'},
            211: {'name': 'South Africa'},
@@ -62,10 +64,9 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           18: {'name': 'Sven', 'avatar': 'img/dota/heroes/sven.png'},
           19: {'name': 'Tiny', 'avatar': 'img/dota/heroes/tiny.png'},
           20: {'name': 'Vengeful Spirit', 'avatar': 'img/dota/heroes/vengefulspirit.png'},
-          21: {'name': 'Windrunner', 'avatar': 'img/dota/heroes/windrunner.png'},
+          21: {'name': 'Windranger', 'avatar': 'img/dota/heroes/windrunner.png'},
           22: {'name': 'Zeus', 'avatar': 'img/dota/heroes/zuus.png'},
           23: {'name': 'Kunkka', 'avatar': 'img/dota/heroes/kunkka.png'},
-          #24
           25: {'name': 'Lina', 'avatar': 'img/dota/heroes/lina.png'},
           26: {'name': 'Lion', 'avatar': 'img/dota/heroes/lion.png'},
           27: {'name': 'Shadow Shaman', 'avatar': 'img/dota/heroes/shadow_shaman.png'},
@@ -77,7 +78,7 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           33: {'name': 'Enigma', 'avatar': 'img/dota/heroes/enigma.png'},
           34: {'name': 'Tinker', 'avatar': 'img/dota/heroes/tinker.png'},
           35: {'name': 'Sniper', 'avatar': 'img/dota/heroes/sniper.png'},
-          36: {'name': 'Necrolyte', 'avatar': 'img/dota/heroes/necrolyte.png'},
+          36: {'name': 'Necrophos', 'avatar': 'img/dota/heroes/necrolyte.png'},
           37: {'name': 'Warlock', 'avatar': 'img/dota/heroes/warlock.png'},
           38: {'name': 'Beastmaster', 'avatar': 'img/dota/heroes/beastmaster.png'},
           39: {'name': 'Queen of Pain', 'avatar': 'img/dota/heroes/queenofpain.png'},
@@ -118,7 +119,7 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           74: {'name': 'Invoker', 'avatar': 'img/dota/heroes/invoker.png'},
           75: {'name': 'Silencer', 'avatar': 'img/dota/heroes/silencer.png'},
           76: {'name': 'Outworld Destroyer', 'avatar': 'img/dota/heroes/obsidian_destroyer.png'},
-          77: {'name': 'Lycanthrope', 'avatar': 'img/dota/heroes/lycan.png'},
+          77: {'name': 'Lycan', 'avatar': 'img/dota/heroes/lycan.png'},
           78: {'name': 'Brewmaster', 'avatar': 'img/dota/heroes/brewmaster.png'},
           79: {'name': 'Shadow Demon', 'avatar': 'img/dota/heroes/shadow_demon.png'},
           80: {'name': 'Lone Druid', 'avatar': 'img/dota/heroes/lone_druid.png'},
@@ -145,8 +146,6 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
           102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
           103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
-          #104
-          #105
           106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
           107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}}
 

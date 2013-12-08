@@ -1,32 +1,41 @@
 {% extends "base.html" %}
-{% block menu %}
-    <li class="active"><a href="/">Home</a></li>
-    <li><a href="/matches">Matches</a></li>
-    <li><a href="/players">Players</a></li>
-{% end %}
+{% block title %}{{ title }}{% end %}
 {% block content %}
-    <div class="container">
-        <div class="main">
-                <h1>Statsmile</h1>
-                <p>Simple and intuitive service statistics for Dota 2</p>
-                {% if not current_user %}<p><a href="/auth/login" class="btn btn-large">Get started today</a></p>
-                {% else %}
-                <p><a href="/user/{{ current_user }}" class="btn">Your profile</a>
-                   <a href="/user/settings" class="btn">Settings</a>
-                   <a href="/auth/logout" class="btn">Logout</a>
-                </p>
-                {% end %}
-                <p class="text-update-status">Update of December 3: Beta 2. <a href="https://github.com/Lardjo/Statsmile/blob/master/CHANGELOG.md">Full list</a> of changes. Changed the structure of the data in the database. Wipe. Please, re-login</p>
-                <ul class="head-links">
-                    <li><a href="/page/start">New users</a></li>
-                    <li><a href="/page/privacy">Privacy</a></li>
-                    <li><a href="/page/about">About</a></li>
-                    <li><a href="/page/status">Status</a></li>
-                    <li><a href="http://github.com/Lardjo/Statsmile">GitHub</a></li>
-                    <li><a href="http://youtrack.statsmile.com/">Youtrack</a></li>
-                    <li>Version 2.1b2</li>
-                </ul>
+<div class="main-index">
+    <h1>Statsmile</h1>
+    {% if ready %}
+    <p class="lead">Simple and intuitive service statistics for Dota 2</p>
+    {% else %}
+    <p class="lead">Please, enter your Steam API key here.</p>
+    {% end %}
+    <p>
+        {% if ready %}
+        {% if current_user %}
+        <a href="/user/{{ session['_id'] }}" class="btn btn-main-style">Your profile</a>
+        <a href="/user/settings" class="btn btn-main-style">Settings</a>
+        <a href="/auth/logout" class="btn btn-main-style">Logout</a>
+        {% else %}
+        <a href="/auth/login" class="btn btn-main-style">Sign in with Steam ID</a>
+        {% end %}
+        {% else %}
+        <div class="input-group">
+            <form role="form" class="api-key" method="post">
+            <input type="text" class="form-control" placeholder="Steam API key" name="apikey">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Go!</button>
+            </span>
+            </form>
         </div>
-    </div>
+        {% end %}
+    </p>
+</div>
+<div class="container">
+    <ul class="head-links">
+        <li><a href="/page/about">About</a></li>
+        <li><a href="/page/faq">FAQ</a></li>
+        <li><a href="/page/privacy">Privacy</a></li>
+        <li><a href="/page/status">Status</a></li>
+        <li class="version">Version 1.0</li>
+    </ul>
+</div>
 {% end %}
-{% block footer %}{% end %}

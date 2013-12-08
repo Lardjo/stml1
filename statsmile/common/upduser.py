@@ -8,10 +8,12 @@ from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
 
+from statsmile.common import getrate
+
 
 @gen.coroutine
-def update_matches_id(db, steamid):
-    key = db["settings"].find_one({"key": "apikey"})
+def update_user(db, steamid):
+    key = db["server"].find_one({"key": "apikey"})
     url1 = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
                       {"key": key["value"], "account_id": steamid})
     url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
@@ -62,4 +64,11 @@ def update_matches_id(db, steamid):
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
         logging.info("User profile %s has been updated." % steamid)
 
-    db["users"].update({"steamid": steamid}, {"$set": {"next_update": datetime.now() + timedelta(minutes=15)}})
+    # Update user for wins and count.
+    user = db['users'].find_one({'steamid': steamid})
+    matches = list(db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9]}}))
+    if matches:
+        rate = getrate.dota_rate(matches, user['steamid32'])
+        db['users'].update({'steamid': steamid}, {'$set': rate})
+
+    db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=10)}})

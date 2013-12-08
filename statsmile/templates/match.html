@@ -2,8 +2,8 @@
 {% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
 {% block content %}
     {% import time %}
-    {% from statsmile import libs %}
-    <div class="container">
+    {% from statsmile.common import libs %}
+    <div class="match-table">
         <div class="page-header">
             <h1>Match details <small>#{{ match['match_id'] }}</small></h1>
         </div>
@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <p><span class="glyphicon glyphicon-globe"></span>
                     <b> Match:</b> {{ match['match_id'] }}</p>
-                <p><span class="glyphicon glyphicon-time"></span>
+                <p><span class="glyphicon glyphicon-calendar"></span>
                     <b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M:%S', time.localtime(match['start_time'])) }}</p>
                 <p><span class="glyphicon glyphicon-time"></span>
                     <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
@@ -29,7 +29,7 @@
                     {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
             </div>
         </div>
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top: 10px;">
             <div class="panel-heading">
                 {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
             <table class="table">
@@ -48,59 +48,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for radiant in match['players'][:5] %}
-                    <tr>
-                        {% if not 'account_id' in radiant %}
-                        <td style="width: 200px;" class="text-muted">Anonymous</td>
-                        {% elif radiant['account_id'] == 4294967295 %}
-                        <td style="width: 200px;" class="text-muted">Anonymous</td>
-                        {% else %}
-                        <td style="width: 200px;">{{ radiant['account_id'] }}</td>
-                        {% end %}
-                        <td style="width: 80px; padding: 1px;">
-                            <div style="position: relative;">
-                                <img class="hero" src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
-                                <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
-                            </div>
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[radiant['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}">
-                        </td>
-                        <td>{{ radiant['gold_spent'] }}</td>
-                        <td>{{ radiant['denies'] }}</td>
-                        <td>{{ radiant['last_hits'] }}</td>
-                        <td>{{ radiant['hero_healing'] }}</td>
-                        <td>{{ radiant['xp_per_min'] }}</td>
-                        <td>{{ radiant['gold_per_min'] }}</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['assists'] }}</div>
-                            </div>
-                        </td>
-                    </tr>
-                {% end %}
+                {% include "match-radiant.html %}
                 </tbody>
             </table>
         </div>
         <div class="panel panel-danger">
-            <div class="panel-heading">{% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <div class="panel-heading">
+                {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
             <table class="table">
                 <thead>
                     <tr>
@@ -117,54 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for dire in match['players'][5:] %}
-                    <tr>
-                        {% if not 'account_id' in dire %}
-                        <td style="width: 200px;" class="text-muted">Anonymous</td>
-                        {% elif dire['account_id'] == 4294967295 %}
-                        <td style="width: 200px;" class="text-muted">Anonymous</td>
-                        {% else %}
-                        <td style="width: 200px;">{{ dire['account_id'] }}</td>
-                        {% end %}
-                        <td style="width: 80px; padding: 1px;">
-                            <div style="position: relative;">
-                                <img class="hero" src="{% try %}{{ static_url(libs.heroes[dire['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}">
-                                <div class="label-hero"><h6>{{ dire['level'] }} Level</h6></div>
-                            </div>
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_0'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_1'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_2'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_3'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_4'] }}{% end %}">
-                        </td>
-                        <td style="width: 60px; padding: 1px;">
-                            <img src="{% try %}{{ static_url(libs.items[dire['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_5'] }}{% end %}">
-                        </td>
-                        <td>{{ dire['gold_spent'] }}</td>
-                        <td>{{ dire['denies'] }}</td>
-                        <td>{{ dire['last_hits'] }}</td>
-                        <td>{{ dire['hero_healing'] }}</td>
-                        <td>{{ dire['xp_per_min'] }}</td>
-                        <td>{{ dire['gold_per_min'] }}</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['kills'] }}</div>
-                                <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['deaths'] }}</div>
-                                <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['assists'] }}</div>
-                            </div>
-                        </td>
-                    </tr>
-                {% end %}
+                {% include "match-dire.html %}
                 </tbody>
             </table>
         </div>

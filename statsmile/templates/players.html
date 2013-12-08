@@ -1,35 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Statsmile / Players{% end %}
-{% block menu %}
-    <li><a href="/">Home</a></li>
-    <li><a href="/matches">Matches</a></li>
-    <li class="active"><a href="/players">Players</a></li>
-{% end %}
+{% block title %}{{ title }}{% end %}
 {% block content %}
-    <div class="container">
+
         <div class="page-header">
-            <h1>Players <small>The Best</small></h1>
+            <h1>Best Players <small>Matches played</small></h1>
         </div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Player</th>
-                <th>Total Matches Played</th>
+                <th>Total Matches</th>
             </tr>
             </thead>
             <tbody>
             {% set n = 0 %}
-            {% for pl in players['result'] %}
+            {% for pl in players %}
             {% set n += 1 %}
             <tr>
                 <td>{{ n }}</td>
                 <td><a href="/user/{{ pl['_id'] }}">
-                    <img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['name'] }}</a></td>
-                <td>{{ pl['number'] }} Matches</td>
+                    <img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['personaname'] }}</a></td>
+                <td>{{ pl['dota_count'] }} Matches</td>
             </tr>
             {% end %}
             </tbody>
         </table>
-    </div>
+
 {% end %}
