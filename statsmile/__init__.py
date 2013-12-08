@@ -125,5 +125,5 @@ class Statsmile(Application):
 
         super().__init__(handler_ls, **settings)
 
-        self.listen(8888)
+        self.listen(8888, xheaders=True)
         logging.info('Statsmile server is started!')
