@@ -4,26 +4,17 @@
     {% import time %}
     {% from statsmile.common import libs %}
 
+        {% if not wait %}
+
         <div class="row user-profile-header">
             <div class="col-md-7">
                 <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
                 <h1>{{ user['personaname'] }} <small>{% if not user['realname'] is None %}{{ user['realname'] }}{% else %}{% end %}</small></h1>
             </div>
             <div class="col-md-5">
-                <h1><small class="text-success">Wins: {{ user['dota_wins'] }}</small><small> / </small><small class="text-danger">Loses: {{ user['dota_loses'] }}</small><small> / Winrate: {{ round((user['dota_wins'] / user['dota_count'])*100, 2)}}%</small></h1>
+                <h1><small class="text-success">Wins: {{ user['dota_wins'] }}</small><small> / </small><small class="text-danger">Loses: {{ user['dota_loses'] }}</small><small> / Winrate: {% try %}{{ round((user['dota_wins'] / user['dota_count'])*100, 2)}}{% except %}0{% end %}%</small></h1>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-    {% if not wait %}
 
          <div class="user-menu">
             {% if title == "Dashboard" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}">Dashboard</a></div>

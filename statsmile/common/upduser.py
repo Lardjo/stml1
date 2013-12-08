@@ -67,7 +67,8 @@ def update_user(db, steamid):
     # Update user for wins and count.
     user = db['users'].find_one({'steamid': steamid})
     matches = list(db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9]}}))
-    rate = getrate.dota_rate(matches, user['steamid32'])
+    if matches:
+        rate = getrate.dota_rate(matches, user['steamid32'])
+        db['users'].update({'steamid': steamid}, {'$set': rate})
 
-    db['users'].update({'steamid': steamid}, {'$set': rate})
-    db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=15)}})
+    db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=10)}})
