@@ -1,4 +1,4 @@
-# __init__ file for common module
+#!/usr/bin/env python3
 from .getuser import get_steam_user
 from .updmatch import update_match
 from .upduser import update_user

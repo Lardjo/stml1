@@ -2,7 +2,6 @@
 
 from .base import BaseHandler
 from pymongo import DESCENDING
-from bson import ObjectId
 
 
 class MatchesHandler(BaseHandler):
