@@ -43,7 +43,7 @@
                             <span class="glyphicon glyphicon-eye-{% if sess['_id'] == current_user %}open{% else %}close{% end %}" style="margin-left: 30px;" data-toggle="tooltip" data-placement="bottom" title="{{ sess['user_agent'] }}"></span>
                         </div>
                         <div class="col-md-10">
-                            <strong>{{ sess['ip'] }}</strong>
+                            <strong>{{ sess['country'] }} {{ sess['ip'] }}</strong>
                             <p class="session-current">
                                 {% if sess['_id'] == current_user %}Your current session{% else %}Last accessed: {{ datetime.datetime.strftime(sess['last_accessed'], format='%B %d, %Y %H:%M') }}{% end %}
                                 <button type="button" class="btn btn-link btn-xs active{% if sess['_id'] == current_user %}{% else %} collapsed{% end%} btn-session" data-toggle="collapse" data-target="#session_{{ n }}"></button></p>
