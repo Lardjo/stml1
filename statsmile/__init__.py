@@ -28,6 +28,7 @@ class Statsmile(Application):
         new_user = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}},
                                              sort=[('update', ASCENDING)], limit=1)
         IOLoop.instance().add_timeout(new_user['update'].timestamp(), partial(self.user_update, new_user))
+        self.__update.append(new_user['_id'])
 
     @coroutine
     def match_update(self, match):
@@ -74,10 +75,8 @@ class Statsmile(Application):
         # Ensure indexes
         self.db['server'].ensure_index('key', unique=True)
         self.db['sessions'].ensure_index('last_accessed', expireAfterSeconds=30 * 24 * 60 * 60)
-        self.db['sessions'].ensure_index('last_accessed', DESCENDING)
         self.db['matches'].ensure_index([('players.account_id', ASCENDING), ('game_mode', ASCENDING)])
         self.db['matches'].ensure_index('start_time', DESCENDING)
-        self.db['users'].ensure_index('dota_count', DESCENDING)
 
         # Prepare status collection
         if not 'status' in self.db.collection_names():
@@ -87,7 +86,7 @@ class Statsmile(Application):
         # User profile updater
         self.__update = []
 
-        users = self.db['users'].find({}).sort('update', ASCENDING).limit(2)
+        users = self.db['users'].find({}).sort('update').limit(2)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
@@ -115,7 +114,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db, 'cookie_secret'),
             'gzip': True,
-            'debug': False,
+            'debug': True,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"

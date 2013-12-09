@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-from ipwhois import IPWhois, IPDefinedError
-from ipwhois.utils import get_countries
-
 from .base import BaseHandler
 
 
@@ -22,17 +19,6 @@ class SettingsHandler(BaseHandler):
             progress = len(session['matches'])
         except KeyError:
             progress = 0
-
-        countries = get_countries()
-
-        for (country, offset) in enumerate(sessions):
-
-            try:
-                obj = IPWhois(offset['ip'])
-                results = obj.lookup(False)
-                sessions[country]['country'] = countries[results['nets'][0]['country']]
-            except IPDefinedError:
-                sessions[country]['country'] = "Unknown Country"
 
         self.render('user-settings.html', active="settings", session=session, sessions=sessions,
                     progress_on_base=matches_on_base, progress=progress)
