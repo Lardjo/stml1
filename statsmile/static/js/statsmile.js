@@ -11,9 +11,9 @@ $(document).on("click", ":submit", function(e){
     $.ajax({
         url: "/session/" + $(this).val(),
         type: "DELETE",
-        success: $(document).ajaxStop(function(){
+        success: function() {
             window.location.reload();
-        })
+        }
     });
 
 });

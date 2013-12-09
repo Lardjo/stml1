@@ -13,7 +13,13 @@ class BaseHandler(RequestHandler):
         token = self.get_secure_cookie('user_session')
         if not token:
             return None
-        return ObjectId(escape.json_decode(token))
+        else:
+            token = ObjectId(escape.json_decode(token))
+
+        if not self.application.db['sessions'].find_one({'_id': token}):
+            return None
+        else:
+            return token
 
     def session_data(self):
         data = {
