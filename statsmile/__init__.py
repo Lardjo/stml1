@@ -48,7 +48,7 @@ class Statsmile(Application):
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.match_update, new_matches[0]['_id']))
         else:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=10)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.match_update, None))
 
     def __init__(self):
