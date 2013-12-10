@@ -3,7 +3,8 @@
 # Description: Dota 2 Library
 # URL: http://github.com/Lardjo
 
-mode = {1: {"name": 'All Pick'},
+mode = {0: {'name': 'Unknown'},
+        1: {'name': 'All Pick'},
         2: {'name': 'Captains Mode'},
         3: {'name': 'Random Draft'},
         4: {'name': 'Single Draft'},
@@ -44,7 +45,11 @@ cluster = {111: {'name': 'US West'},
            221: {'name': 'China'},
            222: {'name': 'China'}}
 
-heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
+heroes = {1: {'name': 'Anti-Mage',
+              'class': 'Agility',
+              'role': 'Carry, Escape',
+              'side': 'The Radiant',
+              'avatar': 'img/dota/heroes/antimage.png'},
           2: {'name': 'Axe', 'avatar': 'img/dota/heroes/axe.png'},
           3: {'name': 'Ban', 'avatar': 'img/dota/heroes/bane.png'},
           4: {'name': 'Bloodseeker', 'avatar': 'img/dota/heroes/bloodseeker.png'},
@@ -144,8 +149,8 @@ heroes = {1: {'name': 'Antimage', 'avatar': 'img/dota/heroes/antimage.png'},
           99: {'name': 'Bristleback', 'avatar': 'img/dota/heroes/bristleback.png'},
           100: {'name': 'Tusk', 'avatar': 'img/dota/heroes/tusk.png'},
           101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
-          102: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
-          103: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
+          103: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
+          102: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
           106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
           107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}}
 
