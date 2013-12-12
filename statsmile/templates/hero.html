@@ -5,7 +5,7 @@
     <h1>{{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
 <div class="row">
-    <div class="col-md-9"><p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}{% end %}</p></div>
+    <div class="col-md-9"><p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p></div>
     <div class="col-md-3">
 
             <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">

@@ -32,6 +32,11 @@ h3 small, .h3 small {
     margin-bottom: 15px;
 }
 
+.entry {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
 #wrap {
     min-height: 100%;
     height: auto ;

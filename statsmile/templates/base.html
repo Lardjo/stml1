@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>{% block title %}{% end %}</title>
-    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ static_url('css/statsmile.css') }}" rel="stylesheet">
@@ -55,8 +54,8 @@
                         {% if active == "heroes" %}<li class="active">{% else %}<li>{% end %}<a href="/heroes">Heroes</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        {% if current_user %}
                         <li class="dropdown">
-                            {% if current_user %}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">
                                     {{ session['personaname'] }} <b class="caret"></b></a>
@@ -65,10 +64,10 @@
                                 <li><a href="/user/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                                 <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                             </ul>
-                            {% else %}
-                            <li><a href="/auth/login">Sign in with Steam ID</a></li>
-                            {% end %}
                         </li>
+                        {% else %}
+                        <li><a href="/auth/login">Sign in with Steam ID</a></li>
+                        {% end %}
                     </ul>
                 </div>
             </div>
@@ -88,5 +87,6 @@
     <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
     <script src="{{ static_url('js/statsmile.js') }}"></script>
     <script src="{{ static_url('js/holder.js') }}"></script>
+    {% block bottom %}{% end %}
   </body>
 </html>
