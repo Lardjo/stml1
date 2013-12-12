@@ -3,6 +3,8 @@
 from .base import BaseHandler
 from pymongo import DESCENDING
 
+from statsmile.common import libs
+
 
 class MatchesHandler(BaseHandler):
     def get(self, page=1):
@@ -15,4 +17,4 @@ class MatchesHandler(BaseHandler):
         if session:
             session = self.application.db['users'].find_one({'_id': session['userid']})
         self.render('matches.html', title="Statsmile / Matches", active="matches", page=pg,
-                    session=session, matches=matches)
+                    session=session, matches=matches, cluster=libs.cluster, mode=libs.mode, heroes=libs.heroes)

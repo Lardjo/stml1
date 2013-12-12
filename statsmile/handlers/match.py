@@ -2,6 +2,8 @@
 
 from .base import BaseHandler
 
+from statsmile.common import libs
+
 
 class MatchHandler(BaseHandler):
     def get(self, match):
@@ -28,4 +30,5 @@ class MatchHandler(BaseHandler):
                     match["players"][offset]["avatar"] = player["avatar"]
                     match["players"][offset]["personaname"] = player["personaname"]
 
-        self.render("match.html", active="match", session=session, match=match)
+        self.render("match.html", active="match", session=session, match=match, mode=libs.mode, cluster=libs.cluster,
+                    heroes=libs.heroes, items=libs.items)

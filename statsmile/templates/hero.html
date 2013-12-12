@@ -2,7 +2,28 @@
 {% block title %}Statsmile / Heroes / {{ hero['name'] }}{% end %}
 {% block content %}
 <div class="page-header">
-    <h1>{{ hero['name'] }}</h1>
+    <h1>{{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
-<p>Coming Soon...</p>
+<div class="row">
+    <div class="col-md-9"><p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}{% end %}</p></div>
+    <div class="col-md-3">
+
+            <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
+            <blockquote>
+                <p>{% try %}{{ hero['side'] }}{% except %}{% end %}</p>
+                <small>{% try %}{{ hero['class'] }}{% except %}{% end %}</small>
+            </blockquote>
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
+                </div>
+                <div class="progress-bar progress-bar-success" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base agility (+ Increase)">{% try %}{{ hero['agility'] }}{% except %}{% end %}</span>
+                </div>
+                <div class="progress-bar progress-bar-info" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base intelligence (+ Increase)">{% try %}{{ hero['intelligence'] }}{% except %}{% end %}</span>
+                </div>
+            </div>
+    </div>
+</div>
 {% end %}

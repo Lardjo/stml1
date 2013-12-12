@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / {{ title }}{% end %}
 {% block content %}
-{% from statsmile.common import libs %}
-
 
     <div class="page-header">
         <h1>Heroes <small>Beta</small></h1>
@@ -21,41 +19,41 @@
                 <div class="panel-heading">Strength</div>
                 <div class="panel-body heroes">
 
-                    <a href="/heroes/7"><img src="{{ static_url(libs.heroes[7]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/18"><img src="{{ static_url(libs.heroes[18]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/19"><img src="{{ static_url(libs.heroes[19]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/23"><img src="{{ static_url(libs.heroes[23]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/38"><img src="{{ static_url(libs.heroes[38]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/49"><img src="{{ static_url(libs.heroes[49]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/51"><img src="{{ static_url(libs.heroes[51]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/57"><img src="{{ static_url(libs.heroes[57]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/59"><img src="{{ static_url(libs.heroes[59]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/73"><img src="{{ static_url(libs.heroes[73]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/78"><img src="{{ static_url(libs.heroes[78]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/83"><img src="{{ static_url(libs.heroes[83]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/91"><img src="{{ static_url(libs.heroes[91]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/96"><img src="{{ static_url(libs.heroes[96]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/98"><img src="{{ static_url(libs.heroes[98]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/99"><img src="{{ static_url(libs.heroes[99]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/100"><img src="{{ static_url(libs.heroes[100]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/102"><img src="{{ static_url(libs.heroes[102]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/107"><img src="{{ static_url(libs.heroes[107]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/7"><img src="{{ static_url(heroes[7]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/18"><img src="{{ static_url(heroes[18]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/19"><img src="{{ static_url(heroes[19]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/23"><img src="{{ static_url(heroes[23]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/38"><img src="{{ static_url(heroes[38]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/49"><img src="{{ static_url(heroes[49]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/51"><img src="{{ static_url(heroes[51]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/57"><img src="{{ static_url(heroes[57]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/59"><img src="{{ static_url(heroes[59]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/73"><img src="{{ static_url(heroes[73]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/78"><img src="{{ static_url(heroes[78]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/83"><img src="{{ static_url(heroes[83]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/91"><img src="{{ static_url(heroes[91]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/96"><img src="{{ static_url(heroes[96]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/98"><img src="{{ static_url(heroes[98]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/99"><img src="{{ static_url(heroes[99]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/100"><img src="{{ static_url(heroes[100]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/102"><img src="{{ static_url(heroes[102]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/107"><img src="{{ static_url(heroes[107]['avatar']) }}" class="img-thumbnail"></a>
 
-                    <a href="/heroes/2"><img src="{{ static_url(libs.heroes[2]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/14"><img src="{{ static_url(libs.heroes[14]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/16"><img src="{{ static_url(libs.heroes[16]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/28"><img src="{{ static_url(libs.heroes[28]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/29"><img src="{{ static_url(libs.heroes[29]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/42"><img src="{{ static_url(libs.heroes[42]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/54"><img src="{{ static_url(libs.heroes[54]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/60"><img src="{{ static_url(libs.heroes[60]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/69"><img src="{{ static_url(libs.heroes[69]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/71"><img src="{{ static_url(libs.heroes[71]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/77"><img src="{{ static_url(libs.heroes[77]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/81"><img src="{{ static_url(libs.heroes[81]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/85"><img src="{{ static_url(libs.heroes[85]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/97"><img src="{{ static_url(libs.heroes[97]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/103"><img src="{{ static_url(libs.heroes[103]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/2"><img src="{{ static_url(heroes[2]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/14"><img src="{{ static_url(heroes[14]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/16"><img src="{{ static_url(heroes[16]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/28"><img src="{{ static_url(heroes[28]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/29"><img src="{{ static_url(heroes[29]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/42"><img src="{{ static_url(heroes[42]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/54"><img src="{{ static_url(heroes[54]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/60"><img src="{{ static_url(heroes[60]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/69"><img src="{{ static_url(heroes[69]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/71"><img src="{{ static_url(heroes[71]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/77"><img src="{{ static_url(heroes[77]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/81"><img src="{{ static_url(heroes[81]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/85"><img src="{{ static_url(heroes[85]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/97"><img src="{{ static_url(heroes[97]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/103"><img src="{{ static_url(heroes[103]['avatar']) }}" class="img-thumbnail"></a>
                 </div>
             </div>
         </div>
@@ -64,40 +62,40 @@
                 <div class="panel-heading">Agility</div>
                 <div class="panel-body heroes">
 
-                    <a href="/heroes/1"><img src="{{ static_url(libs.heroes[1]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/6"><img src="{{ static_url(libs.heroes[6]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/8"><img src="{{ static_url(libs.heroes[8]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/9"><img src="{{ static_url(libs.heroes[9]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/10"><img src="{{ static_url(libs.heroes[10]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/12"><img src="{{ static_url(libs.heroes[12]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/20"><img src="{{ static_url(libs.heroes[20]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/32"><img src="{{ static_url(libs.heroes[32]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/35"><img src="{{ static_url(libs.heroes[35]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/46"><img src="{{ static_url(libs.heroes[46]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/48"><img src="{{ static_url(libs.heroes[48]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/62"><img src="{{ static_url(libs.heroes[62]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/70"><img src="{{ static_url(libs.heroes[70]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/72"><img src="{{ static_url(libs.heroes[72]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/80"><img src="{{ static_url(libs.heroes[80]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/89"><img src="{{ static_url(libs.heroes[89]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/95"><img src="{{ static_url(libs.heroes[95]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/106"><img src="{{ static_url(libs.heroes[106]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/1"><img src="{{ static_url(heroes[1]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/6"><img src="{{ static_url(heroes[6]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/8"><img src="{{ static_url(heroes[8]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/9"><img src="{{ static_url(heroes[9]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/10"><img src="{{ static_url(heroes[10]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/12"><img src="{{ static_url(heroes[12]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/20"><img src="{{ static_url(heroes[20]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/32"><img src="{{ static_url(heroes[32]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/35"><img src="{{ static_url(heroes[35]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/46"><img src="{{ static_url(heroes[46]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/48"><img src="{{ static_url(heroes[48]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/62"><img src="{{ static_url(heroes[62]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/70"><img src="{{ static_url(heroes[70]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/72"><img src="{{ static_url(heroes[72]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/80"><img src="{{ static_url(heroes[80]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/89"><img src="{{ static_url(heroes[89]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/95"><img src="{{ static_url(heroes[95]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/106"><img src="{{ static_url(heroes[106]['avatar']) }}" class="img-thumbnail"></a>
 
-                    <a href="/heroes/4"><img src="{{ static_url(libs.heroes[4]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/11"><img src="{{ static_url(libs.heroes[11]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/15"><img src="{{ static_url(libs.heroes[15]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/40"><img src="{{ static_url(libs.heroes[40]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/41"><img src="{{ static_url(libs.heroes[41]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/44"><img src="{{ static_url(libs.heroes[44]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/47"><img src="{{ static_url(libs.heroes[47]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/56"><img src="{{ static_url(libs.heroes[56]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/61"><img src="{{ static_url(libs.heroes[61]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/63"><img src="{{ static_url(libs.heroes[63]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/67"><img src="{{ static_url(libs.heroes[67]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/82"><img src="{{ static_url(libs.heroes[82]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/88"><img src="{{ static_url(libs.heroes[88]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/93"><img src="{{ static_url(libs.heroes[93]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/94"><img src="{{ static_url(libs.heroes[94]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/4"><img src="{{ static_url(heroes[4]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/11"><img src="{{ static_url(heroes[11]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/15"><img src="{{ static_url(heroes[15]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/40"><img src="{{ static_url(heroes[40]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/41"><img src="{{ static_url(heroes[41]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/44"><img src="{{ static_url(heroes[44]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/47"><img src="{{ static_url(heroes[47]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/56"><img src="{{ static_url(heroes[56]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/61"><img src="{{ static_url(heroes[61]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/63"><img src="{{ static_url(heroes[63]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/67"><img src="{{ static_url(heroes[67]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/82"><img src="{{ static_url(heroes[82]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/88"><img src="{{ static_url(heroes[88]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/93"><img src="{{ static_url(heroes[93]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/94"><img src="{{ static_url(heroes[94]['avatar']) }}" class="img-thumbnail"></a>
 
                 </div>
             </div>
@@ -107,44 +105,44 @@
                 <div class="panel-heading">Intelligence</div>
                 <div class="panel-body heroes">
 
-                    <a href="/heroes/5"><img src="{{ static_url(libs.heroes[5]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/13"><img src="{{ static_url(libs.heroes[13]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/17"><img src="{{ static_url(libs.heroes[17]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/21"><img src="{{ static_url(libs.heroes[21]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/22"><img src="{{ static_url(libs.heroes[22]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/25"><img src="{{ static_url(libs.heroes[25]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/27"><img src="{{ static_url(libs.heroes[27]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/34"><img src="{{ static_url(libs.heroes[34]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/53"><img src="{{ static_url(libs.heroes[53]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/58"><img src="{{ static_url(libs.heroes[58]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/64"><img src="{{ static_url(libs.heroes[64]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/66"><img src="{{ static_url(libs.heroes[66]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/75"><img src="{{ static_url(libs.heroes[75]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/84"><img src="{{ static_url(libs.heroes[84]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/86"><img src="{{ static_url(libs.heroes[86]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/87"><img src="{{ static_url(libs.heroes[87]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/90"><img src="{{ static_url(libs.heroes[90]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/101"><img src="{{ static_url(libs.heroes[101]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/5"><img src="{{ static_url(heroes[5]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/13"><img src="{{ static_url(heroes[13]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/17"><img src="{{ static_url(heroes[17]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/21"><img src="{{ static_url(heroes[21]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/22"><img src="{{ static_url(heroes[22]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/25"><img src="{{ static_url(heroes[25]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/27"><img src="{{ static_url(heroes[27]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/34"><img src="{{ static_url(heroes[34]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/53"><img src="{{ static_url(heroes[53]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/58"><img src="{{ static_url(heroes[58]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/64"><img src="{{ static_url(heroes[64]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/66"><img src="{{ static_url(heroes[66]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/75"><img src="{{ static_url(heroes[75]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/84"><img src="{{ static_url(heroes[84]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/86"><img src="{{ static_url(heroes[86]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/87"><img src="{{ static_url(heroes[87]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/90"><img src="{{ static_url(heroes[90]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/101"><img src="{{ static_url(heroes[101]['avatar']) }}" class="img-thumbnail"></a>
 
-                    <a href="/heroes/3"><img src="{{ static_url(libs.heroes[3]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/31"><img src="{{ static_url(libs.heroes[31]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/26"><img src="{{ static_url(libs.heroes[26]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/30"><img src="{{ static_url(libs.heroes[30]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/33"><img src="{{ static_url(libs.heroes[33]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/36"><img src="{{ static_url(libs.heroes[36]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/37"><img src="{{ static_url(libs.heroes[37]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/39"><img src="{{ static_url(libs.heroes[39]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/43"><img src="{{ static_url(libs.heroes[43]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/45"><img src="{{ static_url(libs.heroes[45]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/50"><img src="{{ static_url(libs.heroes[50]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/52"><img src="{{ static_url(libs.heroes[52]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/55"><img src="{{ static_url(libs.heroes[55]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/65"><img src="{{ static_url(libs.heroes[65]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/68"><img src="{{ static_url(libs.heroes[68]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/74"><img src="{{ static_url(libs.heroes[74]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/76"><img src="{{ static_url(libs.heroes[76]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/79"><img src="{{ static_url(libs.heroes[79]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/92"><img src="{{ static_url(libs.heroes[92]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/3"><img src="{{ static_url(heroes[3]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/31"><img src="{{ static_url(heroes[31]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/26"><img src="{{ static_url(heroes[26]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/30"><img src="{{ static_url(heroes[30]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/33"><img src="{{ static_url(heroes[33]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/36"><img src="{{ static_url(heroes[36]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/37"><img src="{{ static_url(heroes[37]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/39"><img src="{{ static_url(heroes[39]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/43"><img src="{{ static_url(heroes[43]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/45"><img src="{{ static_url(heroes[45]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/50"><img src="{{ static_url(heroes[50]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/52"><img src="{{ static_url(heroes[52]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/55"><img src="{{ static_url(heroes[55]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/65"><img src="{{ static_url(heroes[65]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/68"><img src="{{ static_url(heroes[68]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/74"><img src="{{ static_url(heroes[74]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/76"><img src="{{ static_url(heroes[76]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/79"><img src="{{ static_url(heroes[79]['avatar']) }}" class="img-thumbnail"></a>
+                    <a href="/heroes/92"><img src="{{ static_url(heroes[92]['avatar']) }}" class="img-thumbnail"></a>
 
                 </div>
             </div>

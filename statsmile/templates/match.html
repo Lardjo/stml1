@@ -2,7 +2,6 @@
 {% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
 {% block content %}
     {% import time %}
-    {% from statsmile.common import libs %}
     <div class="match-table">
         <div class="page-header">
             <h1>Match details <small>#{{ match['match_id'] }}</small></h1>
@@ -20,10 +19,10 @@
             <div class="col-md-4">
                 <p><span class="glyphicon glyphicon-list-alt"></span>
                     <b> Game Mode:</b> {% try %}
-                    {{ libs.mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
+                    {{ mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
                 <p><span class="glyphicon glyphicon-hdd"></span>
                     <b> Server:</b> {% try %}
-                    {{ libs.cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
+                    {{ cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
                 <p><span class="glyphicon glyphicon-time"></span>
                     <b> First Blood:</b> {% try %}
                     {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
@@ -32,6 +31,7 @@
         <div class="panel panel-success" style="margin-top: 10px;">
             <div class="panel-heading">
                 {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
+            <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
@@ -51,10 +51,12 @@
                 {% include "match-radiant.html %}
                 </tbody>
             </table>
+            </div>
         </div>
         <div class="panel panel-danger">
             <div class="panel-heading">
                 {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
@@ -74,6 +76,7 @@
                 {% include "match-dire.html %}
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 {% end %}

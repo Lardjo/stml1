@@ -8,6 +8,7 @@ body {
 
 body {
     font-family: "OpenSans", sans-serif;
+    font-size: 10px;
     overflow-y: scroll;
     background-color: #fefefe;
 }
@@ -17,8 +18,18 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
-h1 small, .h1 small {
+h1, .h1 {
+    font-size: 24px;
+}
+
+h1 small, .h1 small,
+h3 small, .h3 small {
     font-weight: 300;
+}
+
+.img-hero-page {
+    height: 150px;
+    margin-bottom: 15px;
 }
 
 #wrap {
@@ -104,9 +115,17 @@ div.list-group-item.active {
 }
 
 .user-profile-header img {
-    height: 40px;
-    margin-top: 20px;
+    height: 28px;
+    margin-top: 0;
     margin-right: 10px;
+}
+
+@media (min-width: 768px)  {
+    .user-profile-header img {
+        height: 40px;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
 }
 
 .user-menu {
@@ -125,8 +144,14 @@ div.list-group-item.active {
 .user-menu a {
     text-decoration: none;
     color: #999;
-    font-size: 24px;
+    font-size: 14px;
     font-weight: 300;
+}
+
+@media (min-width: 768px) {
+    .user-menu a {
+        font-size: 24px;
+    }
 }
 
 .user-menu a:hover {
@@ -185,15 +210,15 @@ div.list-group-item.active {
 }
 
 .main-index .btn-main-style {
-    margin: 10px;
+    margin: 0;
+    padding: 6px 10px;
 }
 
 .head-links {
-    margin-top: 20px;
-    margin-bottom: 40px;
+    font-size: 8px;
+    text-align: center;
     padding: 0 15px;
     list-style: none;
-    text-align: center;
 }
 
 .head-links li {
@@ -208,11 +233,23 @@ div.list-group-item.active {
     color: #999;
 }
 
+.text-hero {
+    font-size: 10px;
+}
+
+h3, .h3 {
+    font-size: 18px;
+}
+
 @media (min-width: 768px)  {
 
     .main-index {
         padding-top: 140px;
         padding-bottom: 140px;
+    }
+
+    .text-hero {
+        font-size: 14px;
     }
 
     .main-index h1 {
@@ -229,6 +266,28 @@ div.list-group-item.active {
         padding: 18px 24px;
         font-size: 21px;
     }
+
+    .head-links {
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        padding: 0 15px;
+        list-style: none;
+        text-align: center;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    h1, .h1 {
+        font-size: 36px;
+    }
+
+    h3, .h3 {
+        font-size: 24px;
+    }
+
 }
 
 /* End Main Page */

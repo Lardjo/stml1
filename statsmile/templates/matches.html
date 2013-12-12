@@ -5,6 +5,7 @@
         <div class="page-header">
             <h1>Summary <small>of recent games</small></h1>
         </div>
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -18,25 +19,24 @@
             </tr>
             </thead>
             <tbody>
-            {% from statsmile.common import libs %}
             {% for mt in matches %}
             <tr>
                 <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
                 <td>{% if mt['radiant_win'] %}<p class="text-success">Radiant Victory</p>{% else %}<p class="text-danger">Dire Victory</p>{% end %}</td>
-                <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
-                <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+                <td>{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+                <td>{% try %}{{ cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
                 <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
                 <td>
                 {% for ev in mt['players'][:5] %}
                 {% if not ev['hero_id'] == 0 %}
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
                 {% else %}{% end %}
                 {% end %}
                 </td>
                 <td>
                  {% for ev in mt['players'][5:] %}
                 {% if not ev['hero_id'] == 0 %}
-                <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
                 {% else %}{% end %}
                 {% end %}
                 </td>
@@ -44,17 +44,16 @@
             {% end %}
             </tbody>
         </table>
-        <ul class="pagination">
-            {% if page == 1 %}<li class="active">{% else %}<li>{% end %}<a href="/matches">1</a></li>
-            {% if page == 2 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/2">2</a></li>
-            {% if page == 3 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/3">3</a></li>
-            {% if page == 4 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/4">4</a></li>
-            {% if page == 5 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/5">5</a></li>
-            {% if page == 6 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/6">6</a></li>
-            {% if page == 7 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/7">7</a></li>
-            {% if page == 8 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/8">8</a></li>
-            {% if page == 9 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/9">9</a></li>
-            {% if page == 10 %}<li class="active">{% else %}<li>{% end %}<a href="/matches/page/10">10</a></li>
+        </div>
+        <ul class="pagination pagination-sm">
+            {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
+            {% if page == 1 %}<a href="#">{% else %}<a href="/matches/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
+            {% for x in range(1, 11) %}
+            {% if page == x %}<li class="active">{% else %}<li>{% end %}
+            <a href="/matches/page/{{ x }}">{{ x }}</a></li>
+            {% end %}
+            {% if page == 10 %}<li class="disabled">{% else %}<li>{% end %}
+            {% if page == 10 %}<a href="#">{% else %}<a href="/matches/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
         </ul>
 
 {% end %}

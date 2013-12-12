@@ -4,7 +4,7 @@ from .auth import AuthLoginHandler, AuthLogoutHandler
 from .matches import MatchesHandler
 from .players import PlayersHandler
 from .pages import PagesHandler
-from .user import UserHandler
+from .user import UserHandler, UserMatchesHandler, UserRecordsHandler
 from .settings import SettingsHandler
 from .session import SessionHandler
 from .match import MatchHandler

@@ -10,8 +10,8 @@
                 <p><span class="glyphicon glyphicon-calendar"></span><b> Data:</b> {{ time.strftime('%d, %B %Y @ %H:%M', time.localtime(mt['start_time'])) }}</p>
             </div>
             <div class="col-md-6">
-                <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
-                <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-list-alt"></span><b> Game Mode:</b> {% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-hdd"></span><b> Server:</b> {% try %}{{ cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</p>
             </div>
         </div>
         <table class="table table-striped">
@@ -23,20 +23,20 @@
             </tr>
             </thead>
             <tbody>
-            {% for heroes in mt['players'] %}
+            {% for hr in mt['players'] %}
             <tr>
                 <td>
-                    <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[heroes['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong>{% if heroes['account_id'] == user['steamid32'] %} <span class="glyphicon glyphicon-check"></span>{% else %}{% end %}</p></div>
+                    <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[hr['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong>{% if hr['account_id'] == user['steamid32'] %} <span class="glyphicon glyphicon-check" data-toggle="tooltip" data-placement="right" title="{{ user['personaname'] }}"></span>{% else %}{% end %}</p></div>
                 </td>
-                <td>{{ heroes['level'] }}</td>
+                <td>{{ hr['level'] }}</td>
                 <td>
                     <div class="progress">
-                        {% if heroes['kills'] + heroes['deaths'] + heroes['assists'] == 0 %}
+                        {% if hr['kills'] + hr['deaths'] + hr['assists'] == 0 %}
                         <div class="progress-bar" style="width: 100%;">0</div>
                         {% else %}
-                        <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(heroes['kills'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['kills'] }}</div>
-                        <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(heroes['deaths'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['deaths'] }}</div>
-                        <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(heroes['assists'] * 100 / float(heroes['kills'] + heroes['deaths'] + heroes['assists']), 3) }}{% except %}0{% end %}%;">{{ heroes['assists'] }}</div>
+                        <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(hr['kills'] * 100 / float(hr['kills'] + hr['deaths'] + hr['assists']), 3) }}{% except %}0{% end %}%;">{{ hr['kills'] }}</div>
+                        <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(hr['deaths'] * 100 / float(hr['kills'] + hr['deaths'] + hr['assists']), 3) }}{% except %}0{% end %}%;">{{ hr['deaths'] }}</div>
+                        <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(hr['assists'] * 100 / float(hr['kills'] + hr['deaths'] + hr['assists']), 3) }}{% except %}0{% end %}%;">{{ hr['assists'] }}</div>
                         {% end %}
                     </div>
                 </td>
@@ -53,10 +53,10 @@
         {% for fav in favorites %}
         <div class="media favorite-hero">
             <a class="pull-left" href="/heroes/{{ fav['_id'] }}">
-                <img class="media-object img-thumbnail" src="{% try %}{{ static_url(libs.heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
+                <img class="media-object img-thumbnail" src="{% try %}{{ static_url(heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
             </a>
             <div class="media-body">
-                <h4 class="media-heading">{% try %}{{ libs.heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</h4>
+                <h4 class="media-heading">{% try %}{{ heroes[fav['_id']]['name'] }}{% except %}Unknown Hero{% end %}</h4>
                 {% try %}{{ fav['sum'] }}{% except %}0{% end %} Matches Played
             </div>
         </div>
@@ -72,18 +72,18 @@
         <th>Hero</th>
         <th>Result</th>
         <th>Match ID</th>
-        <th>Mode</th>
-        <th>Server</th>
-        <th>Duration</th>
-        <th>Kills / Deaths / Assists</th>
+        <th class="hidden-xs">Mode</th>
+        <th class="hidden-xs">Server</th>
+        <th class="hidden-xs">Duration</th>
+        <th class="hidden-xs">Kills / Deaths / Assists</th>
     </tr>
     </thead>
     <tbody>
     {% for mt in matches %}
     <tr>
         <td>
-            <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
-            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+            <div class="hero-container"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
         </td>
         {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
         <td><p class="text-success"><strong>Won Match</strong></p></td>
@@ -93,10 +93,10 @@
         <td><p class="text-danger">Lost Match</p></td>
         {% end %}
         <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
-        <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
-        <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
-        <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
-        <td>
+        <td class="hidden-xs">{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+        <td class="hidden-xs">{% try %}{{ cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+        <td class="hidden-xs">{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+        <td class="hidden-xs">
             <div class="progress">
                 {% if mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists'] == 0 %}
                 <div class="progress-bar" style="width: 100%;">0</div>
