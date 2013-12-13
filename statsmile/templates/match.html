@@ -6,7 +6,13 @@
         <div class="page-header">
             <h1>Match details <small>#{{ match['match_id'] }}</small></h1>
         </div>
-
+        {% if match['game_mode'] == 15 %}
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Ho-ho!</strong> This game is part of the event "Wraith-Night". This mode assumes the existence of only 5 players.
+            You can <a href="/events/wraithnight" class="alert-link">visit the event page</a> to view other matches.
+        </div>
+        {% else %}{% end %}
         <div class="row recent-info">
             <div class="col-md-4">
                 <p><span class="glyphicon glyphicon-globe"></span>
@@ -30,7 +36,10 @@
         </div>
         <div class="panel panel-success" style="margin-top: 10px;">
             <div class="panel-heading">
-                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}</div>
+                {% if match['game_mode'] != 15 %}
+                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}
+                {% else %}Players{% end %}
+            </div>
             <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -53,6 +62,7 @@
             </table>
             </div>
         </div>
+        {% if match['game_mode'] != 15 %}
         <div class="panel panel-danger">
             <div class="panel-heading">
                 {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
@@ -78,5 +88,6 @@
             </table>
             </div>
         </div>
+        {% else %}{% end %}
     </div>
 {% end %}

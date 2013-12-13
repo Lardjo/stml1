@@ -48,7 +48,33 @@ heroes_info = {
     4: {'name': 'Bloodseeker', 'avatar': 'img/dota/heroes/bloodseeker.png'},
     5: {'name': 'Crystal Maiden', 'avatar': 'img/dota/heroes/crystal_maiden.png'},
     6: {'name': 'Drow Ranger', 'avatar': 'img/dota/heroes/drow_ranger.png'},
-    7: {'name': 'Earthshaker', 'avatar': 'img/dota/heroes/earthshaker.png'},
+
+    7: {'name': 'Earthshaker',
+        'role': 'Initiator, Disabler, Support, Lane Support',
+        'side': 'The Radiant',
+        'class': 'Strength',
+        'bio': '<strong>Raigor Stonehoof</strong> the <strong>Earthshaker</strong> is a melee Strength Hero with '
+               'several area of effect disables, commonly played as a ganker or initiator. Unlike most Strength '
+               'heroes, he is played more like an Intelligence caster hero and is almost entirely reliant on his '
+               'spells to inflict heavy damage. His Fissure is a versatile spell that affects enemies in a line, '
+               'used to stun, inflict decent damage, and create an impassable wall of earth for a significant '
+               'duration. Good usage of this can cut off chokepoints, leaving enemies with no escape routes or '
+               'preventing them from chasing after endangered allies. Enchant Totem massively boosts his attack '
+               'damage for one attack, and has a very short cooldown. Aftershock lets the Earthshaker deal '
+               'additional damage and stun in a small area around him everytime he uses one of his spells, and '
+               'combos particularly well with Enchant Totem. Earthshaker\'s heavy AoE-centric kit is most '
+               'powerful when his enemies are in large numbers and in close proximity. With his Echo Slam, '
+               'he can deal heavy damage to clusters of enemies. All of Earthshaker\'s spells (with the exception '
+               'of his ultimate) have a long casting animation, but with proper positioning, an adept Earthshaker '
+               'can wreak havoc with his area-of-effect spells. Blink Dagger is an essential item for Earthshaker '
+               'to be able to properly land Echo Slam within a cluster of enemies. At the same time, because of the '
+               'high mana costs of his spells, he needs some form of mana sustenance. With his tremendous seismic '
+               'power, the Earthshaker is never one that should be taken lightly even when he is heavily outnumbered.',
+        'strength': '22 + 2.5',
+        'agility': '12 + 1.5',
+        'intelligence': '16 + 1.8',
+        'avatar': 'img/dota/heroes/earthshaker.png'
+    },
 
     8: {'name': 'Juggernaut',
         'role': 'Carry, Pusher',
@@ -121,7 +147,23 @@ heroes_info = {
     29: {'name': 'Tidehunter', 'avatar': 'img/dota/heroes/tidehunter.png'},
     30: {'name': 'Witch Doctor', 'avatar': 'img/dota/heroes/witch_doctor.png'},
     31: {'name': 'Lich', 'avatar': 'img/dota/heroes/lich.png'},
-    32: {'name': 'Riki', 'avatar': 'img/dota/heroes/riki.png'},
+
+    32: {'name': 'Riki',
+         'role': 'Carry, Escape',
+         'side': 'The Radiant',
+         'class': 'Agility',
+         'bio': '<strong>Riki</strong> the <strong>Stealth Assassin</strong> is a melee agility hero that uses stealth '
+                'in order to surprise enemies and quickly kill them. His trademark ability, Permanent Invisibility, '
+                'allows him to sneak into the shadows to hide and slip by without giving himself away. This allows '
+                'him to close in on the enemy and drop his devastating Smoke Screen, which cripples fighter and '
+                'spellcaster alike. Blink Strike allows Riki to chase with impunity, and Backstab makes running '
+                'from him even more dangerous.',
+         'strength': '17 + 2',
+         'agility': '34 + 2.9',
+         'intelligence': '14 + 1.3',
+         'avatar': 'img/dota/heroes/riki.png'
+    },
+
     33: {'name': 'Enigma', 'avatar': 'img/dota/heroes/enigma.png'},
     34: {'name': 'Tinker', 'avatar': 'img/dota/heroes/tinker.png'},
 
@@ -172,7 +214,30 @@ heroes_info = {
 
     42: {'name': 'Skeleton King', 'avatar': 'img/dota/heroes/skeleton_king.png'},
     43: {'name': 'Death Prophet', 'avatar': 'img/dota/heroes/death_prophet.png'},
-    44: {'name': 'Phantom Assassin', 'avatar': 'img/dota/heroes/phantom_assassin.png'},
+
+    44: {'name': 'Phantom Assassin',
+         'role': 'Carry, Escape',
+         'side': 'The Dire',
+         'class': 'Agility',
+         'bio': '<strong>Mortred</strong> the <strong>Phantom Assassin</strong> is a melee agility Hero fitting the '
+                'role of hard carry. Mortred is best-known, and infamous for, her ability to inflict staggering '
+                'damage with single strikes. Her abilities synergise supremely well with each other, rendering her '
+                'an extremely formidable foe once she has acquired the items she requires. She is a very '
+                'farm-dependent melee Hero, but she farms creeps with much more ease than many of her fellow '
+                'carries, using her Stifling Dagger for last hitting. Besides eliminating the weakness most melee '
+                'Heroes have in their farming, it also saves her from expending gold on important melee carry '
+                'items like Quelling Blade. Her second ability, Phantom Strike, acts as both her escape and '
+                'initiate, while Blur gives her an edge against other Heroes that depend on their physical attacks '
+                'by evading them; giving her partial damage immunity to many carries. Her ultimate, the strongest '
+                'critical strike in the game, is what connects Mortred with four-digit damage and what gives her a '
+                'place amongst the very best support killers in the late game, since they usually fall instantly '
+                'from the divine strike her ultimate provides.',
+         'strength': '20 + 1.85',
+         'agility': '23 + 3.15',
+         'intelligence': '13 + 1',
+         'avatar': 'img/dota/heroes/phantom_assassin.png'
+    },
+
     45: {'name': 'Pugna', 'avatar': 'img/dota/heroes/pugna.png'},
     46: {'name': 'Templar Assassin', 'avatar': 'img/dota/heroes/templar_assassin.png'},
     47: {'name': 'Viper', 'avatar': 'img/dota/heroes/viper.png'},
@@ -336,10 +401,56 @@ heroes_info = {
     99: {'name': 'Bristleback', 'avatar': 'img/dota/heroes/bristleback.png'},
     100: {'name': 'Tusk', 'avatar': 'img/dota/heroes/tusk.png'},
     101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
-    102: {'name': 'Abaddon', 'avatar': 'img/dota/heroes/abaddon.png'},
+
+    102: {'name': 'Abaddon',
+          'role': 'Durable',
+          'side': 'The Dire',
+          'class': 'Strength',
+          'bio': '<strong>Abaddon</strong> the <strong>Lord of Avernus</strong> is a melee strength Hero known as '
+                 'one of the most versatile characters in Dota due to his rather low mana dependence, short spell '
+                 'cooldowns and a large number of viable item choices. His ability to help sustain his allies and '
+                 'himself plus his strong tower diving capacity give him solid lane presence. Many of his abilities '
+                 'offer a large sum of utility, which makes him a strong support Hero. Mist Coil serves as both a '
+                 'single target nuke and heal that helps shift the sustainability of both allied and enemy heroes '
+                 'in a lane at his will, though sacrificing a portion of his own health. Aphotic Shield holds as '
+                 'one of the most useful abilities in the game, able to shield a target from some damage while also '
+                 'able to reflect said damage to a huge area. The most important aspect is how it is able to dispel '
+                 'many status effects such as slows and stuns. His other abilities allow him to become a mix between '
+                 'a semi-carry and tank. Abaddon\'s passive, Curse of Avernus, allows his attacks to not only slow '
+                 'down his enemy, but also increase the attack and movement speed of any ally attacking the same '
+                 'target. With his ultimate, Borrowed Time, Abaddon is able to shift all non-HP removal damage he '
+                 'receives into health. When not on cooldown, Borrowed Time may activate passively when his health '
+                 'falls under a certain threshold, even under the most dire situations. Due to his powerful spells '
+                 'and versatility, Abaddon is an excellent addition to any team.',
+          'strength': '23 + 2.7',
+          'agility': '17 + 1.5',
+          'intelligence': '21 + 2',
+          'avatar': 'img/dota/heroes/abaddon.png'
+    },
+
     103: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
     104: {'name': 'Legion Commander', 'avatar': 'img/dota/heroes/legion_commander.png'},
-    106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
+
+    106: {'name': 'Ember Spirit',
+          'role': 'Carry, Nuker, Disabler, Durable',
+          'side': 'The Radiant',
+          'class': 'Agility',
+          'bio': '<strong>Xin</strong> the <strong>Ember Spirit</strong> is a highly mobile melee Agility carry, '
+                 'whose abilities enable him to also play as an initiator or ganker. His skillset allows for '
+                 'incredibly aggressive assaults on other heroes, dealing extraordinary amounts of damage in a '
+                 'relatively small window of time, and then escaping to safety. Despite a good HP pool early on, '
+                 'he lacks armor and a sizable mana pool, and as such may be unable to escape quickly enough if '
+                 'caught out of position. However, with good item choices and proper judgement, Ember Spirit can '
+                 'quickly snowball out of control, dominating the battlefield with blinding speed as he cheats '
+                 'death. While he has only a limited presence in the early and mid game, in time Xin becomes a '
+                 'dangerous opponent even on his own, proving to friend and foe alike that for them, there is '
+                 'still much to be learnt.',
+          'strength': '19 + 2.0',
+          'agility': '22 + 1.8',
+          'intelligence': '20 + 1.8',
+          'avatar': 'img/dota/heroes/ember_spirit.png'
+    },
+
     107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}
 
 }
