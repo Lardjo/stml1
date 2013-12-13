@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>All matches <small>Personal games here. All...</small></h1>
+    <h1>All matches <small>All Modes...</small></h1>
 </div>
 <table class="table table-striped">
     <thead>
@@ -17,8 +17,8 @@
     {% for mt in matches %}
     <tr>
         <td>
-            <div class="hero-container"><img src="{% try %}{{ static_url(libs.heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
-            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ libs.heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+            <div class="hero-container"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
         </td>
         {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
         <td><p class="text-success"><strong>Won Match</strong></p></td>
@@ -28,17 +28,42 @@
         <td><p class="text-danger">Lost Match</p></td>
         {% end %}
         <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
-        <td>{% try %}{{ libs.mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
-        <td>{% try %}{{ libs.cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+        <td>{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+        <td>{% try %}{{ cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
         <td>{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
         <td>
             <div class="progress">
+                {% if mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists'] == 0 %}
+                <div class="progress-bar" style="width: 100%;">0</div>
+                {% else %}
                 <div class="progress-bar progress-bar-success" style="width: {% try %}{{ round(mt['players'][0]['kills'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['kills'] }}</div>
                 <div class="progress-bar progress-bar-danger" style="width: {% try %}{{ round(mt['players'][0]['deaths'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['deaths'] }}</div>
                 <div class="progress-bar progress-bar-warning" style="width: {% try %}{{ round(mt['players'][0]['assists'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['assists'] }}</div>
+                {% end %}
             </div>
         </td>
     </tr>
     {% end %}
     </tbody>
 </table>
+<ul class="pagination pagination-sm">
+    {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
+    {% if page == 1 %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
+    {% if page > 1 %}<li><a href="/user/{{ user['_id'] }}/matches">First</a></li>{% else %}{% end %}
+    {% if page < 6 %}
+    {% for x in range(1, 10) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% elif page >= 6 and page <= max_pages-5 %}
+    {% for x in range(page-5, page+5) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% elif page > max_pages-5 %}
+    {% for x in range(page-5, max_pages+1) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% end %}
+    {% if page < max_pages %}<li><a href="/user/{{ user['_id'] }}/matches/page/{{ max_pages }}">Last</a></li>{% else %}{% end %}
+    {% if page == max_pages %}<li class="disabled">{% else %}<li>{% end %}
+    {% if page == max_pages %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
+</ul>

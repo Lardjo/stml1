@@ -48,7 +48,7 @@ class Statsmile(Application):
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.match_update, new_matches[0]['_id']))
         else:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=10)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.match_update, None))
 
     def __init__(self):
@@ -61,12 +61,17 @@ class Statsmile(Application):
             (r'/matches/page/([0-9]*)', handlers.MatchesHandler),
             (r'/players', handlers.PlayersHandler),
             (r'/page/(.*)', handlers.PagesHandler),
-            (r'/user/([0-9a-fA-F]{24})(?:/(.*))?', handlers.UserHandler),
+            (r'/user/([0-9a-fA-F]{24})', handlers.UserHandler),
+            (r'/user/([0-9a-fA-F]{24})/matches', handlers.UserMatchesHandler),
+            (r'/user/([0-9a-fA-F]{24})/records', handlers.UserRecordsHandler),
+            (r'/user/([0-9a-fA-F]{24})/matches/page/([0-9]*)', handlers.UserMatchesHandler),
             (r'/user/settings', handlers.SettingsHandler),
             (r'/session/(.*)', handlers.SessionHandler),
             (r'/matches/([0-9]+)', handlers.MatchHandler),
             (r'/heroes', handlers.HeroesHandler),
-            (r'/heroes/(.*)', handlers.HeroHandler)
+            (r'/heroes/(.*)', handlers.HeroHandler),
+            (r'/events/([^/]+)', handlers.EventsHandler),
+            (r'/events/([^/]+)/page/([0-9]*)', handlers.EventsHandler)
         ]
 
         # Database connect
@@ -107,9 +112,13 @@ class Statsmile(Application):
                                                    {"$group": {"_id": "$matches"}},
                                                    {"$sort": {"_id": -1}},
                                                    {"$limit": 1}])['result']
-        for mt in getmatch:
+        if getmatch:
+            for mt in getmatch:
+                IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
+                                              partial(self.match_update, mt['_id']))
+        else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
-                                          partial(self.match_update, mt['_id']))
+                                          partial(self.match_update, None))
 
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db, 'cookie_secret'),

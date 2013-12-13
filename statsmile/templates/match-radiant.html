@@ -1,5 +1,5 @@
 {% for radiant in match['players'] %}
-{% if radiant['player_slot'] in [0, 1, 2, 3, 4] and radiant['hero_id'] != 0 %}
+{% if radiant['player_slot'] in [0, 1, 2, 3, 4] %}
 <tr>
 {% if radiant['account_id'] == "Anonymous" %}
 <td style="width: 200px; padding-left: 10px;" class="text-muted">{{ radiant['account_id'] }}</td>
@@ -7,28 +7,30 @@
 <td style="width: 200px; padding-left: 10px;"><img src="{{ radiant['avatar'] }}" class="img-circle pull-left img-style"><a href="/user/{{ radiant['account_id'] }}">{{ radiant['personaname'] }}</a></td>
 {% end %}
 <td style="width: 80px; padding: 1px;">
-    <div style="position: relative;" data-toggle="tooltip" data-placement="left" title="{% try %}{{ libs.heroes[radiant['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}">
-        <img class="hero" src="{% try %}{{ static_url(libs.heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
+    {% if radiant['hero_id'] != 0 %}
+    <div style="position: relative;" data-toggle="tooltip" data-placement="left" title="{% try %}{{ heroes[radiant['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}">
+        <img class="hero" src="{% try %}{{ static_url(heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
         <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
     </div>
+    {% else %}{% end %}
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}">
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}">
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}">
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}">
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}">
 </td>
 <td style="width: 60px; padding: 1px;">
-    <img src="{% try %}{{ static_url(libs.items[radiant['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}">
+    <img src="{% try %}{{ static_url(items[radiant['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}">
 </td>
 <td>{{ radiant['gold_spent'] }}</td>
 <td>{{ radiant['denies'] }}</td>

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1><span class="glyphicon glyphicon-cog" style="font-size: 28px;"></span> Settings</h1>
+        <h1><span class="glyphicon glyphicon-cog"></span> Settings</h1>
     </div>
 
     <div class="panel panel-default panel-settings">
@@ -32,6 +32,7 @@
         <div class="panel-heading">Sessions</div>
         <div class="panel-body">
             <p>This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</p>
+            <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -58,7 +59,7 @@
                 {% end %}
                 </tbody>
             </table>
-
+            </div>
         </div>
     </div>
 </div>

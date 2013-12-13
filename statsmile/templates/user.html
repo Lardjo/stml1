@@ -2,7 +2,6 @@
 {% block title %}Statsmile / {{ user['personaname'] }} {% if title == "Dashboard" %}{% else %}/ {{ title }}{% end %}{% end %}
 {% block content %}
     {% import time %}
-    {% from statsmile.common import libs %}
 
         {% if not wait %}
 

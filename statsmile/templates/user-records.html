@@ -21,9 +21,9 @@
               <tr>
                   <td>
                       <div class="hero-container">
-                          <img src="{% try %}{{ static_url(libs.heroes[records[0][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[0][0]['players']['hero_id'] }}{% end %}">
+                          <img src="{% try %}{{ static_url(heroes[records[0][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[0][0]['players']['hero_id'] }}{% end %}">
                       </div>
-                      <div class="hero-name">{% try %}{{ libs.heroes[records[0][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                      <div class="hero-name">{% try %}{{ heroes[records[0][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[0][0]['radiant_win'] and records[0][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
                   <td><p class="text-success"><strong>Won Match</strong></p></td>
@@ -59,9 +59,9 @@
               <tr>
                   <td>
                       <div class="hero-container">
-                          <img src="{% try %}{{ static_url(libs.heroes[records[1][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[1][0]['players']['hero_id'] }}{% end %}">
+                          <img src="{% try %}{{ static_url(heroes[records[1][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[1][0]['players']['hero_id'] }}{% end %}">
                       </div>
-                      <div class="hero-name">{% try %}{{ libs.heroes[records[1][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                      <div class="hero-name">{% try %}{{ heroes[records[1][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[1][0]['radiant_win'] and records[1][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
                   <td><p class="text-success"><strong>Won Match</strong></p></td>
@@ -100,9 +100,9 @@
               <tr>
                   <td>
                       <div class="hero-container">
-                          <img src="{% try %}{{ static_url(libs.heroes[records[2][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[2][0]['players']['hero_id'] }}{% end %}">
+                          <img src="{% try %}{{ static_url(heroes[records[2][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[2][0]['players']['hero_id'] }}{% end %}">
                       </div>
-                      <div class="hero-name">{% try %}{{ libs.heroes[records[2][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                      <div class="hero-name">{% try %}{{ heroes[records[2][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[2][0]['radiant_win'] and records[2][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
                   <td><p class="text-success"><strong>Won Match</strong></p></td>
@@ -138,9 +138,9 @@
               <tr>
                   <td>
                       <div class="hero-container">
-                          <img src="{% try %}{{ static_url(libs.heroes[records[3][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[3][0]['players']['hero_id'] }}{% end %}">
+                          <img src="{% try %}{{ static_url(heroes[records[3][0]['players']['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ records[3][0]['players']['hero_id'] }}{% end %}">
                       </div>
-                      <div class="hero-name">{% try %}{{ libs.heroes[records[3][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
+                      <div class="hero-name">{% try %}{{ heroes[records[3][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[3][0]['radiant_win'] and records[3][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
                   <td><p class="text-success"><strong>Won Match</strong></p></td>
