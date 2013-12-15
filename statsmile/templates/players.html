@@ -20,7 +20,9 @@
             <tr>
                 <td>{{ n }}</td>
                 <td><a href="/user/{{ pl['_id'] }}">
-                    <img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['personaname'] }}</a></td>
+                    <img src="{{ pl['avatar'] }}" class="img-circle pull-left img-style">{{ pl['personaname'] }}</a>
+                    {% if 'badge' in pl %}<span class="label label-default">{{ pl['badge'] }}</span>{% else %}{% end %}
+                </td>
                 <td>{{ pl['dota_count'] }} Matches</td>
             </tr>
             {% end %}
