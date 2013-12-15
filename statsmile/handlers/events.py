@@ -24,7 +24,7 @@ class EventsHandler(BaseHandler):
                 return self.send_error(404)
             event = list(self.application.db["matches"].find({
                 "game_mode": 15}).sort("start_time", DESCENDING).skip((pg-1)*20).limit(20))
-            self.render('wraithnight.html', title="Wraith-Night", active=None, session=session, event=event,
+            self.render('wraithnight.html', title="Wraith-Night", active='events', session=session, event=event,
                         heroes=libs.heroes, mode=libs.mode, cluster=libs.cluster, page=pg, max_pages=max_pages)
         else:
             return self.send_error(404)

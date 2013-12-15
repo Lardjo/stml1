@@ -24,7 +24,9 @@ hero = {
 
 heroes_info = {
 
-    1: {'name': 'Anti-Mage', 'avatar': 'img/dota/heroes/antimage.png'},
+    1: {'name': 'Anti-Mage',
+        'side': '',
+        'avatar': 'img/dota/heroes/antimage.png'},
 
     2: {'name': 'Axe',
         'role': 'Durable, Initiator, Disabler, Jungler',
@@ -44,10 +46,25 @@ heroes_info = {
         'avatar': 'img/dota/heroes/axe.png'
     },
 
-    3: {'name': 'Ban', 'avatar': 'img/dota/heroes/bane.png'},
-    4: {'name': 'Bloodseeker', 'avatar': 'img/dota/heroes/bloodseeker.png'},
-    5: {'name': 'Crystal Maiden', 'avatar': 'img/dota/heroes/crystal_maiden.png'},
-    6: {'name': 'Drow Ranger', 'avatar': 'img/dota/heroes/drow_ranger.png'},
+    3: {'name': 'Ban',
+        'side': '',
+        'avatar': 'img/dota/heroes/bane.png'
+    },
+
+    4: {'name': 'Bloodseeker',
+        'side': '',
+        'avatar': 'img/dota/heroes/bloodseeker.png'
+    },
+
+    5: {'name': 'Crystal Maiden',
+        'side': '',
+        'avatar': 'img/dota/heroes/crystal_maiden.png'
+    },
+
+    6: {'name': 'Drow Ranger',
+        'side': '',
+        'avatar': 'img/dota/heroes/drow_ranger.png'
+    },
 
     7: {'name': 'Earthshaker',
         'role': 'Initiator, Disabler, Support, Lane Support',
@@ -88,29 +105,111 @@ heroes_info = {
                'does not have as much health and mana as other heroes and is vulnerable when his abilities are on '
                'cooldown. For this reason, although his abilities make him powerful even in the early game, he cannot '
                'charge into forces without restraint until farmed and is usually played as a carry.',
+        'quote': 'By the Visage of Vengeance, which drowned in the Isle of Masks, '
+                 'I will carry on the rites of the Faceless Ones.',
         'class': 'Agility',
         'strength': '20 + 1.9',
         'agility': '20 + 2.85',
         'intelligence': '14 + 1.4',
+        'ms': '305',
+        'tr':'0.6',
+        'sr':'1800 / 800',
+        'ar':'Melee',
+        'miss_s':'Instant',
+        'ad':'0.33 + 0.84',
+        'cd':'0.3 + 0.51',
+        'bat':'1.6',
         'avatar': 'img/dota/heroes/juggernaut.png'
     },
 
-    9: {'name': 'Mirana', 'avatar': 'img/dota/heroes/mirana.png'},
-    10: {'name': 'Morphling', 'avatar': 'img/dota/heroes/morphling.png'},
-    11: {'name': 'Shadow Fiend', 'avatar': 'img/dota/heroes/nevermore.png'},
-    12: {'name': 'Phantom Lancer', 'avatar': 'img/dota/heroes/phantom_lancer.png'},
-    13: {'name': 'Puck', 'avatar': 'img/dota/heroes/puck.png'},
-    14: {'name': 'Pudge', 'avatar': 'img/dota/heroes/pudge.png'},
-    15: {'name': 'Razor', 'avatar': 'img/dota/heroes/razor.png'},
-    16: {'name': 'Sand King', 'avatar': 'img/dota/heroes/sand_king.png'},
-    17: {'name': 'Storm Spirit', 'avatar': 'img/dota/heroes/storm_spirit.png'},
-    18: {'name': 'Sven', 'avatar': 'img/dota/heroes/sven.png'},
+    9: {'name': 'Mirana',
+        'side': '',
+        'avatar': 'img/dota/heroes/mirana.png'
+    },
+
+    10: {'name': 'Morphling',
+         'side': '',
+         'avatar': 'img/dota/heroes/morphling.png'
+    },
+
+    11: {'name': 'Shadow Fiend',
+         'side': '',
+         'avatar': 'img/dota/heroes/nevermore.png'
+    },
+
+    12: {'name': 'Phantom Lancer',
+         'side': '',
+         'avatar': 'img/dota/heroes/phantom_lancer.png'
+    },
+
+    13: {'name': 'Puck',
+         'side': '',
+         'avatar': 'img/dota/heroes/puck.png'
+    },
+
+    14: {'name': 'Pudge',
+         'role': 'Durable, Disabler',
+         'side': 'The Dire',
+         'class': 'Strength',
+         'bio': '<strong>Pudge</strong> the <strong>Butcher</strong> is a melee strength hero feared for his '
+                'incredible gank prowess. Though he may not look like it, he is one of the strongest solo-killing '
+                'gankers in the entire game, with one combo of his three active abilities proving more than sufficient '
+                'to kill fragile enemy heroes in the early and midgame. His signature ability, Meat Hook, which '
+                'requires intuition, guesswork, and good timing to land, is thrown out in a straight line a long '
+                'distance away. If it snags a unit, it will drag it back to Pudge, dealing enormous damage to it if '
+                'it was an enemy. It thus serves as a powerful ganking and initation tool, and also has the utility '
+                'of being able to save an endangered ally. He can then follow up with his ultimate, Dismember, which '
+                'deals further damage to the target over a few seconds, as well as disabling it. During this period, '
+                'he can toggle on his Rot to damage his enemy further while hurting himself as well, and use it to '
+                'slow and finish off the hero if he or she survived the initial assault. To supplement his killing '
+                'power is Flesh Heap, which provides him some magic resistance to reduce the damage he takes from Rot '
+                'as well as from other enemy spells. The scariest aspect of Flesh Heap though is that it provides him '
+                'permanent Strength with every kill that he participates in, giving him the potential to permanently '
+                'increase his vitality (and physical damage) to monolithic proportions, thereby becoming a formidable '
+                'tank. In the hands of a skilled player who can land his deadly Meat Hook with high accuracy, Pudge '
+                'is both one of the most rewarding and fun heroes to play and one of the most fearsome opponents to '
+                'be up against.',
+         'quote': 'When I\'m through with these vermin, they\'ll be fit for a pie.',
+         'strength': '25 + 3.2',
+         'agility': '14 + 1.5',
+         'intelligence': '14 + 1.5',
+         'ms': '285',
+         'tr': '0.5',
+         'sr': '1800/800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.5+1.17',
+         'cd': '0.3+0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/pudge.png'
+    },
+
+    15: {'name': 'Razor',
+         'side': '',
+         'avatar': 'img/dota/heroes/razor.png'
+    },
+
+    16: {'name': 'Sand King',
+         'side': '',
+         'avatar': 'img/dota/heroes/sand_king.png'
+    },
+
+    17: {'name': 'Storm Spirit',
+         'side': '',
+         'avatar': 'img/dota/heroes/storm_spirit.png'
+    },
+
+    18: {'name': 'Sven',
+         'side': '',
+         'avatar': 'img/dota/heroes/sven.png'
+    },
 
     19: {'name': 'Tiny',
          'role': 'Disabler, Nuker, Initiator, Durable',
          'class': 'Strength',
          'side': 'The Radiant',
-         'bio': '<strong>Tiny the Stone Giant</strong> is a melee Strength hero with powerful ganking and killing '
+         'bio': '<strong>Tiny</strong> the <strong>Stone Giant</strong> is a melee Strength hero with powerful ganking '
+                'and killing '
                 'potential. Although he starts off vulnerable in lane with his pitiful mana pool and almost '
                 'non-existent armor, with a few levels, he gets considerably stronger. His killing power in the '
                 'early and midgame comes from comboing his two active abilities. Avalanche engulfs an area in a '
@@ -130,23 +229,75 @@ heroes_info = {
                 'Although Tiny initially lives up to his name by starting off small and weak, much like an avalanche, '
                 'he quickly grows in size and strength until he becomes a hulking behemoth with enormous health and '
                 'damage output.',
+         'quote': 'My enemies break upon me like surf upon the stone.',
          'strength': '24 + 3.0',
          'agility': '9 + 0.9',
          'intelligence': '14 + 1.6',
+         'ms': '285',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.49 + 1',
+         'cd': '0.001 + 0',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/tiny.png'
     },
 
-    20: {'name': 'Vengeful Spirit', 'avatar': 'img/dota/heroes/vengefulspirit.png'},
-    21: {'name': 'Windranger', 'avatar': 'img/dota/heroes/windrunner.png'},
-    22: {'name': 'Zeus', 'avatar': 'img/dota/heroes/zuus.png'},
-    23: {'name': 'Kunkka', 'avatar': 'img/dota/heroes/kunkka.png'},
-    25: {'name': 'Lina', 'avatar': 'img/dota/heroes/lina.png'},
-    26: {'name': 'Lion', 'avatar': 'img/dota/heroes/lion.png'},
-    27: {'name': 'Shadow Shaman', 'avatar': 'img/dota/heroes/shadow_shaman.png'},
-    28: {'name': 'Slardar', 'avatar': 'img/dota/heroes/slardar.png'},
-    29: {'name': 'Tidehunter', 'avatar': 'img/dota/heroes/tidehunter.png'},
-    30: {'name': 'Witch Doctor', 'avatar': 'img/dota/heroes/witch_doctor.png'},
-    31: {'name': 'Lich', 'avatar': 'img/dota/heroes/lich.png'},
+    20: {'name': 'Vengeful Spirit',
+         'side': '',
+         'avatar': 'img/dota/heroes/vengefulspirit.png'
+    },
+
+    21: {'name': 'Windranger',
+         'side': '',
+         'avatar': 'img/dota/heroes/windrunner.png'
+    },
+
+    22: {'name': 'Zeus',
+         'side': '',
+         'avatar': 'img/dota/heroes/zuus.png'
+    },
+
+    23: {'name': 'Kunkka',
+         'side': '',
+         'avatar': 'img/dota/heroes/kunkka.png'
+    },
+
+    25: {'name': 'Lina',
+         'side': '',
+         'avatar': 'img/dota/heroes/lina.png'
+    },
+
+    26: {'name': 'Lion',
+         'side': '',
+         'avatar': 'img/dota/heroes/lion.png'
+    },
+
+    27: {'name': 'Shadow Shaman',
+         'side': '',
+         'avatar': 'img/dota/heroes/shadow_shaman.png'
+    },
+
+    28: {'name': 'Slardar',
+         'side': '',
+         'avatar': 'img/dota/heroes/slardar.png'
+    },
+
+    29: {'name': 'Tidehunter',
+         'side': '',
+         'avatar': 'img/dota/heroes/tidehunter.png'
+    },
+
+    30: {'name': 'Witch Doctor',
+         'side': '',
+         'avatar': 'img/dota/heroes/witch_doctor.png'
+    },
+
+    31: {'name': 'Lich',
+         'side': '',
+         'avatar': 'img/dota/heroes/lich.png'
+    },
 
     32: {'name': 'Riki',
          'role': 'Carry, Escape',
@@ -164,8 +315,15 @@ heroes_info = {
          'avatar': 'img/dota/heroes/riki.png'
     },
 
-    33: {'name': 'Enigma', 'avatar': 'img/dota/heroes/enigma.png'},
-    34: {'name': 'Tinker', 'avatar': 'img/dota/heroes/tinker.png'},
+    33: {'name': 'Enigma',
+         'side': '',
+         'avatar': 'img/dota/heroes/enigma.png'
+    },
+
+    34: {'name': 'Tinker',
+         'side': '',
+         'avatar': 'img/dota/heroes/tinker.png'
+    },
 
     35: {'name': 'Sniper',
          'role': 'Carry',
@@ -187,11 +345,32 @@ heroes_info = {
          'avatar': 'img/dota/heroes/sniper.png'
     },
 
-    36: {'name': 'Necrophos', 'avatar': 'img/dota/heroes/necrolyte.png'},
-    37: {'name': 'Warlock', 'avatar': 'img/dota/heroes/warlock.png'},
-    38: {'name': 'Beastmaster', 'avatar': 'img/dota/heroes/beastmaster.png'},
-    39: {'name': 'Queen of Pain', 'avatar': 'img/dota/heroes/queenofpain.png'},
-    40: {'name': 'Venomancer', 'avatar': 'img/dota/heroes/venomancer.png'},
+    36: {'name': 'Necrophos',
+         'side': '',
+         'avatar': 'img/dota/heroes/necrolyte.png'
+    },
+
+    37: {'name': 'Warlock',
+         'side': '',
+         'avatar': 'img/dota/heroes/warlock.png'
+    },
+
+
+    38: {'name': 'Beastmaster',
+         'side': '',
+         'avatar': 'img/dota/heroes/beastmaster.png'
+    },
+
+    39: {'name': 'Queen of Pain',
+         'side': '',
+         'avatar': 'img/dota/heroes/queenofpain.png'
+    },
+
+    40: {'name': 'Venomancer',
+         'side': '',
+         'avatar': 'img/dota/heroes/venomancer.png'
+    },
+
 
     41: {'name': 'Faceless Void',
          'role': 'Carry, Initiator, Disabler, Escape',
@@ -212,8 +391,15 @@ heroes_info = {
          'avatar': 'img/dota/heroes/faceless_void.png'
     },
 
-    42: {'name': 'Skeleton King', 'avatar': 'img/dota/heroes/skeleton_king.png'},
-    43: {'name': 'Death Prophet', 'avatar': 'img/dota/heroes/death_prophet.png'},
+    42: {'name': 'Skeleton King',
+         'side': '',
+         'avatar': 'img/dota/heroes/skeleton_king.png'
+    },
+
+    43: {'name': 'Death Prophet',
+         'side': '',
+         'avatar': 'img/dota/heroes/death_prophet.png'
+    },
 
     44: {'name': 'Phantom Assassin',
          'role': 'Carry, Escape',
@@ -243,7 +429,33 @@ heroes_info = {
     47: {'name': 'Viper', 'avatar': 'img/dota/heroes/viper.png'},
     48: {'name': 'Luna', 'avatar': 'img/dota/heroes/luna.png'},
     49: {'name': 'Dragon Knight', 'avatar': 'img/dota/heroes/dragon_knight.png'},
-    50: {'name': 'Dazzle', 'avatar': 'img/dota/heroes/dazzle.png'},
+
+    50: {'name': 'Dazzle',
+         'role': 'Support, Lane Support',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Dazzle</strong> the <strong>Shadow Priest</strong> is a ranged intelligence Hero exhibiting '
+                'abilities that bend the sustainability of both his allies and enemies, making him a viable support. '
+                'While frail, he is capable of keeping his allies and himself from dying, causing his foes to waste '
+                'time in a fruitless endeavor. Similarly to Slardar, Dazzle boasts abilities that deal physical '
+                'damage instead of the usual magical. His first ability, Poison Touch, is a strong spammable '
+                'disable, though mediocre in effects in the first levels. Out of all his abilities, Poison Touch '
+                'is the only one that cannot pass through Magic immunity, will it sustain itself when magic immunity '
+                'is granted after the buff is placed. Shallow Grave is a solid survivability spell, allowing your '
+                'allied targets to escape during serious encounters. Though it only prevents fatal damage, it cannot '
+                'be purged, making it a full guarantee that Dazzle\'s target will survive for the duration. Shadow '
+                'Wave is a chaining healing ability that dissipates the health gained to damage nearby enemies, '
+                'having a potential of delivering a huge damage output when good positioning comes to play. His '
+                'ultimate, Weave, is a large armor bending ability that not only increases his allies\' armor, but '
+                'also decreases his enemies. With the fact that his abilities deal physical damage and that Dazzle '
+                'himself has large attack damage, the chaotic combination with armor reduction really makes '
+                'Dazzle a devastating Hero to go against.',
+         'strength': '16 + 1.85',
+         'agility': '21 + 1.7',
+         'intelligence': '27 + 3.4',
+         'avatar': 'img/dota/heroes/dazzle.png'
+    },
+
     51: {'name': 'Clockwerk', 'avatar': 'img/dota/heroes/rattletrap.png'},
     52: {'name': 'Leshrac', 'avatar': 'img/dota/heroes/leshrac.png'},
 
@@ -263,9 +475,18 @@ heroes_info = {
                 'mana cost. Commonly played as a ganker, offlaner and jungler and known as a strong pusher, '
                 'Nature\'s Prophet has superb farming capabilities and global presence, giving him the power '
                 'to be anywhere on the map and aid his allies in need.',
+         'quote': 'I woke within the seed and saw my destiny, and many were its branches.',
          'strength': '19 + 1.8',
          'agility': '18 + 1.9',
          'intelligence': '21 + 2.9',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1125',
+         'ad': '0.4 + 0.77',
+         'cd': '0.5 + 1.17',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/furion.png'
     },
 
@@ -399,8 +620,45 @@ heroes_info = {
     97: {'name': 'Magnus', 'avatar': 'img/dota/heroes/magnataur.png'},
     98: {'name': 'Timbersaw', 'avatar': 'img/dota/heroes/shredder.png'},
     99: {'name': 'Bristleback', 'avatar': 'img/dota/heroes/bristleback.png'},
-    100: {'name': 'Tusk', 'avatar': 'img/dota/heroes/tusk.png'},
-    101: {'name': 'Skywrath Mage', 'avatar': 'img/dota/heroes/skywrath_mage.png'},
+
+    100: {'name': 'Tusk',
+          'role': 'Initiator, Durable',
+          'side': 'The Radiant',
+          'class': 'Strength',
+          'bio': '<strong>Ymir</strong> the <strong>Tusk</strong> is a melee Strength hero whose array of icy spells '
+                 'pack great potential to grant the advantage in a gank. Tusk is both an effective team fight hero '
+                 'and initiator, who has the unique ability to bring along teammates into the fight. Though he is '
+                 'usually played as a support, one can in fact benefit reasonably well from additional attributes '
+                 'and farm, and can be a great semi-carry as well. Equipping damage-boosting items can greatly '
+                 'increase the critical damage brought by Walrus PUNCH!, allowing him to fight on his own in the '
+                 'later stages.',
+          'strength': '23 + 2.3',
+          'agility': '23 + 2.1',
+          'intelligence': '18 + 1.7',
+          'avatar': 'img/dota/heroes/tusk.png'
+    },
+
+    101: {'name': 'Skywrath Mage',
+          'role': 'Nuker, Support',
+          'side': 'The Radiant',
+          'class': 'Intelligence ',
+          'bio': '<strong>Dragonus</strong> the <strong>Skywrath Mage</strong> is a ranged Intelligence hero equipped '
+                 'with tremendously powerful nukes, able to enhance magical damage and thus scales well into late '
+                 'game. However, he is a proverbial glass cannon; while he can bring superb amounts of damage, he is '
+                 'dangerously vulnerable and will most likely meet a swift end if the player isn\'t careful. Arcane '
+                 'Bolt is his main spell; its damage is based on his current Intelligence level. Concussive Shot '
+                 'blasts the nearest enemy hero, along with nearby units around the foe, slowing them down. The '
+                 'Ancient Seal marks the target with magic amplification and silence, leaving the target vulnerable '
+                 'to magic and unable to cast spells. Skywrath Mage\'s ultimate Mystic Flare is one of the most '
+                 'dangerous nukes in the game. Its power is split equally among enemy heroes within its radius. '
+                 'Enemy heroes caught in this field will suffer damage; if it is used on a single hero, it will '
+                 'deal its full damage potential. His spells are most effective when targeted on a lone hero and '
+                 'thus suffer decreased effectiveness when used on groups.',
+          'strength': '19 + 1.5',
+          'agility': '18 + 0.8',
+          'intelligence': '27 + 3.6',
+          'avatar': 'img/dota/heroes/skywrath_mage.png'
+    },
 
     102: {'name': 'Abaddon',
           'role': 'Durable',
@@ -428,14 +686,39 @@ heroes_info = {
           'avatar': 'img/dota/heroes/abaddon.png'
     },
 
-    103: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
-    104: {'name': 'Legion Commander', 'avatar': 'img/dota/heroes/legion_commander.png'},
+    103: {'name': 'Elder Titan',
+          'role': 'Initiator, Durable',
+          'side': 'The Radiant',
+          'class': 'Strength',
+          'bio': 'The <strong>Elder Titan</strong> is a durable melee strength hero who plays the role of initiator. '
+                 'His Astral Spirit and Echo Stomp abilities allow him to disable large groups of enemies from afar, '
+                 'making him one of the few initiators that does not require a Blink Dagger. This combination creates '
+                 'a perfect setup for his powerful ultimate Earth Splitter, which damages enemies based on their '
+                 'maximum HP. This, along with his ability to lower his enemies physical and magical resistance, '
+                 'makes Elder Titan scale well through his abilities and be effective at all stages of the game. '
+                 'As the progenitor of this world, Elder Titan reshapes the battlefield on a whim and can turn any '
+                 'teamfight in his favor.',
+          'strength': '24 + 2.3',
+          'agility': '14 + 1.5',
+          'intelligence': '23 + 1.6',
+          'avatar': 'img/dota/heroes/elder_titan.png'},
+
+    104: {'name': 'Legion Commander',
+          'role': '',
+          'side': '',
+          'class': '',
+          'bio': '',
+          'strength': '',
+          'agility': '',
+          'intelligence': '',
+          'avatar': 'img/dota/heroes/legion_commander.png'
+    },
 
     106: {'name': 'Ember Spirit',
           'role': 'Carry, Nuker, Disabler, Durable',
           'side': 'The Radiant',
           'class': 'Agility',
-          'bio': '<strong>Xin</strong> the <strong>Ember Spirit</strong> is a highly mobile melee Agility carry, '
+          'bio': '<strong>Xin</strong>, the <strong>Ember Spirit</strong> is a highly mobile melee Agility carry, '
                  'whose abilities enable him to also play as an initiator or ganker. His skillset allows for '
                  'incredibly aggressive assaults on other heroes, dealing extraordinary amounts of damage in a '
                  'relatively small window of time, and then escaping to safety. Despite a good HP pool early on, '
@@ -451,6 +734,15 @@ heroes_info = {
           'avatar': 'img/dota/heroes/ember_spirit.png'
     },
 
-    107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}
+    107: {'name': 'Earth Spirit',
+          'role': 'Initiator',
+          'side': 'The Radiant',
+          'class': 'Strength',
+          'bio': '<strong>Kaolin</strong>, the <strong>Earth Spirit</strong>',
+          'strength': '21 + 2.9',
+          'agility': '17 + 1.5',
+          'intelligence': '18 + 2.4',
+          'avatar': 'img/dota/heroes/earth_spirit.png'
+    }
 
 }

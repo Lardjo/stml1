@@ -37,6 +37,18 @@ h3 small, .h3 small {
     border-bottom: 1px solid #eee;
 }
 
+.overflow-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-separator {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 #wrap {
     min-height: 100%;
     height: auto ;
