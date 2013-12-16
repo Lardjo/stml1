@@ -21,5 +21,6 @@ class HeroHandler(BaseHandler):
         session = self.application.db['sessions'].find_one({'_id': self.current_user})
         if session:
             session = self.application.db['users'].find_one({'_id': session['userid']})
-        hero = libs.heroes_info[hero]
-        self.render("hero.html", active=None, session=session, hero=hero)
+        stats = self.application.db['heroes'].find_one({'hero_id': hero})
+        hero_info = libs.heroes_info[hero]
+        self.render("hero.html", active=None, session=session, hero=hero_info, stats=stats, items=libs.items)

@@ -2,15 +2,41 @@
 {% block title %}Statsmile / Heroes / {{ hero['name'] }}{% end %}
 {% block content %}
 <div class="page-header" xmlns="http://www.w3.org/1999/html">
-    <h1>{{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
+    <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
 <div class="row">
     <div class="col-md-9">
         <p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p>
         <div class="page-header">
-            <h1>Popular Items <small>Last Month</small></h1>
+            <h1>Popular Items <small>All Time</small></h1>
         </div>
-        <p>Coming Soon...</p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Times Used</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set n = 1 %}
+            {% for pi in stats['popular_items'] %}
+            {% if n < 11 %}
+            {% if pi['_id'] != 0 %}
+            <tr>
+                <td>{{ n }}</td>
+                <td>
+                    <div class="hero-container"><img src="{% try %}{{ static_url(items[pi['_id']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ pi['_id'] }}{% end %}"></div>
+                    <div class="hero-name"><strong>{% try %}{{ items[pi['_id']]['name'] }}{% except %}Unknown Item{% end %}</strong></div>
+                </td>
+                <td>{{ pi['number'] }}</td>
+            </tr>
+            {% set n += 1 %}
+            {% else %}{% end %}
+            {% else %}{% continue %}{% end %}
+            {% end %}
+            </tbody>
+        </table>
 
 
     </div>
@@ -73,4 +99,5 @@
 
     </div>
 </div>
+<p class="text-muted">This page was last updated {{ locale.format_date(stats['last_update'], relative=True) }}</p>
 {% end %}

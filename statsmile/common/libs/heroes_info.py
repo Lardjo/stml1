@@ -13,9 +13,18 @@ hero = {
          'side': '',
          'class': '',
          'bio': '',
+         'quote': '',
          'strength': '',
          'agility': '',
          'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': ''}
 
 }
@@ -40,9 +49,18 @@ heroes_info = {
                'Axe has a tendency to draw opponents so deep in the fight that they do not have a chance to escape, '
                'each soul he draws infusing his own love of war; his ultimate, Culling Blade bolsters that talent '
                'with an attack that unconditionally kills a unit with low health.',
+        'quote': 'Axe is all the reinforcement this army needs!',
         'strength': '25 + 2.5',
         'agility': '20 + 2.2',
         'intelligence': '18 + 1.6',
+        'ms': '290',
+        'tr':'0.6',
+        'sr':'1800 / 800',
+        'ar':'Melee',
+        'miss_s':'Instant',
+        'ad':'0.5 + 0.5',
+        'cd':'0.3 + 0.51',
+        'bat':'1.7',
         'avatar': 'img/dota/heroes/axe.png'
     },
 
@@ -57,7 +75,35 @@ heroes_info = {
     },
 
     5: {'name': 'Crystal Maiden',
-        'side': '',
+        'role': 'Support, Disabler, Nuker, Lane Support',
+        'side': 'The Radiant',
+        'class': 'Intelligence',
+        'bio': '<strong>Rylai</strong> the <strong>Crystal Maiden</strong> is a ranged intelligence Hero used as a '
+               'hard support and disabler. She is perhaps best known for her powerful global mana regeneration aura. '
+               'This aura allows mana dependent allies to excel during the early to mid game and the laning phase, and '
+               'allows her to constantly activate her own spells without needing to worry much about the mana costs. '
+               'She also has a high amount of early game presence with just a few points in her Crystal Nova and '
+               'Frostbite abilities. Crystal Nova is a powerful area-of-effect nuke that slows both attack and '
+               'movement speeds of enemies within an area for several seconds, while Frostbite encases an enemy in a '
+               'block of ice for several seconds, immobilizing it and doing moderate damage per second. Combining '
+               'these two abilities together along with a laning partner\'s own spells often results in the quick '
+               'death of an enemy hero. Although her strong early game presence is quickly lost due to her extreme '
+               'frailty and poor mobility, she can still inflict a heavy amount of damage in teamfights later on if '
+               'she is able to channel her deadly ultimate, Freezing Field. Her Arcane Aura, strong disabling and '
+               'nuking prowess, relative ease of usage, and almost complete lack of item dependence makes her a '
+               'reliable support caster that can be useful in any team.',
+        'quote': 'When Hell freezes over, I\'ll start calling it Heaven.',
+        'strength': '16 + 1.7',
+        'agility': '16 + 1.6',
+        'intelligence': '19 + 2.9',
+        'ms': '280',
+        'tr': '0.5',
+        'sr': '1800 / 800',
+        'ar': '600',
+        'miss_s': '900',
+        'ad': '0.55 + 0',
+        'cd': '0.3 + 2.4',
+        'bat': '1.7',
         'avatar': 'img/dota/heroes/crystal_maiden.png'
     },
 
@@ -175,11 +221,11 @@ heroes_info = {
          'intelligence': '14 + 1.5',
          'ms': '285',
          'tr': '0.5',
-         'sr': '1800/800',
+         'sr': '1800 / 800',
          'ar': 'Melee',
          'miss_s': 'Instant',
-         'ad': '0.5+1.17',
-         'cd': '0.3+0.51',
+         'ad': '0.5 + 1.17',
+         'cd': '0.3 + 0.51',
          'bat': '1.7',
          'avatar': 'img/dota/heroes/pudge.png'
     },
@@ -200,7 +246,29 @@ heroes_info = {
     },
 
     18: {'name': 'Sven',
-         'side': '',
+         'role': 'Disabler, Initiator, Carry, Support',
+         'side': 'The Radiant',
+         'class': 'Strength',
+         'bio': '<strong>Sven</strong> the <strong>Rogue Knight</strong> is a versatile melee strength Hero with '
+                'superior physical power yet is coupled with various abilities that provide various utility. He can '
+                'fulfill various roles, but is often played as a support or a semi-carry due to his high utility even '
+                'without items. He possess a versatile arsenal, from shouts that grant armor both for escaping and '
+                'pushing to throwable gauntlets that disorient enemies around the target unit. With enough items, '
+                'Sven has the potential to be a strong late-game carry due to his ultimate which increases his damage '
+                'and his passive which allows him to hit multiple targets at once. He is a formidable foe and his '
+                'versatility makes the Rogue Knight a great asset to any team.',
+         'quote': 'May my enemies share the fate of the Shattered Helm.',
+         'strength': '23 + 2.7',
+         'agility': '21 + 2',
+         'intelligence': '14 + 1.3',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.4 + 0.3',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/sven.png'
     },
 
@@ -250,7 +318,28 @@ heroes_info = {
     },
 
     21: {'name': 'Windranger',
-         'side': '',
+         'role': 'Disabler, Nuker, Support, Escape',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<strong>Lyralei</strong> the <strong>Windranger</strong> is a ranged intelligence hero that uses '
+                'powerful abilities in conjunction with her physical attack to take down enemies. Despite being an '
+                'intelligence Hero, Windranger\'s playstyle resembles that of an agility Hero, due in large part to '
+                'her skillset. Windranger is most often played as an offlane solo due to her escape, long range '
+                'harass, and farm capability; however, she is quite versatile and can be fielded as a midlaner, '
+                'roamer, lane support, or even a carry, if the game calls for it. She is famous for her immense '
+                'utility and versatility, and as such, she is one of the most common picks of experienced players.',
+         'quote': 'If at first you don\'t succeed, stand closer, shoot again.',
+         'strength': '15 + 2.5',
+         'agility': '17 + 1.4',
+         'intelligence': '22 + 2.6',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1250',
+         'ad': '0.4 + 0.3',
+         'cd': '0.3 + 0.5',
+         'bat': '1.5',
          'avatar': 'img/dota/heroes/windrunner.png'
     },
 
@@ -339,9 +428,18 @@ heroes_info = {
                 'a remarkable amount of dps while sitting outside of harm\'s reach, almost permastunning heroes '
                 'with his headshot. Though he is a rather frail hero, his potential in the hands of a good player '
                 'and team is high.',
+         'quote': 'Killing is the last resort, true. But the other resorts don\'t even have a pool.',
          'strength': '16 + 1.7',
          'agility': '21 + 2.9',
          'intelligence': '15 + 2.6',
+         'ms': '290',
+         'tr': '0.6',
+         'sr': '1800 / 1000',
+         'ar': '550',
+         'miss_s': '3000',
+         'ad': '0.17 + 0.7',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/sniper.png'
     },
 
@@ -385,9 +483,18 @@ heroes_info = {
                 'with near impunity for several seconds. Faceless Void is a hard carry and, as such, scales heavily '
                 'from items and reaches his full potential in late game, growing into one of the most powerful and '
                 'destructive Heroes.',
+         'quote': 'From a place beyond time, and time beyond counting.',
          'strength': '23 + 1.6',
          'agility': '21 + 2.65',
          'intelligence': '15 + 1.5',
+         'ms': '300',
+         'tr':'0.5',
+         'sr':'1800 / 800',
+         'ar':'Melee',
+         'miss_s':'Instant',
+         'ad':'0.5 + 0.56',
+         'cd':'0.35 + 0.51',
+         'bat':'1.7',
          'avatar': 'img/dota/heroes/faceless_void.png'
     },
 
@@ -450,9 +557,18 @@ heroes_info = {
                 'also decreases his enemies. With the fact that his abilities deal physical damage and that Dazzle '
                 'himself has large attack damage, the chaotic combination with armor reduction really makes '
                 'Dazzle a devastating Hero to go against.',
+         'quote': 'Where my shadow falls, there falls my foe.',
          'strength': '16 + 1.85',
          'agility': '21 + 1.7',
          'intelligence': '27 + 3.4',
+         'ms': '305',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '500',
+         'miss_s': '1200',
+         'ad': '0.3 + 0.3',
+         'cd': '0.3 + 0.5',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/dazzle.png'
     },
 
@@ -511,9 +627,18 @@ heroes_info = {
                 'The Lifestealer is a monstrous beast of gluttony and greed, bent on stealing the lives of every '
                 'living creature he encounters, violently killing them to sate the Lifestealer\'s terrifying thirst '
                 'and hunger.',
+         'quote': 'Oh Master, behold all these lives for the taking!',
          'strength': '25 + 2.4',
          'agility': '18 + 1.9',
          'intelligence': '15 + 1.75',
+         'ms': '315',
+         'tr': '1.0',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.39 + 0.44',
+         'cd': '0.2 + 0.01',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/life_stealer.png'
     },
 
@@ -554,9 +679,76 @@ heroes_info = {
     71: {'name': 'Spirit Breaker', 'avatar': 'img/dota/heroes/spirit_breaker.png'},
     72: {'name': 'Gyrocopter', 'avatar': 'img/dota/heroes/gyrocopter.png'},
     73: {'name': 'Alchemist', 'avatar': 'img/dota/heroes/alchemist.png'},
-    74: {'name': 'Invoker', 'avatar': 'img/dota/heroes/invoker.png'},
+
+    74: {'name': 'Invoker',
+         'role': 'Carry, Nuker, Initiator, Escape',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Invoker</strong> is a ranged intelligence Hero who is considered one of the most difficult '
+                'hero in the game to master. He is unique in that he possesses a total of 14 abilities in his arsenal; '
+                'three of them - Quas, Wex, and Exort - are reagents and one is his special ultimate Invoke. The three '
+                'abilities he learns throughout leveling up can have three instances, which serve as the basic '
+                'ingredients or components for him to create a new ability using his ultimate. Once the reagents or '
+                'elements are combined, he can invoke one out of ten different abilities. All of his invoked abilities '
+                'are capable of a multitude of actions, from damaging enemies to aiding his allies, and even saving '
+                'himself from danger. His three reagents can be upgraded up to level 7 which determines the power and '
+                'potency of his invoked abilities, making it more powerful than an ordinary spell. Because of this, he '
+                'can be played in almost any role possible. Invoker can be a carry, semi-carry, ganker, pusher, '
+                'initiator or even support. He is also the only hero who doesn\'t have Attribute Bonuses, thus he has '
+                'average attributes. However, his three reagents provide passive attributes with each level, and each '
+                'instance of his reagents provides a passive bonus, allowing for specialization at early levels and '
+                'situational boosts at later levels. His extremely flexible nature allows him to use many different '
+                'combinations of items effectively but also make him dependent on solid builds and a good '
+                'gold advantage.',
+         'quote': 'What joy it is beholding me!',
+         'strength': '19 + 1.7',
+         'agility': '20 + 1.9',
+         'intelligence': '22 + 2.5',
+         'ms': '280',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '900',
+         'ad': '0.4 + 0.7',
+         'cd': '0 + 0',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/invoker.png'
+    },
+
     75: {'name': 'Silencer', 'avatar': 'img/dota/heroes/silencer.png'},
-    76: {'name': 'Outworld Destroyer', 'avatar': 'img/dota/heroes/obsidian_destroyer.png'},
+
+    76: {'name': 'Outworld Devourer',
+         'role': 'Carry',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Harbinger</strong> the <strong>Outworld Devourer</strong> is a ranged intelligence hero who '
+                'qualifies as a carry, though several weaknesses - primarily his inability to combat magic-immune '
+                'targets - restrict him from true hard carry status. His damage output is entirely reliant on his '
+                'intelligence attribute and the size of his mana pool, so he must focus more or less exclusively on '
+                'items which augment them. Though extremely fragile (rendered even more so by his inability to build '
+                'many significant durability items), he deals Pure damage which increases with his mana pool, meaning '
+                'that if he gains an advantage in a match he deals constant, colossal damage which (because it is Pure '
+                'damage) cannot be decreased or resisted except with total magic immunity. He and his allies enjoy '
+                'more-or-less unlimited mana because of his Essence Aura, which gives them a chance to replenish a '
+                'quarter of their mana upon casting a spell. With Astral Imprisonment, Harbinger can render himself '
+                'or an ally invulnerable for a short period of time, or disable (and steal Intelligence from) the '
+                'target enemy. His ultimate, Sanity\'s Eclipse, can instantly deal colossal area-of-effect damage '
+                'against his enemies when his intelligence is higher than theirs.',
+         'quote': 'Their sanity I\'ll shatter; their dreams of conquest I\'ll destroy.',
+         'strength': '19 + 1.85',
+         'agility': '24 + 2',
+         'intelligence': '26 + 3.3',
+         'ms': '315',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '450',
+         'miss_s': '900',
+         'ad': '0.46 + 0.54',
+         'cd': '0.25 + 0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/obsidian_destroyer.png'
+    },
+
     77: {'name': 'Lycan', 'avatar': 'img/dota/heroes/lycan.png'},
     78: {'name': 'Brewmaster', 'avatar': 'img/dota/heroes/brewmaster.png'},
     79: {'name': 'Shadow Demon', 'avatar': 'img/dota/heroes/shadow_demon.png'},
@@ -600,12 +792,21 @@ heroes_info = {
                 'mechanism that not only blocks damage for a small amount of time, but reflects it back onto the '
                 'enemy with a stun effect to boot. With his short cooldowns, the Nyx Assassin can continually '
                 'dispatch key enemy targets, removing their ability and will to fight.',
+         'quote': 'The blessing of Nyx gives me all the purpose I require.',
          'role': 'Disabler, Nuker',
          'class': 'Agility',
          'side': 'The Dire',
          'strength': '18 + 2',
          'agility': '19 + 2.2',
          'intelligence': '18 + 2.1',
+         'ms': '300',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.46 + 0.54',
+         'cd': '0.4 + 1.1',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/nyx_assassin.png'
     },
 
@@ -613,7 +814,38 @@ heroes_info = {
     90: {'name': 'Keeper of the Light', 'avatar': 'img/dota/heroes/keeper_of_the_light.png'},
     91: {'name': 'Io', 'avatar': 'img/dota/heroes/wisp.png'},
     92: {'name': 'Visage', 'avatar': 'img/dota/heroes/visage.png'},
-    93: {'name': 'Slark', 'avatar': 'img/dota/heroes/slark.png'},
+
+    93: {'name': 'Slark',
+         'role': 'Escape',
+         'side': 'The Dire',
+         'class': 'Agility',
+         'bio': '<strong>Slark</strong> the <strong>Nightcrawler</strong> is a melee agility hero that utilises his '
+                'skills to spring onto enemy heroes and slip out unhindered. He is a very mobile ganker, but remains '
+                'statwise below most other carries unless he is able to steal away stats with his abilities. Once he '
+                'does, though, only a few heroes can hope to be as fearsome as the Nightcrawler - extremely mobile to '
+                'the point of ever-presence; his strikes only hitting harder and faster. Slark can quickly leap forward '
+                'onto enemies with Pounce to leash them and bind them from escaping. His Dark Pact releases a delayed '
+                'purge that breaks even the most powerful disables. This gives him one of the most flexible abilities '
+                'to start and end fights in the game. He is also capable of stealing stats on auto-attacks to boost '
+                'his own damage temporarily with Essence Shift which can rapidly shift engagements in his favor, even '
+                'when merely performing hit-and-run maneuvers. Slark\'s ultimate, Shadow Dance, allows him to remain '
+                'unseen even while attacking for a short duration and allows him to move quicker when not under the '
+                'watch of enemy eyes to strike in and out of enemy ranks unhindered.',
+         'quote': 'If I\'d known I\'d end up here, I\'d have stayed in Dark Reef Prison.',
+         'strength': '21 + 1.8',
+         'agility': '21 + 1.5',
+         'intelligence': '16 + 1.9',
+         'ms': '305',
+         'tr': '0.5',
+         'sr': '1800 / 1800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.5 + 0.3',
+         'cd': '0.001 + 0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/slark.png'
+    },
+
     94: {'name': 'Medusa', 'avatar': 'img/dota/heroes/medusa.png'},
     95: {'name': 'Troll Warlord', 'avatar': 'img/dota/heroes/troll_warlord.png'},
     96: {'name': 'Centaur Warrunner', 'avatar': 'img/dota/heroes/centaur.png'},
@@ -632,9 +864,19 @@ heroes_info = {
                  'and farm, and can be a great semi-carry as well. Equipping damage-boosting items can greatly '
                  'increase the critical damage brought by Walrus PUNCH!, allowing him to fight on his own in the '
                  'later stages.',
+          'quote': 'After a bar brawl it\'s customary, as a courtesy, '
+                   'to buy everyone who\'s still standing a round of drinks.',
           'strength': '23 + 2.3',
           'agility': '23 + 2.1',
           'intelligence': '18 + 1.7',
+          'ms': '305',
+          'tr': '0.5',
+          'sr': '1800 / 800',
+          'ar': 'Melee',
+          'miss_s': 'Instant',
+          'ad': '0.36 + 0.64',
+          'cd': '0.1 + 1',
+          'bat': '1.7',
           'avatar': 'img/dota/heroes/tusk.png'
     },
 
@@ -728,9 +970,18 @@ heroes_info = {
                  'death. While he has only a limited presence in the early and mid game, in time Xin becomes a '
                  'dangerous opponent even on his own, proving to friend and foe alike that for them, there is '
                  'still much to be learnt.',
+          'quote': 'Xin\'s teachings shall endure.',
           'strength': '19 + 2.0',
           'agility': '22 + 1.8',
           'intelligence': '20 + 1.8',
+          'ms': '310',
+          'tr':'0.6',
+          'sr':'1800 / 800',
+          'ar':'Melee',
+          'miss_s':'Instant',
+          'ad':'0.4 + 0.3',
+          'cd':'0.00 + 0.51',
+          'bat':'1.7',
           'avatar': 'img/dota/heroes/ember_spirit.png'
     },
 
