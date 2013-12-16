@@ -13,7 +13,7 @@ from tornado.ioloop import IOLoop
 from pymongo import ASCENDING, DESCENDING
 
 from statsmile import handlers
-from statsmile.common import getsecret, dbconn, update_match, update_user
+from statsmile.common import getsecret, dbconn, update_match, update_user, update_hero
 
 
 class Statsmile(Application):
@@ -50,6 +50,18 @@ class Statsmile(Application):
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.match_update, None))
+
+    @coroutine
+    def heroes_update(self, hero):
+        logging.debug("Start update %s page" % hero['hero_id'])
+
+        yield update_hero(self.db, hero)
+        self.__update_hero.remove(hero['_id'])
+
+        new_hero = self.db['heroes'].find_one({'_id': {'$not': {'$in': self.__update_hero}}},
+                                              sort=[('update', ASCENDING)], limit=1)
+        IOLoop.instance().add_timeout(new_hero['update'].timestamp(), partial(self.heroes_update, new_hero))
+        self.__update_hero.append(new_hero['_id'])
 
     def __init__(self):
 
@@ -95,6 +107,14 @@ class Statsmile(Application):
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
+
+        # Heroes page updater
+        self.__update_hero = []
+
+        heroes = self.db['heroes'].find({}).sort('update').limit(2)
+        for hr in heroes:
+            IOLoop.instance().add_timeout(hr['update'].timestamp(), partial(self.heroes_update, hr))
+            self.__update_hero.append(hr['_id'])
 
         # Match updater
         matches_db = self.db['matches'].aggregate(

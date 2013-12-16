@@ -64,7 +64,7 @@ def update_user(db, steamid):
 
     # Update user count matches
     user = db['users'].find_one({'steamid': steamid})
-    matches = db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9]}}).count()
+    matches = db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9, 15]}}).count()
     db['users'].update({'steamid': steamid}, {'$set': {"dota_count": matches}})
 
     db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=5)}})

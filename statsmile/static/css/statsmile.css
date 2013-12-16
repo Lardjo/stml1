@@ -1,5 +1,5 @@
 /* Statsmile styles */
-/* Version 1.0.6 */
+/* Version 1.0.7 */
 
 html,
 body {
@@ -35,6 +35,18 @@ h3 small, .h3 small {
 .entry {
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
+}
+
+.overflow-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-separator {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 #wrap {

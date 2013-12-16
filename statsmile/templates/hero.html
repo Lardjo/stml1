@@ -1,18 +1,53 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Heroes / {{ hero['name'] }}{% end %}
 {% block content %}
-<div class="page-header">
-    <h1>{{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
+<div class="page-header" xmlns="http://www.w3.org/1999/html">
+    <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
 <div class="row">
-    <div class="col-md-9"><p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p></div>
+    <div class="col-md-9">
+        <p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p>
+        <div class="page-header">
+            <h1>Popular Items <small>All Time</small></h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Times Used</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set n = 1 %}
+            {% for pi in stats['popular_items'] %}
+            {% if n < 11 %}
+            {% if pi['_id'] != 0 %}
+            <tr>
+                <td>{{ n }}</td>
+                <td>
+                    <div class="hero-container"><img src="{% try %}{{ static_url(items[pi['_id']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ pi['_id'] }}{% end %}"></div>
+                    <div class="hero-name"><strong>{% try %}{{ items[pi['_id']]['name'] }}{% except %}Unknown Item{% end %}</strong></div>
+                </td>
+                <td>{{ pi['number'] }}</td>
+            </tr>
+            {% set n += 1 %}
+            {% else %}{% end %}
+            {% else %}{% continue %}{% end %}
+            {% end %}
+            </tbody>
+        </table>
+
+
+    </div>
     <div class="col-md-3">
 
             <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
             <blockquote>
-                <p>{% try %}{{ hero['side'] }}{% except %}{% end %}</p>
-                <small>{% try %}{{ hero['class'] }}{% except %}{% end %}</small>
+                <p>{% try %}{{ hero['quote'] }}{% except %}{% end %}</p>
+                <small>{% try %}{{ hero['name'] }}{% except %}{% end %}</small>
             </blockquote>
+        <div class="alert {% if hero['side'] == 'The Radiant' %}alert-success{% else %}alert-danger{% end %}"><span class="glyphicon glyphicon-flag pull-right"></span><strong>{{ hero['side'] }}</strong></div>
             <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: 33.33%">
                     <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
@@ -24,6 +59,45 @@
                     <span data-toggle="tooltip" data-placement="bottom" title="Base intelligence (+ Increase)">{% try %}{{ hero['intelligence'] }}{% except %}{% end %}</span>
                 </div>
             </div>
+
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <td><strong>Movement Speed</strong></td>
+                <td>{% try %}{{ hero['ms'] }}{% except %}{% end %}</td>
+            </tr>
+            <tr>
+                <td><strong>Turn Rate</strong></td>
+                <td>{% try %}{{ hero['tr'] }}{% except %}{% end %}</td>
+            </tr>
+            <tr>
+                <td><strong>Sight Range</strong></td>
+                <td>{% try %}{{ hero['sr'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Attack Range</strong></td>
+                <td>{% try %}{{ hero['ar'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Missile Speed</strong></td>
+                <td>{% try %}{{ hero['miss_s'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Attack Duration</strong></td>
+                <td>{% try %}{{ hero['ad'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Cast Duration</strong></td>
+                <td>{% try %}{{ hero['cd'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Base Attack Time</strong></td>
+                <td>{% try %}{{ hero['bat'] }}{% except %}{% end %}</td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
+<p class="text-muted">This page was last updated {{ locale.format_date(stats['last_update'], relative=True) }}</p>
 {% end %}

@@ -52,7 +52,7 @@
                         {% if active == "matches" %}<li class="active">{% else %}<li>{% end %}<a href="/matches">Matches</a></li>
                         {% if active == "players" %}<li class="active">{% else %}<li>{% end %}<a href="/players">Players</a></li>
                         {% if active == "heroes" %}<li class="active">{% else %}<li>{% end %}<a href="/heroes">Heroes</a></li>
-                        <li class="dropdown">
+                        {% if active == "events" %}<li class="dropdown active">{% else %}<li class="dropdown">{% end %}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/events/wraithnight">Wraith-Night</a></li>
@@ -82,8 +82,8 @@
         <div class="container">
             {% block content %}{% end %}
         </div>
-
     </div>
+
     <div class="footer">
         <div class="container">
             <p class="text-muted">Copyright (c) 2013 Statsmile LLC. Dota 2 is a registered trademark of Valve Corporation.</p>

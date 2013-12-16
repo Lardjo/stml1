@@ -22,7 +22,8 @@ class UserHandler(BaseHandler):
 
         matches = list(self.application.db["matches"].find(
             {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9, 15]}},
-            {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1, "match_id": 1, "radiant_win": 1,
+            {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1,
+             "match_id": 1, "radiant_win": 1, "lobby_type": 1,
              "players": {"$elemMatch": {"account_id": user["steamid32"]}}}
         ).sort("start_time", DESCENDING).limit(10))
 
@@ -72,7 +73,8 @@ class UserMatchesHandler(BaseHandler):
 
         matches = list(self.application.db["matches"].find(
             {"players.account_id": user["steamid32"], "game_mode": {"$nin": [7, 9, 15]}},
-            {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1, "match_id": 1, "radiant_win": 1,
+            {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1,
+             "match_id": 1, "radiant_win": 1, "lobby_type": 1,
              "players": {"$elemMatch": {"account_id": user["steamid32"]}}}
         ).sort("start_time", DESCENDING).skip((pg-1)*20).limit(20))
 

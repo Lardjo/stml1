@@ -52,7 +52,7 @@
         </div>
         {% for fav in favorites %}
         <div class="media favorite-hero">
-            <a class="pull-left" href="/heroes/{{ fav['_id'] }}">
+            <a class="pull-left" href="#">
                 <img class="media-object img-thumbnail" src="{% try %}{{ static_url(heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
             </a>
             <div class="media-body">
@@ -66,7 +66,7 @@
 <div class="page-header">
     <h1>Latest Matches</h1>
 </div>
-<table class="table table-striped">
+<table class="table table-striped table-condensed">
     <thead>
     <tr>
         <th>Hero</th>
@@ -86,11 +86,11 @@
             <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
         </td>
         {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
-        <td><p class="text-success"><strong>Won Match</strong></p></td>
+        <td><p class="text-success">{% if mt['lobby_type'] == 7 %}<span class="glyphicon glyphicon-record" data-toggle="tooltip" title="Ranked Match"></span> {% else %}{% end %}<strong>Won Match</strong></p></td>
         {% elif not mt['radiant_win'] and mt['players'][0]['player_slot'] in [128, 129, 130, 131, 132] %}
-        <td><p class="text-success"><strong>Won Match</strong></p></td>
+        <td><p class="text-success">{% if mt['lobby_type'] == 7 %}<span class="glyphicon glyphicon-record" data-toggle="tooltip" title="Ranked Match"></span> {% else %}{% end %}<strong>Won Match</strong></p></td>
         {% else %}
-        <td><p class="text-danger">Lost Match</p></td>
+        <td><p class="text-danger">{% if mt['lobby_type'] == 7 %}<span class="glyphicon glyphicon-record" data-toggle="tooltip" title="Ranked Match"></span> {% else %}{% end %}Lost Match</p></td>
         {% end %}
         <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
         <td class="hidden-xs">{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>

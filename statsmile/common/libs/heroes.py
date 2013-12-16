@@ -79,7 +79,7 @@ heroes = {
     73: {'name': 'Alchemist', 'avatar': 'img/dota/heroes/alchemist.png'},
     74: {'name': 'Invoker', 'avatar': 'img/dota/heroes/invoker.png'},
     75: {'name': 'Silencer', 'avatar': 'img/dota/heroes/silencer.png'},
-    76: {'name': 'Outworld Destroyer', 'avatar': 'img/dota/heroes/obsidian_destroyer.png'},
+    76: {'name': 'Outworld Devourer', 'avatar': 'img/dota/heroes/obsidian_destroyer.png'},
     77: {'name': 'Lycan', 'avatar': 'img/dota/heroes/lycan.png'},
     78: {'name': 'Brewmaster', 'avatar': 'img/dota/heroes/brewmaster.png'},
     79: {'name': 'Shadow Demon', 'avatar': 'img/dota/heroes/shadow_demon.png'},
