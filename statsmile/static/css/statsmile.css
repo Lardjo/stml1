@@ -32,9 +32,22 @@ h3 small, .h3 small {
     margin-bottom: 15px;
 }
 
+.nav-pills {
+    margin-bottom: 17px;
+}
+
 .entry {
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
+}
+
+.stats {
+    padding-top: 150px;
+    text-align: center;
+}
+
+.stats h1 {
+    font-size: 60px;
 }
 
 .overflow-name {

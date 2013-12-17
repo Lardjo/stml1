@@ -18,7 +18,3 @@ class PagesHandler(BaseHandler):
             self.render("pages.html", title="FAQ", active="page", session=session)
         elif source == "license":
             self.render("pages.html", title="License", active="page", session=session)
-        elif source == "status":
-            st_dota = self.application.db['status'].find_one({'status': 'api_dota'})
-            st_steam = self.application.db['status'].find_one({'status': 'api_steam'})
-            self.render("pages.html", title="Status", session=session, dota=st_dota, steam=st_steam)

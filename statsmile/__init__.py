@@ -67,6 +67,8 @@ class Statsmile(Application):
 
         handler_ls = [
             (r'/', handlers.MainHandler),
+            (r'/status', handlers.StatusHandler),
+            (r'/statistics', handlers.StatsHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),

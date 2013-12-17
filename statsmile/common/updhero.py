@@ -33,12 +33,10 @@ def update_hero(db, hero):
     except ValueError:
         pos = 112
 
-    db['heroes'].update({'hero_id': hero['hero_id']}, {'$set': {'popularity': pos}})
     db['heroes'].update({'hero_id': hero['hero_id']},
-                        {'$set': {"popular_items": items['result']}}, upsert=True)
-    db['heroes'].update({'hero_id': hero['hero_id']},
-                        {'$set': {'last_update': datetime.now()}}, upsert=True)
-    db['heroes'].update({'hero_id': hero['hero_id']},
-                        {'$set': {'update': datetime.now() + timedelta(minutes=15)}}, upsert=True)
+                        {'$set': {'popular_items': items['result'],
+                                  'last_update': datetime.now(),
+                                  'popularity': pos,
+                                  'update': datetime.now() + timedelta(minutes=30)}})
 
     logging.debug("Hero %s has been updated." % hero['hero_id'])
