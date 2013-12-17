@@ -21,4 +21,4 @@ class PagesHandler(BaseHandler):
         elif source == "status":
             st_dota = self.application.db['status'].find_one({'status': 'api_dota'})
             st_steam = self.application.db['status'].find_one({'status': 'api_steam'})
-            self.render("pages.html", title="Status", session=session, active="page", dota=st_dota, steam=st_steam)
+            self.render("pages.html", title="Status", session=session, dota=st_dota, steam=st_steam)

@@ -3,29 +3,14 @@
 {% block content %}
 <div class="main-index">
     <h1>Statsmile:)</h1>
-    {% if ready %}
     <p class="lead">Simple and intuitive service statistics for Dota 2</p>
-    {% else %}
-    <p class="lead">Please, enter your Steam API key here.</p>
-    {% end %}
     <p>
-        {% if ready %}
         {% if current_user %}
         <a href="/user/{{ session['_id'] }}" class="btn btn-main-style">Your profile</a>
         <a href="/user/settings" class="btn btn-main-style">Settings</a>
         <a href="/auth/logout" class="btn btn-main-style">Logout</a>
         {% else %}
         <a href="/auth/login" class="btn btn-main-style">Sign in with Steam ID</a>
-        {% end %}
-        {% else %}
-        <div class="input-group">
-            <form role="form" class="api-key" method="post">
-            <input type="text" class="form-control" placeholder="Steam API key" name="apikey">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">Go!</button>
-            </span>
-            </form>
-        </div>
         {% end %}
     </p>
 </div>

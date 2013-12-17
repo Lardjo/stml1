@@ -41,7 +41,7 @@ class UserHandler(BaseHandler):
             {"$limit": 7}
         ])['result']
 
-        self.render("user.html", title="Dashboard", active="profile", user=user, session=session, matches=matches,
+        self.render("user.html", title="Dashboard", user=user, session=session, matches=matches,
                     match=match, favorites=favorites, wait=wait, heroes=libs.heroes, cluster=libs.cluster,
                     mode=libs.mode)
 
@@ -78,9 +78,8 @@ class UserMatchesHandler(BaseHandler):
              "players": {"$elemMatch": {"account_id": user["steamid32"]}}}
         ).sort("start_time", DESCENDING).skip((pg-1)*20).limit(20))
 
-        self.render("user.html", title="Matches", active=None, user=user,
-                    session=session, wait=wait, matches=matches, max_pages=max_pages, page=pg, heroes=libs.heroes,
-                    cluster=libs.cluster, mode=libs.mode)
+        self.render("user.html", title="Matches", user=user, session=session, wait=wait, matches=matches,
+                    max_pages=max_pages, page=pg, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
 
 
 class UserRecordsHandler(BaseHandler):
@@ -139,6 +138,5 @@ class UserRecordsHandler(BaseHandler):
         else:
             wait = True
 
-        self.render("user.html", title="Records", active="records", user=user, session=session,
-                    records=(kills, deaths, assists, gpm), wait=wait, heroes=libs.heroes,
-                    cluster=libs.cluster, mode=libs.mode)
+        self.render("user.html", title="Records", user=user, session=session, records=(kills, deaths, assists, gpm),
+                    wait=wait, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)

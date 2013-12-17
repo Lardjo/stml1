@@ -16,5 +16,5 @@ class MatchesHandler(BaseHandler):
         session = self.application.db['sessions'].find_one({'_id': self.current_user})
         if session:
             session = self.application.db['users'].find_one({'_id': session['userid']})
-        self.render('matches.html', title="Statsmile / Matches", active="matches", page=pg,
-                    session=session, matches=matches, cluster=libs.cluster, mode=libs.mode, heroes=libs.heroes)
+        self.render('matches.html', title="Statsmile / Matches", page=pg, session=session, matches=matches,
+                    cluster=libs.cluster, mode=libs.mode, heroes=libs.heroes)

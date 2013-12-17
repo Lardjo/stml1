@@ -30,5 +30,5 @@ class MatchHandler(BaseHandler):
                     match["players"][offset]["avatar"] = player["avatar"]
                     match["players"][offset]["personaname"] = player["personaname"]
 
-        self.render("match.html", active="match", session=session, match=match, mode=libs.mode, cluster=libs.cluster,
+        self.render("match.html", session=session, match=match, mode=libs.mode, cluster=libs.cluster,
                     heroes=libs.heroes, items=libs.items)
