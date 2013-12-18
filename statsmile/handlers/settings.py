@@ -20,5 +20,5 @@ class SettingsHandler(BaseHandler):
         except KeyError:
             progress = 0
 
-        self.render('user-settings.html', active="settings", session=session, sessions=sessions,
+        self.render('user-settings.html', session=session, sessions=sessions,
                     progress_on_base=matches_on_base, progress=progress)

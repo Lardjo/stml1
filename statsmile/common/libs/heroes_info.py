@@ -108,7 +108,35 @@ heroes_info = {
     },
 
     6: {'name': 'Drow Ranger',
-        'side': '',
+        'role': 'Carry',
+        'side': 'The Radiant',
+        'class': 'Agility',
+        'bio': '<p><strong>Traxex</strong> the <strong>Drow Ranger</strong> is a ranged agility hero whose greatest '
+               'assets are her incredible damage and ability to keep threats at bay. Traxex is a carry who, though '
+               'lacking survivability, provides a worthwhile contribution through her damage alone. The Drow Ranger '
+               'can be extremely powerful at any given point in the game.</p><p>As an agility hero, Traxex\'s damage '
+               'is based largely off her auto attacks and is among the greatest largely due to the massive amounts of '
+               'agility she gains from her passive ultimate, Marksmanship. The Drow Ranger also adds ranged damage to '
+               'teammates with her global Precision Aura. Despite her lack of escape spells, Drow Ranger can keep '
+               'herself relatively safe from enemy spellcasters and melee heroes using her Silence and her Frost '
+               'Arrows, respectively. Frost Arrows infuses her attacks with ice cold, greatly slowing down her '
+               'enemies. Since it can be manually cast, Frost Arrows can be used to harass her foes in the early game '
+               'without drawing the creeps\' attention. Silence is a great counter to enemy spellcasters who might '
+               'threaten her life in battles. Position is of utmost importance as Traxex is quite vulnerable in close '
+               'combat and the agility bonus from Marksmanship is removed when enemies come near her. This means she '
+               'struggles against melee dps heroes with high mobility, such as Anti-Mage and Faceless Void.</p>',
+        'quote': 'I walk alone, but the shadows are company enough.',
+        'strength': '17 + 1.9',
+        'agility': '26 + 1.9',
+        'intelligence': '15 + 1.4',
+        'ms': '300',
+        'tr': '0.6',
+        'sr': '1800 / 800',
+        'ar': '625',
+        'miss_s': '1250',
+        'ad': '0.7 + 0.3',
+        'cd': '0.4 + 0.5',
+        'bat': '1.7',
         'avatar': 'img/dota/heroes/drow_ranger.png'
     },
 
@@ -133,9 +161,18 @@ heroes_info = {
                'to be able to properly land Echo Slam within a cluster of enemies. At the same time, because of the '
                'high mana costs of his spells, he needs some form of mana sustenance. With his tremendous seismic '
                'power, the Earthshaker is never one that should be taken lightly even when he is heavily outnumbered.',
+        'quote': 'There may be many earths, but there\'s only one Earthshaker.',
         'strength': '22 + 2.5',
         'agility': '12 + 1.5',
         'intelligence': '16 + 1.8',
+        'ms': '300',
+        'tr': '0.6',
+        'sr': '1800 / 800',
+        'ar': 'Melee',
+        'miss_s': 'Instant',
+        'ad': '0.467 + 0.863',
+        'cd': '0.69 + 0.5',
+        'bat': '1.7',
         'avatar': 'img/dota/heroes/earthshaker.png'
     },
 
@@ -169,27 +206,120 @@ heroes_info = {
     },
 
     9: {'name': 'Mirana',
-        'side': '',
+        'role': 'Carry, Nuker, Disabler, Escape',
+        'side': 'The Radiant',
+        'class': 'Agility',
+        'bio': '<strong>Mirana</strong> the <strong>Princess of the Moon</strong>, is a ranged Agility Hero that uses '
+               'her abilities to surprise, chase, and assault enemies. She is an excellent huntress and widely known '
+               'for her Sacred Arrow which stuns her victim with deadly precision. The arrow stuns longer when its '
+               'fired from a farther distance. Mirana can bring down the stars with Starstorm to damage nearby enemies '
+               'and an additional star to cast down on her one unfortunate target. Mounting with her trusted tiger '
+               'Sagan, Mirana can Leap forward over a distance, to escape or chase, and enhancing her allies with a '
+               'roar, increasing their attack and movement speed. Invoking the power of her moon goddess, Mirana uses '
+               'her ultimate, Moonlight Shadow to cloak all allied heroes and herself with invisibility. At any time, '
+               'Mirana and her allies can break out of their hiding with an ambush and fade into the shadows again '
+               'during the duration of the spell. With an array of mighty and supportive skills, Mirana is a versatile '
+               'heroine that can excel early in the game as a mobile ganker. She is not much heavily reliant on '
+               'luxurious items but she can benefit from almost any item that gives her presence in the battlefield.',
+        'quote': ' How long must we ride before we\'re summoned again to the Nightsilver Woods?',
+        'strength': '17 + 1.85',
+        'agility': '20 + 2.75',
+        'intelligence': '17 + 1.65',
+        'ms': '300',
+        'tr': '0.4',
+        'sr': '1800 / 800',
+        'ar': '600',
+        'miss_s': '900',
+        'ad': '0.3 + 0.7',
+        'cd': '0.5 + 0.83',
+        'bat': '1.7',
         'avatar': 'img/dota/heroes/mirana.png'
     },
 
     10: {'name': 'Morphling',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/morphling.png'
     },
 
     11: {'name': 'Shadow Fiend',
-         'side': '',
+         'role': 'Carry, Nuker',
+         'side': 'The Dire',
+         'class': 'Agility',
+         'bio': '<strong>Nevermore</strong> the <strong>Shadow Fiend</strong> is a ranged agility Hero possessing '
+                'abilities that inflict superb burst damage from varying distances. Whether near or far, Shadow Fiend '
+                'is able to release incredible offensive power, both physical and magical. Shadow Fiend\'s true power '
+                'comes from the souls he takes, thus, he is more dangerous every time he kills. With enough souls, he '
+                'can release all of the captured souls in a devastating burst, dealing more damage to enemies that '
+                'are closer to him. Shadow Fiend is a carry who is powerful at all stages of the game, a trait most '
+                'carries don\'t share. He can harass and conquer early game, set out and kill unsuspecting Heroes '
+                'during the mid stages, and unleash more power and dominate other Heroes late game.',
+         'quote': 'So, you\'re curious where I come from? There\'s one easy way to find out for yourself.',
+         'strength': '15 + 2',
+         'agility': '20 + 2.9',
+         'intelligence': '18 + 2',
+         'ms': '305',
+         'tr': '1.0',
+         'sr': '1800 / 800',
+         'ar': '500',
+         'miss_s': '1200',
+         'ad': '0.5 + 0.54',
+         'cd': '0.67 + 0.4',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/nevermore.png'
     },
 
     12: {'name': 'Phantom Lancer',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/phantom_lancer.png'
     },
 
     13: {'name': 'Puck',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/puck.png'
     },
 
@@ -231,17 +361,73 @@ heroes_info = {
     },
 
     15: {'name': 'Razor',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/razor.png'
     },
 
     16: {'name': 'Sand King',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/sand_king.png'
     },
 
     17: {'name': 'Storm Spirit',
-         'side': '',
+         'role': 'Carry, Initiator, Escape, Disabler',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<p><strong>Raijin Thunderkeg</strong>, the <strong>Storm Spirit</strong>, is a ranged Intelligence '
+                'hero who wields the elemental power of lightning. He has high mobility, strong ganking and carrying '
+                'potential, and very good synergy between his hero abilities.</p><p>Static Remnant creates an immobile '
+                'clone of himself that, upon contact with an enemy, shocks all enemies in a small area for damage. It '
+                'has a very low cooldown, making it a good farming skill. Electric Vortex binds an enemy to himself, '
+                'drawing it in slowly; at higher levels of the skill, it will always be able to pull the target into '
+                'a Static Remnant. Overload further supplements this combo by harnessing the excess charge whenever '
+                'Raijin casts a spell, adding it in the form of magical damage to his next attack and zapping enemies '
+                'in a radius around the target. Finally, Storm Spirit\'s ultimate and signature skill is Ball '
+                'Lightning, in which he transforms into pure energy, sacrificing his own mana to dash quickly around '
+                'the map in an invulnerable state, inflicting minor damage to foes he impacts as well as giving him '
+                'an Overload charge. It can be used to initiate and escape long distances with ease.</p>',
+         'quote': 'Everyone complains about the weather...well, I\'m doing something about it!',
+         'strength': '19 + 1.5',
+         'agility': '22 + 1.8',
+         'intelligence': '23 + 2.6',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '480',
+         'miss_s': '1100',
+         'ad': '0.5 + 0.3',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/storm_spirit.png'
     },
 
@@ -313,7 +499,22 @@ heroes_info = {
     },
 
     20: {'name': 'Vengeful Spirit',
+         'role': '',
          'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
          'avatar': 'img/dota/heroes/vengefulspirit.png'
     },
 
@@ -344,17 +545,108 @@ heroes_info = {
     },
 
     22: {'name': 'Zeus',
-         'side': '',
+         'role': 'Nuker, Support',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<strong>Zeus</strong> the <strong>Lord of Heaven</strong> is a ranged intelligence Hero who functions '
+                'almost solely as a nuker. He is usually played as a semi-carry ganker type hero, who instead of '
+                'utilizing disables, focuses solely on delivering tremendous amounts of magical damage to his foes. '
+                'With the high cast range and low cooldown on his spells, he is able to deliver the most superb and '
+                'consistent magical damage of any hero in the game. Arc Lightning is a highly spammable nuke that '
+                'creates a stream of lightning that bounces between enemy foes (up to fifteen times at max level), '
+                'dealing minor damage. Lightning Bolt is more focused, dealing heavy damage to a single target, also '
+                'on a very low cooldown. Static Field is a potent passive ability that allows Zeus\'s magical damage '
+                'to scale into late game, dealing damage to all enemies within a decent AoE equal to a certain '
+                'percentage of nearby targets\' health whenever he casts a spell. Finally, his ultimate Thundergod\'s '
+                'Wrath allows him to strike all enemy heroes with a bolt of lightning, no matter their position, '
+                'inflicting heavy damage. It can be used for multiple purposes: to finish off low-health enemy '
+                'heroes limping away, to soften up the entire enemy team during a teamfight, or even to scout out the '
+                'enemy\'s position. With the ability to strike down enemies both near and afar, the Lord of Heaven '
+                'ensures that nobody can escape his wrath.',
+         'quote': 'Immortality was overrated. This is much more interesting.',
+         'strength': '19 + 2.3',
+         'agility': '11 + 1.2',
+         'intelligence': '20 + 2.7',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '350',
+         'miss_s': '1100',
+         'ad': '0.633 + 0.366',
+         'cd': '0.4 + 0.5',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/zuus.png'
     },
 
     23: {'name': 'Kunkka',
-         'side': '',
+         'role': 'Disabler, Initiator, Carry, Durable',
+         'side': 'The Radiant',
+         'class': 'Strength',
+         'bio': '<strong>Kunkka</strong> the <strong>Admiral</strong> is a versatile melee Strength hero built with an '
+                'arsenal of powerful area-of-effect spells. Two of his active spells are nukes that have long reaction '
+                'time, but can disable and disrupt the enemies\' position. He is mostly played as a carry or an '
+                'initiator or even a spell nuker. He is known for his Tidebringer sword, which magically gives him '
+                'the ability to cleave a large area around him on his attack with heavy potential damage on his next '
+                'attack, which refreshes at a given period of time. Torrent calls upon the element of water to rise '
+                'and burst out, dealing damage, disabling them up high, and slowing them on impact. There\'s a delay '
+                'on this skill before it activates, so Kunkka must be wise in using this ability. X Marks the Spot '
+                'targets any hero or Admiral himself to be marked on their current position, and after a few seconds '
+                'delay, instantly returns to the marked spot. Useful in setting up tricky spells, escape prevention, '
+                'or even saving allies, X Marks the Spot makes the Admiral a great battle strategist. His ultimate '
+                'lets him summon a Ghost Ship, which travels on ground, until it crashes a set distance away, '
+                'stunning and damaging enemy armies on that location. The Ghost Ship also bolsters allies with '
+                'Kunkka\'s Rum, granting them bonus movement speed and numbness to damage. Ghost Ship is difficult '
+                'to land, due to the fixed distance of its cast point and the crash site of the ship. However, a '
+                'good Ghost Ship absolutely cripples an enemy team. Capable of inflicting high burst damage with his '
+                'spells, controlling their position while able to survive the mayhem when his spells are used '
+                'properly, Kunkka is a mighty offensive team fighter, built with strong physical and magical damage '
+                'output, who can indeed turn the tide of a battle.',
+         'quote': 'Step lively now, your Admiral is on board!',
+         'strength': '24 + 3',
+         'agility': '14 + 1.3',
+         'intelligence': '18 + 1.5',
+         'ms': '300',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.4 + 0.3',
+         'cd': '0.4 + 0.51',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/kunkka.png'
     },
 
     25: {'name': 'Lina',
-         'side': '',
+         'role': 'Nuker, Disabler, Support',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<strong>Lina</strong> the <strong>Slayer</strong> is a ranged Intelligence hero, adept at destroying '
+                'enemy heroes fast and delivering massive bursts of magical damage, making her one of the most '
+                'effective gankers in the game. She possesses immense damaging capabilities all throughout the game, '
+                'but is very fragile. Two of her fiery spells are her main source of damage, Dragon Slave sends a wave '
+                'of fire to burn enemies in her path while Light Strike Array stuns them with a concentrated pillar '
+                'of solar flame. Each of her spells deals great damage early on and has a low cooldown. Her Fiery Soul '
+                'bolsters her attack and movement speed exponentially every time she casts a spell, which gives her '
+                'scaling damage for the later game. Laguna Blade, her ultimate, is her ace in the hole. Lina fires off '
+                'a huge bolt of lightning at a single target, dealing colossal damage. Laguna Blade\'s damage is '
+                'staggering in early-mid game, and late game is still enough to destroy frail enemy heroes. Dragon '
+                'Slave, Light Strike Array, and Laguna Blade are incredible flaming nukes that can incinerate her '
+                'target instantly, and Fiery Soul allows her to transition into a strong and fast physical attacker. '
+                'Though her power falls from its peak late game, mana-boosting and damage-increasing items can be '
+                'purchased to keep herself up, serving as the team\'s magical semi-carry, dishing out intense burning '
+                'damage with her attacks and spells.',
+         'quote': 'One little spark and before you know it, the whole world is burning.',
+         'strength': '18 + 1.5',
+         'agility': '16 + 1.5',
+         'intelligence': '27 + 3.2',
+         'ms': '295',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '650',
+         'miss_s': '900',
+         'ad': '0.75 + 0.78',
+         'cd': '0.45 + 1.08',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/lina.png'
     },
 
@@ -398,9 +690,18 @@ heroes_info = {
                 'him to close in on the enemy and drop his devastating Smoke Screen, which cripples fighter and '
                 'spellcaster alike. Blink Strike allows Riki to chase with impunity, and Backstab makes running '
                 'from him even more dangerous.',
+         'quote': 'There are none so stabbed as those who will not see.',
          'strength': '17 + 2',
          'agility': '34 + 2.9',
          'intelligence': '14 + 1.3',
+         'ms': '300',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.3 + 0.3',
+         'cd': '0.4 + 0.51',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/riki.png'
     },
 
@@ -449,7 +750,28 @@ heroes_info = {
     },
 
     37: {'name': 'Warlock',
-         'side': '',
+         'role': 'Initiator, Support, Lane Support, Disabler',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Demnok Lannik</strong> the <strong>Warlock</strong> is a ranged intelligence hero and a good '
+                'support. His Shadow Word ability makes for an excellent heal as well as a decent harassment tool, '
+                'and his physical attack helps him to ward off any enemies and keep his friends safe. He also '
+                'possesses a considerable presence in team fights, as Fatal Bonds spreads damage dealt by his allies '
+                'to all enemies affected by it and his Upheaval is a channelled Area of Effect spell that slows foes '
+                'caught in it by up to 84%. His ultimate, Chaotic Offering allows him to summon a massive Golem to do '
+                'his bidding, stunning anyone caught in a large area when it is summoned.',
+         'quote': 'Chaos comes at my command!',
+         'strength': '18 + 2.5',
+         'agility': '10 + 1',
+         'intelligence': '24 + 2.7',
+         'ms': '295',
+         'tr': '0.4',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1200',
+         'ad': '0.3 + 0.3',
+         'cd': '0.5 + 0.5',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/warlock.png'
     },
 
@@ -460,7 +782,29 @@ heroes_info = {
     },
 
     39: {'name': 'Queen of Pain',
-         'side': '',
+         'role': 'Nuker, Escape, Carry',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Akasha</strong> the <strong>Queen of Pain</strong> is a ranged intelligence hero who uses her '
+                'abilities to close in and deal huge area damage to the enemy. She is typically played as a ganker '
+                'with her ability to appear in battle and deal damage in quick succession, as well as hunt down '
+                'fleeing heroes with ease. Her Blink ability is the lynchpin of her skillset, allowing her to enter '
+                'and leave fights at her whim. Once in position to attack, Akasha can unleash her Scream of Pain and '
+                'Sonic Wave, able to devastate an entire team at once. Chasing down straggling prey is another of her '
+                'fortes, with Shadow Strike crippling their ability to escape. Akasha is very adept at getting kills '
+                'early in the game, and transitions very well into a semi-carry if she acquires the proper items.',
+         'quote': 'They say pain is all in the mind, but they\'re wrong: It\'s all in my hands.',
+         'strength': '16 + 1.7',
+         'agility': '18 + 2',
+         'intelligence': '24 + 2.5',
+         'ms': '300',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '550',
+         'miss_s': '1500',
+         'ad': '0.56 + 0.41',
+         'cd': '0.452 + 1.008',
+         'bat': '1.7',
          'avatar': 'img/dota/heroes/queenofpain.png'
     },
 
@@ -525,16 +869,83 @@ heroes_info = {
                 'critical strike in the game, is what connects Mortred with four-digit damage and what gives her a '
                 'place amongst the very best support killers in the late game, since they usually fall instantly '
                 'from the divine strike her ultimate provides.',
+         'quote': 'I\'m here to blur the line between life and death.',
          'strength': '20 + 1.85',
          'agility': '23 + 3.15',
          'intelligence': '13 + 1',
+         'ms': '310',
+         'tr': '0.4',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.3 + 0.7',
+         'cd': '0.3 + 0.5',
+         'bat': '0.7',
          'avatar': 'img/dota/heroes/phantom_assassin.png'
     },
 
     45: {'name': 'Pugna', 'avatar': 'img/dota/heroes/pugna.png'},
-    46: {'name': 'Templar Assassin', 'avatar': 'img/dota/heroes/templar_assassin.png'},
+
+    46: {'name': 'Templar Assassin',
+         'role': 'Carry, Escape',
+         'side': 'The Radiant',
+         'class': 'Agility',
+         'bio': '<p><strong>Lanaya</strong> the <strong>Templar Assassin</strong> is a short-ranged Agility hero '
+                'capable of dealing huge bursts of Physical damage to swathes of enemies with expert positioning and '
+                'timing. Unlike most physical damage dealers, Lanaya reaches her damage potential quite early and then '
+                'scales up from that point with carry items, letting her gank with impunity throughout the '
+                'mid-game, and her range changes from a melee hero to a ranged hero with short reach as '
+                'she levels Psi Blades.</p><p>Her Psionic Traps provide map control and the ability to chase down '
+                'fleeing heroes from up to 2000 range, and Refraction and Meld lets you shrug off high-damage nukes '
+                'and disjoint projectiles. With a Blink Dagger, Lanaya can quickly materialize in the enemy team\'s '
+                'weakest flank and shred several heroes at once with her Meld and Psi Blades.</p>',
+         'quote': 'My body is a temple for which I will kill.',
+         'strength': '18 + 2.1',
+         'agility': '23 + 2.7',
+         'intelligence': '20 + 2',
+         'ms': '305',
+         'tr': '0.7',
+         'sr': '1800 / 800',
+         'ar': '140',
+         'miss_s': '900',
+         'ad': '0.3 + 0.5',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/templar_assassin.png',
+    },
+
     47: {'name': 'Viper', 'avatar': 'img/dota/heroes/viper.png'},
-    48: {'name': 'Luna', 'avatar': 'img/dota/heroes/luna.png'},
+
+    48: {'name': 'Luna',
+         'role': 'Carry, Nuker',
+         'side': 'The Radiant',
+         'class': 'Agility',
+         'bio': '<strong>Luna</strong> the <strong>Moon Rider</strong> is a Ranged Agility carry hero. Even though '
+                'she can be seen as a tempting target for enemy heroes, Luna possesses solid early game laning '
+                'presence due to her Lucent Beams, a cheap, low-cooldown nuke, and her Lunar Blessing aura, which '
+                'grants all nearby allied heroes increased damage. In mid-game, she becomes far more formidable with '
+                'Moon Glaives, allowing her to kill entire creep waves with two to three attacks, and Eclipse, which '
+                'can instantly kill a hero if that hero is unfortunate to catch its full blast. Luna is a very common '
+                'pick in professional matches; owing to her unique status as a hard carry who is also a dangerous '
+                'nuker. Her Achilles\' Heel is her fragility; she has no escape abilities and cannot handle a lot of '
+                'punishment, relying on her enormous movement speed to keep her out of harm\'s way. Luna begins and '
+                'ends a match dangerous, and if carefully and skilfully played will destroy '
+                'anybody who stands against her.',
+         'quote': 'I would water the trees with their entrails if Selemene would smile on me.',
+         'strength': '15 + 1.9',
+         'agility': '22 + 2.8',
+         'intelligence': '16 + 1.85',
+         'ms': '330',
+         'tr': '0.4',
+         'sr': '1800 / 800',
+         'ar': '330',
+         'miss_s': '900',
+         'ad': '0.46 + 0.54',
+         'cd': '0.6 + 0.4',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/luna.png'
+    },
+
     49: {'name': 'Dragon Knight', 'avatar': 'img/dota/heroes/dragon_knight.png'},
 
     50: {'name': 'Dazzle',
@@ -644,7 +1055,32 @@ heroes_info = {
 
     55: {'name': 'Dark Seer', 'avatar': 'img/dota/heroes/dark_seer.png'},
     56: {'name': 'Clinkz', 'avatar': 'img/dota/heroes/clinkz.png'},
-    57: {'name': 'Omniknight', 'avatar': 'img/dota/heroes/omniknight.png'},
+
+    57: {'name': 'Omniknight',
+         'role': 'Durable, Lane Support, Support',
+         'side': 'The Radiant',
+         'class': 'Strength',
+         'bio': '<strong>Purist Thunderwrath</strong> the <strong>Omniknight</strong> is a versatile melee strength '
+                'hero who can take on the role of a support or, occasionally, a semi-carry, depending on the player\'s '
+                'play style. A holy and courageous Hero, Omniknight possesses abilities that excel at protecting and '
+                'aiding friendly heroes. His heal doubles as a nuke and he can grant any friend Magic Immunity, as '
+                'well as blessing allies with a physical invulnerability and regeneration. Few can escape the mighty '
+                'and heavenly power of the Omniknight and he is a powerful ally in team fights. He is a mighty tank, '
+                'and one of the most difficult heroes to kill.',
+         'quote': 'I have gazed into the Omniscience, and it has gazed into me.',
+         'strength': '20 + 2.65',
+         'agility': '15 + 1.75',
+         'intelligence': '17 + 1.8',
+         'ms': '305',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.433 + 0.567',
+         'cd': '0.5 + 1.67',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/omniknight.png'},
+
     58: {'name': 'Enchantress', 'avatar': 'img/dota/heroes/enchantress.png'},
     59: {'name': 'Huskar', 'avatar': 'img/dota/heroes/huskar.png'},
     60: {'name': 'Night Stalker', 'avatar': 'img/dota/heroes/night_stalker.png'},
@@ -673,9 +1109,64 @@ heroes_info = {
     65: {'name': 'Batrider', 'avatar': 'img/dota/heroes/batrider.png'},
     66: {'name': 'Chen', 'avatar': 'img/dota/heroes/chen.png'},
     67: {'name': 'Spectre', 'avatar': 'img/dota/heroes/spectre.png'},
-    68: {'name': 'Ancient Apparition', 'avatar': 'img/dota/heroes/ancient_apparition.png'},
+
+    68: {'name': 'Ancient Apparition',
+         'role': 'Support, Disabler',
+         'side': 'The Dire',
+         'class': 'Intelligence',
+         'bio': '<strong>Kaldr</strong> the <strong>Ancient Apparition</strong> is a ranged intelligence hero. This '
+                'spell-caster elemental being possesses high range, great attributes and strong semi-spammable spells. '
+                'He is commonly played as a ganker or support role and due to his high agility and an attack enhancing '
+                'spell, he can be played as a Semi-Carry too. His ultimate is one of the most devastating spells in '
+                'the game as it can hit multiple units, has global range, freezes health regeneration, and instantly '
+                'kill units if low on life.',
+         'quote': 'One day, ice will cover these lands, and it will be as if this war never happened.',
+         'strength': '18 + 1.4',
+         'agility': '20 + 22',
+         'intelligence': '25 + 2.6',
+         'ms': '295',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1250',
+         'ad': '0.45 + 0.3',
+         'cd': '0.01 + 0.75',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/ancient_apparition.png'},
+
     69: {'name': 'Doom Bringer', 'avatar': 'img/dota/heroes/doom_bringer.png'},
-    70: {'name': 'Ursa', 'avatar': 'img/dota/heroes/ursa.png'},
+
+    70: {'name': 'Ursa',
+         'role': 'Carry, Jungler, Durable',
+         'side': 'The Radiant',
+         'class': 'Agility',
+         'bio': '<p><strong>Ulfsaar</strong> the <strong>Ursa Warrior</strong> is a melee agility hero whose '
+                'abilities\' main focus is the increase of autoattack damage, allowing for some of the most '
+                'impressive sustained damage in the entire game.</p><p>He specializes in increasing damage against one '
+                'target. His abilities allow him to attack at up to maximum speed (400 IAS) and gain bonus damage '
+                'with each consecutive hit on a single target. With these abilities—Overpower and Fury Swipes—Ursa '
+                'can savage beefy targets for as much as 700 damage per hit. He is a ferocious jungler and '
+                'straightforward attacker, able to solo even Roshan at low levels if he has Vladmir\'s Offering or '
+                'another lifesteal. Ursa is a carry who can snowball if he is farmed, but the array of anti-melee '
+                'abilities existing even by the early game and his lack of any counterspells, especially to strong '
+                'nukers and heroes with the ability to evade him make him a hero reliant on other spells on his team. '
+                'Although an agility hero, Ursa\'s strength gain makes him very durable, and his ultimate allows his '
+                'damage to scale by building strength items.</p>',
+         'quote': 'It is my spirit that keeps me safe, and not mere armor.',
+         'strength': '23 + 2.9',
+         'agility': '18 + 2.1',
+         'intelligence': '16 + 1.5',
+         'ms': '310',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.3 + 0.3',
+         'cd': '0.3 + 0',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/ursa.png'
+    },
+
     71: {'name': 'Spirit Breaker', 'avatar': 'img/dota/heroes/spirit_breaker.png'},
     72: {'name': 'Gyrocopter', 'avatar': 'img/dota/heroes/gyrocopter.png'},
     73: {'name': 'Alchemist', 'avatar': 'img/dota/heroes/alchemist.png'},
@@ -715,7 +1206,37 @@ heroes_info = {
          'avatar': 'img/dota/heroes/invoker.png'
     },
 
-    75: {'name': 'Silencer', 'avatar': 'img/dota/heroes/silencer.png'},
+    75: {'name': 'Silencer',
+         'role': 'Support, Carry, Initiator',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<strong>Nortrom</strong> the <strong>Silencer</strong> is a ranged Intelligence hero who can be '
+                'played as a Support, Carry or Initiator. He is one of the minority of Intelligence heroes who truly '
+                'benefits from Intelligence items and is effective against Heroes who rely mostly on spells, as he can '
+                'silence them while stealing their Intelligence and adding it to his own. He is a notorious anti-caster '
+                'hero who can disrupt the magical abilities of his enemies and cripple spellcasters throughout the '
+                'game. Curse of the Silent causes enemies to lose health and mana until the end of the duration or '
+                'until the enemy casts a spell. Last Word places a curse on Nortrom\'s target that damages and '
+                'silences for a long duration if the target casts a spell. If the target does not cast a spell before '
+                'the curse\'s duration ends they will be damaged, silenced, and disarmed. Glaives of Wisdom is a '
+                'Unique Attack Modifier that deals a percentage of Nortrom\'s intelligence as pure damage. Glaives '
+                'of Wisdom also includes a passive component that permanently steals the intelligence of enemy heroes '
+                'that die near Nortrom. Nortrom\'s ultimate, Global Silence, silences all enemy units on the map for '
+                'a few seconds. A well-timed Global Silence can be used to save yourself or an ally, initiate a '
+                'teamfight, or ruin the enemy\'s initiation.',
+         'quote': 'Quiet as the grave.',
+         'strength': '17 + 2.2',
+         'agility': '16 + 2.1',
+         'intelligence': '27 + 2.5',
+         'ms': '300',
+         'tr': '0.6',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1000',
+         'ad': '0.5 + 0.5',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/silencer.png'},
 
     76: {'name': 'Outworld Devourer',
          'role': 'Carry',
@@ -774,13 +1295,175 @@ heroes_info = {
          'avatar': 'img/dota/heroes/lone_druid.png'
     },
 
-    81: {'name': 'Chaos Knight', 'avatar': 'img/dota/heroes/chaos_knight.png'},
-    82: {'name': 'Meepo', 'avatar': 'img/dota/heroes/meepo.png'},
-    83: {'name': 'Treant Protector', 'avatar': 'img/dota/heroes/treant.png'},
-    84: {'name': 'Ogre Magi', 'avatar': 'img/dota/heroes/ogre_magi.png'},
-    85: {'name': 'Undying', 'avatar': 'img/dota/heroes/undying.png'},
-    86: {'name': 'Rubick', 'avatar': 'img/dota/heroes/rubick.png'},
-    87: {'name': 'Disruptor', 'avatar': 'img/dota/heroes/disruptor.png'},
+    81: {'name': 'Chaos Knight',
+         'role': 'Carry, Disabler, Durable, Pusher',
+         'side': 'The Dire',
+         'class': 'Strength',
+         'bio': '<strong>Chaos Knight</strong> is a melee strength Hero with one of the highest physical damage '
+                'outputs of all heroes. He is mostly played as a semi-carry and ganker. As his name implies, he has a '
+                'theme based on randomness and uncertainty. His regular attack has an incredibly high thirty damage '
+                'spread, making his last hitting ability somewhat unreliable. Chaos Bolt is his most notorious '
+                'luck-based ability which, at max level, can stun a target anywhere between a mediocre 2 seconds to an '
+                'effective 4 seconds that will almost certainly assure its death; it will also deal a variable amount '
+                'of damage ranging from miniscule to moderate. Reality Rift pulls Chaos Knight and his target to a '
+                'randomly chosen point along the line between the two and gives him bonus damage for one attack. Chaos '
+                'Strike is a crit-based ability with one of the lowest proc chances, yet also one of the highest '
+                'multipliers. His only non-random ability is his ultimate Phantasm, which produces the most powerful '
+                'illusions in the game. These illusions, which retain his full damage and only take double damage, '
+                'benefit from his Chaos Strike and can teleport alongside him to attack the target whenever he uses '
+                'Reality Rift. With three illusions being produced at Phantasm\'s highest level, Chaos Knight\'s '
+                'damage output is effectively quadrupled during teamfights later in the game, and it is not uncommon '
+                'to see enemy heroes being killed instantly after being Reality Rifted by the four apocalyptic '
+                'horsemen. Thus, even though he is mostly played as a semi-carry who is extremely effective in the '
+                'early to mid game, if the game drags on long enough and he is able to acquire enough strength-based '
+                'and survivability items to ensure that his illusions can stay alive, he will be able to overpower '
+                'most hard carries.',
+         'quote': 'The light shall be blackened, and chaos shall reign.',
+         'strength': '20 + 2.9',
+         'agility': '14 + 2.1',
+         'intelligence': '16 + 1.2',
+         'ms': '325',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.5 + 0.5',
+         'cd': '0.4 + 0.2',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/chaos_knight.png'},
+
+    82: {'name': 'Meepo',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/meepo.png'
+    },
+
+    83: {'name': 'Treant Protector',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/treant.png'
+    },
+
+    84: {'name': 'Ogre Magi',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/ogre_magi.png'
+    },
+
+    85: {'name': 'Undying',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/undying.png'
+    },
+
+    86: {'name': 'Rubick',
+         'role': 'Disabler, Pusher, Support, Line Support',
+         'side': 'The Radiant',
+         'class': 'Intelligence',
+         'bio': '<strong>Rubick</strong> the <strong>Grand Magus</strong> is a ranged Intelligence hero best known for '
+                'his ability to copy the spells of his enemies and use them as his own. Although he is mostly played '
+                'as a support and is extremely fragile the entire length of the game, he can still prove to be one of '
+                'the most influential heroes if he utilizes good positioning and well-timed usage of his ultimate, '
+                'Spell Steal, correctly. Spell Steal allows Rubick to cast an enemy hero\'s most recently used spell, '
+                'giving him supreme versatility throughout the game. By stealing the right abilities, the Grand Magus '
+                'can aid himself and allies by casting crippling disables, applying curses, unleashing powerful nukes, '
+                'disorienting the enemy team, supporting his allies with buffs, escaping from rough situations, or '
+                'even enhancing his own physical attacks. His other abilities are just as worthy of a Magus: '
+                'Telekinesis lets Rubick magically lift an enemy into the air, rendering the target helpless and '
+                'vulnerable, before hurling the lifted enemy to the ground up to a short distance away and stunning '
+                'nearby foes on impact. Fade Bolt blasts enemies with a stream of arcane energy which bounces to all '
+                'enemies nearby, dealing damage and reducing their attack damage. Null Field is a passive aura, which '
+                'grants himself and nearby allied heroes bonus magic resistance to shrug off magical assaults. '
+                'Rubick\'s versatile skill-set and his infamous Spell Steal make him a flexible and powerful hero '
+                'that can work in any lineup.',
+         'quote': 'I am no thief. I merely borrow.',
+         'strength': '19 + 1.5',
+         'agility': '14 + 1.6',
+         'intelligence': '27 + 2.4',
+         'ms': '290',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1125',
+         'ad': '0.4 + 0.77',
+         'cd': '0.1 + 1.17',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/rubick.png'},
+
+    87: {'name': 'Disruptor',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/disruptor.png'},
 
     88: {'name': 'Nyx Assassin',
          'bio': '<strong>Nyx Assassin</strong> is a melee Agility Hero who is a dedicated ganker until the end. '
@@ -810,10 +1493,82 @@ heroes_info = {
          'avatar': 'img/dota/heroes/nyx_assassin.png'
     },
 
-    89: {'name': 'Naga Siren', 'avatar': 'img/dota/heroes/naga_siren.png'},
-    90: {'name': 'Keeper of the Light', 'avatar': 'img/dota/heroes/keeper_of_the_light.png'},
-    91: {'name': 'Io', 'avatar': 'img/dota/heroes/wisp.png'},
-    92: {'name': 'Visage', 'avatar': 'img/dota/heroes/visage.png'},
+    89: {'name': 'Naga Siren',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/naga_siren.png'},
+
+    90: {'name': 'Keeper of the Light',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/keeper_of_the_light.png'},
+
+    91: {'name': 'Io',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/wisp.png'},
+
+    92: {'name': 'Visage',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/visage.png'},
+
 
     93: {'name': 'Slark',
          'role': 'Escape',
@@ -846,12 +1601,146 @@ heroes_info = {
          'avatar': 'img/dota/heroes/slark.png'
     },
 
-    94: {'name': 'Medusa', 'avatar': 'img/dota/heroes/medusa.png'},
-    95: {'name': 'Troll Warlord', 'avatar': 'img/dota/heroes/troll_warlord.png'},
-    96: {'name': 'Centaur Warrunner', 'avatar': 'img/dota/heroes/centaur.png'},
-    97: {'name': 'Magnus', 'avatar': 'img/dota/heroes/magnataur.png'},
-    98: {'name': 'Timbersaw', 'avatar': 'img/dota/heroes/shredder.png'},
-    99: {'name': 'Bristleback', 'avatar': 'img/dota/heroes/bristleback.png'},
+    94: {'name': 'Medusa',
+         'role': 'Carry',
+         'side': 'The Dire',
+         'class': 'Agility',
+         'bio': '<strong>Medusa</strong> the <strong>Gorgon</strong> is a ranged agility Hero. Highly item-dependent, '
+                'she acts as a carry who can potentially strike down entire teams at once while protected by tank-like '
+                'survivability. Split Shot allows her attacks to hit multiple targets, greatly increasing the potency '
+                'of damage-granting items. Mystic Snake grants Medusa some presence in the lane and skirmishes, and '
+                'its mana stealing refunds part of the cost to boot, making it an excellent farming and harrassing '
+                'tool. Mana Shield protects her from the opening damage of teamfights, and if supplemented with items '
+                'makes killing Medusa a fatally time-consuming process. Stone Gaze acts as a fantastic defensive '
+                'mechanism against ganks and initiations alike, '
+                'with crippling effects on all who dare face the Gorgon.',
+         'quote': 'The only real beauty is power.',
+         'strength': '14 + 1.65',
+         'agility': '20 + 2.5',
+         'intelligence': '19 + 1.85',
+         'ms': '290',
+         'tr': '0.5',
+         'sr': '1800 / 800',
+         'ar': '600',
+         'miss_s': '1200',
+         'ad': '0.5 + 0.6',
+         'cd': '0.4 + 0.5',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/medusa.png'
+    },
+
+    95: {'name': 'Troll Warlord',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/troll_warlord.png'
+    },
+
+    96: {'name': 'Centaur Warrunner',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/centaur.png'
+    },
+
+    97: {'name': 'Magnus',
+         'role': 'Initiator, Disabler, Nuker, Carry',
+         'side': 'The Dire',
+         'class': 'Strength',
+         'bio': '<strong>Magnus</strong> the <strong>Magnoceros</strong> is a monstrous melee strength hero who is '
+                'usually played as a ganker, initiator, or semi-carry. His ability to battle multiple heroes at once '
+                'gives him an excellent presence in team fights. In addition to his teamfight presence, he can buff '
+                'allies or himself with bonus damage and cleave, capitalizing on his ability to group up multiple '
+                'enemies. As a hero who possesses multiple area-of-effect abilities with a manageable mana cost, '
+                'and a very powerful ultimate that serves as both a team fight and initiation ability, Magnus is '
+                'truly a force to be reckoned with.',
+         'quote': 'No, I blame no one who covets my horn. But to desire more than sight of it is a guarantee of death.',
+         'strength': '21 + 2.75',
+         'agility': '15 + 2.5',
+         'intelligence': '17 + 1.65',
+         'ms': '315',
+         'tr': '0.8',
+         'sr': '1800 + 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.5 + 0.84',
+         'cd': '0.3 + 0.6',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/magnataur.png'
+    },
+
+    98: {'name': 'Timbersaw',
+         'role': '',
+         'side': '',
+         'class': '',
+         'bio': '',
+         'quote': '',
+         'strength': '',
+         'agility': '',
+         'intelligence': '',
+         'ms': '',
+         'tr':'',
+         'sr':'',
+         'ar':'',
+         'miss_s':'',
+         'ad':'',
+         'cd':'',
+         'bat':'',
+         'avatar': 'img/dota/heroes/shredder.png'
+    },
+
+    99: {'name': 'Bristleback',
+         'role': 'Durable, Initiator, Disabler',
+         'side': 'The Radiant',
+         'class': 'Strength',
+         'bio': '<strong>Rigwarl</strong> the <strong>Bristleback</strong> is a melee Strength hero famous for his '
+                'array of synergistic spells with low mana cost and cooldown. He is able to slow his enemies down and '
+                'reduce their armor with Viscous Nasal Goo, then hit them with a barrage of Quill Sprays, making him '
+                'an effective chaser when ganking enemies. His low strength gain makes him less tanky than most '
+                'strength heroes, but he becomes substantially more durable when he turns around due to his passive '
+                'Bristleback, which reduces damage taken from behind. In the right hands, Bristleback is a powerful '
+                'ganker in the early stages of the game, and a powerful semi-carry in the later stages depending on '
+                'how much farm he gets.',
+         'quote': 'It was a barkeep that got me into this mess. Yeah, I think I\'ll pay em a visit when this is done.',
+         'strength': '22 + 2.2',
+         'agility': '17 + 1.8',
+         'intelligence': '14 + 2.8',
+         'ms': '295',
+         'tr': '1.0',
+         'sr': '1800 / 800',
+         'ar': 'Melee',
+         'miss_s': 'Instant',
+         'ad': '0.3 + 0.3',
+         'cd': '0.3 + 0.51',
+         'bat': '1.7',
+         'avatar': 'img/dota/heroes/bristleback.png'
+    },
 
     100: {'name': 'Tusk',
           'role': 'Initiator, Durable',
@@ -896,14 +1785,23 @@ heroes_info = {
                  'Enemy heroes caught in this field will suffer damage; if it is used on a single hero, it will '
                  'deal its full damage potential. His spells are most effective when targeted on a lone hero and '
                  'thus suffer decreased effectiveness when used on groups.',
+          'quote': 'Those who tangle with the Skywrath risk a fall from starry heights.',
           'strength': '19 + 1.5',
           'agility': '18 + 0.8',
           'intelligence': '27 + 3.6',
+          'ms': '315',
+          'tr': '0.5',
+          'sr': '1800 / 800',
+          'ar': '600',
+          'miss_s': '1000',
+          'ad': '0.4 + 0.78',
+          'cd': '0.1 + 1.08',
+          'bat': '1.7',
           'avatar': 'img/dota/heroes/skywrath_mage.png'
     },
 
     102: {'name': 'Abaddon',
-          'role': 'Durable',
+          'role': 'Durable, Support, Escape',
           'side': 'The Dire',
           'class': 'Strength',
           'bio': '<strong>Abaddon</strong> the <strong>Lord of Avernus</strong> is a melee strength Hero known as '
@@ -922,9 +1820,18 @@ heroes_info = {
                  'receives into health. When not on cooldown, Borrowed Time may activate passively when his health '
                  'falls under a certain threshold, even under the most dire situations. Due to his powerful spells '
                  'and versatility, Abaddon is an excellent addition to any team.',
+          'quote': 'The fog of war is no match for the mist of fate.',
           'strength': '23 + 2.7',
           'agility': '17 + 1.5',
           'intelligence': '21 + 2',
+          'ms': '310',
+          'tr': '0.6',
+          'sr': '1800 / 800',
+          'ar': 'Melee',
+          'miss_s': 'Instant',
+          'ad': '0.56 + 0.41',
+          'cd': '0.452 + 1.008',
+          'bat': '1.7',
           'avatar': 'img/dota/heroes/abaddon.png'
     },
 
@@ -940,9 +1847,18 @@ heroes_info = {
                  'makes Elder Titan scale well through his abilities and be effective at all stages of the game. '
                  'As the progenitor of this world, Elder Titan reshapes the battlefield on a whim and can turn any '
                  'teamfight in his favor.',
+          'quote': 'It is only right that I am cast into this world, for I had a hand in breaking it.',
           'strength': '24 + 2.3',
           'agility': '14 + 1.5',
           'intelligence': '23 + 1.6',
+          'ms': '315',
+          'tr': '0.4',
+          'sr': '1800 / 800',
+          'ar': 'Melee',
+          'miss_s': 'Instant',
+          'ad': '0.35 + 0.97',
+          'cd': '0.4 + 0.8',
+          'bat': '1.7',
           'avatar': 'img/dota/heroes/elder_titan.png'},
 
     104: {'name': 'Legion Commander',
@@ -950,9 +1866,18 @@ heroes_info = {
           'side': '',
           'class': '',
           'bio': '',
+          'quote': '',
           'strength': '',
           'agility': '',
           'intelligence': '',
+          'ms': '',
+          'tr':'',
+          'sr':'',
+          'ar':'',
+          'miss_s':'',
+          'ad':'',
+          'cd':'',
+          'bat':'',
           'avatar': 'img/dota/heroes/legion_commander.png'
     },
 
@@ -989,10 +1914,26 @@ heroes_info = {
           'role': 'Initiator',
           'side': 'The Radiant',
           'class': 'Strength',
-          'bio': '<strong>Kaolin</strong>, the <strong>Earth Spirit</strong>',
+          'bio': '<p><strong>Kaolin</strong>, the <strong>Earth Spirit</strong> a hero with the middle type of attack, '
+                 'the main characteristic of which is the strength. The hero is a very versatile and useful to the '
+                 'whole team. Can help to kill the enemies on the lines and be ганкером, is also very useful in the '
+                 'mass battles, because of its ability to affect the region. He can act in a role of the initiator, as '
+                 'his abilities can neutralize the entire enemy team. Also can act out the role of a semi-Kerry with '
+                 'the proper assembling objects and lead your team to victory.</p><p>However, the ability of Kaolin '
+                 'require good control and positioning, therefore it is recommended for players with an advanced '
+                 'level of the game, and in any case not advisable for beginners.</p>',
+          'quote': 'Through conflict, one\'s nature is revealed.',
           'strength': '21 + 2.9',
           'agility': '17 + 1.5',
           'intelligence': '18 + 2.4',
+          'ms': '305',
+          'tr': '0.6',
+          'sr': '1800 / 800',
+          'ar': 'Melee',
+          'miss_s': 'Instant',
+          'ad': '0.35 + 0.65',
+          'cd': '0.01 + 0',
+          'bat': '1.7',
           'avatar': 'img/dota/heroes/earth_spirit.png'
     }
 

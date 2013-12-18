@@ -42,7 +42,6 @@ def update_user(db, steamid):
                 for_update.append(key)
         db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": for_update}}})
         db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}})
-        logging.debug("User %s matches has been updated. Added %s new matches." % (steamid, len(for_update)))
 
     if response_steam.error:
         logging.warning("User profile %s has not updated. Remote server not respond. "
@@ -60,11 +59,10 @@ def update_user(db, steamid):
             user["realname"] = None
         db["users"].update({"steamid": steamid}, {"$set": user})
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
-        logging.debug("User profile %s has been updated." % steamid)
 
     # Update user count matches
     user = db['users'].find_one({'steamid': steamid})
     matches = db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9, 15]}}).count()
     db['users'].update({'steamid': steamid}, {'$set': {"dota_count": matches}})
-
     db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=5)}})
+    logging.info("User profile %s has been updated." % steamid)

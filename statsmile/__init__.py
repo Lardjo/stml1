@@ -67,6 +67,8 @@ class Statsmile(Application):
 
         handler_ls = [
             (r'/', handlers.MainHandler),
+            (r'/status', handlers.StatusHandler),
+            (r'/statistics', handlers.StatsHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),
@@ -93,7 +95,12 @@ class Statsmile(Application):
         self.db['server'].ensure_index('key', unique=True)
         self.db['sessions'].ensure_index('last_accessed', expireAfterSeconds=30 * 24 * 60 * 60)
         self.db['matches'].ensure_index([('players.account_id', ASCENDING), ('game_mode', ASCENDING)])
+        self.db['matches'].ensure_index([('players.hero_id', ASCENDING), ('game_mode', ASCENDING)])
         self.db['matches'].ensure_index('start_time', DESCENDING)
+        self.db['heroes'].ensure_index('popularity', ASCENDING)
+        self.db['heroes'].ensure_index('hero_id', ASCENDING)
+        self.db['users'].ensure_index('steamid', ASCENDING)
+        self.db['matches'].ensure_index('game_mode', ASCENDING)
 
         # Prepare status collection
         if not 'status' in self.db.collection_names():
@@ -143,7 +150,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db, 'cookie_secret'),
             'gzip': True,
-            'debug': True,
+            'debug': False,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
