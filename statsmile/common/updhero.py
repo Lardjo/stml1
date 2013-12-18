@@ -26,17 +26,20 @@ def update_hero(db, hero):
         {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
         {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
         {'$sort': {'number': -1}}
-    ])
+    ])['result']
 
     try:
-        pos = list(map(itemgetter('_id'), top_heroes['result'])).index(hero['hero_id']) + 1
-    except ValueError:
-        pos = 112
+        pos = list(map(itemgetter('_id'), top_heroes)).index(hero['hero_id'])
+        matches = top_heroes[pos]['number']
+    except (ValueError, KeyError):
+        pos = 0
+        matches = 0
 
     db['heroes'].update({'hero_id': hero['hero_id']},
                         {'$set': {'popular_items': items['result'],
                                   'last_update': datetime.now(),
-                                  'popularity': pos,
+                                  'popularity': pos + 1,
+                                  'matches': matches,
                                   'update': datetime.now() + timedelta(minutes=30)}})
 
-    logging.debug("Hero %s has been updated." % hero['hero_id'])
+    logging.info("Hero %s has been updated." % hero['hero_id'])

@@ -144,16 +144,20 @@
           </tr>
           </thead>
           <tbody>
+          {% set n = 1 %}
+          {% for tp in top %}
           <tr>
-              <td>1</td>
+              <td>{{ n }}</td>
               <td>
                   <div class="hero-container">
-                      <img src="{{ static_url(heroes[14]['avatar']) }}">
+                      <img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}">
                   </div>
-                  <div class="hero-name"><strong>{{ heroes[14]['name'] }}</strong></div>
+                  <div class="hero-name"><strong>{{ heroes[tp['hero_id']]['name'] }}</strong></div>
               </td>
-              <td>322</td>
+              <td>{{ tp['matches'] }}</td>
           </tr>
+          {% set n += 1 %}
+          {% end %}
           </tbody>
 </table>
 
