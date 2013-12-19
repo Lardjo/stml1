@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 
-from .base import BaseHandler
 from bson import ObjectId
+from .base import BaseHandler, authenticated_asynchronous
+from motor import Op
+
+import tornado.gen
+import tornado.ioloop
+import tornado.web
 
 
 class MainHandler(BaseHandler):
-
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    @authenticated_asynchronous
     def get(self):
-        session = self.application.db['sessions'].find_one({'_id': ObjectId(self.current_user)})
-        if session:
-            session = self.application.db['users'].find_one({'_id': session['userid']})
-        self.render('index.html', title="Statsmile", session=session)
+        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        self.render('index.html', title="Statsmile", session=None)
