@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
-import motor
-
 from random import choice
 from string import ascii_letters, digits
-
-from tornado.gen import coroutine
 from pymongo.errors import DuplicateKeyError
 
 
@@ -13,7 +9,6 @@ class ParameterNotFound(Exception):
     pass
 
 
-@coroutine
 def get_cookies(db, key):
 
     try:
@@ -23,7 +18,7 @@ def get_cookies(db, key):
     except DuplicateKeyError:
         pass
 
-    _ = yield motor.Op(db['server'].find_one, {'key': key})
+    _ = db['server'].find_one({'key': key})
 
     if _ is None:
         raise ParameterNotFound

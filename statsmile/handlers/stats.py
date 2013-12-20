@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 
+from motor import Op
+from tornado.gen import engine
+from tornado.web import asynchronous
 from .base import BaseHandler
 
 
 class StatsHandler(BaseHandler):
+    @asynchronous
+    @engine
     def get(self):
-        session = self.application.db['sessions'].find_one({'_id': self.current_user})
-        if session:
-            session = self.application.db['users'].find_one({'_id': session['userid']})
-        matches = self.application.db['matches'].find().count()
-        users = self.application.db['users'].find().count()
+        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        matches, users = yield [
+            Op(self.db['matches'].find().count),
+            Op(self.db['users'].find().count)]
         self.render("stats.html", title="Statistics", session=session, users=users, matches=matches)

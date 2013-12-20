@@ -6,15 +6,12 @@ import logging
 
 from datetime import datetime, timedelta
 from functools import partial
-
-from tornado.gen import coroutine, engine
+from tornado.gen import coroutine
 from tornado.web import Application
 from tornado.ioloop import IOLoop
-
 from pymongo import ASCENDING, DESCENDING
-
 from statsmile import handlers
-from statsmile.common import getsecret, dbconn, update_match, update_user, update_hero
+from statsmile.common import getsecret, update_match, update_user, update_hero
 
 
 class Statsmile(Application):
@@ -64,7 +61,6 @@ class Statsmile(Application):
         IOLoop.instance().add_timeout(new_hero['update'].timestamp(), partial(self.heroes_update, new_hero))
         self.__update_hero.append(new_hero['_id'])
 
-    @engine
     def __init__(self):
 
         handler_ls = [
@@ -91,7 +87,9 @@ class Statsmile(Application):
         ]
 
         # Database connect
-        self.db = dbconn.db_connection()
+        client = motor.MotorClient('localhost', 27017).open_sync()
+        self.db = client['Statsmile']
+        self.db_sync = client.sync_client()['Statsmile']
 
         # Ensure indexes
         self.db['server'].ensure_index('key', unique=True)
@@ -112,37 +110,39 @@ class Statsmile(Application):
         # User profile updater
         self.__update = []
 
-        users = self.db['users'].find({}).sort('update').limit(2)
-        for it in (yield motor.Op(users.to_list)):
+        users = self.db_sync['users'].find({}).sort('update').limit(2)
+        for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
 
         # Heroes page updater
         self.__update_hero = []
 
-        heroes = self.db['heroes'].find({}).sort('update').limit(2)
-        for hr in (yield motor.Op(heroes.to_list)):
+        heroes = self.db_sync['heroes'].find({}).sort('update').limit(2)
+        for hr in heroes:
             IOLoop.instance().add_timeout(hr['update'].timestamp(), partial(self.heroes_update, hr))
             self.__update_hero.append(hr['_id'])
 
         # Match updater
-        matches_db = yield motor.Op(self.db['matches'].aggregate,
-                                    [{'$group': {'_id': 'matches', 'items': {'$addToSet': '$match_id'}}}])
+        matches_db = self.db_sync['matches'].aggregate(
+            [{'$group': {'_id': 'matches', 'items': {'$addToSet': '$match_id'}}}])
+
         if matches_db['result']:
-            getmatch = yield motor.Op(self.db['users'].aggregate,
-                                      [{"$unwind": "$matches"},
-                                       {"$project": {"matches": 1}},
-                                       {"$group": {"_id": "$matches"}},
-                                       {"$match": {"_id": {"$not": {"$in": matches_db['result'][0]['items']}}}},
-                                       {"$sort": {"_id": -1}},
-                                       {"$limit": 1}])
+            getmatch = self.db_sync['users'].aggregate(
+                [{"$unwind": "$matches"},
+                 {"$project": {"matches": 1}},
+                 {"$group": {"_id": "$matches"}},
+                 {"$match": {"_id": {"$not": {"$in": matches_db['result'][0]['items']}}}},
+                 {"$sort": {"_id": -1}},
+                 {"$limit": 1}])
         else:
-            getmatch = yield motor.Op(self.db['users'].aggregate,
-                                      [{"$unwind": "$matches"},
-                                       {"$project": {"matches": 1}},
-                                       {"$group": {"_id": "$matches"}},
-                                       {"$sort": {"_id": -1}},
-                                       {"$limit": 1}])
+            getmatch = self.db['users'].aggregate(
+                [{"$unwind": "$matches"},
+                 {"$project": {"matches": 1}},
+                 {"$group": {"_id": "$matches"}},
+                 {"$sort": {"_id": -1}},
+                 {"$limit": 1}])
+
         if getmatch['result']:
 
             for mt in getmatch['result']:
@@ -153,7 +153,7 @@ class Statsmile(Application):
                                           partial(self.match_update, None))
 
         settings = {
-            'cookie_secret': (yield getsecret.get_cookies(self.db, 'cookie_secret')),
+            'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
             'debug': True,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),

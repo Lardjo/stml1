@@ -66,10 +66,10 @@
                         {% if current_user %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                                    {{ current_user }} <b class="caret"></b></a>
+                                 <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">
+                                    {{ session['personaname'] }} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user/{{ current_user }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                <li><a href="/user/{{ session['_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                                 <li><a href="/user/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                                 <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                             </ul>

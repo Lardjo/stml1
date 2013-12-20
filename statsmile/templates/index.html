@@ -6,7 +6,7 @@
     <p class="lead">Simple and intuitive service statistics for Dota 2</p>
     <p>
         {% if current_user %}
-        <a href="/user/{{ current_user }}" class="btn btn-main-style">Your profile</a>
+        <a href="/user/{{ session['_id'] }}" class="btn btn-main-style">Your profile</a>
         <a href="/user/settings" class="btn btn-main-style">Settings</a>
         <a href="/auth/logout" class="btn btn-main-style">Logout</a>
         {% else %}
