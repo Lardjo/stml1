@@ -49,7 +49,7 @@ class Statsmile(Application):
                                 {'$sort': {'_id': -1}},
                                 {'$limit': 1}])
 
-        if new_matches:
+        if new_matches['result']:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=1)).timestamp(),
                                           partial(self.match_update, new_matches['result'][0]['_id']))
         else:
