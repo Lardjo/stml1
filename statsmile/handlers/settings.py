@@ -13,7 +13,7 @@ class SettingsHandler(BaseHandler):
     def get(self):
         session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         sessions, matches_on_base = yield [
-            Op(self.db['sessions'].find({'userid': session['_id']}, sort=[('last_accessed', -1)]).to_list),
+            Op(self.db['sessions'].find({'userid': session['_id']}, sort=[('last_accessed', -1)], limit=10).to_list),
             Op(self.db['matches'].find({'players.account_id': session['steamid32']}).count)]
 
         try:

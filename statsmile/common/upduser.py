@@ -2,16 +2,22 @@
 
 import logging
 
-from tornado import gen
+from motor import Op
+from tornado.gen import coroutine, Callback, Wait
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
 from datetime import datetime, timedelta
 
 
-@gen.coroutine
+@coroutine
 def update_user(db, steamid):
-    key = db["server"].find_one({"key": "apikey"})
+
+    # TODO: Black List need move to the server configuration
+    black_list = [7, 9, 15]
+
+    key = yield Op(db["server"].find_one, {"key": "apikey"})
+
     url1 = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
                       {"key": key["value"], "account_id": steamid})
     url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
@@ -19,11 +25,11 @@ def update_user(db, steamid):
 
     http_client = AsyncHTTPClient()
 
-    http_client.fetch(url1, callback=(yield gen.Callback("dota_key")))
-    http_client.fetch(url2, callback=(yield gen.Callback("steam_key")))
+    http_client.fetch(url1, callback=(yield Callback("dota_key")))
+    http_client.fetch(url2, callback=(yield Callback("steam_key")))
 
-    response_dota = yield gen.Wait("dota_key")
-    response_steam = yield gen.Wait("steam_key")
+    response_dota = yield Wait("dota_key")
+    response_steam = yield Wait("steam_key")
 
     if response_dota.error:
         logging.warning("New matches for user %s has not updated. Remote server not respond. "
@@ -36,7 +42,7 @@ def update_user(db, steamid):
         for mid in array['result']['matches']:
             new_matches.append(mid['match_id'])
         new_matches.sort()
-        slices = db['users'].find_one({"steamid": steamid}, {"matches": {"$slice": -100}})
+        slices = yield Op(db['users'].find_one, {"steamid": steamid}, {"matches": {"$slice": -100}})
         for key in new_matches:
             if not key in slices['matches']:
                 for_update.append(key)
@@ -61,8 +67,13 @@ def update_user(db, steamid):
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
 
     # Update user count matches
-    user = db['users'].find_one({'steamid': steamid})
-    matches = db['matches'].find({'players.account_id': user['steamid32'], 'game_mode': {'$nin': [7, 9, 15]}}).count()
-    db['users'].update({'steamid': steamid}, {'$set': {"dota_count": matches}})
-    db["users"].update({"steamid": steamid}, {"$set": {"update": datetime.now() + timedelta(minutes=5)}})
-    logging.info("User profile %s has been updated." % steamid)
+    user = yield Op(db['users'].find_one, {'steamid': steamid})
+
+    matches = yield Op(db['matches'].find({'players.account_id': user['steamid32'],
+                                           'game_mode': {'$nin': black_list}}).count)
+
+    db['users'].update({'steamid': steamid}, {'$set': {'dota_count': matches,
+                                                       'update': datetime.now() + timedelta(minutes=5),
+                                                       'last_update': datetime.now()}})
+
+    logging.info('User profile %s has been updated' % steamid)
