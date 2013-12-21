@@ -49,13 +49,13 @@
                 {% from user_agents import parse %}
                 {% for sess in sessions %}
                 {% set user_agent = parse(sess['user_agent']) %}
-                <tr {% if sess['_id'] == current_user %}{% else %}class="active"{% end %}>
-                    <td><span class="glyphicon glyphicon-eye-{% if sess['_id'] == current_user %}open{% else %}close{% end %}" data-toggle="tooltip" data-placement="bottom" title="{{ sess['user_agent'] }}"></span></td>
+                <tr {% if sess['_id'] == current_user['_id'] %}{% else %}class="active"{% end %}>
+                    <td><span class="glyphicon glyphicon-eye-{% if sess['_id'] == current_user['_id'] %}open{% else %}close{% end %}" data-toggle="tooltip" data-placement="bottom" title="{{ sess['user_agent'] }}"></span></td>
                     <td>{{ sess['ip'] }}</td>
                     <td><strong>{{ user_agent.browser.family }}</strong> on {{ user_agent.os.family }}</td>
                     <td>{{ datetime.datetime.strftime(sess['last_accessed'], format='%B %d, %Y %H:%M') }}</td>
                     <td>{{ datetime.datetime.strftime(sess['signed_in'], format='%B %d, %Y %H:%M') }}</td>
-                    <td><button type="submit" class="btn btn-danger btn-xs" value="{{ sess['_id'] }}"{% if sess['_id'] == current_user %} disabled="disabled"{% else %}{% end %}>Revoke</button></td>
+                    <td><button type="submit" class="btn btn-danger btn-xs" value="{{ sess['_id'] }}"{% if sess['_id'] == current_user['_id'] %} disabled="disabled"{% else %}{% end %}>Revoke</button></td>
                 </tr>
                 {% end %}
                 </tbody>
