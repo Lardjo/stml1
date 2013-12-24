@@ -2,6 +2,8 @@
 
 import logging
 
+from motor import Op
+from tornado.gen import coroutine
 from tornado.escape import json_decode
 from tornado.httpclient import HTTPClient, HTTPError
 from tornado.httputil import url_concat
@@ -13,9 +15,10 @@ def converter(steamid):
     return int(steamid) - 76561197960265728
 
 
+@coroutine
 def get_steam_user(db, steamid):
     user = None
-    key = db['server'].find_one({'key': 'apikey'})
+    key = yield Op(db['server'].find_one, {'key': 'apikey'})
     url = url_concat('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/',
                      {'key': key['value'], 'steamids': steamid})
     client = HTTPClient()
@@ -29,9 +32,7 @@ def get_steam_user(db, steamid):
                 'avatar': get_user['avatarfull'],
                 'registration': datetime.now(),
                 'update': datetime.now() + timedelta(minutes=1),
-                'dota_count': 0,
-                'dota_wins': 0,
-                'dota_loses': 0}
+                'dota_count': 0}
         if 'realname' in get_user.keys():
             user['realname'] = get_user['realname']
         else:

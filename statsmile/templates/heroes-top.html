@@ -1,0 +1,26 @@
+<p>The most popular heroes. The rating is made on real matches - events are not considered.</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Hero</th>
+        <th>Matches</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set n = 1 %}
+    {% for tp in top %}
+    <tr>
+        <td>{{ n }}</td>
+        <td>
+            <div class="hero-container">
+                <a href="/heroes/{{ tp['hero_id'] }}"><img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}"></a>
+            </div>
+            <div class="hero-name"><strong>{{ heroes[tp['hero_id']]['name'] }}</strong></div>
+        </td>
+        <td>{{ tp['matches'] }}</td>
+    </tr>
+    {% set n += 1 %}
+    {% end %}
+    </tbody>
+</table>

@@ -4,6 +4,7 @@
 <div class="page-header" xmlns="http://www.w3.org/1999/html">
     <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
+<div class="alert alert-warning"><strong>Beta version</strong>. Not all pages with information</div>
 <div class="row">
     <div class="col-md-9">
         <p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p>

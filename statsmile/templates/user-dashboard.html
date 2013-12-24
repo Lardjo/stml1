@@ -52,7 +52,7 @@
         </div>
         {% for fav in favorites %}
         <div class="media favorite-hero">
-            <a class="pull-left" href="#">
+            <a class="pull-left" href="/heroes/{{ fav['_id'] }}">
                 <img class="media-object img-thumbnail" src="{% try %}{{ static_url(heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
             </a>
             <div class="media-body">

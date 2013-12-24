@@ -14,7 +14,7 @@ class MatchesHandler(BaseHandler):
         pg = int(page)
         if pg > 10:
             return self.send_error(404)
-        cursor = self.application.db["matches"].find(
+        cursor = self.db["matches"].find(
             {"game_mode": {"$nin": [7, 9, 15]}}, sort=[("start_time", -1)], limit=20).skip((pg-1)*20)
         matches = yield Op(cursor.to_list)
         session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})

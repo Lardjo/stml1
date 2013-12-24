@@ -35,22 +35,20 @@ class Statsmile(Application):
         logging.debug('Start receiving data match %s' % match)
 
         yield update_match(self.db, match)
-
         # Getting all id matches in db
         matches_db = yield Op(self.db['matches'].aggregate, [{'$group': {'_id': 'matches',
                                                                          'items': {'$addToSet': '$match_id'}}}])
-
+        matches_db = matches_db['result'][0]['items']
         # Getting all id matches in user profiles and if new exists - get
         new_matches = yield Op(self.db['users'].aggregate,
                                [{'$unwind': '$matches'},
                                 {'$project': {'matches': 1}},
                                 {'$group': {'_id': '$matches'}},
-                                {'$match': {'_id': {'$not': {'$in': matches_db['result'][0]['items']}}}},
+                                {'$match': {'_id': {'$not': {'$in': matches_db}}}},
                                 {'$sort': {'_id': -1}},
                                 {'$limit': 1}])
-
         if new_matches['result']:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=1)).timestamp(),
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=2)).timestamp(),
                                           partial(self.match_update, new_matches['result'][0]['_id']))
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
@@ -74,7 +72,6 @@ class Statsmile(Application):
         handler_ls = [
             (r'/', handlers.MainHandler),
             (r'/status', handlers.StatusHandler),
-            (r'/statistics', handlers.StatsHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),
@@ -89,6 +86,7 @@ class Statsmile(Application):
             (r'/session/(.*)', handlers.SessionHandler),
             (r'/matches/([0-9]+)', handlers.MatchHandler),
             (r'/heroes', handlers.HeroesHandler),
+            (r'/heroes/rating', handlers.HeroesTopHandler),
             (r'/heroes/(.*)', handlers.HeroHandler),
             (r'/events/([^/]+)', handlers.EventsHandler),
             (r'/events/([^/]+)/page/([0-9]*)', handlers.EventsHandler)
@@ -142,7 +140,7 @@ class Statsmile(Application):
                  {"$sort": {"_id": -1}},
                  {"$limit": 1}])
         else:
-            getmatch = self.db['users'].aggregate(
+            getmatch = self.db_sync['users'].aggregate(
                 [{"$unwind": "$matches"},
                  {"$project": {"matches": 1}},
                  {"$group": {"_id": "$matches"}},

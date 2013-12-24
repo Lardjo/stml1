@@ -11,11 +11,24 @@ class HeroesHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
-        cursor = self.application.db['heroes'].find({}, {'hero_id': 1, 'matches': 1}, sort=[('popularity', 1)])
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        self.render("heroes.html", title="Heroes", session=session, heroes=libs.heroes)
+
+
+class HeroesTopHandler(BaseHandler):
+    @asynchronous
+    @engine
+    def get(self):
+        cursor = self.application.db['heroes'].find({}, {'hero_id': 1,
+                                                         'matches': 1}, sort=[('popularity', 1)], limit=112)
         popularity = yield Op(cursor.to_list)
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         heroes = libs.heroes
-        self.render("heroes.html", active="heroes", title="Heroes", session=session, heroes=heroes, top=popularity)
+        self.render("heroes.html", title="Heroes / Rating", session=session, heroes=heroes, top=popularity)
 
 
 class HeroHandler(BaseHandler):

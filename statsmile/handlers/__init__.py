@@ -9,7 +9,6 @@ from .user import UserHandler, UserMatchesHandler, UserRecordsHandler
 from .settings import SettingsHandler
 from .session import SessionHandler
 from .match import MatchHandler
-from .heroes import HeroesHandler, HeroHandler
+from .heroes import HeroesHandler, HeroHandler, HeroesTopHandler
 from .events import EventsHandler
 from .status import StatusHandler
-from .stats import StatsHandler

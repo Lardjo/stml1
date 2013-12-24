@@ -13,10 +13,14 @@ from datetime import datetime
 @coroutine
 def update_match(db, match_id):
     if match_id is None:
-        logging.info("All matches updated! Waiting new matches for getting...")
+        logging.debug("No new match for update")
+        return
+    match = yield Op(db['matches'].find_one, {'match_id': match_id})
+    if match:
+        logging.info('Match already in database. Pass')
         return
     key = yield Op(db["server"].find_one, {"key": "apikey"})
-    url = url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/",
+    url = url_concat("http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/",
                      {"match_id": match_id, "key": key["value"]})
     http_client = AsyncHTTPClient()
     http_client.fetch(url, callback=(yield Callback("match_key")))

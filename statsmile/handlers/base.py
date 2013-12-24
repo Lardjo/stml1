@@ -38,7 +38,8 @@ class BaseHandler(RequestHandler):
             return token
 
     def prepare(self):
-        self.db['sessions'].update({'_id': self.current_user}, {'$set': self.upd_session()})
+        if self.current_user:
+            self.db['sessions'].update({'_id': self.current_user['_id']}, {'$set': self.upd_session()})
 
     def upd_session(self):
         data = {'ip': self.request.remote_ip,

@@ -10,5 +10,7 @@ class MainHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         self.render('index.html', title="Statsmile", session=session)
