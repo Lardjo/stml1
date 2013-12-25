@@ -17,7 +17,7 @@
     {% for mt in matches %}
     <tr>
         <td>
-            <div class="hero-container"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+            <div class="hero-container"><a href="/heroes/{{ mt['players'][0]['hero_id'] }}"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></a></div>
             <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
         </td>
         {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
