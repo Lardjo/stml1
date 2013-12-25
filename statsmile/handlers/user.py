@@ -17,9 +17,12 @@ class UserHandler(BaseHandler):
 
         black_list = [7, 9, 15]
 
-        session, user = yield [
-            Op(self.db['users'].find_one, {'_id': self.current_user['userid']}),
-            Op(self.db['users'].find_one, {'_id': ObjectId(sid)})]
+        session = None
+
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+
+        user = yield Op(self.db['users'].find_one, {'_id': ObjectId(sid)})
 
         if user is None:
             return self.send_error(404)
@@ -56,9 +59,12 @@ class UserMatchesHandler(BaseHandler):
 
         pg = int(page)
 
-        session, user = yield [
-            Op(self.db['users'].find_one, {'_id': self.current_user['userid']}),
-            Op(self.db['users'].find_one, {'_id': ObjectId(sid)})]
+        session = None
+
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+
+        user = yield Op(self.db['users'].find_one, {'_id': ObjectId(sid)})
 
         if user is None:
             return self.send_error(404)
@@ -86,9 +92,12 @@ class UserRecordsHandler(BaseHandler):
     @engine
     def get(self, sid):
 
-        session, user = yield [
-            Op(self.db['users'].find_one, {'_id': self.current_user['userid']}),
-            Op(self.db['users'].find_one, {'_id': ObjectId(sid)})]
+        session = None
+
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+
+        user = yield Op(self.db['users'].find_one, {'_id': ObjectId(sid)})
 
         if user is None:
             return self.send_error(404)

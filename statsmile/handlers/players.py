@@ -10,7 +10,9 @@ class PlayersHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
+        session = None
         cursor = self.application.db['users'].find(sort=[('dota_count', -1)], limit=20)
         players = yield Op(cursor.to_list)
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         self.render('players.html', title='Statsmile / Players', session=session, players=players)

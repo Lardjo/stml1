@@ -35,7 +35,9 @@ class HeroHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self, hero):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         hero = int(hero)
         if not hero in libs.heroes_info.keys():
             self.send_error(404)

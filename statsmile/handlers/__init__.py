@@ -12,3 +12,4 @@ from .match import MatchHandler
 from .heroes import HeroesHandler, HeroHandler, HeroesTopHandler
 from .events import EventsHandler
 from .status import StatusHandler
+from .bookmarks import BookmarksHandler

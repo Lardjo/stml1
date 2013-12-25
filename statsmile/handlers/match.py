@@ -3,7 +3,7 @@
 from .base import BaseHandler
 from motor import Op
 from tornado.gen import engine
-from tornado.web import asynchronous
+from tornado.web import asynchronous, authenticated
 from statsmile.common import libs
 
 
@@ -11,7 +11,9 @@ class MatchHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self, match):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         match = yield Op(self.application.db["matches"].find_one, {"match_id": int(match)})
 
         if match is None:
@@ -32,3 +34,8 @@ class MatchHandler(BaseHandler):
 
         self.render("match.html", session=session, match=match, mode=libs.mode, cluster=libs.cluster,
                     heroes=libs.heroes, items=libs.items)
+
+    @authenticated
+    @engine
+    def post(self, sid):
+        self.db['users'].update({"_id": self.current_user['userid']}, {'$addToSet': {'bookmarks': int(sid)}})

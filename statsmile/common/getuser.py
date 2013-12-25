@@ -31,6 +31,7 @@ def get_steam_user(db, steamid):
                 'profileurl': get_user['profileurl'],
                 'avatar': get_user['avatarfull'],
                 'registration': datetime.now(),
+                'bookmarks': [],
                 'update': datetime.now() + timedelta(minutes=1),
                 'dota_count': 0}
         if 'realname' in get_user.keys():

@@ -17,6 +17,8 @@ class MatchesHandler(BaseHandler):
         cursor = self.db["matches"].find(
             {"game_mode": {"$nin": [7, 9, 15]}}, sort=[("start_time", -1)], limit=20).skip((pg-1)*20)
         matches = yield Op(cursor.to_list)
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         self.render('matches.html', title="Statsmile / Matches", page=pg, session=session, matches=matches,
                     cluster=libs.cluster, mode=libs.mode, heroes=libs.heroes)

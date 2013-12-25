@@ -83,6 +83,7 @@ class Statsmile(Application):
             (r'/user/([0-9a-fA-F]{24})/records', handlers.UserRecordsHandler),
             (r'/user/([0-9a-fA-F]{24})/matches/page/([0-9]*)', handlers.UserMatchesHandler),
             (r'/user/settings', handlers.SettingsHandler),
+            (r'/user/bookmarks', handlers.BookmarksHandler),
             (r'/session/(.*)', handlers.SessionHandler),
             (r'/matches/([0-9]+)', handlers.MatchHandler),
             (r'/heroes', handlers.HeroesHandler),

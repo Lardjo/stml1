@@ -13,7 +13,9 @@ class EventsHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self, sid, page=1):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         pg = int(page)
         if not sid in ('wraithnight', 'diretide'):
             return self.send_error(404)

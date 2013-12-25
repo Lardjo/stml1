@@ -382,8 +382,7 @@ h3, .h3 {
 }
 
 .heroes a.blur {
-    -webkit-filter: blur(2px);
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .heroes a.active {
@@ -394,7 +393,7 @@ h3, .h3 {
     display: inline-block;
     position: relative;
     opacity: 0.9;
-    -webkit-transition: opacity 0.4s linear, -webkit-filter 0.4s linear;
+    -webkit-transition: opacity 0.4s linear;
 }
 
 .heroes .name {

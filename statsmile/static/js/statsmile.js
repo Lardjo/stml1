@@ -6,7 +6,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 })
 
-$(document).on("click", ":submit", function(e){
+$(document).on("click", ".session-delete:submit", function(){
 
     $.ajax({
         url: "/session/" + $(this).val(),
@@ -15,7 +15,27 @@ $(document).on("click", ":submit", function(e){
             window.location.reload();
         }
     });
+});
 
+$(document).on("click", ".bookmark:submit", function(){
+
+    $.ajax({
+        type: "POST",
+        success: function() {
+            window.location.reload();
+        }
+    });
+});
+
+$(document).on("click", ".remove-bookmark:submit", function(){
+
+    $.ajax({
+        type: "POST",
+        data: {match:  $(this).val()},
+        success: function() {
+            window.location.reload();
+        }
+    });
 });
 
 var $container  = $('#ib-container'),

@@ -9,6 +9,6 @@ class SessionHandler(BaseHandler):
     def delete(self, sid):
         if str(self.current_user['_id']) != sid:
             if ObjectId.is_valid(sid):
-                self.application.db['sessions'].remove({'_id': ObjectId(sid)})
+                self.db['sessions'].remove({'_id': ObjectId(sid)})
         else:
             self.send_error(400)
