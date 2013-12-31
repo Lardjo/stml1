@@ -22,7 +22,8 @@ class HeroesTopHandler(BaseHandler):
     @engine
     def get(self):
         cursor = self.application.db['heroes'].find({}, {'hero_id': 1,
-                                                         'matches': 1}, sort=[('popularity', 1)], limit=112)
+                                                         'matches': 1,
+                                                         'popularity': 1}, sort=[('popularity', 1)], limit=115)
         popularity = yield Op(cursor.to_list)
         session = None
         if self.current_user:

@@ -52,7 +52,7 @@
                 <tr {% if sess['_id'] == current_user['_id'] %}{% else %}class="active"{% end %}>
                     <td><span class="glyphicon glyphicon-eye-{% if sess['_id'] == current_user['_id'] %}open{% else %}close{% end %}" data-toggle="tooltip" data-placement="bottom" title="{{ sess['user_agent'] }}"></span></td>
                     <td>{{ sess['ip'] }}</td>
-                    <td><strong>{{ user_agent.browser.family }}</strong> on {{ user_agent.os.family }}</td>
+                    <td><strong>{{ user_agent.browser.family }}</strong> on {{ user_agent.os.family }} {{ user_agent.os.version_string }}</td>
                     <td>{{ datetime.datetime.strftime(sess['last_accessed'], format='%B %d, %Y %H:%M') }}</td>
                     <td>{{ datetime.datetime.strftime(sess['signed_in'], format='%B %d, %Y %H:%M') }}</td>
                     <td><button type="submit" class="btn btn-danger btn-xs session-delete" value="{{ sess['_id'] }}"{% if sess['_id'] == current_user['_id'] %} disabled="disabled"{% else %}{% end %}>Revoke</button></td>
