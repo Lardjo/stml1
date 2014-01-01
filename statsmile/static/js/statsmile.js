@@ -1,5 +1,5 @@
 /**
- * Created by konstantin on 07.12.13. Version 1.0.5
+ * Created by konstantin on 07.12.13. Version 1.1
  */
 
 $(document).ready(function(){
