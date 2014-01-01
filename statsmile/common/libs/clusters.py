@@ -11,6 +11,7 @@ cluster = {
     121: {'name': 'US East'},
     122: {'name': 'US East'},
     123: {'name': 'US East'},
+    124: {'name': 'US East'},
     131: {'name': 'Europe West'},
     132: {'name': 'Europe West'},
     133: {'name': 'Europe West'},
