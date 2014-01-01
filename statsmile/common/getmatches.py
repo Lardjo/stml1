@@ -2,6 +2,7 @@
 
 import logging
 
+from motor import Op
 from tornado.gen import coroutine
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
@@ -10,16 +11,16 @@ from tornado.httpclient import AsyncHTTPClient
 
 @coroutine
 def getting_matches(db, steamid):
-    logging.info('Getting all matches for user %s...' % steamid)
+    logging.debug('Getting all matches for user %s...' % steamid)
 
     matches = []
     start_time = 0
     remaining = 1
 
     while remaining:
-        key = db['server'].find_one({'key': 'apikey'})
+        key = yield Op(db['server'].find_one, {'key': 'apikey'})
         params = {'key': key['value'], 'account_id': steamid, 'date_max': start_time}
-        url = url_concat('https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/', params)
+        url = url_concat('http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/', params)
         response = yield AsyncHTTPClient().fetch(url)
         pack = json_decode(response.body)
         for match in pack['result']['matches']:

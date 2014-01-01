@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from .main import MainHandler
 from .auth import AuthLoginHandler, AuthLogoutHandler
 from .matches import MatchesHandler
@@ -8,7 +9,7 @@ from .user import UserHandler, UserMatchesHandler, UserRecordsHandler
 from .settings import SettingsHandler
 from .session import SessionHandler
 from .match import MatchHandler
-from .heroes import HeroesHandler, HeroHandler
+from .heroes import HeroesHandler, HeroHandler, HeroesTopHandler
 from .events import EventsHandler
 from .status import StatusHandler
-from .stats import StatsHandler
+from .bookmarks import BookmarksHandler

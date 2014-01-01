@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 
+from motor import Op
+from tornado.gen import engine
+from tornado.web import asynchronous
 from .base import BaseHandler
-from pymongo import DESCENDING
 
 
 class PlayersHandler(BaseHandler):
+    @asynchronous
+    @engine
     def get(self):
-        players = self.application.db['users'].find({}).sort('dota_count', DESCENDING).limit(20)
-        session = self.application.db['sessions'].find_one({'_id': self.current_user})
-        if session:
-            session = self.application.db['users'].find_one({'_id': session['userid']})
-        self.render('players.html', title="Statsmile / Players", session=session, players=players)
+        session = None
+        cursor = self.application.db['users'].find(sort=[('dota_count', -1)], limit=20)
+        players = yield Op(cursor.to_list)
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        self.render('players.html', title='Statsmile / Players', session=session, players=players)

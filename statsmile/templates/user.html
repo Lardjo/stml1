@@ -3,12 +3,12 @@
 {% block content %}
     {% import time %}
 
-        {% if not wait %}
+        {% if matches %}
 
         <div class="row user-profile-header">
             <div class="col-md-7">
                 <img src="{{ user['avatar'] }}" class="img-circle pull-left" />
-                <h1>{{ user['personaname'] }} <small>{% if not user['realname'] is None %}{{ user['realname'] }}{% else %}{% end %}</small></h1>
+                <h1>{{ user['personaname'] }} <small>{% if not user['realname'] is None %}{{ user['realname'] }}{% else %}{% end %} {% if 'badge' in user %}({{ user['badge'] }}){% else %}{% end %}</small></h1>
             </div>
             <div class="col-md-5"></div>
         </div>

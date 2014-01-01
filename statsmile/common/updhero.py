@@ -2,37 +2,42 @@
 
 import logging
 
-from tornado import gen
+from motor import Op
+from tornado.gen import coroutine
 from datetime import datetime, timedelta
 from operator import itemgetter
 
 
-@gen.coroutine
+@coroutine
 def update_hero(db, hero):
 
-    items = db['matches'].aggregate([
-        {'$match': {'players.hero_id': hero['hero_id'], 'game_mode': {"$nin": [7, 9, 15]}}},
-        {'$unwind': '$players'},
-        {'$match': {'players.hero_id': hero['hero_id']}},
-        {'$project': {'item': '$players.items', 'count': {'$add': [1]}}},
-        {'$unwind': '$item'},
-        {'$group': {'_id': "$item", 'number': {'$sum': "$count"}}},
-        {'$sort': {'number': -1}}
-    ])
+    black_list = [7, 9, 15]
 
-    top_heroes = db['matches'].aggregate([
-        {'$match': {'game_mode': {"$nin": [7, 9, 15]}}},
-        {'$unwind': '$players'},
-        {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
-        {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
-        {'$sort': {'number': -1}}
-    ])['result']
+    items, top_heroes = yield [
+        Op(db['matches'].aggregate,
+           [{'$match': {'players.hero_id': hero['hero_id'], 'game_mode': {"$nin": black_list}}},
+            {'$unwind': '$players'},
+            {'$match': {'players.hero_id': hero['hero_id']}},
+            {'$project': {'item': '$players.items', 'count': {'$add': [1]}}},
+            {'$unwind': '$item'},
+            {'$group': {'_id': "$item", 'number': {'$sum': "$count"}}},
+            {'$sort': {'number': -1}}]),
+        Op(db['matches'].aggregate,
+           [{'$match': {'game_mode': {"$nin": black_list}}},
+            {'$unwind': '$players'},
+            {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
+            {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
+            {'$sort': {'number': -1}}])]
+
+    # Remove zero point
+    pos = list(map(itemgetter('_id'), top_heroes['result'])).index(0)
+    top_heroes['result'].pop(pos)
 
     try:
-        pos = list(map(itemgetter('_id'), top_heroes)).index(hero['hero_id'])
-        matches = top_heroes[pos]['number']
+        pos = list(map(itemgetter('_id'), top_heroes['result'])).index(hero['hero_id'])
+        matches = top_heroes['result'][pos]['number']
     except (ValueError, KeyError):
-        pos = 0
+        pos = len(top_heroes['result'])
         matches = 0
 
     db['heroes'].update({'hero_id': hero['hero_id']},

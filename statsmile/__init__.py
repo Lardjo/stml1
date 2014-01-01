@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 
 import os
+import motor
 import logging
 
 from datetime import datetime, timedelta
 from functools import partial
-
 from tornado.gen import coroutine
 from tornado.web import Application
 from tornado.ioloop import IOLoop
-
+from motor import Op
 from pymongo import ASCENDING, DESCENDING
-
+from pymongo.errors import ConnectionFailure
 from statsmile import handlers
-from statsmile.common import getsecret, dbconn, update_match, update_user, update_hero
+from statsmile.common import getsecret, update_match, update_user, update_hero
 
 
 class Statsmile(Application):
@@ -25,28 +25,31 @@ class Statsmile(Application):
         yield update_user(self.db, user['steamid'])
         self.__update.remove(user['_id'])
 
-        new_user = self.db['users'].find_one({'_id': {'$not': {'$in': self.__update}}},
-                                             sort=[('update', ASCENDING)], limit=1)
+        new_user = yield Op(self.db['users'].find_one, {'_id': {'$not': {'$in': self.__update}}},
+                            sort=[('update', 1)], limit=1)
         IOLoop.instance().add_timeout(new_user['update'].timestamp(), partial(self.user_update, new_user))
         self.__update.append(new_user['_id'])
 
     @coroutine
     def match_update(self, match):
-        logging.debug("Start receiving data match %s" % match)
+        logging.debug('Start receiving data match %s' % match)
 
         yield update_match(self.db, match)
-
-        matches_db = self.db['matches'].aggregate([{'$group': {'_id': 'matches',
-                                                               'items': {'$addToSet': '$match_id'}}}])['result'][0]
-        new_matches = self.db['users'].aggregate([{'$unwind': '$matches'},
-                                                  {'$project': {'matches': 1}},
-                                                  {'$group': {'_id': '$matches'}},
-                                                  {'$match': {'_id': {'$not': {'$in': matches_db['items']}}}},
-                                                  {'$sort': {'_id': -1}},
-                                                  {'$limit': 1}])['result']
-        if new_matches:
-            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
-                                          partial(self.match_update, new_matches[0]['_id']))
+        # Getting all id matches in db
+        matches_db = yield Op(self.db['matches'].aggregate, [{'$group': {'_id': 'matches',
+                                                                         'items': {'$addToSet': '$match_id'}}}])
+        matches_db = matches_db['result'][0]['items']
+        # Getting all id matches in user profiles and if new exists - get
+        new_matches = yield Op(self.db['users'].aggregate,
+                               [{'$unwind': '$matches'},
+                                {'$project': {'matches': 1}},
+                                {'$group': {'_id': '$matches'}},
+                                {'$match': {'_id': {'$not': {'$in': matches_db}}}},
+                                {'$sort': {'_id': -1}},
+                                {'$limit': 1}])
+        if new_matches['result']:
+            IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=2)).timestamp(),
+                                          partial(self.match_update, new_matches['result'][0]['_id']))
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(minutes=1)).timestamp(),
                                           partial(self.match_update, None))
@@ -58,8 +61,9 @@ class Statsmile(Application):
         yield update_hero(self.db, hero)
         self.__update_hero.remove(hero['_id'])
 
-        new_hero = self.db['heroes'].find_one({'_id': {'$not': {'$in': self.__update_hero}}},
-                                              sort=[('update', ASCENDING)], limit=1)
+        new_hero = yield Op(self.db['heroes'].find_one, {'_id': {'$not': {'$in': self.__update_hero}}},
+                            sort=[('update', 1)], limit=1)
+
         IOLoop.instance().add_timeout(new_hero['update'].timestamp(), partial(self.heroes_update, new_hero))
         self.__update_hero.append(new_hero['_id'])
 
@@ -68,7 +72,6 @@ class Statsmile(Application):
         handler_ls = [
             (r'/', handlers.MainHandler),
             (r'/status', handlers.StatusHandler),
-            (r'/statistics', handlers.StatsHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),
@@ -80,16 +83,24 @@ class Statsmile(Application):
             (r'/user/([0-9a-fA-F]{24})/records', handlers.UserRecordsHandler),
             (r'/user/([0-9a-fA-F]{24})/matches/page/([0-9]*)', handlers.UserMatchesHandler),
             (r'/user/settings', handlers.SettingsHandler),
+            (r'/user/bookmarks', handlers.BookmarksHandler),
             (r'/session/(.*)', handlers.SessionHandler),
             (r'/matches/([0-9]+)', handlers.MatchHandler),
             (r'/heroes', handlers.HeroesHandler),
+            (r'/heroes/rating', handlers.HeroesTopHandler),
             (r'/heroes/(.*)', handlers.HeroHandler),
             (r'/events/([^/]+)', handlers.EventsHandler),
             (r'/events/([^/]+)/page/([0-9]*)', handlers.EventsHandler)
         ]
 
         # Database connect
-        self.db = dbconn.db_connection()
+        try:
+            client = motor.MotorClient('localhost', 27017).open_sync()
+            self.db = client['Statsmile']
+            self.db_sync = client.sync_client()['Statsmile']
+        except ConnectionFailure:
+            logging.error('Could not connect to Mongo DB. Exit')
+            exit(4)
 
         # Ensure indexes
         self.db['server'].ensure_index('key', unique=True)
@@ -97,58 +108,57 @@ class Statsmile(Application):
         self.db['matches'].ensure_index([('players.account_id', ASCENDING), ('game_mode', ASCENDING)])
         self.db['matches'].ensure_index([('players.hero_id', ASCENDING), ('game_mode', ASCENDING)])
         self.db['matches'].ensure_index('start_time', DESCENDING)
+        self.db['matches'].ensure_index('match_id', DESCENDING)
         self.db['heroes'].ensure_index('popularity', ASCENDING)
         self.db['heroes'].ensure_index('hero_id', ASCENDING)
         self.db['users'].ensure_index('steamid', ASCENDING)
         self.db['matches'].ensure_index('game_mode', ASCENDING)
 
-        # Prepare status collection
-        if not 'status' in self.db.collection_names():
-            self.db['status'].insert([{'status': 'api_dota', 'value': 'false', 'time': datetime.now()},
-                                      {'status': 'api_steam', 'value': 'false', 'time': datetime.now()}])
-
         # User profile updater
         self.__update = []
-
-        users = self.db['users'].find({}).sort('update').limit(2)
+        users = self.db_sync['users'].find({}).sort('update').limit(5)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
 
         # Heroes page updater
         self.__update_hero = []
-
-        heroes = self.db['heroes'].find({}).sort('update').limit(2)
+        heroes = self.db_sync['heroes'].find({}).sort('update').limit(5)
         for hr in heroes:
             IOLoop.instance().add_timeout(hr['update'].timestamp(), partial(self.heroes_update, hr))
             self.__update_hero.append(hr['_id'])
 
         # Match updater
-        matches_db = self.db['matches'].aggregate(
-            {'$group': {'_id': 'matches', 'items': {'$addToSet': '$match_id'}}})['result']
-        if matches_db:
-            getmatch = self.db['users'].aggregate([{"$unwind": "$matches"},
-                                                   {"$project": {"matches": 1}},
-                                                   {"$group": {"_id": "$matches"}},
-                                                   {"$match": {"_id": {"$not": {"$in": matches_db[0]['items']}}}},
-                                                   {"$sort": {"_id": -1}},
-                                                   {"$limit": 1}])['result']
+        matches_db = self.db_sync['matches'].aggregate(
+            [{'$group': {'_id': 'matches', 'items': {'$addToSet': '$match_id'}}}])
+
+        if matches_db['result']:
+            getmatch = self.db_sync['users'].aggregate(
+                [{"$unwind": "$matches"},
+                 {"$project": {"matches": 1}},
+                 {"$group": {"_id": "$matches"}},
+                 {"$match": {"_id": {"$not": {"$in": matches_db['result'][0]['items']}}}},
+                 {"$sort": {"_id": -1}},
+                 {"$limit": 1}])
         else:
-            getmatch = self.db['users'].aggregate([{"$unwind": "$matches"},
-                                                   {"$project": {"matches": 1}},
-                                                   {"$group": {"_id": "$matches"}},
-                                                   {"$sort": {"_id": -1}},
-                                                   {"$limit": 1}])['result']
-        if getmatch:
-            for mt in getmatch:
-                IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
+            getmatch = self.db_sync['users'].aggregate(
+                [{"$unwind": "$matches"},
+                 {"$project": {"matches": 1}},
+                 {"$group": {"_id": "$matches"}},
+                 {"$sort": {"_id": -1}},
+                 {"$limit": 1}])
+
+        if getmatch['result']:
+
+            for mt in getmatch['result']:
+                IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=2)).timestamp(),
                                               partial(self.match_update, mt['_id']))
         else:
             IOLoop.instance().add_timeout((datetime.now() + timedelta(seconds=10)).timestamp(),
                                           partial(self.match_update, None))
 
         settings = {
-            'cookie_secret': getsecret.get_cookies(self.db, 'cookie_secret'),
+            'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
             'debug': False,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
@@ -162,4 +172,4 @@ class Statsmile(Application):
         super().__init__(handler_ls, **settings)
 
         self.listen(8888, xheaders=True)
-        logging.info('Statsmile server is started!')
+        logging.info('Statsmile server is started')

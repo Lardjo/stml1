@@ -1,5 +1,5 @@
 /* Statsmile styles */
-/* Version 1.0.8 */
+/* Version 1.1 */
 
 html,
 body {
@@ -271,7 +271,7 @@ h3, .h3 {
     font-size: 18px;
 }
 
-@media (min-width: 768px)  {
+@media (min-width: 1366px)  {
 
     .main-index {
         padding-top: 140px;
@@ -318,6 +318,53 @@ h3, .h3 {
         font-size: 24px;
     }
 
+}
+
+@media (min-width: 768px) and (max-width: 1366px)  {
+    .main-index {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+    .text-hero {
+        font-size: 14px;
+    }
+
+    .main-index h1 {
+        font-size: 100px;
+    }
+
+    .main-index .lead {
+        font-size: 30px;
+    }
+
+    .main-index .btn-main-style {
+        width: auto;
+        margin: 20px 5px 20px 0;
+        padding: 18px 24px;
+        font-size: 21px;
+    }
+
+    .head-links {
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        padding: 0 15px;
+        list-style: none;
+        text-align: center;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    h1, .h1 {
+        font-size: 36px;
+    }
+
+    h3, .h3 {
+        font-size: 24px;
+    }
 }
 
 /* End Main Page */
@@ -381,15 +428,37 @@ h3, .h3 {
     padding: 1px;
 }
 
-.heroes a,
-.favorite-hero a {
-    opacity: 0.85;
+.heroes a.blur {
+    opacity: 0.5;
 }
 
-.heroes a:hover,
-.favorite-hero a:hover {
+.heroes a.active {
     opacity: 1;
 }
+
+.heroes a {
+    display: inline-block;
+    position: relative;
+    opacity: 0.9;
+    -webkit-transition: opacity 0.4s linear;
+}
+
+.heroes .name {
+    display: none;
+    font-size: 11px;
+    font-weight: 300;
+    height: 59px;
+    padding-top: 41px;
+    padding-left: 4px;
+    position: absolute;
+    text-decoration: none;
+    width: 103px;
+    z-index: 100;
+    color: #fff;
+    text-shadow: #000 1px 1px 5px;
+}
+
+
 
 .heroes .page-header {
     margin-top: 0;

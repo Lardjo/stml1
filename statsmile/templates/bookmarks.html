@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / {{ title }}{% end %}
+{% block content %}
+<div class="page-header">
+    <h1>Bookmarks <small>Your marked matches</small></h1>
+</div>
+{% if bookmarks %}
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>Match ID</th>
+    <th>Start Time</th>
+    <th>Duration</th>
+    <th>Mode</th>
+    <th>Heroes</th>
+    <th></th>
+</tr>
+</thead>
+    <tbody>
+    {% for mt in reversed(bookmarks) %}
+    <tr>
+        <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+        <td>{{ locale.format_date(mt['start_time'], full_format=False, shorter=False, relative=True) }}</td>
+        <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+        <td>{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+        <td>
+            {% for ev in mt['players'] %}
+            {% if not ev['hero_id'] == 0 %}
+            <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+            {% else %}{% end %}
+            {% end %}
+        </td>
+        <td>
+            <button type="submit" class="btn btn-danger btn-xs remove-bookmark" value="{{ mt['match_id'] }}">
+                <span class="glyphicon glyphicon-remove"></span> Remove
+            </button>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>
+{% else %}
+<p>Your list of bookmarks is empty. You can add your favorite matches or just interesting games of other players.</p>
+{% end %}
+{% end %}

@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 
 from .base import BaseHandler
-
+from motor import Op
+from tornado.gen import engine
+from tornado.web import asynchronous, authenticated
 from statsmile.common import libs
 
 
 class MatchHandler(BaseHandler):
+    @asynchronous
+    @engine
     def get(self, match):
-        session = self.application.db['sessions'].find_one({'_id': self.current_user})
-
-        if session:
-            session = self.application.db['users'].find_one({'_id': session['userid']})
-
-        match = self.application.db["matches"].find_one({"match_id": int(match)})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        match = yield Op(self.application.db["matches"].find_one, {"match_id": int(match)})
 
         if match is None:
             return self.send_error(404)
@@ -22,7 +24,7 @@ class MatchHandler(BaseHandler):
             if not "account_id" in item:
                 match["players"][offset]["account_id"] = "Anonymous"
             else:
-                player = self.application.db["users"].find_one({"steamid32": item["account_id"]})
+                player = yield Op(self.application.db["users"].find_one, {"steamid32": item["account_id"]})
                 if player is None:
                     match["players"][offset]["account_id"] = "Anonymous"
                 else:
@@ -32,3 +34,8 @@ class MatchHandler(BaseHandler):
 
         self.render("match.html", session=session, match=match, mode=libs.mode, cluster=libs.cluster,
                     heroes=libs.heroes, items=libs.items)
+
+    @authenticated
+    @engine
+    def post(self, sid):
+        self.db['users'].update({"_id": self.current_user['userid']}, {'$addToSet': {'bookmarks': int(sid)}})

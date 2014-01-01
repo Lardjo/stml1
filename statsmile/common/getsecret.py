@@ -2,8 +2,11 @@
 
 from random import choice
 from string import ascii_letters, digits
-
 from pymongo.errors import DuplicateKeyError
+
+
+class ParameterNotFound(Exception):
+    pass
 
 
 def get_cookies(db, key):
@@ -15,7 +18,7 @@ def get_cookies(db, key):
     except DuplicateKeyError:
         pass
 
-    _ = db['server'].find_one({'key': key}, fields={'value': 1, '_id': 0})
+    _ = db['server'].find_one({'key': key})
 
     if _ is None:
         raise ParameterNotFound

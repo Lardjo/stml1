@@ -1,174 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / {{ title }}{% end %}
 {% block content %}
-
-    <div class="page-header">
-        <h1>Heroes <small>Beta</small></h1>
-    </div>
-
-    <!-- Nav tabs -->
-<ul class="nav nav-pills">
-  <li class="active"><a href="#home" data-toggle="tab">Heroes</a></li>
-  <li><a href="#profile" data-toggle="tab">Rating</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane fade in active" id="home">
-       <div class="alert alert-warning">This page is under construction. Not all heroes have the description and
-        characteristics.
-    </div>
-<p><strong>Heroes</strong> are the essential element of Dota 2, as the course of the game is dependent on their intervention. Players
-        are split into two teams of 5, and can select a Hero from a selection panel. Heroes all have different play
-        styles that stem from unique Skills and combinations of Attributes. Over the course of the game, Heroes will
-        accumulate Experience. Once a Hero has enough experience, they will level up, making them more powerful than
-        before and allowing them to train new Skills. Most Heroes have a distinct Role that defines how they can affect
-        the battlefield, though many Heroes can perform two or more of these Roles. Currently, 105 of the 112 heroes
-        are playable in the main Dota 2 client.
-    </p>
- <div class="row heroes-row">
-
-        <div class="col-md-4">
-            <div class="panel panel-danger">
-                <div class="panel-heading"><strong>Radiant</strong> Strength</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/18"><img src="{{ static_url(heroes[18]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/19"><img src="{{ static_url(heroes[19]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/100"><img src="{{ static_url(heroes[100]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/7"><img src="{{ static_url(heroes[7]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/103"><img src="{{ static_url(heroes[103]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/107"><img src="{{ static_url(heroes[107]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 3 -->
-                    <a href="/heroes/23"><img src="{{ static_url(heroes[23]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/57"><img src="{{ static_url(heroes[57]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/99"><img src="{{ static_url(heroes[99]['avatar']) }}" class="img-thumbnail"></a>
-
-                </div>
-            </div>
-            <div class="panel panel-danger">
-                <div class="panel-heading">Dire Strength</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/2"><img src="{{ static_url(heroes[2]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/14"><img src="{{ static_url(heroes[14]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/54"><img src="{{ static_url(heroes[54]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/81"><img src="{{ static_url(heroes[81]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/97"><img src="{{ static_url(heroes[97]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/102"><img src="{{ static_url(heroes[102]['avatar']) }}" class="img-thumbnail"></a>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-success">
-                <div class="panel-heading"><strong>Radiant</strong> Agility</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/8"><img src="{{ static_url(heroes[8]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/35"><img src="{{ static_url(heroes[35]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/106"><img src="{{ static_url(heroes[106]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/9"><img src="{{ static_url(heroes[9]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/46"><img src="{{ static_url(heroes[46]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/48"><img src="{{ static_url(heroes[48]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 3 -->
-                    <a href="/heroes/6"><img src="{{ static_url(heroes[6]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/32"><img src="{{ static_url(heroes[32]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/70"><img src="{{ static_url(heroes[70]['avatar']) }}" class="img-thumbnail"></a>
-
-                </div>
-            </div>
-            <div class="panel panel-success">
-                <div class="panel-heading">Dire Agility</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/41"><img src="{{ static_url(heroes[41]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/88"><img src="{{ static_url(heroes[88]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/93"><img src="{{ static_url(heroes[93]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/11"><img src="{{ static_url(heroes[11]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/44"><img src="{{ static_url(heroes[44]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/94"><img src="{{ static_url(heroes[94]['avatar']) }}" class="img-thumbnail"></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-heading"><strong>Radiant</strong> Intelligence</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/5"><img src="{{ static_url(heroes[5]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/21"><img src="{{ static_url(heroes[21]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/53"><img src="{{ static_url(heroes[53]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/17"><img src="{{ static_url(heroes[17]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/25"><img src="{{ static_url(heroes[25]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/101"><img src="{{ static_url(heroes[101]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 3 -->
-                    <a href="/heroes/22"><img src="{{ static_url(heroes[22]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/75"><img src="{{ static_url(heroes[75]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/86"><img src="{{ static_url(heroes[86]['avatar']) }}" class="img-thumbnail"></a>
-                </div>
-            </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">Dire Intelligence</div>
-                <div class="panel-body heroes">
-                    <!-- 1 -->
-                    <a href="/heroes/50"><img src="{{ static_url(heroes[50]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/74"><img src="{{ static_url(heroes[74]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/76"><img src="{{ static_url(heroes[76]['avatar']) }}" class="img-thumbnail"></a>
-                    <!-- 2 -->
-                    <a href="/heroes/37"><img src="{{ static_url(heroes[37]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/39"><img src="{{ static_url(heroes[39]['avatar']) }}" class="img-thumbnail"></a>
-                    <a href="/heroes/68"><img src="{{ static_url(heroes[68]['avatar']) }}" class="img-thumbnail"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-  </div>
-  <div class="tab-pane fade" id="profile">
-
-      <table class="table">
-          <thead>
-          <tr>
-              <th>#</th>
-              <th>Hero</th>
-              <th>Matches</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% set n = 1 %}
-          {% for tp in top %}
-          <tr>
-              <td>{{ n }}</td>
-              <td>
-                  <div class="hero-container">
-                      <img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}">
-                  </div>
-                  <div class="hero-name"><strong>{{ heroes[tp['hero_id']]['name'] }}</strong></div>
-              </td>
-              <td>{{ tp['matches'] }}</td>
-          </tr>
-          {% set n += 1 %}
-          {% end %}
-          </tbody>
-</table>
-
-
-  </div>
+<div class="page-header" id="myheroes">
+    <h1>Heroes <small>Beta</small></h1>
 </div>
 
-
-
-
-
-
-
+<ul class="nav nav-pills">
+{% if request.path == "/heroes" %}<li class="active">{% else %}<li>{% end %}<a href="/heroes">Heroes</a></li>
+{% if request.path == "/heroes/rating" %}<li class="active">{% else %}<li>{% end %}<a href="/heroes/rating">Rating</a></li>
+</ul>
+{% if request.path == "/heroes" %}
+{% include 'heroes-list.html' %}
+{% elif request.path == "/heroes/rating" %}
+{% include 'heroes-top.html' %}
+{% else %}
+{% end %}
 {% end %}
