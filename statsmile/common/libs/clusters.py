@@ -8,6 +8,7 @@ cluster = {
       0: {'name': 'Unknown Region'},
     111: {'name': 'US West'},
     112: {'name': 'US West'},
+    114: {'name': 'US West'},
     121: {'name': 'US East'},
     122: {'name': 'US East'},
     123: {'name': 'US East'},
