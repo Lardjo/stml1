@@ -35,6 +35,7 @@ cluster = {
     191: {'name': 'Europe East'},
     200: {'name': 'South America'},
     211: {'name': 'South Africa'},
+    213: {'name': 'South Africa'},
     221: {'name': 'China'},
     222: {'name': 'China'}
 

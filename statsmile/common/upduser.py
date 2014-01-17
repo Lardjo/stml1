@@ -18,21 +18,19 @@ def update_user(db, steamid):
 
     key = yield Op(db["server"].find_one, {"key": "apikey"})
 
-    url1 = url_concat("http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
-                      {"key": key["value"], "account_id": steamid})
-    url2 = url_concat("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
-                      {"key": key["value"], "steamids": steamid})
-
     http_client = AsyncHTTPClient()
+    dota, steam = yield [Task(http_client.fetch,
+                              url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
+                                         {"key": key["value"], "account_id": steamid})),
+                         Task(http_client.fetch,
+                              url_concat("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/",
+                                         {"key": key["value"], "steamids": steamid}))]
 
-    response_dota, response_steam = yield [Task(http_client.fetch, url1),
-                                           Task(http_client.fetch, url2)]
-
-    if response_dota.error:
-        logging.warning("New matches for user %s has not updated. Error: %s" % (steamid, response_dota.error))
-        db["status"].update({"status": "api_dota"}, {"$set": {"value": "false", "time": datetime.now()}})
+    if dota.error or dota.code != 200:
+        logging.warning("New matches for %s has not updated. Error: %s. Code: %s" % (steamid, dota.error, dota.code))
+        db['status'].update({"status": "api_dota"}, {"$set": {"value": "false", "time": datetime.now()}})
     else:
-        array = json_decode(response_dota.body)
+        array = json_decode(dota.body)
         new_matches = []
         for_update = []
         for mid in array['result']['matches']:
@@ -46,29 +44,48 @@ def update_user(db, steamid):
         db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}})
         logging.info('User matches %s has been updated. Added %s matches' % (steamid, len(for_update)))
 
-    if response_steam.error:
-        logging.warning("User profile %s has not updated. Error: %s" % (steamid, response_steam.error))
-        db["status"].update({"status": "api_steam"}, {"$set": {"value": "false", "time": datetime.now()}})
+    if steam.error or steam.code != 200:
+        logging.warning("User profile %s has not updated. Error: %s. Code: %s" % (steamid, steam.error, steam.code))
+        db['status'].update({"status": "api_steam"}, {"$set": {"value": "false", "time": datetime.now()}})
     else:
-        all_user = json_decode(response_steam.body)['response']['players'][0]
-        user = {"steamid": all_user['steamid'],
-                "personaname": all_user['personaname'],
-                "profileurl": all_user['profileurl'],
-                "avatar": all_user['avatarfull']}
-        if 'realname' in all_user.keys():
-            user["realname"] = all_user["realname"]
-        else:
-            user["realname"] = None
+        player = json_decode(steam.body)['response']['players'][0]
+        user = {'steamid': player['steamid'],
+                'personaname': player['personaname'],
+                'profileurl': player['profileurl'],
+                'avatar': player['avatarfull'],
+                'realname': player.get('realname', None)}
         db["users"].update({"steamid": steamid}, {"$set": user})
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
         logging.info('User profile %s has been updated' % steamid)
 
-    # Update user count matches
     user = yield Op(db['users'].find_one, {'steamid': steamid})
 
+    # Update user count matches
     matches = yield Op(db['matches'].find({'players.account_id': user['steamid32'],
                                            'game_mode': {'$nin': black_list}}).count)
 
+    # Update user favorites
+    favorites = yield Op(db['matches'].aggregate,
+                         [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list}}},
+                          {"$project": {"players.hero_id": 1, "players.account_id": 1, "players.count": {"$add": [1]}}},
+                          {"$unwind": "$players"},
+                          {"$match": {"players.account_id": user["steamid32"]}},
+                          {"$group": {"_id": "$players.hero_id", "sum": {"$sum": "$players.count"}}},
+                          {"$sort": {"sum": -1}},
+                          {"$limit": 7}])
+
+    # Update user total hours
+    pub, events = yield [
+        Op(db['matches'].aggregate,
+           [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list}}},
+            {"$group": {"_id": 'None', "sum": {"$sum": "$duration"}}}]),
+        Op(db['matches'].aggregate,
+           [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$in": black_list}}},
+            {"$group": {"_id": 'None', "sum": {"$sum": "$duration"}}}])]
+
     db['users'].update({'steamid': steamid}, {'$set': {'dota_count': matches,
+                                                       'favorites': favorites['result'],
+                                                       'total_hours': {'public': pub['result'][0]['sum'],
+                                                                       'events': events['result'][0]['sum']},
                                                        'update': datetime.now() + timedelta(minutes=5),
                                                        'last_update': datetime.now()}})

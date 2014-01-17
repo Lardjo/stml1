@@ -93,7 +93,7 @@ heroes_info = {
         'avatar': 'img/dota/heroes/axe.png'
     },
 
-    3: {'name': 'Ban',
+    3: {'name': 'Bane',
         'role': '',
         'side': '',
         'class': '',

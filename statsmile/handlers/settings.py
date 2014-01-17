@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import json
+import re
+
 from motor import Op
 from tornado.gen import engine
 from tornado.web import asynchronous, authenticated
@@ -23,3 +26,13 @@ class SettingsHandler(BaseHandler):
 
         self.render('user-settings.html', session=session, sessions=sessions, progress_on_base=matches_on_base,
                     progress=progress)
+
+    @authenticated
+    def post(self):
+        role = self.get_argument("role", None)
+        role = json.loads(role)
+        for tv in role:
+            if tv['name'] == 'twitch_login':
+                self.db['users'].update({'_id': self.current_user['userid']}, {'$set': {'twitch_login': tv['value']}})
+            elif tv['name'] == 'twitch_status':
+                self.db['users'].update({'_id': self.current_user['userid']}, {'$set': {'twitch_status': tv['value']}})

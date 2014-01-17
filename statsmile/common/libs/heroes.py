@@ -7,7 +7,7 @@ heroes = {
 
     1: {'name': 'Anti-Mage', 'avatar': 'img/dota/heroes/antimage.png'},
     2: {'name': 'Axe', 'avatar': 'img/dota/heroes/axe.png'},
-    3: {'name': 'Ban', 'avatar': 'img/dota/heroes/bane.png'},
+    3: {'name': 'Bane', 'avatar': 'img/dota/heroes/bane.png'},
     4: {'name': 'Bloodseeker', 'avatar': 'img/dota/heroes/bloodseeker.png'},
     5: {'name': 'Crystal Maiden', 'avatar': 'img/dota/heroes/crystal_maiden.png'},
     6: {'name': 'Drow Ranger', 'avatar': 'img/dota/heroes/drow_ranger.png'},

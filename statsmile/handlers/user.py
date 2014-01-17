@@ -27,7 +27,7 @@ class UserHandler(BaseHandler):
         if user is None:
             return self.send_error(404)
 
-        matches, match, favorites = yield [
+        matches, match = yield [
             Op(self.db['matches'].find({"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list}},
                                        {"radiant_win": 1, "cluster": 1, "duration": 1, "start_time": 1, "game_mode": 1,
                                         "lobby_type": 1, "match_id": 1,
@@ -35,19 +35,10 @@ class UserHandler(BaseHandler):
                                        sort=[('start_time', -1)], limit=10).to_list),
             Op(self.db['matches'].find({"players.account_id": user["steamid32"],
                                         "game_mode": {"$nin": black_list}},
-                                       sort=[('start_time', -1)], limit=1).to_list),
-            Op(self.db['matches'].aggregate,
-               [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list}}},
-                {"$project": {"players.hero_id": 1, "players.account_id": 1, "players.count": {"$add": [1]}}},
-                {"$unwind": "$players"},
-                {"$match": {"players.account_id": user["steamid32"]}},
-                {"$group": {"_id": "$players.hero_id", "sum": {"$sum": "$players.count"}}},
-                {"$sort": {"sum": -1}},
-                {"$limit": 7}])]
+                                       sort=[('start_time', -1)], limit=1).to_list)]
 
         self.render("user.html", title="Dashboard", user=user, session=session, matches=matches,
-                    match=match, favorites=favorites['result'],
-                    heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
+                    match=match, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
 
 
 class UserMatchesHandler(BaseHandler):

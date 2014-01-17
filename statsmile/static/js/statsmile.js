@@ -38,6 +38,34 @@ $(document).on("click", ".remove-bookmark:submit", function(){
     });
 });
 
+
+$("#twitchForm").submit(function(e) {
+
+    e.preventDefault();
+
+    var postData = $("#twitchForm").serializeArray();
+    var array = JSON.stringify(postData);
+
+    $.each(postData, function(i, fd) {
+
+        if(fd.name === "twitch_login")
+            if(fd.value === "") {
+                $("#result").html('<div class="alert alert-danger">Twitch login account are required!</div>');
+                return false;
+            } else {
+            $.ajax({
+                type: "POST",
+                url: '/user/settings',
+                data: {'role': array},
+                success: function() {
+                    $("#result").html('<div class="alert alert-success">Saved! Check your profile page.</div>');
+                }
+            });
+        }
+    });
+
+});
+
 var $container  = $('#ib-container'),
     $articles   = $container.find('a'),
     timeout;
