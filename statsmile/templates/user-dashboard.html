@@ -5,13 +5,14 @@
         </div>
         <p><span class="glyphicon glyphicon-play"></span> <strong>Total matches played:</strong> {{ user['dota_count'] }}</p>
         <p><span class="glyphicon glyphicon-time"></span> <strong>Total spent time:</strong> {% try %} {% set d = datetime.timedelta(seconds=user['total_hours']['public']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes (+ {% set d = datetime.timedelta(seconds=user['total_hours']['events']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes for events) {% except %} 0 {% end %}</p>
+        <p><span class="glyphicon glyphicon-stats"></span> <strong>Recent Game Activity:</strong> {{ user.get('matchesPlayed2Wk', 0) }} matches past 2 weeks</p>
     </div>
     {% if user.get('twitch_status') == 'on' %}
     <div class="col-md-5">
         <div class="page-header">
             <h1>Twitch.tv<small> Stream channel</small></h1>
         </div>
-        <object type="application/x-shockwave-flash" height="290" width="458" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={{ user['twitch_login'] }}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel={{ user['twitch_login'] }}&auto_play=true&start_volume=25" /></object>
+        <object type="application/x-shockwave-flash" height="289" width="458" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={{ user['twitch_login'] }}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel={{ user['twitch_login'] }}&auto_play=true&start_volume=25" /></object>
     </div>
     {% else %}{% end %}
 </div>
@@ -97,7 +98,6 @@
         <th>Hero</th>
         <th>Ranked</th>
         <th>Result</th>
-
         <th>Start Time</th>
         <th class="hidden-xs">Duration</th>
         <th>Match ID</th>

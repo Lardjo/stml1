@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
+import time
 
 from motor import Op
 from tornado.gen import coroutine, Task
@@ -62,11 +63,14 @@ def update_user(db, steamid):
 
     # Update user count matches
     matches = yield Op(db['matches'].find({'players.account_id': user['steamid32'],
-                                           'game_mode': {'$nin': black_list}}).count)
+                                           'game_mode': {'$nin': black_list},
+                                           'players.hero_id': {'$nin': [0]}}).count)
 
     # Update user favorites
     favorites = yield Op(db['matches'].aggregate,
-                         [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list}}},
+                         [{"$match": {'players.account_id': user["steamid32"],
+                                      'game_mode': {"$nin": black_list},
+                                      'players.hero_id': {'$nin': [0]}}},
                           {"$project": {"players.hero_id": 1, "players.account_id": 1, "players.count": {"$add": [1]}}},
                           {"$unwind": "$players"},
                           {"$match": {"players.account_id": user["steamid32"]}},
@@ -83,7 +87,15 @@ def update_user(db, steamid):
            [{"$match": {"players.account_id": user["steamid32"], "game_mode": {"$in": black_list}}},
             {"$group": {"_id": 'None', "sum": {"$sum": "$duration"}}}])]
 
+    # Update recent game activity
+    matchesPlayed2Wk = yield Op(db['matches'].find({'start_time': {'$lt': time.time(),
+                                                                   '$gte': time.time()-1209600},
+                                                    'players.account_id': user['steamid32'],
+                                                    'game_mode': {'$nin': black_list},
+                                                    'players.hero_id': {'$nin': [0]}}).count)
+
     db['users'].update({'steamid': steamid}, {'$set': {'dota_count': matches,
+                                                       'matchesPlayed2Wk': matchesPlayed2Wk,
                                                        'favorites': favorites['result'],
                                                        'total_hours': {'public': pub['result'][0]['sum'],
                                                                        'events': events['result'][0]['sum']},

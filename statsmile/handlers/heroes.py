@@ -41,7 +41,7 @@ class HeroHandler(BaseHandler):
             session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         hero = int(hero)
         if not hero in libs.heroes_info.keys():
-            self.send_error(404)
+            return self.send_error(404)
         stats = yield Op(self.application.db['heroes'].find_one, {'hero_id': hero})
         hero_info = libs.heroes_info[hero]
         self.render("hero.html", session=session, hero=hero_info, stats=stats, items=libs.items)
