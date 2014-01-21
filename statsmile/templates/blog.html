@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Blog <small>Statsmile</small></h1>
+</div>
+        {% for entry in entries %}
+    {% module Entry(entry) %}
+  {% end %}
+{% end %}

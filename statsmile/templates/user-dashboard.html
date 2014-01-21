@@ -5,7 +5,7 @@
         </div>
         <p><span class="glyphicon glyphicon-play"></span> <strong>Total matches played:</strong> {{ user['dota_count'] }}</p>
         <p><span class="glyphicon glyphicon-time"></span> <strong>Total spent time:</strong> {% try %} {% set d = datetime.timedelta(seconds=user['total_hours']['public']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes (+ {% set d = datetime.timedelta(seconds=user['total_hours']['events']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes for events) {% except %} 0 {% end %}</p>
-        <p><span class="glyphicon glyphicon-stats"></span> <strong>Recent Game Activity:</strong> {{ user.get('matchesPlayed2Wk', 0) }} matches past 2 weeks</p>
+        <p><span class="glyphicon glyphicon-stats"></span> <strong>Recent game activity:</strong> {{ user.get('matchesPlayed2Wk', 0) }} matches past 2 weeks</p>
     </div>
     {% if user.get('twitch_status') == 'on' %}
     <div class="col-md-5">

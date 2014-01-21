@@ -1,0 +1,10 @@
+<div>
+    <div class="page-header">
+        <h1><a href="/blog/entry/{{ entry['slug'] }}">{{ entry['title'] }}</a></h1>
+    </div>
+    <p class="text-muted">Posted {{ locale.format_date(entry['published'], full_format=True, shorter=True) }}</p>
+    <p>{% raw entry['html'] %}</p>
+    {% if current_user %}
+    <p class="text-muted"><a href="/blog/compose?id={{ entry['_id'] }}">{{ _("Edit this post") }}</a></p>
+    {% end %}
+</div>
