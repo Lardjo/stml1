@@ -19,7 +19,7 @@ class BlogHandler(BaseHandler):
         cursor = self.db['blog'].find({}, sort=[('published', -1)], limit=10)
         entries = yield Op(cursor.to_list)
         if not entries:
-            self.redirect('/blog/compose')
+            self.redirect('/postbox')
             return
         self.render("blog.html", entries=entries, session=session)
 
@@ -42,6 +42,8 @@ class ComposeHandler(BaseHandler):
     @engine
     def get(self):
         session = yield Op(self.db['users'].find_one, {'_id': self.current_user.get('userid', None)})
+        if session.get('badge', None) != "Staff":
+            return self.send_error(404)
         id = self.get_argument('id', None)
         entry = None
         if id:
@@ -82,7 +84,7 @@ class ComposeHandler(BaseHandler):
                                     'slug': slug,
                                     'markdown': text,
                                     'html': html})
-        self.redirect("/blog/entry/" + slug)
+        self.redirect("/blog/" + slug)
 
 
 class EntryModule(UIModule):

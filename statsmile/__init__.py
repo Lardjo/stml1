@@ -72,8 +72,8 @@ class Statsmile(Application):
         handler_ls = [
             (r'/', handlers.MainHandler),
             (r'/blog', handlers.BlogHandler),
-            (r"/blog/entry/([^/]+)", handlers.EntryHandler),
-            (r"/blog/compose", handlers.ComposeHandler),
+            (r"/blog/([^/]+)", handlers.EntryHandler),
+            (r"/postbox", handlers.ComposeHandler),
             (r'/status', handlers.StatusHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
