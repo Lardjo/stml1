@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>New entry <small>Blog</small></h1>
+</div>
+<form action="{{ request.path }}" method="post" class="compose">
+    <div class="form-group">
+        <label for="InputTitle1">Title</label>
+        <input id="InputTitle1" name="title" type="text" class="form-control" value="{{ entry['title'] if entry else '' }}"/>
+    </div>
+    <p><textarea name="markdown" rows="20" cols="40" class="form-control">{{ entry['markdown'] if entry else '' }}</textarea></p>
+
+    <p>
+        <input type="submit" value="{{ _("Save changes") if entry else _("Publish post") }}" class="btn btn-primary btn-lg" />
+        <a class="btn btn-danger btn-lg" role="button" href="{{ "/blog/" + entry['slug'] if entry else "/" }}">{{ _("Cancel") }}</a>
+    </p>
+    {% if entry %}
+      <input type="hidden" name="id" value="{{ entry['_id'] }}"/>
+    {% end %}
+    {% module xsrf_form_html() %}
+  </form>
+{% end %}
+
+{% block bottom %}
+  <script type="text/javascript">
+  //<![CDATA[
+    $(function() {
+      $("input[name=title]").select();
+      $("form.compose").submit(function() {
+          var required = ["title", "markdown"];
+          var form = $(this).get(0);
+          for (var i = 0; i < required.length; i++) {
+              if (!form[required[i]].value) {
+                  $(form[required[i]]).select();
+                  return false;
+              }
+          }
+          return true;
+      });
+    });
+  //]]>
+  </script>
+{% end %}

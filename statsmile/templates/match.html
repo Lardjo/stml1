@@ -14,6 +14,12 @@
             <strong>Ho-ho!</strong> This game is part of the event "Wraith-Night". This mode assumes the existence of only 5 players.
             You can <a href="/events/wraithnight" class="alert-link">visit the event page</a> to view other matches.
         </div>
+        {% elif match['game_mode'] == 7 %}
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Brr!</strong> This game is part of the event "Diretide".
+            You can <a href="/events/diretide" class="alert-link">visit the event page</a> to view other matches.
+        </div>
         {% else %}{% end %}
         <div class="row recent-info">
             <div class="col-md-4">
@@ -49,10 +55,10 @@
                         <th>Player</th>
                         <th>Hero</th>
                         <th colspan="6">Items</th>
-                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th>Gold</th>
                         <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
                         <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
                         <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
                         <th>Kills / Deaths / Assists</th>
@@ -75,10 +81,10 @@
                         <th>Player</th>
                         <th>Hero</th>
                         <th colspan="6">Items</th>
-                        <th><p data-toggle="tooltip" title="Gold Spent">GS</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th>Gold</th>
                         <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Healing">HH</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
                         <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
                         <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
                         <th>Kills / Deaths / Assists</th>

@@ -31,5 +31,17 @@ class EventsHandler(BaseHandler):
             event = yield Op(cursor.to_list)
             self.render('wraithnight.html', title="Wraith-Night", session=session, event=event, heroes=libs.heroes,
                         mode=libs.mode, cluster=libs.cluster, page=pg, max_pages=max_pages)
+        elif sid == 'diretide':
+            cursor = self.application.db["matches"].find({"game_mode": 7})
+            pages = yield Op(cursor.count)
+            max_pages = math.ceil(pages / 20)
+            if pg > max_pages:
+                return self.send_error(404)
+            cursor = self.application.db["matches"].find({"game_mode": 7},
+                                                         sort=[('start_time', -1)],
+                                                         limit=20).skip((pg-1)*20)
+            event = yield Op(cursor.to_list)
+            self.render('diretide.html', title="Diretide", session=session, event=event, heroes=libs.heroes,
+                        mode=libs.mode, cluster=libs.cluster, page=pg, max_pages=max_pages)
         else:
             return self.send_error(404)

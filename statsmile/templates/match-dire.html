@@ -32,10 +32,10 @@
 <td style="width: 60px; padding: 1px;">
     <img src="{% try %}{{ static_url(items[dire['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_5'] }}{% end %}">
 </td>
-<td>{{ dire['gold_spent'] }}</td>
-<td>{{ dire['denies'] }}</td>
+<td>{{ dire['gold'] }}</td>
 <td>{{ dire['last_hits'] }}</td>
-<td>{{ dire['hero_healing'] }}</td>
+<td>{{ dire['denies'] }}</td>
+<td>{{ dire['hero_damage'] }}</td>
 <td>{{ dire['xp_per_min'] }}</td>
 <td>{{ dire['gold_per_min'] }}</td>
 <td>

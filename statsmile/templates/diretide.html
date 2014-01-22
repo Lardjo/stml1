@@ -2,13 +2,13 @@
 {% block title %}Statsmile / Events / {{ title }}{% end %}
 {% block content %}
 <div class="page-header">
-    <h1>{{ title }} <small>Christmas Dota 2 Event.</small></h1>
+    <h1>{{ title }} <small>Halloween Dota 2 Event.</small></h1>
 </div>
-        <h3>IT'S FROSTIVUS EVE. YOUR KING NEEDS YOU.</h3>
-        <p>Skeleton King is crumbling to dust after too many resurrections. He has staked his hopes on a ritual that can be
-    performed but once in a millennium. On the solstice known as Wraith-Night, auroral powers charge the earth with an
-    eerie glow. Imbued with Wraith Essence, monsters grow in power but heroes gain new strength. You alone can harvest
-    the energy needed to prepare the King for his next coronation. Who knows how he might show his appreciation?
+        <h3>TIS THE SEASON OF THE DIRE.</h3>
+        <p>The tide of Radiance has sunk to its lowest ebb, long summer days have given way to longer nights. The river
+            runs red and the woods run wild with the grief-loving imps known as Greevils. Prepare yourself for
+            a new Dota 2 game mode full of Mysterious eggs... rattling coffins... and horrible candy...
+            WHAT'S NOT TO LOVE?
 </p>
 
 
@@ -22,7 +22,8 @@
             <th>Mode</th>
             <th>Server</th>
             <th>Duration</th>
-            <th>Heroes</th>
+            <th>Radiant</th>
+            <th>Dire</th>
         </tr>
         </thead>
 
@@ -40,7 +41,14 @@
                 <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
                 {% else %}{% end %}
                 {% end %}
-            </td>
+                </td>
+                <td>
+                 {% for ev in mt['players'][5:] %}
+                {% if not ev['hero_id'] == 0 %}
+                <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                {% else %}{% end %}
+                {% end %}
+                </td>
         </tr>
         {% end %}
         </tbody>
@@ -50,23 +58,23 @@
 
 <ul class="pagination pagination-sm">
     {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
-    {% if page == 1 %}<a href="#">{% else %}<a href="/events/wraithnight/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
-    {% if page > 1 %}<li><a href="/events/wraithnight">First</a></li>{% else %}{% end %}
+    {% if page == 1 %}<a href="#">{% else %}<a href="/events/diretide/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
+    {% if page > 1 %}<li><a href="/events/diretide">First</a></li>{% else %}{% end %}
     {% if page < 6 %}
     {% for x in range(1, 10) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/wraithnight/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/diretide/page/{{ x }}">{{ x }}</a></li>
     {% end %}
     {% elif page >= 6 and page <= max_pages-5 %}
     {% for x in range(page-5, page+5) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/wraithnight/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/diretide/page/{{ x }}">{{ x }}</a></li>
     {% end %}
     {% elif page > max_pages-5 %}
     {% for x in range(page-5, max_pages+1) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/wraithnight/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events/diretide/page/{{ x }}">{{ x }}</a></li>
     {% end %}
     {% end %}
-    {% if page < max_pages %}<li><a href="/events/wraithnight/page/{{ max_pages }}">Last</a></li>{% else %}{% end %}
+    {% if page < max_pages %}<li><a href="/events/diretide/page/{{ max_pages }}">Last</a></li>{% else %}{% end %}
     {% if page == max_pages %}<li class="disabled">{% else %}<li>{% end %}
-    {% if page == max_pages %}<a href="#">{% else %}<a href="/events/wraithnight/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
+    {% if page == max_pages %}<a href="#">{% else %}<a href="/events/diretide/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
 </ul>
 {% end %}

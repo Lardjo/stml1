@@ -8,9 +8,11 @@ cluster = {
       0: {'name': 'Unknown Region'},
     111: {'name': 'US West'},
     112: {'name': 'US West'},
+    114: {'name': 'US West'},
     121: {'name': 'US East'},
     122: {'name': 'US East'},
     123: {'name': 'US East'},
+    124: {'name': 'US East'},
     131: {'name': 'Europe West'},
     132: {'name': 'Europe West'},
     133: {'name': 'Europe West'},
@@ -33,6 +35,7 @@ cluster = {
     191: {'name': 'Europe East'},
     200: {'name': 'South America'},
     211: {'name': 'South Africa'},
+    213: {'name': 'South Africa'},
     221: {'name': 'China'},
     222: {'name': 'China'}
 

@@ -71,6 +71,9 @@ class Statsmile(Application):
 
         handler_ls = [
             (r'/', handlers.MainHandler),
+            (r'/blog', handlers.BlogHandler),
+            (r"/blog/([^/]+)", handlers.EntryHandler),
+            (r"/postbox", handlers.ComposeHandler),
             (r'/status', handlers.StatusHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
@@ -160,7 +163,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': False,
+            'debug': True,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
