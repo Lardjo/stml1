@@ -33,7 +33,7 @@ def update_user(db, steamid):
     else:
         array = json_decode(dota.body)
         if array['result']['status'] == 15:
-            logging.info('User not allow getting his matches. Private profile. Pass')
+            logging.info('User %s not allow getting his matches. Private profile. Pass' % steamid)
         else:
             new_matches = []
             for_update = []
@@ -101,8 +101,8 @@ def update_user(db, steamid):
                            'dota_count': matches,
                            'matchesPlayed2Wk': matchesPlayed2Wk,
                            'favorites': favorites['result'],
-                           'total_hours': {'public': pub['result'][0]['sum'] if pub['result'] is None else 0,
-                                           'events': events['result'][0]['sum'] if events['result'] is None else 0},
+                           'total_hours': {'public': pub['result'][0]['sum'] if len(pub['result']) > 0 else 0,
+                                           'events': events['result'][0]['sum'] if len(events['result']) > 0 else 0},
                            'update': datetime.now() + timedelta(minutes=5),
                            'last_update': datetime.now()}})
 
