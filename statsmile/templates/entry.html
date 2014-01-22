@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% module Entry(entry) %}
+  <div>
+    <div class="page-header">
+        <h1><a href="/blog/{{ entry['slug'] }}">{{ entry['title'] }}</a></h1>
+    </div>
+    <p class="text-muted">Posted {{ locale.format_date(entry['published'], full_format=True, shorter=True) }}</p>
+    <p>{% raw entry['html'] %}</p>
+    {% from bson import ObjectId %}
+    {% if current_user %}{% if session.get('badge', None) == 'Staff' %}
+    <p class="text-muted"><a href="/postbox?id={{ entry['_id'] }}">{{ _("Edit this post") }}</a></p>{% else %}
+    {% end %}{% else %}{% end %}
+</div>
 {% end %}

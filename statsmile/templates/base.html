@@ -65,9 +65,9 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% from bson import ObjectId %}
-                        {% if current_user['userid'] == ObjectId("52a4a59b343c6038ac81cac7") %}
+                        {% if current_user %}{% if session.get('badge', None) == 'Staff' %}
                         <li><a href="/postbox"><span class="glyphicon glyphicon-pencil"></span></a></li>{% else %}
-                        {% end %}
+                        {% end %}{% else %}{% end %}
                         {% if current_user %}
                         <li><a href="/user/{{ session['_id'] }}"><span class="glyphicon glyphicon-user"></span></a></li>
                         <li><a href="/user/bookmarks"><span class="glyphicon glyphicon-bookmark"></span></a></li>

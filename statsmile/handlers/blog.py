@@ -15,7 +15,9 @@ class BlogHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user.get('userid', None)})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         cursor = self.db['blog'].find({}, sort=[('published', -1)], limit=10)
         entries = yield Op(cursor.to_list)
         if not entries:
@@ -28,7 +30,9 @@ class EntryHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self, slug):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user.get('userid', None)})
+        session = None
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
         entry = yield Op(self.db['blog'].find_one, {'slug': slug})
         author = yield Op(self.db['users'].find_one, {'_id': entry['author_id']})
         if not entry:
@@ -41,9 +45,11 @@ class ComposeHandler(BaseHandler):
     @authenticated
     @engine
     def get(self):
-        session = yield Op(self.db['users'].find_one, {'_id': self.current_user.get('userid', None)})
-        if session.get('badge', None) != "Staff":
-            return self.send_error(404)
+        session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+        if not 'badge' in session:
+            return self.send_error(403)
+        elif session['badge'] != 'Staff':
+            return self.send_error(403)
         id = self.get_argument('id', None)
         entry = None
         if id:
@@ -85,8 +91,3 @@ class ComposeHandler(BaseHandler):
                                     'markdown': text,
                                     'html': html})
         self.redirect("/blog/" + slug)
-
-
-class EntryModule(UIModule):
-    def render(self, entry):
-        return self.render_string("modules/entry.html", entry=entry)

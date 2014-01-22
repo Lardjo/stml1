@@ -13,4 +13,4 @@ from .heroes import HeroesHandler, HeroHandler, HeroesTopHandler
 from .events import EventsHandler
 from .status import StatusHandler
 from .bookmarks import BookmarksHandler
-from .blog import BlogHandler, ComposeHandler, EntryHandler, EntryModule
+from .blog import BlogHandler, ComposeHandler, EntryHandler

@@ -164,7 +164,6 @@ class Statsmile(Application):
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
             'debug': True,
-            'ui_modules': {'Entry': handlers.EntryModule},
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
