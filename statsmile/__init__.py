@@ -119,14 +119,14 @@ class Statsmile(Application):
 
         # User profile updater
         self.__update = []
-        users = self.db_sync['users'].find({}).sort('update').limit(5)
+        users = self.db_sync['users'].find({}).sort('update').limit(1)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
 
         # Heroes page updater
         self.__update_hero = []
-        heroes = self.db_sync['heroes'].find({}).sort('update').limit(5)
+        heroes = self.db_sync['heroes'].find({}).sort('update').limit(1)
         for hr in heroes:
             IOLoop.instance().add_timeout(hr['update'].timestamp(), partial(self.heroes_update, hr))
             self.__update_hero.append(hr['_id'])
@@ -163,7 +163,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': True,
+            'debug': False,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
