@@ -23,6 +23,9 @@ class Statsmile(Application):
         logging.debug('Started updating %s user' % user['steamid'])
 
         yield update_user(self.db, user['steamid'])
+
+        logging.debug('Test debug final')
+
         self.__update.remove(user['_id'])
 
         new_user = yield Op(self.db['users'].find_one, {'_id': {'$not': {'$in': self.__update}}},
@@ -164,7 +167,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': False,
+            'debug': True,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
