@@ -29,7 +29,7 @@ def update_user(db, steamid):
 
     if dota.error or dota.code != 200:
         logging.warning("New matches for %s has not updated. Error: %s. Code: %s" % (steamid, dota.error, dota.code))
-        db['status'].update({"status": "api_dota"}, {"$set": {"value": "false", "time": datetime.now()}})
+        db['status'].update({"status": "api_dota"}, {"$set": {"value": "false", "time": datetime.now()}}, w=1)
     else:
         array = json_decode(dota.body)
         if array['result']['status'] == 15:
@@ -45,12 +45,12 @@ def update_user(db, steamid):
                 if not key in slices['matches']:
                     for_update.append(key)
             db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": for_update}}})
-            db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}})
+            db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}}, w=1)
             logging.info('User matches %s has been updated. Added %s matches' % (steamid, len(for_update)))
 
     if steam.error or steam.code != 200:
         logging.warning("User profile %s has not updated. Error: %s. Code: %s" % (steamid, steam.error, steam.code))
-        db['status'].update({"status": "api_steam"}, {"$set": {"value": "false", "time": datetime.now()}})
+        db['status'].update({"status": "api_steam"}, {"$set": {"value": "false", "time": datetime.now()}}, w=1)
     else:
         player = json_decode(steam.body)['response']['players'][0]
         user = {'steamid': player['steamid'],
@@ -59,7 +59,7 @@ def update_user(db, steamid):
                 'avatar': player['avatarfull'],
                 'realname': player.get('realname', None)}
         db["users"].update({"steamid": steamid}, {"$set": user})
-        db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}})
+        db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}}, w=1)
         logging.info('User profile %s has been updated' % steamid)
 
     user = yield Op(db['users'].find_one, {'steamid': steamid})
@@ -79,7 +79,7 @@ def update_user(db, steamid):
                           {"$match": {"players.account_id": user["steamid32"]}},
                           {"$group": {"_id": "$players.hero_id", "sum": {"$sum": "$players.count"}}},
                           {"$sort": {"sum": -1}},
-                          {"$limit": 7}])
+                          {"$limit": 115}])
 
     # Update user total hours
     pub, events = yield [
@@ -104,6 +104,6 @@ def update_user(db, steamid):
                            'total_hours': {'public': pub['result'][0]['sum'] if len(pub['result']) > 0 else 0,
                                            'events': events['result'][0]['sum'] if len(events['result']) > 0 else 0},
                            'update': datetime.now() + timedelta(minutes=5),
-                           'last_update': datetime.now()}})
+                           'last_update': datetime.now()}}, w=1)
 
     logging.debug('User %s update complete!' % steamid)

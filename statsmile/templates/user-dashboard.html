@@ -77,7 +77,7 @@
         <div class="page-header">
             <h1>Favorite Heroes</h1>
         </div>
-        {% for fav in user['favorites'] %}
+        {% for fav in user['favorites'][:7] %}
         <div class="media favorite-hero">
             <a class="pull-left" href="/heroes/{{ fav['_id'] }}">
                 <img class="media-object img-thumbnail" src="{% try %}{{ static_url(heroes[fav['_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ fav['_id'] }}{% end %}">
