@@ -3,7 +3,7 @@
 {% block content %}
     {% import time %}
 
-    {% if matches %}
+    {% if user['dota_count'] != 0 %}
 
         <div class="row user-profile-header">
             <div class="col-md-7">
@@ -16,6 +16,7 @@
          <div class="user-menu">
             {% if title == "Dashboard" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}">Dashboard</a></div>
             {% if title == "Matches" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/matches">Matches</a></div>
+            {% if title == "Heroes" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/heroes">Heroes</a></div>
             {% if title == "Records" %}<div class="user-menu-tabs active">{% else %}<div class="user-menu-tabs">{% end %}<a href="/user/{{ user['_id'] }}/records">Records</a></div>
         </div>
 
@@ -24,6 +25,8 @@
         {% include "user-dashboard.html" %}
         {% elif title == "Matches" %}
         {% include "user-matches.html" %}
+        {% elif title == "Heroes" %}
+        {% include "user-heroes.html" %}
         {% elif title == "Records" %}
         {% include "user-records.html" %}
         {% end %}

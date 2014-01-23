@@ -81,6 +81,24 @@ class UserMatchesHandler(BaseHandler):
                     page=pg, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
 
 
+class UserHeroesHandler(BaseHandler):
+    @asynchronous
+    @engine
+    def get(self, sid):
+
+        session = None
+
+        if self.current_user:
+            session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
+
+        user = yield Op(self.db['users'].find_one, {'_id': ObjectId(sid)})
+
+        if user is None:
+            return self.send_error(404)
+
+        self.render("user.html", title="Heroes", user=user, session=session, heroes=libs.heroes)
+
+
 class UserRecordsHandler(BaseHandler):
     @asynchronous
     @engine
@@ -136,4 +154,4 @@ class UserRecordsHandler(BaseHandler):
 
         self.render("user.html", title="Records", user=user, session=session,
                     records=(kills['result'], deaths['result'], assists['result'], gpm['result']),
-                    heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode, matches=kills['result'])
+                    heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
