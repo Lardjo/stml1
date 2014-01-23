@@ -25,11 +25,17 @@ class Statsmile(Application):
         yield update_user(self.db, user['steamid'])
 
         logging.debug('Test debug final')
+        logging.debug(self.__update)
 
         self.__update.remove(user['_id'])
 
+        logging.debug('After %s' % self.__update)
+
         new_user = yield Op(self.db['users'].find_one, {'_id': {'$not': {'$in': self.__update}}},
                             sort=[('update', 1)], limit=1)
+
+        logging.debug('New user %s' % new_user['steamid'])
+
         IOLoop.instance().add_timeout(new_user['update'].timestamp(), partial(self.user_update, new_user))
         self.__update.append(new_user['_id'])
 
@@ -123,7 +129,7 @@ class Statsmile(Application):
 
         # User profile updater
         self.__update = []
-        users = self.db_sync['users'].find({}).sort('update').limit(1)
+        users = self.db_sync['users'].find({}).sort('update').limit(2)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
