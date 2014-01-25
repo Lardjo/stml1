@@ -45,6 +45,6 @@ def update_hero(db, hero):
                                   'last_update': datetime.now(),
                                   'popularity': pos + 1,
                                   'matches': matches,
-                                  'update': datetime.now() + timedelta(minutes=30)}})
+                                  'update': datetime.now() + timedelta(minutes=60)}})
 
     logging.info("Hero %s has been updated." % hero['hero_id'])

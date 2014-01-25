@@ -7,7 +7,7 @@ import logging
 from datetime import datetime, timedelta
 from functools import partial
 from tornado.gen import coroutine
-from tornado.web import Application
+from tornado.web import Application, asynchronous
 from tornado.ioloop import IOLoop
 from motor import Op
 from pymongo import ASCENDING, DESCENDING
@@ -20,21 +20,24 @@ class Statsmile(Application):
 
     @coroutine
     def user_update(self, user):
+
         logging.debug('Started updating %s user' % user['steamid'])
 
-        yield update_user(self.db, user['steamid'])
+        try:
+            yield update_user(self.db, user['steamid'])
+        except Exception as e:
+            logging.warning('Update user {} fails with error: {}'.format(user['steamid'], e))
+            self.db['users'].update({'steamid': user['steamid']},
+                                    {'$set': {'update': datetime.now() + timedelta(minutes=5)}})
 
-        logging.debug('Test debug final')
-        logging.debug(self.__update)
+        self.db['users'].update({'steamid': user['steamid']},
+                                {'$set': {'update': datetime.now() + timedelta(minutes=5),
+                                          'last_update': datetime.now()}})
 
         self.__update.remove(user['_id'])
 
-        logging.debug('After %s' % self.__update)
-
-        new_user = yield Op(self.db['users'].find_one, {'_id': {'$not': {'$in': self.__update}}},
-                            sort=[('update', 1)], limit=1)
-
-        logging.debug('New user %s' % new_user['steamid'])
+        new_user = yield Op(self.db['users'].find_one, {'_id': {'$nin': self.__update}},
+                            sort=[('update', ASCENDING)], limit=1)
 
         IOLoop.instance().add_timeout(new_user['update'].timestamp(), partial(self.user_update, new_user))
         self.__update.append(new_user['_id'])
@@ -129,7 +132,7 @@ class Statsmile(Application):
 
         # User profile updater
         self.__update = []
-        users = self.db_sync['users'].find({}).sort('update').limit(2)
+        users = self.db_sync['users'].find({}).sort('update').limit(1)
         for it in users:
             IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
             self.__update.append(it['_id'])
@@ -173,7 +176,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': True,
+            'debug': False,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
