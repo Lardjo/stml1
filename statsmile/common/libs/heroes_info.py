@@ -2851,6 +2851,46 @@ heroes_info = {
           'cd': '0.01 + 0',
           'bat': '1.7',
           'avatar': 'img/dota/heroes/earth_spirit.png'
+    },
+
+    109: {'name': 'Terrorblade',
+          'role': 'Carry',
+          'side': 'The Dire',
+          'class': 'Agility',
+          'bio': 'Terrorblade, the Demon Marauder',
+          'quote': 'The self-righteous shall choke on their sanctimony.',
+          'strength': '15 + 1.9',
+          'agility': '22 + 3.2',
+          'intelligence': '19 + 1.75',
+          'ms': '315',
+          'tr': '0.5',
+          'sr': '1800 / 800',
+          'ar': 'Melee',
+          'miss_s': 'Instant',
+          'ad': '0.3 + 0.6',
+          'cd': '0.5 + 0.51',
+          'bat': '1.5',
+          'avatar': 'img/dota/heroes/terrorblade.png'
+    },
+
+    110: {'name': 'Phoenix',
+          'role': 'Initiator, Disabler, Nuker',
+          'side': 'The Radiant',
+          'class': 'Strength',
+          'bio': 'Phoenix',
+          'quote': '...',
+          'strength': '17 + 2.9',
+          'agility': '12 + 1.3',
+          'intelligence': '18 + 1.8',
+          'ms': '285',
+          'tr': '1',
+          'sr': '1800 / 800',
+          'ar': '500',
+          'miss_s': '1100',
+          'ad': '0.35 + 0.633',
+          'cd': '0.01 + 0.5',
+          'bat': '1.7',
+          'avatar': 'img/dota/heroes/phoenix.png'
     }
 
 }
