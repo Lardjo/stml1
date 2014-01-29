@@ -52,22 +52,22 @@
 </table>
 <ul class="pagination pagination-sm">
     {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
-    {% if page == 1 %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
+    {% if page == 1 %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches?page={{ page - 1 }}">{% end %}&laquo;</a></li>
     {% if page > 1 %}<li><a href="/user/{{ user['_id'] }}/matches">First</a></li>{% else %}{% end %}
     {% if page < 6 %}
     {% for x in range(1, 10) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches?page={{ x }}">{{ x }}</a></li>
     {% end %}
     {% elif page >= 6 and page <= max_pages-5 %}
     {% for x in range(page-5, page+5) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches?page={{ x }}">{{ x }}</a></li>
     {% end %}
     {% elif page > max_pages-5 %}
     {% for x in range(page-5, max_pages+1) %}
-        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches/page/{{ x }}">{{ x }}</a></li>
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/user/{{ user['_id'] }}/matches?page={{ x }}">{{ x }}</a></li>
     {% end %}
     {% end %}
-    {% if page < max_pages %}<li><a href="/user/{{ user['_id'] }}/matches/page/{{ max_pages }}">Last</a></li>{% else %}{% end %}
+    {% if page < max_pages %}<li><a href="/user/{{ user['_id'] }}/matches?page={{ max_pages }}">Last</a></li>{% else %}{% end %}
     {% if page == max_pages %}<li class="disabled">{% else %}<li>{% end %}
-    {% if page == max_pages %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
+    {% if page == max_pages %}<a href="#">{% else %}<a href="/user/{{ user['_id'] }}/matches?page={{ page + 1 }}">{% end %}&raquo;</a></li>
 </ul>

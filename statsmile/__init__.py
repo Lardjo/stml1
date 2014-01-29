@@ -30,9 +30,9 @@ class Statsmile(Application):
             self.db['users'].update({'steamid': user['steamid']},
                                     {'$set': {'update': datetime.now() + timedelta(minutes=5)}})
 
-        self.db['users'].update({'steamid': user['steamid']},
-                                {'$set': {'update': datetime.now() + timedelta(minutes=5),
-                                          'last_update': datetime.now()}})
+        yield Op(self.db['users'].update, {'steamid': user['steamid']},
+                 {'$set': {'update': datetime.now() + timedelta(minutes=5),
+                           'last_update': datetime.now()}})
 
         self.__update.remove(user['_id'])
 
@@ -97,7 +97,6 @@ class Statsmile(Application):
             (r'/user/([0-9a-fA-F]{24})/matches', handlers.UserMatchesHandler),
             (r'/user/([0-9a-fA-F]{24})/heroes', handlers.UserHeroesHandler),
             (r'/user/([0-9a-fA-F]{24})/records', handlers.UserRecordsHandler),
-            (r'/user/([0-9a-fA-F]{24})/matches/page/([0-9]*)', handlers.UserMatchesHandler),
             (r'/user/settings', handlers.SettingsHandler),
             (r'/user/bookmarks', handlers.BookmarksHandler),
             (r'/session/(.*)', handlers.SessionHandler),

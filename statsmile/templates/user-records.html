@@ -26,11 +26,11 @@
                       <div class="hero-name">{% try %}{{ heroes[records[0][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[0][0]['radiant_win'] and records[0][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% elif not records[0][0]['radiant_win'] and records[0][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% else %}
-                  <td><p class="text-danger">Lost Match</p></td>
+                  <td><p class="text-danger">Lost</p></td>
                   {% end %}
                   <td><a href="/matches/{{ records[0][0]['match_id'] }}">{{ records[0][0]['match_id'] }}</a></td>
                   <td>{{ records[0][0]['players']['kills'] }}</td>
@@ -64,11 +64,11 @@
                       <div class="hero-name">{% try %}{{ heroes[records[1][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[1][0]['radiant_win'] and records[1][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% elif not records[1][0]['radiant_win'] and records[1][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% else %}
-                  <td><p class="text-danger">Lost Match</p></td>
+                  <td><p class="text-danger">Lost</p></td>
                   {% end %}
                   <td><a href="/matches/{{ records[1][0]['match_id'] }}">{{ records[1][0]['match_id'] }}</a></td>
                   <td>{{ records[1][0]['players']['deaths'] }}</td>
@@ -105,11 +105,11 @@
                       <div class="hero-name">{% try %}{{ heroes[records[2][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[2][0]['radiant_win'] and records[2][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% elif not records[2][0]['radiant_win'] and records[2][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% else %}
-                  <td><p class="text-danger">Lost Match</p></td>
+                  <td><p class="text-danger">Lost</p></td>
                   {% end %}
                   <td><a href="/matches/{{ records[2][0]['match_id'] }}">{{ records[2][0]['match_id'] }}</a></td>
                   <td>{{ records[2][0]['players']['assists'] }}</td>
@@ -143,11 +143,11 @@
                       <div class="hero-name">{% try %}{{ heroes[records[3][0]['players']['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</div>
                   </td>
                   {% if records[3][0]['radiant_win'] and records[3][0]['players']['player_slot'] in [0, 1, 2, 3, 4] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% elif not records[3][0]['radiant_win'] and records[3][0]['players']['player_slot'] in [128, 129, 130, 131, 132] %}
-                  <td><p class="text-success"><strong>Won Match</strong></p></td>
+                  <td><p class="text-success"><strong>Won</strong></p></td>
                   {% else %}
-                  <td><p class="text-danger">Lost Match</p></td>
+                  <td><p class="text-danger">Lost</p></td>
                   {% end %}
                   <td><a href="/matches/{{ records[3][0]['match_id'] }}">{{ records[3][0]['match_id'] }}</a></td>
                   <td>{{ records[3][0]['players']['gold_per_min'] }}</td>

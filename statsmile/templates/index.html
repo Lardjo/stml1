@@ -6,11 +6,11 @@
     <p class="lead">Simple and intuitive service statistics for Dota 2</p>
     <p>
         {% if current_user %}
-        <a href="/user/{{ session['_id'] }}" class="btn btn-main-style">Your profile</a>
-        <a href="/user/settings" class="btn btn-main-style">Settings</a>
-        <a href="/auth/logout" class="btn btn-main-style">Logout</a>
+        <a href="/user/{{ session['_id'] }}" class="btn btn-main-style btn-lg">Your profile</a>
+        <a href="/user/settings" class="btn btn-main-style btn-lg">Settings</a>
+        <a href="/auth/logout" class="btn btn-main-style btn-lg">Logout</a>
         {% else %}
-        <a href="/auth/login" class="btn btn-main-style">Sign in with Steam ID</a>
+        <a href="/auth/login" class="btn btn-main-style btn-lg">Sign in with Steam ID</a>
         {% end %}
     </p>
 </div>
