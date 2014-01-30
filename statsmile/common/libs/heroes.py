@@ -109,7 +109,8 @@ heroes = {
     103: {'name': 'Elder Titan', 'avatar': 'img/dota/heroes/elder_titan.png'},
     104: {'name': 'Legion Commander', 'avatar': 'img/dota/heroes/legion_commander.png'},
     106: {'name': 'Ember Spirit', 'avatar': 'img/dota/heroes/ember_spirit.png'},
-    107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'}
+    107: {'name': 'Earth Spirit', 'avatar': 'img/dota/heroes/earth_spirit.png'},
     #108 Abyssal Underlord Unreleased
-    #109 Terrorblade Unreleased
+    109: {'name': 'Terrorblade', 'avatar': 'img/dota/heroes/terrorblade.png'},
+    110: {'name': 'Phoenix', 'avatar': 'img/dota/heroes/phoenix.png'}
 }

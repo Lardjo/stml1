@@ -17,6 +17,8 @@ mode = {
     13: {'name': 'Limited Hero'},
     14: {'name': 'Compendium Matchmaking'},
     15: {'name': 'Wraith-Night'},
-    16: {'name': 'Captains Draft'}
+    16: {'name': 'Captains Draft'},
+    17: {'name': 'Balanced Draft'},
+    18: {'name': 'Ability Draft'}
 
 }

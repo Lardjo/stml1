@@ -4,7 +4,8 @@
             <h1>Info<small> Some information about...</small></h1>
         </div>
         <p><span class="glyphicon glyphicon-play"></span> <strong>Total matches played:</strong> {{ user['dota_count'] }}</p>
-        <p><span class="glyphicon glyphicon-time"></span> <strong>Total spent time:</strong> {% try %} {% set d = datetime.timedelta(seconds=user['total_hours']['public']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes (+ {% set d = datetime.timedelta(seconds=user['total_hours']['events']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes for events) {% except %} 0 {% end %}</p>
+        <p><span class="glyphicon glyphicon-time"></span> <strong>Spent time (for ranked):</strong> {% try %} {% set d = datetime.timedelta(seconds=user['total_hours']['public']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes {% except %} 0 {% end %}</p>
+        <p><span class="glyphicon glyphicon-time"></span> <strong>Spent time (for events):</strong> {% try %} {% set d = datetime.timedelta(seconds=user['total_hours']['events']) %} {{ d.days }} days, {{ d.seconds//3600 }} hours, {{ (d.seconds//60)%60 }} minutes {% except %} 0 {% end %}</p>
         <p><span class="glyphicon glyphicon-stats"></span> <strong>Recent game activity:</strong> {{ user.get('matchesPlayed2Wk', 0) }} matches past 2 weeks</p>
     </div>
     {% if user.get('twitch_status') == 'on' %}
@@ -20,7 +21,7 @@
 <div class="row">
     <div class="col-md-8">
         <div class="page-header">
-            <h1>Recent Match<small> Quick overview of the last match</small></h1>
+            <h1>Recent Match<small> Quick overview</small></h1>
         </div>
         {% for mt in match %}
         <div class="row">
@@ -41,9 +42,10 @@
             <tr>
                 <th>Hero</th>
                 <th>Level</th>
-                <th>GPM</th>
-                <th>XPM</th>
-                <th>Kills / Deaths / Assists</th>
+                <th class="hidden-xs">GPM</th>
+                <th class="hidden-xs">XPM</th>
+                <th class="hidden-xs">Kills / Deaths / Assists</th>
+                <th class="visible-xs">K/D/A</th>
             </tr>
             </thead>
             <tbody>
@@ -54,8 +56,8 @@
                     <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[hr['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
                 </td>
                 <td>{{ hr['level'] }}</td>
-                <td>{{ hr['gold_per_min'] }}</td>
-                <td>{{ hr['xp_per_min'] }}</td>
+                <td class="hidden-xs">{{ hr['gold_per_min'] }}</td>
+                <td class="hidden-xs">{{ hr['xp_per_min'] }}</td>
                 <td>
                     <div class="progress">
                         {% if hr['kills'] + hr['deaths'] + hr['assists'] == 0 %}
@@ -97,9 +99,9 @@
     <thead>
     <tr>
         <th>Hero</th>
-        <th>Ranked</th>
+        <th class="hidden-xs">Ranked</th>
         <th>Result</th>
-        <th>Start Time</th>
+        <th class="hidden-xs">Start Time</th>
         <th class="hidden-xs">Duration</th>
         <th>Match ID</th>
         <th class="hidden-xs">Mode</th>
@@ -114,20 +116,20 @@
             <div class="hero-container"><a href="/heroes/{{ mt['players'][0]['hero_id'] }}"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></a></div>
             <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
         </td>
-        <td>{% if mt['lobby_type'] == 7 %}Yes{% else %}No{% end %}</td>
+        <td class="hidden-xs">{% if mt['lobby_type'] == 7 %}Yes{% else %}No{% end %}</td>
         <td>
 
         {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
-        <p class="text-success"><strong>Won Match</strong>
+        <p class="text-success"><strong>Won</strong>
         {% elif not mt['radiant_win'] and mt['players'][0]['player_slot'] in [128, 129, 130, 131, 132] %}
-        <p class="text-success"><strong>Won Match</strong>
+        <p class="text-success"><strong>Won</strong>
         {% else %}
-        <p class="text-danger">Lost Match
+        <p class="text-danger">Lost
         {% end %}
                </p>
         </td>
 
-        <td>{{ locale.format_date(mt['start_time']) }}</td>
+        <td class="hidden-xs">{{ locale.format_date(mt['start_time']) }}</td>
         <td class="hidden-xs">{{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
         <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
         <td class="hidden-xs">{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>

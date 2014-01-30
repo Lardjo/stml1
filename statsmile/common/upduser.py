@@ -14,12 +14,13 @@ from datetime import datetime, timedelta
 @coroutine
 def update_user(db, steamid):
 
-    # TODO: Black List need move to the server configuration
+    # TODO: Black List should move to the server configuration
     black_list = [7, 9, 15]
 
     key = yield Op(db["server"].find_one, {"key": "apikey"})
 
     http_client = AsyncHTTPClient()
+
     dota, steam = yield [Task(http_client.fetch,
                               url_concat("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/",
                                          {"key": key["value"], "account_id": steamid})),
@@ -45,8 +46,7 @@ def update_user(db, steamid):
                 if not key in slices['matches']:
                     for_update.append(key)
             db['users'].update({"steamid": steamid}, {'$push': {"matches": {"$each": for_update}}})
-            db["status"].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}}, w=1)
-            logging.info('User matches %s has been updated. Added %s matches' % (steamid, len(for_update)))
+            db['status'].update({"status": "api_dota"}, {"$set": {"value": "true", "time": datetime.now()}}, w=1)
 
     if steam.error or steam.code != 200:
         logging.warning("User profile %s has not updated. Error: %s. Code: %s" % (steamid, steam.error, steam.code))
@@ -60,7 +60,6 @@ def update_user(db, steamid):
                 'realname': player.get('realname', None)}
         db["users"].update({"steamid": steamid}, {"$set": user})
         db["status"].update({"status": "api_steam"}, {"$set": {"value": "true", "time": datetime.now()}}, w=1)
-        logging.info('User profile %s has been updated' % steamid)
 
     user = yield Op(db['users'].find_one, {'steamid': steamid})
 
@@ -96,14 +95,13 @@ def update_user(db, steamid):
                                                     'players.account_id': user['steamid32'],
                                                     'game_mode': {'$nin': black_list},
                                                     'players.hero_id': {'$nin': [0]}}).count)
+
     db['users'].update({'steamid': steamid},
                        {'$set': {
                            'dota_count': matches,
                            'matchesPlayed2Wk': matchesPlayed2Wk,
                            'favorites': favorites['result'],
                            'total_hours': {'public': pub['result'][0]['sum'] if len(pub['result']) > 0 else 0,
-                                           'events': events['result'][0]['sum'] if len(events['result']) > 0 else 0},
-                           'update': datetime.now() + timedelta(minutes=5),
-                           'last_update': datetime.now()}}, w=1)
+                                           'events': events['result'][0]['sum'] if len(events['result']) > 0 else 0}}})
 
-    logging.debug('User %s update complete!' % steamid)
+    logging.info('User %s update complete!' % steamid)

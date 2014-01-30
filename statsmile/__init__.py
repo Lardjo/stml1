@@ -7,7 +7,7 @@ import logging
 from datetime import datetime, timedelta
 from functools import partial
 from tornado.gen import coroutine
-from tornado.web import Application
+from tornado.web import Application, asynchronous
 from tornado.ioloop import IOLoop
 from motor import Op
 from pymongo import ASCENDING, DESCENDING
@@ -20,13 +20,25 @@ class Statsmile(Application):
 
     @coroutine
     def user_update(self, user):
+
         logging.debug('Started updating %s user' % user['steamid'])
 
-        yield update_user(self.db, user['steamid'])
+        try:
+            yield update_user(self.db, user['steamid'])
+        except Exception as e:
+            logging.warning('Update user {} fails with error: {}'.format(user['steamid'], e))
+            self.db['users'].update({'steamid': user['steamid']},
+                                    {'$set': {'update': datetime.now() + timedelta(minutes=5)}})
+
+        yield Op(self.db['users'].update, {'steamid': user['steamid']},
+                 {'$set': {'update': datetime.now() + timedelta(minutes=5),
+                           'last_update': datetime.now()}})
+
         self.__update.remove(user['_id'])
 
-        new_user = yield Op(self.db['users'].find_one, {'_id': {'$not': {'$in': self.__update}}},
-                            sort=[('update', 1)], limit=1)
+        new_user = yield Op(self.db['users'].find_one, {'_id': {'$nin': self.__update}},
+                            sort=[('update', ASCENDING)], limit=1)
+
         IOLoop.instance().add_timeout(new_user['update'].timestamp(), partial(self.user_update, new_user))
         self.__update.append(new_user['_id'])
 
@@ -85,7 +97,6 @@ class Statsmile(Application):
             (r'/user/([0-9a-fA-F]{24})/matches', handlers.UserMatchesHandler),
             (r'/user/([0-9a-fA-F]{24})/heroes', handlers.UserHeroesHandler),
             (r'/user/([0-9a-fA-F]{24})/records', handlers.UserRecordsHandler),
-            (r'/user/([0-9a-fA-F]{24})/matches/page/([0-9]*)', handlers.UserMatchesHandler),
             (r'/user/settings', handlers.SettingsHandler),
             (r'/user/bookmarks', handlers.BookmarksHandler),
             (r'/session/(.*)', handlers.SessionHandler),

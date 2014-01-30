@@ -45,11 +45,18 @@ class UserHandler(BaseHandler):
 class UserMatchesHandler(BaseHandler):
     @asynchronous
     @engine
-    def get(self, sid, page=1):
+    def get(self, sid):
 
         black_list = [7, 9, 15]
 
-        pg = int(page)
+        pg = int(self.get_argument('page', 1))
+        hero = self.get_argument('hero', None)
+
+        if hero is None:
+            pass
+        else:
+            if not int(hero) in libs.heroes.keys():
+                return self.send_error(404)
 
         session = None
 
@@ -69,13 +76,22 @@ class UserMatchesHandler(BaseHandler):
         if pg > max_pages:
             return self.send_error(404)
 
-        matches = yield Op(self.db["matches"].find(
-            {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list},
-             'players.hero_id': {'$nin': [0]}},
-            {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1,
-             "match_id": 1, "radiant_win": 1, "lobby_type": 1,
-             "players": {"$elemMatch": {"account_id": user["steamid32"]}}},
-            sort=[('start_time', -1)], limit=20).skip((pg-1)*20).to_list)
+        if hero is None:
+            matches = yield Op(self.db["matches"].find(
+                {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list},
+                 'players.hero_id': {'$nin': [0]}},
+                {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1,
+                 "match_id": 1, "radiant_win": 1, "lobby_type": 1,
+                 "players": {"$elemMatch": {"account_id": user["steamid32"]}}},
+                sort=[('start_time', -1)], limit=20).skip((pg-1)*20).to_list)
+        else:
+            matches = yield Op(self.db['matches'].find(
+                {'game_mode': {'$nin': black_list},
+                 'players': {'$elemMatch': {'account_id': user['steamid32'], 'hero_id': int(hero)}}},
+                {"game_mode": 1, "start_time": 1, "duration": 1, "cluster": 1,
+                 "match_id": 1, "radiant_win": 1, "lobby_type": 1,
+                 'players': {'$elemMatch': {'account_id': user['steamid32']}}},
+                sort=[('start_time', -1)], limit=20).skip((pg-1)*20).to_list)
 
         self.render("user.html", title="Matches", user=user, session=session, matches=matches, max_pages=max_pages,
                     page=pg, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
