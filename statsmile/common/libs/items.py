@@ -5,7 +5,7 @@
 
 items = {
 
-    0: {'avatar': 'holder.js/60x45/text:Empty'},
+    0: {'avatar': 'img/dota/items/default.png'},
     1: {'name': 'Blink Dagger', 'avatar': 'img/dota/items/blink_dagger.png'},
     2: {'name': 'Blades of Attack', 'avatar': 'img/dota/items/blades_of_attack.png'},
     3: {'name': 'Broadsword', 'avatar': 'img/dota/items/broadsword.png'},
