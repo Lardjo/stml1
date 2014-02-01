@@ -40,6 +40,7 @@ def update_hero(db, hero):
         pos = len(top_heroes['result'])
         matches = 0
 
+    # Total Hours
     hours = yield Op(db['matches'].aggregate,
                      [{'$match': {'players.hero_id': hero['hero_id'], 'game_mode': {'$nin': black_list}}},
                       {'$group': {'_id': 'None', 'sum': {'$sum': '$duration'}}}])
@@ -49,6 +50,7 @@ def update_hero(db, hero):
                                   'last_update': datetime.now(),
                                   'popularity': pos + 1,
                                   'total_hours': hours['result'][0]['sum'],
+                                  'average': hours['result'][0]['sum'] / matches,
                                   'matches': matches,
                                   'update': datetime.now() + timedelta(minutes=60)}})
 
