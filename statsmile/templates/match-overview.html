@@ -1,0 +1,195 @@
+{% if match['game_mode'] == 15 %}
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Ho-ho!</strong> This game is part of the event "Wraith-Night". This mode assumes the existence of only 5 players.
+            You can <a href="/events/wraithnight" class="alert-link">visit the event page</a> to view other matches.
+        </div>
+        {% elif match['game_mode'] == 7 %}
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Brr!</strong> This game is part of the event "Diretide".
+            You can <a href="/events/diretide" class="alert-link">visit the event page</a> to view other matches.
+        </div>
+        {% else %}{% end %}
+        <div class="row recent-info">
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-globe"></span>
+                    <b> Match:</b> {{ match['match_id'] }}</p>
+                <p><span class="glyphicon glyphicon-calendar"></span>
+                    <b> Data:</b> {{ locale.format_date(match['start_time'], full_format=True, shorter=False) }}</p>
+                <p><span class="glyphicon glyphicon-time"></span>
+                    <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
+            </div>
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-list-alt"></span>
+                    <b> Game Mode:</b> {% try %}
+                    {{ mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-hdd"></span>
+                    <b> Server:</b> {% try %}
+                    {{ cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
+                <p><span class="glyphicon glyphicon-time"></span>
+                    <b> First Blood:</b> {% try %}
+                    {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
+            </div>
+        </div>
+        <div class="panel panel-success" style="margin-top: 10px;">
+            <div class="panel-heading">
+                {% if match['game_mode'] != 15 %}
+                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}
+                {% else %}Vassals{% end %}
+            </div>
+            <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th>Gold</th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for radiant in match['players'] %}
+{% if radiant['player_slot'] in [0, 1, 2, 3, 4] %}
+<tr>
+{% if radiant['account_id'] == "Anonymous" %}
+<td style="width: 200px; padding-left: 10px;" class="text-muted">{{ radiant['account_id'] }}</td>
+{% else %}
+<td style="width: 200px; padding-left: 10px;"><div class="overflow-name"><img src="{{ radiant['avatar'] }}" class="img-circle pull-left img-style"><a href="/user/{{ radiant['account_id'] }}">{{ radiant['personaname'] }}</a></div></td>
+{% end %}
+<td style="width: 80px; padding: 1px;">
+    {% if radiant['hero_id'] != 0 %}
+    <div style="position: relative;" data-toggle="tooltip" data-placement="left" title="{% try %}{{ heroes[radiant['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}">
+        <img class="hero" src="{% try %}{{ static_url(heroes[radiant['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ radiant['hero_id'] }}{% end %}">
+        <div class="label-hero"><h6>{{ radiant['level'] }} Level</h6></div>
+    </div>
+    {% else %}{% end %}
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_0'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_1'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_2'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_3'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_4'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[radiant['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ radiant['item_5'] }}{% end %}">
+</td>
+<td>{{ radiant['gold'] }}</td>
+<td>{{ radiant['last_hits'] }}</td>
+<td>{{ radiant['denies'] }}</td>
+<td>{{ radiant['hero_damage'] }}</td>
+<td>{{ radiant['xp_per_min'] }}</td>
+<td>{{ radiant['gold_per_min'] }}</td>
+<td>
+    <div class="progress">
+        {% if radiant['kills'] + radiant['deaths'] + radiant['assists'] == 0 %}
+        <div class="progress-bar" style="width: 100%;">0</div>
+        {% else %}
+        <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(radiant['kills'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['kills'] }}</div>
+        <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(radiant['deaths'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['deaths'] }}</div>
+        <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(radiant['assists'] * 100 / float(radiant['kills'] + radiant['deaths'] + radiant['assists']), 3) }}{% except %}0{% end %}%;">{{ radiant['assists'] }}</div>
+        {% end %}
+    </div>
+</td>
+</tr>
+{% else %}{% end %}
+{% end %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        {% if match['game_mode'] != 15 %}
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
+            <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Hero</th>
+                        <th colspan="6">Items</th>
+                        <th>Gold</th>
+                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
+                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
+                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
+                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
+                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
+                        <th>Kills / Deaths / Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for dire in match['players'] %}
+{% if dire['player_slot'] in [128, 129, 130, 131, 132] %}
+<tr>
+{% if dire['account_id'] == "Anonymous" %}
+<td style="width: 200px; padding-left: 10px;" class="text-muted">{{ dire['account_id'] }}</td>
+{% else %}
+<td style="width: 200px; padding-left: 10px;"><div class="overflow-name"><img src="{{ dire['avatar'] }}" class="img-circle pull-left img-style"><a href="/user/{{ dire['account_id'] }}">{{ dire['personaname'] }}</a></div></td>
+{% end %}
+<td style="width: 80px; padding: 1px;">
+    {% if dire['hero_id'] != 0 %}
+    <div style="position: relative;" data-toggle="tooltip" data-placement="left" title="{% try %}{{ heroes[dire['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}">
+        <img class="hero" src="{% try %}{{ static_url(heroes[dire['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ dire['hero_id'] }}{% end %}">
+        <div class="label-hero"><h6>{{ dire['level'] }} Level</h6></div>
+    </div>
+    {% else %}{% end %}
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_0']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_0'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_1']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_1'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_2']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_2'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_3']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_3'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_4']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_4'] }}{% end %}">
+</td>
+<td style="width: 60px; padding: 1px;">
+    <img src="{% try %}{{ static_url(items[dire['item_5']]['avatar']) }}{% except %}/holder.js/60x45/text:{{ dire['item_5'] }}{% end %}">
+</td>
+<td>{{ dire['gold'] }}</td>
+<td>{{ dire['last_hits'] }}</td>
+<td>{{ dire['denies'] }}</td>
+<td>{{ dire['hero_damage'] }}</td>
+<td>{{ dire['xp_per_min'] }}</td>
+<td>{{ dire['gold_per_min'] }}</td>
+<td>
+    <div class="progress">
+        {% if dire['kills'] + dire['deaths'] + dire['assists'] == 0 %}
+        <div class="progress-bar" style="width: 100%;">0</div>
+        {% else %}
+        <div class="progress-bar progress-bar-success" style="width:{% try %}{{ round(dire['kills'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['kills'] }}</div>
+        <div class="progress-bar progress-bar-danger" style="width:{% try %}{{ round(dire['deaths'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['deaths'] }}</div>
+        <div class="progress-bar progress-bar-warning" style="width:{% try %}{{ round(dire['assists'] * 100 / float(dire['kills'] + dire['deaths'] + dire['assists']), 3) }}{% except %}0{% end %}%;">{{ dire['assists'] }}</div>
+        {% end %}
+    </div>
+</td>
+</tr>
+{% else %}{% end %}
+{% end %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        {% else %}{% end %}

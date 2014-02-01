@@ -1,101 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
 {% block content %}
-    {% import time %}
-    <div class="match-table">
-        <div class="page-header">
-            <h1>Match details <small>#{{ match['match_id'] }} {% if current_user %}{% if not match['match_id'] in session['bookmarks'] %}
-                <button type="submit" class="btn btn-default btn-xs bookmark" value="{{ match['match_id'] }}">Add to bookmarks</button>
-                {% else %}<button class="btn btn-default btn-xs" disabled="disabled">Match already in bookmarks</button>{% end %}{% else %}{% end %}</small></h1>
-        </div>
-        {% if match['game_mode'] == 15 %}
-        <div class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Ho-ho!</strong> This game is part of the event "Wraith-Night". This mode assumes the existence of only 5 players.
-            You can <a href="/events/wraithnight" class="alert-link">visit the event page</a> to view other matches.
-        </div>
-        {% elif match['game_mode'] == 7 %}
-        <div class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Brr!</strong> This game is part of the event "Diretide".
-            You can <a href="/events/diretide" class="alert-link">visit the event page</a> to view other matches.
-        </div>
-        {% else %}{% end %}
-        <div class="row recent-info">
-            <div class="col-md-4">
-                <p><span class="glyphicon glyphicon-globe"></span>
-                    <b> Match:</b> {{ match['match_id'] }}</p>
-                <p><span class="glyphicon glyphicon-calendar"></span>
-                    <b> Data:</b> {{ locale.format_date(match['start_time'], full_format=True, shorter=False) }}</p>
-                <p><span class="glyphicon glyphicon-time"></span>
-                    <b> Duration:</b> {{ time.strftime("%H:%M:%S", time.gmtime(match['duration'])) }}</p>
-            </div>
-            <div class="col-md-4">
-                <p><span class="glyphicon glyphicon-list-alt"></span>
-                    <b> Game Mode:</b> {% try %}
-                    {{ mode[match['game_mode']]['name'] }}{% except %}{{ match['game_mode'] }}{% end %}</p>
-                <p><span class="glyphicon glyphicon-hdd"></span>
-                    <b> Server:</b> {% try %}
-                    {{ cluster[match['cluster']]['name'] }}{% except %}{{ match['cluster'] }}{% end %}</p>
-                <p><span class="glyphicon glyphicon-time"></span>
-                    <b> First Blood:</b> {% try %}
-                    {{ time.strftime("%M:%S", time.gmtime(match['first_blood_time'])) }}{% except %}None{% end %}</p>
-            </div>
-        </div>
-        <div class="panel panel-success" style="margin-top: 10px;">
-            <div class="panel-heading">
-                {% if match['game_mode'] != 15 %}
-                {% if match['radiant_win'] %}<strong>Radiant victory!</strong>{% else %}The Radiant{% end %}
-                {% else %}Vassals{% end %}
-            </div>
-            <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Hero</th>
-                        <th colspan="6">Items</th>
-                        <th>Gold</th>
-                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
-                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
-                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
-                        <th>Kills / Deaths / Assists</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% include "match-radiant.html %}
-                </tbody>
-            </table>
-            </div>
-        </div>
-        {% if match['game_mode'] != 15 %}
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                {% if not match['radiant_win'] %}<strong>Dire victory!</strong>{% else %}The Dire{% end %}</div>
-            <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Hero</th>
-                        <th colspan="6">Items</th>
-                        <th>Gold</th>
-                        <th><p data-toggle="tooltip" title="Last Hits">LH</p></th>
-                        <th><p data-toggle="tooltip" title="Denies">DN</p></th>
-                        <th><p data-toggle="tooltip" title="Hero Damage">HD</p></th>
-                        <th><p data-toggle="tooltip" title="Experience per minute">XPM</p></th>
-                        <th><p data-toggle="tooltip" title="Gold per minute">GPM</p></th>
-                        <th>Kills / Deaths / Assists</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% include "match-dire.html %}
-                </tbody>
-            </table>
-            </div>
-        </div>
-        {% else %}{% end %}
-    </div>
+{% import time %}
+<div class="page-header">
+    <h1>Match details <small>#{{ match['match_id'] }}
+        {% if current_user %}{% if not match['match_id'] in session['bookmarks'] %}
+        <button type="submit" class="btn btn-default btn-xs bookmark" value="{{ match['match_id'] }}">
+            Add to bookmarks</button>
+        {% else %}<button class="btn btn-default btn-xs" disabled="disabled">Match already in bookmarks</button>
+        {% end %}{% else %}{% end %}</small></h1>
+</div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+    <li><a href="#abilities" data-toggle="tab">Abilities</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="overview">{% include 'match-overview.html' %}</div>
+    <div class="tab-pane fade in" id="abilities">{% include 'match-abilities.html' %}</div>
+</div>
 {% end %}
