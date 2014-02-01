@@ -105,7 +105,7 @@ heroes = {
                      {'id': 5180, 'image': 'img/dota/spellicons/venomancer_plague_ward.png'},
                      {'id': 5181, 'image': 'img/dota/spellicons/venomancer_poison_nova.png'}]},
     41: {'name': 'Faceless Void', 'avatar': 'img/dota/heroes/faceless_void.png'},
-    42: {'name': 'Skeleton King', 'avatar': 'img/dota/heroes/skeleton_king.png'},
+    42: {'name': 'Wraith King', 'avatar': 'img/dota/heroes/wraith_king.png'},
     43: {'name': 'Death Prophet',
          'avatar': 'img/dota/heroes/death_prophet.png',
          'ability': [{'id': 5090, 'image': 'img/dota/spellicons/death_prophet_carrion_swarm.png'},

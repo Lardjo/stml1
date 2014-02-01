@@ -1156,16 +1156,17 @@ heroes_info = {
          'avatar': 'img/dota/heroes/faceless_void.png'
     },
 
-    42: {'name': 'Skeleton King',
+    42: {'name': 'Wraith King',
          'role': 'Durable, Carry, Disabler',
          'side': 'The Dire',
          'class': 'Strength',
-         'bio': '<strong>Ostarion</strong> the <strong>Skeleton</strong> King is a powerful melee strength hero, '
-                'capable of taking plenty of damage before dying. His ultimate allows him to rise again, acting like '
-                'an Aegis of the Immortal, making him especially difficult to kill. He also has a nuke that deals '
-                'reliable damage and stun, and he is able to stay in his lane longer because of his passive lifesteal '
-                'aura. He can become a hard carry in later stages of game depending on his farm.',
-         'quote': 'Bone is strongest where it\'s mended.',
+         'bio': '<strong>Ostarion</strong> the <strong>Wraith King</strong> is a melee strength hero, a carry and tank '
+                'capable of both dealing and taking plenty of damage. His infamous Reincarnation allows the Wraith '
+                'King to rise again after death, acting like an Aegis of the Immortal, making him especially difficult '
+                'to kill. But if left alive, the Wraith King can wreak havoc upon his enemies; his Wraithfire Blast '
+                'provides reliable damage and a stun on a short cooldown, Vampiric Aura grants his team sizeable '
+                'lifesteal, and Mortal Strike helps make short work of foes.',
+         'quote': 'Purer than flesh, stronger than bone, imperishable is the essence of the wraith.',
          'strength': '22 + 2.9',
          'agility': '18 + 1.7',
          'intelligence': '18 + 1.6',
@@ -1177,7 +1178,7 @@ heroes_info = {
          'ad': '0.56 + 0.44',
          'cd': '0.35 + 0.51',
          'bat': '1.7',
-         'avatar': 'img/dota/heroes/skeleton_king.png'
+         'avatar': 'img/dota/heroes/wraith_king.png'
     },
 
     43: {'name': 'Death Prophet',
@@ -2857,7 +2858,16 @@ heroes_info = {
           'role': 'Carry',
           'side': 'The Dire',
           'class': 'Agility',
-          'bio': 'Terrorblade, the Demon Marauder',
+          'bio': '<strong>Terrorblade</strong> is a melee Agility Carry with a focus on a limited but powerful amount '
+                 'of illusions. As '
+                 'any illusion based hero he requires stats-based items to make his illusions as strong as possible. '
+                 'His unique ultimate allows him to swap his health bar with another hero making ganks on him '
+                 'dangerous without extended lockdown to keep him from casting it. He can create long duration '
+                 'illusions of himself that deal a significant amount of his own base damage and a powerful slow that '
+                 'creates an unattackable illusion of target enemy hero that deals a significant amount of their base '
+                 'damage. His third ability is a potent long duration transformation spell that makes him a powerful '
+                 'ranged damage dealer. He has low starting health but high starting armor making him particularly '
+                 'vulnerable to early game spell damage.',
           'quote': 'The self-righteous shall choke on their sanctimony.',
           'strength': '15 + 1.9',
           'agility': '22 + 3.2',
