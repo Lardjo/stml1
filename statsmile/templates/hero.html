@@ -150,13 +150,17 @@
         </table>
 
         <div class="page-header">
-            <h1>Spent time</h1>
+            <h1>Time</h1>
         </div>
         <p class="text-muted">Total spent time for this hero equal:</p>
         <p><span class="glyphicon glyphicon-time"></span>
             {% try %} {% set d = datetime.timedelta(seconds=stats['total_hours']) %}
             <strong>{{ d.days }}</strong> days, <strong>{{ d.seconds//3600 }}</strong> hours, <strong>{{ (d.seconds//60)%60 }}</strong> minutes
             {% except %} <strong>0</strong> hours {% end %}</p>
+        <p class="text-muted">Average time of match with this hero:</p>
+        <p><span class="glyphicon glyphicon-time"></span>
+            {{ time.strftime("%H:%M:%S", time.gmtime(stats.get('average', 0))) }}
+            </p>
 
     </div>
 </div>
