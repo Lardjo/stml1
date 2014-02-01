@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Heroes / {{ hero['name'] }}{% end %}
 {% block content %}
+{% import time %}
 <div class="page-header">
     <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
 <div class="alert alert-warning">Beta version</div>
 <div class="row">
+    <!-- One column -->
     <div class="col-md-9">
         <p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p>
         <div class="page-header">
@@ -38,11 +40,60 @@
             {% end %}
             </tbody>
         </table>
+        <div class="page-header">
+            <h1>Latest matches <small>with this hero</small></h1>
+        </div>
+        <table class="table table-striped table-condensed">
+    <thead>
+    <tr>
+        <th>Hero</th>
+        <th>Result</th>
+        <th class="hidden-xs">Start Time</th>
+        <th>Match ID</th>
+        <th class="hidden-xs">Mode</th>
+        <th class="hidden-xs">Kills / Deaths / Assists</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for mt in matches %}
+    <tr>
+        <td>
+            <div class="hero-container"><img src="{% try %}{{ static_url(heroes[mt['players'][0]['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ mt['players'][0]['hero_id'] }}{% end %}"></div>
+            <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[mt['players'][0]['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
+        </td>
+        <td>
 
+        {% if mt['radiant_win'] and mt['players'][0]['player_slot'] in [0, 1, 2, 3, 4] %}
+        <p class="text-success"><strong>Won</strong>
+        {% elif not mt['radiant_win'] and mt['players'][0]['player_slot'] in [128, 129, 130, 131, 132] %}
+        <p class="text-success"><strong>Won</strong>
+        {% else %}
+        <p class="text-danger">Lost
+        {% end %}
+               </p>
+        </td>
 
+        <td class="hidden-xs">{{ locale.format_date(mt['start_time']) }}</td>
+        <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+        <td class="hidden-xs">{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+        <td class="hidden-xs">
+            <div class="progress">
+                {% if mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists'] == 0 %}
+                <div class="progress-bar" style="width: 100%;">0</div>
+                {% else %}
+                <div class="progress-bar progress-bar-success" style="width: {% try %}{{ round(mt['players'][0]['kills'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['kills'] }}</div>
+                <div class="progress-bar progress-bar-danger" style="width: {% try %}{{ round(mt['players'][0]['deaths'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['deaths'] }}</div>
+                <div class="progress-bar progress-bar-warning" style="width: {% try %}{{ round(mt['players'][0]['assists'] * 100 / float(mt['players'][0]['kills'] + mt['players'][0]['deaths'] + mt['players'][0]['assists']), 3) }}{% except %}0{% end %}%;">{{ mt['players'][0]['assists'] }}</div>
+                {% end %}
+            </div>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>
     </div>
+    <!-- Sidebar column -->
     <div class="col-md-3">
-
             <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
             <blockquote>
                 <p>{% try %}{{ hero['quote'] }}{% except %}{% end %}</p>
@@ -97,6 +148,15 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="page-header">
+            <h1>Spent time</h1>
+        </div>
+        <p class="text-muted">Total spent time for this hero equal:</p>
+        <p><span class="glyphicon glyphicon-time"></span>
+            {% try %} {% set d = datetime.timedelta(seconds=stats['total_hours']) %}
+            <strong>{{ d.days }}</strong> days, <strong>{{ d.seconds//3600 }}</strong> hours, <strong>{{ (d.seconds//60)%60 }}</strong> minutes
+            {% except %} <strong>0</strong> hours {% end %}</p>
 
     </div>
 </div>

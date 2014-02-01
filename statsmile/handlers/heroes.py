@@ -43,5 +43,15 @@ class HeroHandler(BaseHandler):
         if not hero in libs.heroes_info.keys():
             return self.send_error(404)
         stats = yield Op(self.application.db['heroes'].find_one, {'hero_id': hero})
+
+        cursor = self.db['matches'].find({'players.hero_id': hero, 'game_mode': {'$nin': [7, 9, 15]}},
+                                         {'game_mode': 1, 'start_time': 1, 'duration': 1, 'cluster': 1,
+                                          'match_id': 1, 'radiant_win': 1, 'lobby_type': 1,
+                                          'players': {'$elemMatch': {'hero_id': hero}}},
+                                         sort=[('start_time', -1)], limit=5)
+
+        matches = yield Op(cursor.to_list)
+
         hero_info = libs.heroes_info[hero]
-        self.render("hero.html", session=session, hero=hero_info, stats=stats, items=libs.items)
+        self.render("hero.html", session=session, hero=hero_info, stats=stats, items=libs.items, heroes=libs.heroes,
+                    mode=libs.mode, matches=matches)
