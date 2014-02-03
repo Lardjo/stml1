@@ -5,8 +5,80 @@
 <div class="page-header">
     <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
-<div class="alert alert-warning">Beta version</div>
 <div class="row">
+
+    <!-- Sidebar column -->
+    <div class="col-md-3">
+            <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
+            <blockquote>
+                <p>{% try %}{{ hero['quote'] }}{% except %}{% end %}</p>
+                <small>{% try %}{{ hero['name'] }}{% except %}{% end %}</small>
+            </blockquote>
+        <div class="alert {% if hero['side'] == 'The Radiant' %}alert-success{% else %}alert-danger{% end %}"><span class="glyphicon glyphicon-flag pull-right"></span><strong>{{ hero['side'] }}</strong></div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
+                </div>
+                <div class="progress-bar progress-bar-success" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base agility (+ Increase)">{% try %}{{ hero['agility'] }}{% except %}{% end %}</span>
+                </div>
+                <div class="progress-bar progress-bar-info" style="width: 33.33%">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Base intelligence (+ Increase)">{% try %}{{ hero['intelligence'] }}{% except %}{% end %}</span>
+                </div>
+            </div>
+
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <td><strong>Movement Speed</strong></td>
+                <td>{% try %}{{ hero['ms'] }}{% except %}{% end %}</td>
+            </tr>
+            <tr>
+                <td><strong>Turn Rate</strong></td>
+                <td>{% try %}{{ hero['tr'] }}{% except %}{% end %}</td>
+            </tr>
+            <tr>
+                <td><strong>Sight Range</strong></td>
+                <td>{% try %}{{ hero['sr'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Attack Range</strong></td>
+                <td>{% try %}{{ hero['ar'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Missile Speed</strong></td>
+                <td>{% try %}{{ hero['miss_s'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Attack Duration</strong></td>
+                <td>{% try %}{{ hero['ad'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Cast Duration</strong></td>
+                <td>{% try %}{{ hero['cd'] }}{% except %}{% end %}</td>
+            </tr>
+                        <tr>
+                <td><strong>Base Attack Time</strong></td>
+                <td>{% try %}{{ hero['bat'] }}{% except %}{% end %}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="page-header">
+            <h1>Time</h1>
+        </div>
+        <p class="text-muted">Total spent time for this hero equal:</p>
+        <p><span class="glyphicon glyphicon-time"></span>
+            {% try %} {% set d = datetime.timedelta(seconds=stats['total_hours']) %}
+            <strong>{{ d.days }}</strong> days, <strong>{{ d.seconds//3600 }}</strong> hours, <strong>{{ (d.seconds//60)%60 }}</strong> minutes
+            {% except %} <strong>0</strong> hours {% end %}</p>
+        <p class="text-muted">Average time of match with this hero:</p>
+        <p><span class="glyphicon glyphicon-time"></span>
+            {{ time.strftime("%H:%M:%S", time.gmtime(stats.get('average', 0))) }}
+            </p>
+
+    </div>
+
     <!-- One column -->
     <div class="col-md-9">
         <p>{% autoescape None %}{% try %}{{ hero['bio'] }}{% except %}Coming Soon...{% end %}</p>
@@ -92,77 +164,7 @@
     </tbody>
 </table>
     </div>
-    <!-- Sidebar column -->
-    <div class="col-md-3">
-            <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
-            <blockquote>
-                <p>{% try %}{{ hero['quote'] }}{% except %}{% end %}</p>
-                <small>{% try %}{{ hero['name'] }}{% except %}{% end %}</small>
-            </blockquote>
-        <div class="alert {% if hero['side'] == 'The Radiant' %}alert-success{% else %}alert-danger{% end %}"><span class="glyphicon glyphicon-flag pull-right"></span><strong>{{ hero['side'] }}</strong></div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: 33.33%">
-                    <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
-                </div>
-                <div class="progress-bar progress-bar-success" style="width: 33.33%">
-                    <span data-toggle="tooltip" data-placement="bottom" title="Base agility (+ Increase)">{% try %}{{ hero['agility'] }}{% except %}{% end %}</span>
-                </div>
-                <div class="progress-bar progress-bar-info" style="width: 33.33%">
-                    <span data-toggle="tooltip" data-placement="bottom" title="Base intelligence (+ Increase)">{% try %}{{ hero['intelligence'] }}{% except %}{% end %}</span>
-                </div>
-            </div>
 
-        <table class="table table-striped table-condensed">
-            <tbody>
-            <tr>
-                <td><strong>Movement Speed</strong></td>
-                <td>{% try %}{{ hero['ms'] }}{% except %}{% end %}</td>
-            </tr>
-            <tr>
-                <td><strong>Turn Rate</strong></td>
-                <td>{% try %}{{ hero['tr'] }}{% except %}{% end %}</td>
-            </tr>
-            <tr>
-                <td><strong>Sight Range</strong></td>
-                <td>{% try %}{{ hero['sr'] }}{% except %}{% end %}</td>
-            </tr>
-                        <tr>
-                <td><strong>Attack Range</strong></td>
-                <td>{% try %}{{ hero['ar'] }}{% except %}{% end %}</td>
-            </tr>
-                        <tr>
-                <td><strong>Missile Speed</strong></td>
-                <td>{% try %}{{ hero['miss_s'] }}{% except %}{% end %}</td>
-            </tr>
-                        <tr>
-                <td><strong>Attack Duration</strong></td>
-                <td>{% try %}{{ hero['ad'] }}{% except %}{% end %}</td>
-            </tr>
-                        <tr>
-                <td><strong>Cast Duration</strong></td>
-                <td>{% try %}{{ hero['cd'] }}{% except %}{% end %}</td>
-            </tr>
-                        <tr>
-                <td><strong>Base Attack Time</strong></td>
-                <td>{% try %}{{ hero['bat'] }}{% except %}{% end %}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="page-header">
-            <h1>Time</h1>
-        </div>
-        <p class="text-muted">Total spent time for this hero equal:</p>
-        <p><span class="glyphicon glyphicon-time"></span>
-            {% try %} {% set d = datetime.timedelta(seconds=stats['total_hours']) %}
-            <strong>{{ d.days }}</strong> days, <strong>{{ d.seconds//3600 }}</strong> hours, <strong>{{ (d.seconds//60)%60 }}</strong> minutes
-            {% except %} <strong>0</strong> hours {% end %}</p>
-        <p class="text-muted">Average time of match with this hero:</p>
-        <p><span class="glyphicon glyphicon-time"></span>
-            {{ time.strftime("%H:%M:%S", time.gmtime(stats.get('average', 0))) }}
-            </p>
-
-    </div>
 </div>
 <p class="text-muted">This page was last updated {{ locale.format_date(stats['last_update'], relative=True) }}</p>
 {% end %}
