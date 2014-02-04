@@ -10,11 +10,13 @@
     <!-- Sidebar column -->
     <div class="col-md-3">
             <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
+            {% if hero.get('quote', None) != None %}
             <blockquote>
-                <p>{% try %}{{ hero['quote'] }}{% except %}{% end %}</p>
-                <small>{% try %}{{ hero['name'] }}{% except %}{% end %}</small>
+                <p>{{ hero['quote'] }}</p>
+                <small>{{ hero['name'] }}</small>
             </blockquote>
-        <div class="alert {% if hero['side'] == 'The Radiant' %}alert-success{% else %}alert-danger{% end %}"><span class="glyphicon glyphicon-flag pull-right"></span><strong>{{ hero['side'] }}</strong></div>
+            {% else %}{% end %}
+        {% if hero['radiant'] == 'true' %}<div class="alert alert-success">The Radiant{% else %}<div class="alert alert-danger">The Dire{% end %}</div>
             <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: 33.33%">
                     <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
