@@ -50,7 +50,7 @@
             </thead>
             <tbody>
             {% for hr in mt['players'] %}
-            <tr {% if hr['account_id'] == user['steamid32'] %}class="success"{% else %}{% end %}>
+            <tr {% if hr.get('account_id') == user['steamid32'] %}class="success"{% else %}{% end %}>
                 <td>
                     <div class="hero-container"><a href="/heroes/{{ hr['hero_id'] }}"><img src="{% try %}{{ static_url(heroes[hr['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ hr['hero_id'] }}{% end %}"></a></div>
                     <div class="hero-name">{% try %}<p class="text-hero"><strong>{{ heroes[hr['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</strong></p></div>
