@@ -1,14 +1,7 @@
-{% if match['game_mode'] == 15 %}
+{% if match['game_mode'] in (15, 7, 9) %}
         <div class="alert alert-info alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Ho-ho!</strong> This game is part of the event "Wraith-Night". This mode assumes the existence of only 5 players.
-            You can <a href="/events/wraithnight" class="alert-link">visit the event page</a> to view other matches.
-        </div>
-        {% elif match['game_mode'] == 7 %}
-        <div class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Brr!</strong> This game is part of the event "Diretide".
-            You can <a href="/events/diretide" class="alert-link">visit the event page</a> to view other matches.
+            <strong>Ho-ho!</strong> This game is part of the event.
         </div>
         {% else %}{% end %}
         <div class="row recent-info">

@@ -90,7 +90,6 @@ class Statsmile(Application):
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),
-            (r'/matches/page/([0-9]*)', handlers.MatchesHandler),
             (r'/players', handlers.PlayersHandler),
             (r'/page/(.*)', handlers.PagesHandler),
             (r'/user/([0-9a-fA-F]{24})', handlers.UserHandler),
@@ -104,8 +103,7 @@ class Statsmile(Application):
             (r'/heroes', handlers.HeroesHandler),
             (r'/heroes/rating', handlers.HeroesTopHandler),
             (r'/heroes/(.*)', handlers.HeroHandler),
-            (r'/events/([^/]+)', handlers.EventsHandler),
-            (r'/events/([^/]+)/page/([0-9]*)', handlers.EventsHandler)
+            (r'/events', handlers.EventsHandler)
         ]
 
         # Database connect
@@ -175,7 +173,7 @@ class Statsmile(Application):
         settings = {
             'cookie_secret': getsecret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': False,
+            'debug': True,
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'login_url': "/auth/login"
