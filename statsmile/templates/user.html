@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / {{ user['personaname'] }} {% if title == "Dashboard" %}{% else %}/ {{ title }}{% end %}{% end %}
+{% block description %}<meta name="description" content="Welcome to Statsmile. User profile for {{ user['personaname'] }}. Dota 2 Statistics." />{% end %}
 {% block content %}
     {% import time %}
 

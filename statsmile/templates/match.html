@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Match / {{ match['match_id'] }}{% end %}
+{% block description %}<meta name="description" content="Preview for {{ match['match_id'] }} match." />{% end %}
 {% block content %}
 {% import time %}
 <div class="page-header">
@@ -16,6 +17,12 @@
 </ul>
 <div class="tab-content">
     <div class="tab-pane fade in active" id="overview">{% include 'match-overview.html' %}</div>
-    <div class="tab-pane fade in" id="abilities">{% include 'match-abilities.html' %}</div>
+    <div class="tab-pane fade in" id="abilities">
+        {% if match['game_mode'] == 18 %}
+        <div class="alert alert-danger">Sorry, but preview of abilities is not available for <strong>Ability Draft</strong> mode.</div>
+        {% else %}
+        {% include 'match-abilities.html' %}
+        {% end %}
+    </div>
 </div>
 {% end %}
