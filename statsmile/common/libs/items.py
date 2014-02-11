@@ -151,6 +151,9 @@ items = {
     233: {'name': 'Cocoa with Marshmallows', 'avatar': 'img/dota/items/cocoa.png'},
     234: {'name': 'Clove Studded Ham', 'avatar': 'img/dota/items/clove_studded_ham.png'},
     235: {'name': 'Greevil Whistle', 'avatar': 'img/dota/items/greevil_whistle.png'},
-    236: {'name': 'Kringle', 'avatar': 'img/dota/items/kringle.png'}
+    236: {'name': 'Kringle', 'avatar': 'img/dota/items/kringle.png'},
+    240: {'name': 'Firecrackers', 'avatar': 'img/dota/items/firecrackers.png'},
+    250: {'name': 'Force Boots', 'avatar': 'img/dota/items/force_boots.png'}, # 1
+
 
 }
