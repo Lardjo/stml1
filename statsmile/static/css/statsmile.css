@@ -27,13 +27,51 @@ h3 small, .h3 small {
     font-weight: 300;
 }
 
+.sidebar {
+    /*border-top: 1px solid #EEE;*/
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    list-style-type: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #EEE;
+    text-transform: uppercase;
+}
+
+.sidebar ul li a:hover {
+    background-color: #EEE;
+    text-decoration: none;
+}
+
+.sidebar span {
+    color: #000;
+}
+
+.sidebar ul li ul {
+    background-color: #F6F6F6;
+    box-shadow: inset 0 1px 10px #E0E0E0;
+}
+
+.sidebar-header {
+    margin-bottom: 0;
+}
+
 .img-hero-page {
     height: 150px;
     margin-bottom: 15px;
 }
 
 .nav-pills {
-    margin-bottom: 17px;
+    /* margin-bottom: 17px; */
 }
 
 .entry {

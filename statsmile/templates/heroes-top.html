@@ -1,26 +1,63 @@
-<p>The most popular heroes. The rating is made on real matches - events are not considered.</p>
-<table class="table">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Hero</th>
-        <th>Matches</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% set n = 1 %}
-    {% for tp in top %}
-    <tr>
-        <td>{{ n }}</td>
-        <td>
-            <div class="hero-container">
-                <a href="/heroes/{{ tp['hero_id'] }}"><img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}"></a>
+<div class="row">
+    <div class="col-md-3">
+        <div class="page-header sidebar-header">
+            <h4>Rating</h4>
+        </div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="?period=week"><span class="glyphicon glyphicon-sound-7-1 pull-right"></span> Last Week</a></li>
+                <li><a href="?period=month"><span class="glyphicon glyphicon-calendar pull-right"></span> Last Month</a></li>
+                <li><a href="?period=all"><span class="glyphicon glyphicon-time pull-right"></span> All Time</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="page-header">
+            <h4>{% if period == 'all' %}All Time{% elif period == 'week' %}Last Week{% elif period == 'month' %}Last Month{% else %}{% end %}</h4>
+        </div>
+
+        <div class="row">
+            {% for tp in top[:4] %}
+            <div class="col-xs-6 col-md-3">
+                <a href="/heroes/{{ tp['hero_id'] }}" class="thumbnail">
+                    <img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}" />
+                </a>
             </div>
-            <div class="hero-name"><strong>{{ heroes[tp['hero_id']]['name'] }}</strong></div>
-        </td>
-        <td>{{ tp['matches'] }}</td>
-    </tr>
-    {% set n += 1 %}
-    {% end %}
-    </tbody>
-</table>
+            {% end %}
+        </div>
+
+        <table class="table table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Hero</th>
+                <th>Matches</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set n = 1 %}
+            {% for tp in top %}
+            <tr>
+                <td>{{ n }}</td>
+                <td>
+                    <div class="hero-container">
+                        <a href="/heroes/{{ tp['hero_id'] }}">
+                            <img src="{{ static_url(heroes[tp['hero_id']]['avatar']) }}">
+                        </a>
+                    </div>
+                    <div class="hero-name"><strong>{{ heroes[tp['hero_id']]['name'] }}</strong></div>
+                </td>
+                <td>
+                    <div class="progress" data-toggle="tooltip" data-placement="left" title="{% if period == 'all' %}{{ tp['matches'] }}{% elif period == 'week' %}{{ tp['matches_week'] }}{% elif period == 'month' %}{{ tp['matches_month'] }}{% else %}{% end %} Matches">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {% if period == 'all' %}{{ (tp['matches'] * 100) / top[0]['matches'] }}{% elif period == 'week' %}{{ (tp['matches_week'] * 100) / top[0]['matches_week'] }}{% elif period == 'month' %}{{ (tp['matches_month'] * 100) / top[0]['matches_month'] }}{% else %}{% end %}%;">
+                            {% if period == 'all' %}{{ tp['matches'] }}{% elif period == 'week' %}{{ tp['matches_week'] }}{% elif period == 'month' %}{{ tp['matches_month'] }}{% else %}{% end %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% set n += 1 %}
+            {% end %}
+            </tbody>
+        </table>
+    </div>
+</div>

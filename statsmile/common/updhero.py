@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
+import time
 
 from motor import Op
 from tornado.gen import coroutine
@@ -12,8 +13,9 @@ from operator import itemgetter
 def update_hero(db, hero):
 
     black_list = [7, 9, 15]
+    current_time = time.time()
 
-    items, top_heroes = yield [
+    items, top_heroes, top_heroes_week, top_heroes_month = yield [
         Op(db['matches'].aggregate,
            [{'$match': {'players.hero_id': hero['hero_id'], 'game_mode': {"$nin": black_list}}},
             {'$unwind': '$players'},
@@ -27,11 +29,38 @@ def update_hero(db, hero):
             {'$unwind': '$players'},
             {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
             {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
+            {'$sort': {'number': -1}}]),
+        Op(db['matches'].aggregate,
+           [{'$match': {'start_time': {'$gte': current_time - 604800, '$lt': current_time},
+                        'game_mode': {"$nin": black_list}}},
+            {'$unwind': '$players'},
+            {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
+            {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
+            {'$sort': {'number': -1}}]),
+        Op(db['matches'].aggregate,
+           [{'$match': {'start_time': {'$gte': current_time - 2629743, '$lt': current_time},
+                        'game_mode': {"$nin": black_list}}},
+            {'$unwind': '$players'},
+            {'$project': {'hero_id': '$players.hero_id', 'count': {'$add': [1]}}},
+            {'$group': {'_id': '$hero_id', 'number': {'$sum': '$count'}}},
             {'$sort': {'number': -1}}])]
 
     # Remove zero point
-    pos = list(map(itemgetter('_id'), top_heroes['result'])).index(0)
-    top_heroes['result'].pop(pos)
+    try:
+        pos = list(map(itemgetter('_id'), top_heroes['result'])).index(0)
+        top_heroes['result'].pop(pos)
+    except ValueError:
+        pass
+    try:
+        pos_week = list(map(itemgetter('_id'), top_heroes_week['result'])).index(0)
+        top_heroes_week['result'].pop(pos_week)
+    except ValueError:
+        pass
+    try:
+        pos_month = list(map(itemgetter('_id'), top_heroes_month['result'])).index(0)
+        top_heroes_month['result'].pop(pos_month)
+    except ValueError:
+        pass
 
     try:
         pos = list(map(itemgetter('_id'), top_heroes['result'])).index(hero['hero_id'])
@@ -39,6 +68,20 @@ def update_hero(db, hero):
     except (ValueError, KeyError):
         pos = len(top_heroes['result'])
         matches = 0
+
+    try:
+        pos_week = list(map(itemgetter('_id'), top_heroes_week['result'])).index(hero['hero_id'])
+        matches_week = top_heroes_week['result'][pos_week]['number']
+    except (ValueError, KeyError):
+        pos_week = len(top_heroes_week['result'])
+        matches_week = 0
+
+    try:
+        pos_month = list(map(itemgetter('_id'), top_heroes_month['result'])).index(hero['hero_id'])
+        matches_month = top_heroes_month['result'][pos_month]['number']
+    except (ValueError, KeyError):
+        pos_month = len(top_heroes_month['result'])
+        matches_month = 0
 
     # Total Hours
     hours = yield Op(db['matches'].aggregate,
@@ -49,9 +92,13 @@ def update_hero(db, hero):
                         {'$set': {'popular_items': items['result'],
                                   'last_update': datetime.now(),
                                   'popularity': pos + 1,
+                                  'popularity_week': pos_week + 1,
+                                  'popularity_month': pos_month + 1,
                                   'total_hours': hours['result'][0]['sum'],
                                   'average': hours['result'][0]['sum'] / matches,
                                   'matches': matches,
+                                  'matches_week': matches_week,
+                                  'matches_month': matches_month,
                                   'update': datetime.now() + timedelta(minutes=60)}})
 
     logging.info("Hero %s has been updated." % hero['hero_id'])

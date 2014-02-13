@@ -21,15 +21,33 @@ class HeroesTopHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
-        cursor = self.application.db['heroes'].find({}, {'hero_id': 1,
-                                                         'matches': 1,
-                                                         'popularity': 1}, sort=[('popularity', 1)], limit=115)
-        popularity = yield Op(cursor.to_list)
         session = None
         if self.current_user:
             session = yield Op(self.db['users'].find_one, {'_id': self.current_user['userid']})
-        heroes = libs.heroes
-        self.render("heroes.html", title="Heroes / Rating", session=session, heroes=heroes, top=popularity)
+
+        period = self.get_argument('period', 'all')
+
+        if not period in ('all', 'month', 'week'):
+            return self.send_error(404)
+
+        if period == 'month':
+            cursor = self.db['heroes'].find({}, {'hero_id': 1,
+                                                 'matches_month': 1,
+                                                 'popularity_month': 1}, sort=[('popularity_month', 1)], limit=115)
+            popularity = yield Op(cursor.to_list)
+        elif period == 'week':
+            cursor = self.db['heroes'].find({}, {'hero_id': 1,
+                                                 'matches_week': 1,
+                                                 'popularity_week': 1}, sort=[('popularity_week', 1)], limit=115)
+            popularity = yield Op(cursor.to_list)
+        else:
+            cursor = self.db['heroes'].find({}, {'hero_id': 1,
+                                                 'matches': 1,
+                                                 'popularity': 1}, sort=[('popularity', 1)], limit=115)
+            popularity = yield Op(cursor.to_list)
+
+        self.render("heroes.html", title="Heroes / Rating", session=session, period=period,
+                    heroes=libs.heroes, top=popularity)
 
 
 class HeroHandler(BaseHandler):
