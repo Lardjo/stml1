@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ static_url('css/statsmile.css') }}" rel="stylesheet">
+    {% block scripts %}{% end %}
   </head>
   <body>
   <!-- Yandex.Metrika counter -->
@@ -83,12 +84,10 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             {% block content %}{% end %}
         </div>
     </div>
-
     <div class="footer">
         <div class="container">
             <p class="text-muted">Copyright (c) 2013-2014 Statsmile LLC. Dota 2 is a registered trademark of Valve Corporation.</p>

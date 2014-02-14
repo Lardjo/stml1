@@ -88,12 +88,34 @@ def update_hero(db, hero):
                      [{'$match': {'players.hero_id': hero['hero_id'], 'game_mode': {'$nin': black_list}}},
                       {'$group': {'_id': 'None', 'sum': {'$sum': '$duration'}}}])
 
+    # Popularity WEEK
+    pop = []
+    days = current_time
+
+    for day in range(7):
+
+        matches_all, hero_matches = yield [
+            Op(db['matches'].find({'start_time': {'$gte': days - 86400, '$lt': days},
+                                   'game_mode': {'$nin': black_list},
+                                   'players.hero_id': {'$nin': [0]}}).count),
+            Op(db['matches'].find({'start_time': {'$gte': days - 86400, '$lt': days},
+                                   'players.hero_id': hero['hero_id'],
+                                   'game_mode': {'$nin': black_list}}).count)]
+        if hero_matches != 0:
+            popularity = (hero_matches / matches_all) * 100
+        else:
+            popularity = 0
+
+        pop.append(popularity)
+        days = (days - 86400)
+
     db['heroes'].update({'hero_id': hero['hero_id']},
                         {'$set': {'popular_items': items['result'],
                                   'last_update': datetime.now(),
                                   'popularity': pos + 1,
                                   'popularity_week': pos_week + 1,
                                   'popularity_month': pos_month + 1,
+                                  'popularity_graph': pop[::-1],
                                   'total_hours': hours['result'][0]['sum'],
                                   'average': hours['result'][0]['sum'] / matches,
                                   'matches': matches,

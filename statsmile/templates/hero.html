@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Statsmile / Heroes / {{ hero['name'] }}{% end %}
+{% block description %}<meta name="description" content="Welcome to Statsmile. {{ hero['name'] }}. Dota 2 Statistics." />{% end %}
+{% block scripts %}
+<script src="{{ static_url('js/chart.min.js') }}"></script>
+{% end %}
 {% block content %}
 {% import time %}
 <div class="page-header">
     <h1><span data-toggle="tooltip" data-placement="left" title="Popularity">#{{ stats['popularity'] }}</span> {{ hero['name'] }} <small>{% try %}{{ hero['role'] }}{% except %}{% end %}</small></h1>
 </div>
 <div class="row">
-
     <!-- Sidebar column -->
     <div class="col-md-3">
-            <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
-            {% if hero.get('quote', None) != None %}
-            <blockquote>
-                <p>{{ hero['quote'] }}</p>
-                <small>{{ hero['name'] }}</small>
-            </blockquote>
-            {% else %}{% end %}
-        {% if hero['radiant'] == 'true' %}<div class="alert alert-success">The Radiant{% else %}<div class="alert alert-danger">The Dire{% end %}</div>
+        <img src="{{ static_url(hero['avatar']) }}" class="img-thumbnail img-hero-page">
+        {% if hero.get('quote', None) != None %}
+        <blockquote>
+            <p>{{ hero['quote'] }}</p>
+            <small>{{ hero['name'] }}</small>
+        </blockquote>
+        {% else %}{% end %}
+        {% if hero['radiant'] == 'true' %}<div class="alert alert-success">The Radiant</div>{% else %}<div class="alert alert-danger">The Dire</div>{% end %}
             <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: 33.33%">
                     <span data-toggle="tooltip" data-placement="bottom" title="Base strength (+ Increase)">{% try %}{{ hero['strength'] }}{% except %}{% end %}</span>
@@ -65,9 +68,12 @@
             </tr>
             </tbody>
         </table>
-
+<div class="page-header">
+            <h3>Popularity <small>Week</small></h3>
+        </div>
+        <canvas id="canvas" width="263px"></canvas>
         <div class="page-header">
-            <h1>Time</h1>
+            <h3>Time</h3>
         </div>
         <p class="text-muted">Total spent time for this hero equal:</p>
         <p><span class="glyphicon glyphicon-time"></span>
@@ -170,3 +176,28 @@
 </div>
 <p class="text-muted">This page was last updated {{ locale.format_date(stats['last_update'], relative=True) }}</p>
 {% end %}
+       {% block bottom %}
+        <script>
+
+		var lineChartData = {
+			labels : ["","","","","","",""],
+			datasets : [
+				{
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : {{ stats['popularity_graph'][::-1] }}
+				}
+			]
+        }
+
+        var options = {
+            scaleLabel : "<%=value%>%",
+            scaleFontFamily : "OpenSans",
+            scaleLineWidth : 1
+        }
+
+        var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, options);
+
+	</script>{% end %}
