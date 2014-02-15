@@ -111,7 +111,6 @@ def update_hero(db, hero):
 
     db['heroes'].update({'hero_id': hero['hero_id']},
                         {'$set': {'popular_items': items['result'],
-                                  'last_update': datetime.now(),
                                   'popularity': pos + 1,
                                   'popularity_week': pos_week + 1,
                                   'popularity_month': pos_month + 1,
@@ -120,7 +119,6 @@ def update_hero(db, hero):
                                   'average': hours['result'][0]['sum'] / matches,
                                   'matches': matches,
                                   'matches_week': matches_week,
-                                  'matches_month': matches_month,
-                                  'update': datetime.now() + timedelta(minutes=60)}})
+                                  'matches_month': matches_month}})
 
     logging.info("Hero %s has been updated." % hero['hero_id'])

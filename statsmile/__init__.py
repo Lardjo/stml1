@@ -71,6 +71,11 @@ class Statsmile(Application):
         logging.debug("Start update %s page" % hero['hero_id'])
 
         yield update_hero(self.db, hero)
+
+        yield Op(self.db['heroes'].update, {'hero_id': hero['hero_id']},
+                 {'$set': {'update': datetime.now() + timedelta(minutes=60),
+                           'last_update': datetime.now()}})
+
         self.__update_hero.remove(hero['_id'])
 
         new_hero = yield Op(self.db['heroes'].find_one, {'_id': {'$not': {'$in': self.__update_hero}}},
