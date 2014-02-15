@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Statsmile / {{ title }}{% end %}
+{% block description %}<meta name="description" content="Welcome to Statsmile. Events. Dota 2 Statistics." />{% end %}
+{% block content %}
+<div class="page-header">
+    <h1>{{ title }} <small>Special Dota 2 Events</small></h1>
+</div>
+<p>The page is devoted to various events conducted in the game.
+    Currently known events such as <strong>The Greeviling</strong>,
+    <strong>Diretide</strong>, <strong>Wraith-Night</strong> and <strong>The New Bloom Festival</strong>.</p>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Match ID</th>
+            <th>Start Time</th>
+            <th>Mode</th>
+            <th>Server</th>
+            <th>Duration</th>
+            <th>Heroes</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mt in event %}
+        <tr>
+            <td><a href="/matches/{{ mt['match_id'] }}">{{ mt['match_id'] }}</a></td>
+            <td>{{ locale.format_date(mt['start_time'], full_format=False, shorter=False, relative=True) }}</td>
+            <td>{% try %}{{ mode[mt['game_mode']]['name'] }}{% except %}{{ mt['game_mode'] }}{% end %}</td>
+            <td>{% try %}{{ cluster[mt['cluster']]['name'] }}{% except %}{{ mt['cluster'] }}{% end %}</td>
+            <td>{% import time %} {{ time.strftime("%H:%M:%S", time.gmtime(mt['duration'])) }}</td>
+            <td>
+                {% for ev in mt['players'] %}
+                {% if not ev['hero_id'] == 0 %}
+                <div class="hero-container"><img src="{% try %}{{ static_url(heroes[ev['hero_id']]['avatar']) }}{% except %}/holder.js/44x25/text:{{ ev['hero_id'] }}{% end %}"></div>
+                {% else %}{% end %}
+                {% end %}
+            </td>
+        </tr>
+        {% end %}
+        </tbody>
+    </table>
+</div>
+
+<ul class="pagination pagination-sm">
+    {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
+    {% if page == 1 %}<a href="#">{% else %}<a href="/events?page={{ page - 1 }}">{% end %}&laquo;</a></li>
+    {% if page > 1 %}<li><a href="/events">First</a></li>{% else %}{% end %}
+    {% if page < 5 %}
+    {% for x in range(1, 7) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events?page={{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% elif page >= 5 and page <= max_pages-2 %}
+    {% for x in range(page-2, page+2) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events?page={{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% elif page > max_pages-2 %}
+    {% for x in range(page-2, max_pages+1) %}
+        {% if page == x %}<li class="active">{% else %}<li>{% end %}<a href="/events?page={{ x }}">{{ x }}</a></li>
+    {% end %}
+    {% end %}
+    {% if page < max_pages %}<li><a href="/events?page={{ max_pages }}">Last</a></li>{% else %}{% end %}
+    {% if page == max_pages %}<li class="disabled">{% else %}<li>{% end %}
+    {% if page == max_pages %}<a href="#">{% else %}<a href="/events?page={{ page + 1 }}">{% end %}&raquo;</a></li>
+</ul>
+{% end %}

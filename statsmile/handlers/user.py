@@ -50,9 +50,9 @@ class UserMatchesHandler(BaseHandler):
         black_list = [7, 9, 15]
 
         pg = int(self.get_argument('page', 1))
-        hero = self.get_argument('hero', None)
+        hero = self.get_argument('hero', 'all')
 
-        if hero is None:
+        if hero == 'all':
             pass
         else:
             if not int(hero) in libs.heroes.keys():
@@ -76,7 +76,7 @@ class UserMatchesHandler(BaseHandler):
         if pg > max_pages:
             return self.send_error(404)
 
-        if hero is None:
+        if hero == 'all':
             matches = yield Op(self.db["matches"].find(
                 {"players.account_id": user["steamid32"], "game_mode": {"$nin": black_list},
                  'players.hero_id': {'$nin': [0]}},
@@ -94,7 +94,7 @@ class UserMatchesHandler(BaseHandler):
                 sort=[('start_time', -1)], limit=20).skip((pg-1)*20).to_list)
 
         self.render("user.html", title="Matches", user=user, session=session, matches=matches, max_pages=max_pages,
-                    page=pg, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
+                    page=pg, hero_current=hero, heroes=libs.heroes, cluster=libs.cluster, mode=libs.mode)
 
 
 class UserHeroesHandler(BaseHandler):

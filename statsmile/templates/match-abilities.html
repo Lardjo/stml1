@@ -1,0 +1,52 @@
+{% for hero in match['players'] %}
+    <div class="panel panel-default">
+        <!-- Hero/User panel contents -->
+        <div class="panel-heading">
+            <img class="hero" src="{% try %}{{ static_url(heroes[hero['hero_id']]['avatar']) }}{% except %}/holder.js/80x45/text:{{ hero['hero_id'] }}{% end %}">
+            <div class="hero-name">{% try %}<h4>{{ heroes[hero['hero_id']]['name'] }}{% except %}Unknown Hero{% end %}</h4></div>
+        </div>
+        <!-- Table of Spells -->
+        <table class="table table-bordered table-ability">
+            <tbody>
+                {% try %}
+                {% for ability in heroes[hero['hero_id']]['ability'] %}
+                <tr>
+
+                    <td style="width: 36px;"><img style="width: 36px;" src="{{ static_url(ability['image']) }}" /></td>
+
+                    {% for spell in hero['ability_upgrades'] %}
+
+                    {% if spell['ability'] == ability['id'] %}
+                    <td><div class="spell"><strong>{{ spell['level'] }}</strong></div></td>
+                    {% else %}
+                    <td></td>
+                    {% end %}
+
+                    {% end %}
+
+                    {% if len(hero['ability_upgrades']) < 25 %}
+                    {% for i in range(25-len(hero['ability_upgrades'])) %}
+                    <td style="width: 44px;"></td>{% end %}
+                    {% else %}{% end %}
+
+                </tr>
+                {% end %}
+                <tr>
+                    <td><img style="width: 36px;" src="{{ static_url('img/dota/spellicons/attribute_bonus.png') }}" /></td>
+                    {% for spell in hero['ability_upgrades'] %}
+                    {% if spell['ability'] == 5002 %}
+                    <td><div class="spell"><strong>{{ spell['level'] }}</strong></div></td>
+                    {% else %}
+                    <td></td>{% end %}{% end %}
+
+                    {% if len(hero['ability_upgrades']) < 25 %}
+                    {% for i in range(25-len(hero['ability_upgrades'])) %}
+                    <td></td>{% end %}
+                    {% else %}{% end %}
+
+                </tr>
+                {% except %}<tr><td>Yet not ready</td></tr>{% end %}
+            </tbody>
+        </table>
+    </div>
+    {% end %}

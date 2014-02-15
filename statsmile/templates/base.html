@@ -3,11 +3,13 @@
   <head>
     <title>{% block title %}{% end %}</title>
     {% block meta %}{% end %}
-    <meta name="description" content="Simple and intuitive service statistics for Dota 2" />
-    <meta name="keywords" content="dota2, dota, statsmile, stats, service, statistics, game, steam, dota 2 stats">
+    {% block description %}<meta name="description" content="Welcome to Statsmile. Simple and intuitive service
+    statistics for Dota 2. Heroes, matches, players and events. Dota 2 Statistics." />{% end %}
+    <meta name="keywords" content="dota 2, dota, statsmile, stats, service, dota 2 statistics, game, steam, dota 2 stats">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ static_url('css/statsmile.css') }}" rel="stylesheet">
+    {% block scripts %}{% end %}
   </head>
   <body>
   <!-- Yandex.Metrika counter -->
@@ -55,29 +57,21 @@
                         {% if request.path == "/matches" %}<li class="active">{% else %}<li>{% end %}<a href="/matches">Matches</a></li>
                         {% if request.path == "/players" %}<li class="active">{% else %}<li>{% end %}<a href="/players">Players</a></li>
                         {% if request.path == "/heroes" %}<li class="active">{% else %}<li>{% end %}<a href="/heroes">Heroes</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/events/wraithnight">Wraith-Night</a></li>
-                                <li><a href="/events/diretide">Diretide</a></li>
-                            </ul>
-                        </li>
+                        {% if request.path == "/events" %}<li class="active">{% else %}<li>{% end %}<a href="/events">Events</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% from bson import ObjectId %}
-                        {% if current_user %}{% if session.get('badge', None) == 'Staff' %}
-                        <li><a href="/postbox"><span class="glyphicon glyphicon-pencil"></span></a></li>{% else %}
-                        {% end %}{% else %}{% end %}
                         {% if current_user %}
-                        <li><a href="/user/{{ session['_id'] }}"><span class="glyphicon glyphicon-user"></span></a></li>
-                        <li><a href="/user/bookmarks"><span class="glyphicon glyphicon-bookmark"></span></a></li>
+                        <li><a href="/user/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                  <img src="{{ session['avatar'] }}" class="img-circle pull-left img-style">
                                     Welcome, {{ session['personaname'] }}! <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user/settings"><span class="glyphicon glyphicon-cog"></span>  Settings</a></li>
                                 <li><a href="/user/{{ session['_id'] }}"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+                                <li><a href="/user/bookmarks"><span class="glyphicon glyphicon-bookmark"></span> Bookmarks</a></li>
+                                {% if session.get('badge', None) == 'Staff' %}
+                                <li><a href="/postbox"><span class="glyphicon glyphicon-pencil"></span> New Post</a></li>{% else %}{% end %}
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="/auth/logout"><span class="glyphicon glyphicon-off"></span>  Logout</a></li>
                             </ul>
@@ -85,16 +79,15 @@
                         {% else %}
                         <li><a href="/auth/login">Sign in with Steam ID</a></li>
                         {% end %}
+
                     </ul>
                 </div>
             </div>
         </div>
-
         <div class="container">
             {% block content %}{% end %}
         </div>
     </div>
-
     <div class="footer">
         <div class="container">
             <p class="text-muted">Copyright (c) 2013-2014 Statsmile LLC. Dota 2 is a registered trademark of Valve Corporation.</p>

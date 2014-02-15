@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ title }}{% end %}
+{% block description %}<meta name="description" content="Welcome to Statsmile. Matches. Dota 2 Statistics." />{% end %}
 {% block content %}
 
         <div class="page-header">
@@ -47,13 +48,13 @@
         </div>
         <ul class="pagination pagination-sm">
             {% if page == 1 %}<li class="disabled">{% else %}<li>{% end %}
-            {% if page == 1 %}<a href="#">{% else %}<a href="/matches/page/{{ page - 1 }}">{% end %}&laquo;</a></li>
-            {% for x in range(1, 11) %}
+            {% if page == 1 %}<a href="#">{% else %}<a href="/matches?page={{ page - 1 }}">{% end %}&laquo;</a></li>
+            {% for x in range(1, 9) %}
             {% if page == x %}<li class="active">{% else %}<li>{% end %}
-            <a href="/matches/page/{{ x }}">{{ x }}</a></li>
+            <a href="/matches?page={{ x }}">{{ x }}</a></li>
             {% end %}
-            {% if page == 10 %}<li class="disabled">{% else %}<li>{% end %}
-            {% if page == 10 %}<a href="#">{% else %}<a href="/matches/page/{{ page + 1 }}">{% end %}&raquo;</a></li>
+            {% if page == 8 %}<li class="disabled">{% else %}<li>{% end %}
+            {% if page == 8 %}<a href="#">{% else %}<a href="/matches?page={{ page + 1 }}">{% end %}&raquo;</a></li>
         </ul>
 
 {% end %}

@@ -71,6 +71,11 @@ class Statsmile(Application):
         logging.debug("Start update %s page" % hero['hero_id'])
 
         yield update_hero(self.db, hero)
+
+        yield Op(self.db['heroes'].update, {'hero_id': hero['hero_id']},
+                 {'$set': {'update': datetime.now() + timedelta(minutes=60),
+                           'last_update': datetime.now()}})
+
         self.__update_hero.remove(hero['_id'])
 
         new_hero = yield Op(self.db['heroes'].find_one, {'_id': {'$not': {'$in': self.__update_hero}}},
@@ -90,7 +95,6 @@ class Statsmile(Application):
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/matches', handlers.MatchesHandler),
-            (r'/matches/page/([0-9]*)', handlers.MatchesHandler),
             (r'/players', handlers.PlayersHandler),
             (r'/page/(.*)', handlers.PagesHandler),
             (r'/user/([0-9a-fA-F]{24})', handlers.UserHandler),
@@ -104,8 +108,7 @@ class Statsmile(Application):
             (r'/heroes', handlers.HeroesHandler),
             (r'/heroes/rating', handlers.HeroesTopHandler),
             (r'/heroes/(.*)', handlers.HeroHandler),
-            (r'/events/([^/]+)', handlers.EventsHandler),
-            (r'/events/([^/]+)/page/([0-9]*)', handlers.EventsHandler)
+            (r'/events', handlers.EventsHandler)
         ]
 
         # Database connect
