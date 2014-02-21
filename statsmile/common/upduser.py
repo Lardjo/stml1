@@ -17,6 +17,8 @@ def update_user(db, steamid):
     # TODO: Black List should move to the server configuration
     black_list = [7, 9, 15]
 
+    for_update = []
+
     key = yield Op(db["server"].find_one, {"key": "apikey"})
 
     http_client = AsyncHTTPClient()
@@ -37,11 +39,10 @@ def update_user(db, steamid):
             logging.info('User %s not allow getting his matches. Private profile. Pass' % steamid)
         else:
             new_matches = []
-            for_update = []
             for mid in array['result']['matches']:
                 new_matches.append(mid['match_id'])
             new_matches.sort()
-            slices = yield Op(db['users'].find_one, {"steamid": steamid}, {"matches": {"$slice": -100}})
+            slices = yield Op(db['users'].find_one, {"steamid": steamid}, {"matches": {"$slice": -500}})
             for key in new_matches:
                 if not key in slices['matches']:
                     for_update.append(key)
@@ -104,4 +105,4 @@ def update_user(db, steamid):
                            'total_hours': {'public': pub['result'][0]['sum'] if len(pub['result']) > 0 else 0,
                                            'events': events['result'][0]['sum'] if len(events['result']) > 0 else 0}}})
 
-    logging.info('User %s update complete!' % steamid)
+    logging.info('User %s update complete! New matches: %s' % (steamid, len(for_update)))
