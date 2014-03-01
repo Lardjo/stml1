@@ -24,7 +24,8 @@ class Statsmile(Application):
     def __init__(self):
 
         handlers_list = [
-            (r'/', handlers.MainHandler)
+            (r'/', handlers.MainHandler),
+            (r'/matches', handlers.MatchesHandler)
         ]
 
         try:
@@ -35,10 +36,12 @@ class Statsmile(Application):
             logging.error('Could not connect to database. Exit.')
             exit(4)
 
+        self.db['server'].ensure_index('key', unique=True)
+
         settings = {
             'cookie_secret': get_secret.get_cookies(self.db_sync, 'cookie_secret'),
             'gzip': True,
-            'debug': False,
+            'debug': True,
             'login_url': '/auth/login',
             'template_path': os.path.join(os.path.dirname(__file__), 'web', 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'web', 'static'),

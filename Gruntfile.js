@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     concat: {
       libs: {
         src: [
-          'statsmile/web/frontend/js/libs/jquery-1.11.0.min.js',
+          'statsmile/web/frontend/js/libs/jquery-2.1.0.min.js',
           'statsmile/web/frontend/js/libs/handlebars-1.1.2.js',
           'statsmile/web/frontend/js/libs/ember-1.4.0.js',
           'statsmile/web/frontend/js/libs/bootstrap.min.js',
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         tasks: ['emberTemplates']
       }, 
       concat: {
-        files: ['statsmile/web/frontend/js/**/*.js', '!statsmile/web/static/js/app.js', '!statsmile/web/static/js/libs.js', '!statsmile/web/static/js/templates.js'],
+        files: ['statsmile/web/frontend/js/**/*.js', 'statsmile/web/frontend/js/app/**/*.js', '!statsmile/web/static/js/app.js', '!statsmile/web/static/js/libs.js', '!statsmile/web/static/js/templates.js'],
         tasks: ['concat']
       }
     }

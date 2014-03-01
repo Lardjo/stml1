@@ -1,0 +1,30 @@
+//
+// Desktop
+//---------------------
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+#index {
+  border-bottom: 0;
+
+  h1 {
+    font-size: 4em;
+  }
+}
+
+.ember-application {
+  margin: 0;
+}
+
+.ember-view {
+  height: 100%;
+}
+
+.active {
+  background-color: #e7e7e7;
+}

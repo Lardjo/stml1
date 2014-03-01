@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+html, body {
+  height: 100%; }
+
+body {
+  font-family: Open Sans, sans-serif;
+  overflow-y: scroll;
+  background-color: #fefefe; }
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: Open Sans, sans-serif;
+  font-weight: 300; }
+  h1 small,
+  h1 .small, h2 small,
+  h2 .small, h3 small,
+  h3 .small, h4 small,
+  h4 .small, h5 small,
+  h5 .small, h6 small,
+  h6 .small,
+  .h1 small,
+  .h1 .small, .h2 small,
+  .h2 .small, .h3 small,
+  .h3 .small, .h4 small,
+  .h4 .small, .h5 small,
+  .h5 .small, .h6 small,
+  .h6 .small {
+    font-weight: 300; }
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px; }
+
+#index {
+  border-bottom: 0; }
+  #index h1 {
+    font-size: 4em; }
+
+.ember-application {
+  margin: 0; }
+
+.ember-view {
+  height: 100%; }
+
+.active {
+  background-color: #e7e7e7; }
+
+#wrap > .container {
+  padding: 60px 15px 0; }
+
+.container .text-muted {
+  margin: 20px 0; }
+
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.navbar-default
+.navbar-nav > li > a:hover {
+  background-color: #e7e7e7; }
+
+.navbar, .dropdown-menu {
+  font-size: 13px; }
