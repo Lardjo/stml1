@@ -25,7 +25,8 @@ class Statsmile(Application):
 
         handlers_list = [
             (r'/', handlers.MainHandler),
-            (r'/matches', handlers.MatchesHandler)
+            (r'/matches', handlers.MatchesHandler),
+            (r'/matches/(.*)', handlers.MatchHandler)
         ]
 
         try:

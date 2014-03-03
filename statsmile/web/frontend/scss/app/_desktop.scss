@@ -17,6 +17,15 @@
   }
 }
 
+#match {
+  margin-top: 20px;
+}
+
+#match-overview .active {
+  background-color: #b1584f;
+  color: #ffffff;
+}
+
 .ember-application {
   margin: 0;
 }

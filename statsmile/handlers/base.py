@@ -6,6 +6,8 @@ from datetime import datetime
 from tornado import escape
 from tornado.web import RequestHandler
 
+from statsmile.common.json_code import json_decode
+
 
 class BaseHandler(RequestHandler):
     @property
@@ -39,6 +41,9 @@ class BaseHandler(RequestHandler):
     def prepare(self):
         if self.current_user:
             self.db['sessions'].update({'_id': self.current_user['_id']}, {'$set': self.upd_session()})
+
+        if self.request.headers.get('Content-Type') == 'application/json':
+            self.json_args = json_decode(self.request.body.decode())
 
     def upd_session(self):
         data = {'ip': self.request.remote_ip,

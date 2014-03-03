@@ -1,0 +1,16 @@
+<div class="page-header" id="match">
+  <div class="row">
+    <div class="col-xs-6 col-md-6">
+      <h2>Match Info <small>#{{match_id}}</small></h2>
+    </div>
+      <div class="col-xs-6 col-md-6">
+        {{#if radiant_win}}<h2 class="text-right text-success">Radiant Victory</h2>
+        {{else}}<h2 class="text-right text-danger">Dire Victory</h2>{{/if}}
+      </div>
+  </div>
+</div>
+<ul class="nav nav-pills" id="match-overview">
+  <li>{{#link-to 'match.index'}}Overview{{/link-to}}</li>
+  <li>{{#link-to 'match.abilities'}}Abilities{{/link-to}}</li>
+</ul>
+{{outlet}}
