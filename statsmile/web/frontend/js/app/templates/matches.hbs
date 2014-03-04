@@ -17,10 +17,11 @@
     {{#each}}
     <tr>
       <td>{{#link-to 'match' match_id}}{{match_id}}{{/link-to}}</td>
-      <td>{{#if radiant_win}}<span class="label label-success">Radiant Victory</span>{{else}}<span class="label label-danger">Dire Victory</span>{{/if}}</td>
+      <td>{{#if radiant_win}}<span class="label label-success">Radiant Victory</span>
+          {{else}}<span class="label label-danger">Dire Victory</span>{{/if}}</td>
       <td>{{format-duration duration}}</td>
-      <td>{{game_mode}}</td>
-      <td>{{cluster}}</td>
+      <td>{{game-mode game_mode}}</td>
+      <td>{{cluster cluster}}</td>
       <td></td>
       <td></td>
     </tr>

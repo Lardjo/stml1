@@ -26,6 +26,22 @@
   color: #ffffff;
 }
 
+#match-overview {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+#match-result .progress {
+  margin-bottom: 0;
+  height: 17px;
+}
+
+#match-result .progress-bar {
+  font-size: 12px;
+  line-height: 18px;
+}
+
 .ember-application {
   margin: 0;
 }
@@ -36,4 +52,71 @@
 
 .active {
   background-color: #e7e7e7;
+}
+
+// Status Panel
+//-----------------
+
+.status-panel {
+  width: 150px;
+  background-color: #eee;
+  border-radius: 6px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-right: 8px;
+}
+
+.status-panel .top {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: #555555;
+  padding-top: 20px;
+}
+
+.status-panel .bottom {
+  padding-top: 20px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  text-align: center;
+  border-top: none;
+}
+
+.status-panel .top h6 {
+  display: inline;
+  background-color: #555555;
+  position: relative;
+  top: 5px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.7em;
+  text-transform: uppercase;
+}
+
+.status-panel .bottom h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-panel .bottom h6 {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+.status-panel .primary, .status-panel .primary h6 {
+  background-color: #007ccd;
+}
+
+.status-panel .top span {
+  display: block;
+  margin: 0px auto 20px;
+  color: #fff;
 }
