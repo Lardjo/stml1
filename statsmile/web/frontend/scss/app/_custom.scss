@@ -2,10 +2,6 @@
 // Custom styles for Bootstrap
 //---------------------
 
-#wrap > .container {
-  padding: 60px 15px 0;
-}
-
 .container .text-muted {
   margin: 20px 0;
 }
@@ -22,4 +18,9 @@
 
 .navbar, .dropdown-menu{
   font-size: 13px;
+}
+
+.badge {
+  background-color: #555;
+  font-size: 9px;
 }

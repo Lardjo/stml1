@@ -54,6 +54,51 @@
   background-color: #e7e7e7;
 }
 
+.item-cont {
+  display: inline-block;
+  height: 36px;
+  margin-right: -3px;
+}
+
+.item-cont img {
+  height: 36px;
+}
+
+.hero-cont {
+  position: relative;
+  margin-right: -13px;
+}
+
+.hero-cont img {
+  height: 36px;
+}
+
+.item-cont-pad {
+  padding: 0 8px!important;
+}
+
+.hero-cont-pad {
+  padding: 0 8px!important;
+  width: 64px;
+}
+
+.player-name {
+  width: 200px;
+}
+
+.hero-lvl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: -10px;
+  width: 64px;
+  height: 47px;
+}
+
+.hero-lvl span {
+  margin: 0px -5px 0px;
+}
+
 // Status Panel
 //-----------------
 
@@ -63,9 +108,7 @@
   border-radius: 6px;
   text-align: center;
   display: inline-block;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  margin-right: 8px;
+  margin: 5px 4px 20px 5px;
 }
 
 .status-panel .top {

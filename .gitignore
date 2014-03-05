@@ -1,7 +1,6 @@
 # Project Compiled Files #
 ##########################
 statsmile/web/static/css/app.css
-statsmile/web/static/css/bootstrap.css
 statsmile/web/static/js/app.js
 statsmile/web/static/js/libs.js
 statsmile/web/static/js/templates.js
