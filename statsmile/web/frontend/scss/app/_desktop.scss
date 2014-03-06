@@ -10,6 +10,7 @@
 }
 
 #index {
+  margin: 20px 0 5px;
   border-bottom: 0;
 
   h1 {
@@ -19,6 +20,19 @@
 
 #match {
   margin-top: 20px;
+}
+
+#login-btn {
+  text-align: center;
+}
+
+#features {
+  margin-top: 55px;
+  text-align: left;
+
+  h3 {
+    font-weight: 500;
+  }
 }
 
 #match-overview .active {
@@ -99,6 +113,56 @@
   margin: 0px -5px 0px;
 }
 
+.team-container {
+  width: 230px;
+  padding: 4px 8px!important;
+}
+
+.team-team {
+  display: inline-block;
+}
+
+.team-team img {
+  height: 22px;
+}
+
+.btn-main-style {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+  color: #a4524b;
+  background-color: transparent;
+  border-color: #a4524b;
+}
+
+.btn-main-style:hover,
+.btn-main-style:focus {
+  color: #fff;
+  text-shadow: none;
+  background-color: #a4524b;
+  border-color: #a4524b;
+}
+
+.head-links {
+  font-size: 14px;
+  margin: 40px 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.head-links li {
+  display: inline;
+}
+
+.head-links li + li {
+  margin-left: 20px;
+}
+
+.version {
+  color: #999;
+}
 // Status Panel
 //-----------------
 
@@ -162,4 +226,27 @@
   display: block;
   margin: 0px auto 20px;
   color: #fff;
+}
+
+// Status page panel
+.services-status {
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
+  border: 1px solid #f0f0f0;
+  background-color: #f7f7f7;
+}
+.services-status .services-header {
+  text-align: center;
+}
+
+.status-label {
+  margin: 5px auto;
+  width: 500px;
+}
+
+.status-label p {
+  color: #999;
+  margin: 5px 0;
 }

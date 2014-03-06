@@ -17,13 +17,32 @@
     {{#each}}
     <tr>
       <td>{{#link-to 'match' match_id}}{{match_id}}{{/link-to}}</td>
-      <td>{{#if radiant_win}}<span class="label label-success">Radiant Victory</span>
-          {{else}}<span class="label label-danger">Dire Victory</span>{{/if}}</td>
+      {{#if radiant_win}}
+        <td class="text-success">Radiant Victory</td>
+      {{else}}
+        <td class="text-danger">Dire Victory</td>
+      {{/if}}
       <td>{{format-duration duration}}</td>
       <td>{{game-mode game_mode}}</td>
       <td>{{cluster cluster}}</td>
-      <td></td>
-      <td></td>
+      <td class="team-container">
+        {{#each player in players}}
+        {{#if player.radiant}}
+        <div class="team-team">
+          {{{hero player.hero_id}}}
+        </div>
+        {{/if}}
+        {{/each}}
+      </td>
+      <td class="team-container">
+        {{#each player in players}}
+        {{#if player.radiant}}{{else}}
+        <div class="team-team">
+          {{{hero player.hero_id}}}
+        </div>
+        {{/if}}
+        {{/each}}
+      </td>
     </tr>
     {{/each}}
   </tbody>

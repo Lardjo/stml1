@@ -24,3 +24,7 @@
   background-color: #555;
   font-size: 9px;
 }
+
+// Fix modal bug for bootstrap
+body.modal-open { overflow-y: scroll; margin: 0; }
+.modal { overflow: auto; }

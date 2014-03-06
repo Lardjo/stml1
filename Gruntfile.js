@@ -34,6 +34,7 @@ module.exports = function(grunt) {
                     'statsmile/web/frontend/js/libs/ember-1.4.0.js',
                     'statsmile/web/frontend/js/libs/showdown.js',
                     'statsmile/web/frontend/js/libs/moment.min.js',
+                    'statsmile/web/frontend/js/libs/toastr.min.js',
                     'statsmile/web/frontend/js/libs/dota.js'
                 ],
                 dest: 'statsmile/web/static/js/libs.js'

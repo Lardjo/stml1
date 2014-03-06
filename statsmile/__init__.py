@@ -25,6 +25,7 @@ class Statsmile(Application):
 
         handlers_list = [
             (r'/', handlers.MainHandler),
+            (r'/ws', handlers.WebSocketHandler),
             (r'/matches', handlers.MatchesHandler),
             (r'/matches/(.*)', handlers.MatchHandler)
         ]
