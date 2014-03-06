@@ -8,10 +8,18 @@
     <p>This page displays status Steam and Dota 2 services.</p>
   </div>
   <h3>Steam Web API</h3>
-  <div class="alert alert-success"><strong>All right!</strong> All systems operational.</div>
+  {{#if steam_api}}
+    <div class="alert alert-success"><strong>All right!</strong> All systems operational.</div>
+  {{else}}
+    <div class="alert alert-danger"><strong>Server are not available.</strong> Some systems not working.</div>
+  {{/if}}
   <h3>Dota Web API</h3>
-  <div class="alert alert-danger"><strong>Server are not available.</strong> Some systems not working.</div>
+  {{#if dota_api}}
+    <div class="alert alert-success"><strong>All right!</strong> All systems operational.</div>
+  {{else}}
+    <div class="alert alert-danger"><strong>Server are not available.</strong> Some systems not working.</div>
+  {{/if}}
 </div>
 <div class="status-label">
-  <p>Last update: Mar 6, 2014 23:31</p>
+  <p>Last update: {{date update}}</p>
 </div>

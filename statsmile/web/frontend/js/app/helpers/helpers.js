@@ -14,6 +14,10 @@ Ember.Handlebars.helper('first-blood', function(time){
     return moment.unix(time).utc().format('m:ss');
 });
 
+Ember.Handlebars.helper('date', function(date){
+    return moment(date['$date']).format('MMM D, YYYY H:m:ss Z');
+});
+
 Ember.Handlebars.helper('ranked', function(lobby_type) {
     if (lobby_type == 7) {
         return 'Ranked';
