@@ -80,7 +80,7 @@
 
 .hero-cont {
   position: relative;
-  margin-right: -13px;
+  /*margin-right: -13px;*/
 }
 
 .hero-cont img {
@@ -88,25 +88,16 @@
 }
 
 .item-cont-pad {
-  padding: 0 8px!important;
+  padding: 0 1px!important;
 }
 
 .hero-cont-pad {
-  padding: 0 8px!important;
+  padding: 0!important;
   width: 64px;
 }
 
 .player-name {
   width: 200px;
-}
-
-.hero-lvl {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: -10px;
-  width: 64px;
-  height: 47px;
 }
 
 .hero-lvl span {
@@ -249,4 +240,5 @@
 .status-label p {
   color: #999;
   margin: 5px 0;
+  cursor: none;
 }
