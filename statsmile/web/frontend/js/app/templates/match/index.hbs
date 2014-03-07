@@ -72,12 +72,13 @@
 <h4>FINAL RESULTS</h4>
 <div class="panel panel-success" id="match-result">
   <div class="panel-heading">The Radiant Team</div>
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
           <th>Player</th>
           <th>Hero</th>
           <th>Items</th>
+          <th>Level</th>
           <th>Gold</th>
           <th>LH</th>
           <th>DN</th>
@@ -93,12 +94,7 @@
         <tr>
           <td class="player-name text-muted">Anonymous</td>
           <td class="hero-cont-pad">
-            <div class="hero-cont">
             {{{hero player.hero_id}}}
-            <div class="hero-lvl">
-              <span class="badge">{{player.level}}lvl</span>
-            </div>
-            </div>
           </td>
           <td class="item-cont-pad">
             {{#each item in player.items}}
@@ -107,6 +103,7 @@
             </div>
             {{/each}}
           </td>
+          <td>{{player.level}}</td>
           <td>{{player.gold}}</td>
           <td>{{player.last_hits}}</td>
           <td>{{player.denies}}</td>
@@ -128,12 +125,13 @@
 </div>
 <div class="panel panel-danger" id="match-result">
   <div class="panel-heading">The Dire Team</div>
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
           <th>Player</th>
           <th>Hero</th>
           <th>Items</th>
+          <th>Level</th>
           <th>Gold</th>
           <th>LH</th>
           <th>DN</th>
@@ -147,14 +145,9 @@
         {{#each player in match.players}}
         {{#if player.radiant}}{{else}}
         <tr>
-          <td class="player-name">Anonymous</td>
+          <td class="player-name text-muted">Anonymous</td>
           <td class="hero-cont-pad">
-            <div class="hero-cont">
             {{{hero player.hero_id}}}
-            <div class="hero-lvl">
-              <span class="badge">{{player.level}}lvl</span>
-            </div>
-            </div>
           </td>
           <td class="item-cont-pad">
             {{#each item in player.items}}
@@ -163,6 +156,7 @@
             </div>
             {{/each}}
           </td>
+          <td>{{player.level}}</td>
           <td>{{player.gold}}</td>
           <td>{{player.last_hits}}</td>
           <td>{{player.denies}}</td>

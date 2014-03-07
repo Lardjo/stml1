@@ -65,11 +65,11 @@ Ember.Handlebars.helper('item', function(item_id) {
 Ember.Handlebars.helper('hero', function(hero_id) {
     if (hero_id in heroes) {
         return new Ember.Handlebars.SafeString(
-            "<img src='/static/images/heroes/" + heroes[hero_id]['avatar'] + ".png' />"
+            "<div class='hero-cont' data-toggle='tooltip' data-placement='left' title='"+ heroes[hero_id]['name'] +"'><img src='/static/images/heroes/" + heroes[hero_id]['avatar'] + ".png' /></div>"
         );
     } else {
         return new Ember.Handlebars.SafeString(
-            "<img src='/static/images/heroes/default.png' />"
+            "<div class='hero-cont' data-toggle='tooltip' data-placement='left' title='"+ heroes[hero_id]['name'] +"'><img src='/static/images/heroes/default.png' data-toggle='tooltip' data-placement='left' title='Unknown' /></div>"
         );
     }
 });
