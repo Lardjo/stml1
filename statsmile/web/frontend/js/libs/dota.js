@@ -77,6 +77,7 @@ var clusters = {
 };
 
 var abilities = {
+    5002: {'name': 'attribute_bonus'},
     5003: {'name': 'antimage_mana_break'},
     5004: {'name': 'antimage_blink'},
     5005: {'name': 'antimage_spell_shield'},
