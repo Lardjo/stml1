@@ -1,5 +1,5 @@
 App.MatchesRoute = Ember.Route.extend({
     model: function() {
-        return Ember.$.getJSON('matches');
+        return this.store.find('match');
     }
 });

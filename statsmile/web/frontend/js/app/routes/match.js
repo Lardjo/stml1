@@ -1,8 +1,10 @@
 App.MatchRoute = Ember.Route.extend({
-
-    /*Ember.$.set('[data-toggle="tooltip"]').tooltip();*/
-
     model: function(params) {
-      return Ember.$.getJSON('/matches/' + params.match_id);
+        return this.store.find('match', params.match_id);
+    },
+    actions: {
+        goBack: function(){
+            this.transitionTo('matches');
+        }
     }
 });

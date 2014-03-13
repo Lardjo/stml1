@@ -154,6 +154,23 @@
 .version {
   color: #999;
 }
+
+.ability {
+  display: inline-block;
+  padding: 1px;
+  margin-right: -5px;
+
+  img {
+    width: 44px;
+  }
+}
+
+.hero-name {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
 // Status Panel
 //-----------------
 
@@ -163,7 +180,7 @@
   border-radius: 6px;
   text-align: center;
   display: inline-block;
-  margin: 5px 4px 20px 5px;
+  margin: 10px 18px 20px 18px;
 }
 
 .status-panel .top {

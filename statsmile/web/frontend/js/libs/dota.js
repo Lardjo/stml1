@@ -1,7 +1,7 @@
 //
 // dota.js -- A Dota 2 Library
 //
-// Copyright (c) 2014 Statsmile LLC: {Konstantin N.
+// Copyright (c) 2014 Statsmile LLC: Konstantin N.
 //
 //! version : 1.0.0
 //! authors : Statsmile LLC
@@ -20,10 +20,10 @@ var game_modes = {
     16: {'name': 'Captains Draft'},
     17: {'name': 'Balanced Draft'},
     18: {'name': 'Ability Draft'},
-    7: {'name': 'Event'}, /* Diretide */
-    9: {'name': 'Event'}, /* Greeviling */
-    15: {'name': 'Event'}, /* Wraith-Night */ /* The Year Beast */
-    14: {'name': 'Compendium'} /* TI reserve */
+    7: {'name': 'Diretide'},
+    9: {'name': 'Greeviling'},
+    15: {'name': 'Special Event'},
+    14: {'name': 'Compendium'}
 };
 
 var lobbies = {
