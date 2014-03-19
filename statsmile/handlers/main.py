@@ -9,5 +9,10 @@ from .base import BaseHandler
 
 
 class MainHandler(BaseHandler):
+    @asynchronous
+    @engine
     def get(self):
-        self.render('index.html')
+        session = None
+        if self.current_user:
+            session = yield Op(self.db.users.find_one, {'_id': self.current_user['user_id']})
+        self.render('index.html', session=session)
