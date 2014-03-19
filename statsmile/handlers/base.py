@@ -15,11 +15,15 @@ class BaseHandler(RequestHandler):
         return self.application.db
 
     @property
+    def settings(self):
+        return self.application.settings
+
+    @property
     def db_sync(self):
         return self.application.db_sync
 
     def get_current_user(self):
-        token = self.get_secure_cookie('statsmile_session', None)
+        token = self.get_secure_cookie('user_session', None)
 
         if not token:
             return None
@@ -31,7 +35,7 @@ class BaseHandler(RequestHandler):
         else:
             pass
 
-        token = self.db_sync['sessions'].find_one({'_id': token}, {'_id': 1, 'userid': 1})
+        token = self.db_sync.sessions.find_one({'_id': token}, {'_id': 1, 'user_id': 1})
 
         if not token:
             return None
@@ -40,7 +44,7 @@ class BaseHandler(RequestHandler):
 
     def prepare(self):
         if self.current_user:
-            self.db['sessions'].update({'_id': self.current_user['_id']}, {'$set': self.upd_session()})
+            self.db.sessions.update({'_id': self.current_user['_id']}, {'$set': self.upd_session()})
 
         if self.request.headers.get('Content-Type') == 'application/json':
             self.json_args = json_decode(self.request.body.decode())
