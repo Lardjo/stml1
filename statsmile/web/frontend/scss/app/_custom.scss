@@ -11,14 +11,31 @@
   padding-right: 15px;
 }
 
-.navbar-default
-.navbar-nav>li>a:hover {
-  background-color: #e7e7e7;
+//
+// Custom navbar
+//---------------------
+
+.navbar-gray {
+  background-color: #666666;
+  border-width: 0;
+  margin-bottom: 0;
 }
 
 .navbar, .dropdown-menu{
   font-size: 13px;
 }
+
+.nav > li > a {
+  color: #aaa;
+}
+
+.nav > li > a:hover {
+  color: #fff;
+  background-color: #525151;
+}
+
+
+//---------------------
 
 .badge {
   background-color: #555;

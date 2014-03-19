@@ -1,35 +1,3 @@
 <div class="page-header">
   <h2>Matches <small>Summary of latest matches</small></h2>
 </div>
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <th>Match ID</th>
-      <th>Result</th>
-      <th>Duration</th>
-      <th>Mode</th>
-      <th>Server</th>
-      <th>The Radiant</th>
-      <th>The Dire</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each match in controller}}
-    <tr>
-      <td>{{#link-to 'match' match}}{{match.id}}{{/link-to}}</td>
-      {{#if match.radiant_win}}
-      <td class="text-success">Radiant Victory</td>
-      {{else}}
-      <td class="text-danger">Dire Victory</td>
-      {{/if}}
-      <td>{{date-short match.duration}}</td>
-      <td>{{mode match.game_mode}}</td>
-      <td>{{server match.cluster}}</td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{else}}
-    No matches… :(
-    {{/each}}
-  </tbody>
-</table>
