@@ -39,6 +39,38 @@
   }
 }
 
+.avatar {
+  width: 20px;
+  margin-right: 8px;
+}
+
+.player-card {
+  text-align: center;
+  padding-bottom: 10px;
+  img {
+    width: 64px;
+  }
+}
+
+.badges {
+  margin-top: 10px;
+}
+
+.card-body {
+  margin-top: 15px;
+  text-align: left;
+
+  dl {
+    text-transform: uppercase;
+  }
+  dl dt {
+    font-size: 18px;
+  }
+  dl dd {
+    font-size: 11px;
+  }
+}
+
 #match-overview .active {
   background-color: #b1584f;
   color: #ffffff;
@@ -58,6 +90,63 @@
 #match-result .progress-bar {
   font-size: 12px;
   line-height: 18px;
+}
+
+#player {
+  background-color: #666;
+  -moz-box-shadow: inset 0px 0px 10px #333;
+  -webkit-box-shadow: inset 0px 0px 10px #333;
+  box-shadow: inset 0px 0px 10px #333;
+}
+
+#player ul {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+#player li {
+  line-height: 24px;
+  list-style-type: none;
+  display: inline-block;
+}
+
+#player li a:hover,
+#player li a.active {
+  background-color: #555;
+  text-decoration: none;
+}
+
+#player li a {
+  display: block;
+  border-radius: 6px;
+  padding: 15px 10px 5px;
+  min-height: 56px;
+  min-width: 88px;
+  margin: 20px 10px 10px;
+  color: #FFF;
+  font-weight: 100;
+}
+
+.page {
+  width: 980px;
+  margin: auto;
+  background-color: #FFF;
+  border-radius: 6px;
+  margin-top: -70px;
+  padding: 20px 0px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  .header {
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #EEE;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    width: 1210px;
+  }
 }
 
 .ember-application {

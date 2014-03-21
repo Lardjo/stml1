@@ -1,0 +1,27 @@
+<div class="container">
+<div class="page-header">
+  <h2>Players <small>The best win rate</small></h2>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Player</th>
+      <th>Winrate</th>
+      <th>Matches played</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each}}
+    <tr>
+      <td></td>
+      <td><img {{bind-attr src=avatar}} class="img-circle pull-left avatar"> {{#link-to 'player' id}}{{persona_name}}{{/link-to}}</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    {{else}}
+    Sorry, nobody is here.
+    {{/each}}
+  </tbody>
+</table>
+</div>

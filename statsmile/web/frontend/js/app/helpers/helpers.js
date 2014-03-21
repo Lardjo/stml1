@@ -7,7 +7,7 @@ Ember.Handlebars.helper('date-full', function(date){
 });
 
 Ember.Handlebars.helper('date', function(date){
-    return moment(date['$date']).format('MMM D, YYYY H:m:ss Z');
+    return moment(date['$date']).format('MMMM D, YYYY');
 });
 
 Ember.Handlebars.helper('lobby', function(lobby_type) {

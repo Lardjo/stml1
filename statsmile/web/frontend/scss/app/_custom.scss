@@ -25,6 +25,13 @@
   font-size: 13px;
 }
 
+.navbar-gray .navbar-nav > .open > a,
+.navbar-gray .navbar-nav > .open > a:hover,
+.navbar-gray .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #525151;
+}
+
 .nav > li > a {
   color: #aaa;
 }

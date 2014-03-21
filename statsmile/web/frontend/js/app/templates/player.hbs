@@ -1,0 +1,83 @@
+<div id="player">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <ul>
+          <li>
+            {{#link-to 'player.index'}}
+              <span class="batch batch-large uniF162"></span><br>
+              Dashboard{{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'player.matches'}}
+              <span class="batch batch-large uniF028"></span><br>
+              Matches{{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'player.heroes'}}
+              <span class="batch batch-large uniF045"></span><br>
+              Heroes{{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'player.records'}}
+              <span class="batch batch-large uniF15C"></span><br>
+              Records{{/link-to}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-3">
+          <h4 class="header"><strong>Statsmile</strong> Card</h4>
+          <div class="player-card">
+            <img {{bind-attr src=avatar}} class="img-circle">
+            <p class="badges">
+              <span class="label label-primary"><span class="glyphicon glyphicon-leaf"></span> Staff</span>
+              <span class="label label-info"><span class="glyphicon glyphicon-ok"></span> Verified</span>
+            </p>
+            <div class="card-body">
+              <dl>
+                <dt>{{persona_name}}</dt>
+                <dd>Nickname</dd>
+              </dl>
+              {{#if real_name}}
+              <dl>
+                <dt>{{real_name}}</dt>
+                <dd>Realname</dd>
+              </dl>
+              {{/if}}
+              <dl>
+                <dt>{{date registration}}</dt>
+                <dd>Member since</dd>
+              </dl>
+            </div>
+          </div>
+          <h4 class="header"><strong>Dota 2</strong> Stats</h4>
+          <div class="card-body">
+            <dl>
+              <dt>1254</dt>
+              <dd><abbr title="Ranked matches only" class="initialism">Matches</abbr></dd>
+            </dl>
+            <dl>
+              <dt><span class="text-success">674</span> / <span class="text-danger">580</span></dt>
+              <dd>Wins</dd>
+            </dl>
+            <dl>
+              <dt>50.0%</dt>
+              <dd>Win Rate</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-9">
+          {{outlet}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

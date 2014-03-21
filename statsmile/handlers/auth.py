@@ -5,10 +5,11 @@ from datetime import datetime
 from motor import Op
 from tornado import gen
 from tornado.auth import OpenIdMixin
+from tornado.gen import engine
 from tornado.escape import json_encode
 from tornado.web import asynchronous, HTTPError
 
-from statsmile.common import get_user
+from statsmile.common import get_user, json_code
 from .base import BaseHandler
 
 
@@ -26,7 +27,7 @@ class AuthLoginHandler(BaseHandler, OpenIdMixin):
             if not user:
                 raise HTTPError(500, "Steam Auth Failed")
 
-            rv = yield Op(self.db.users.find_one, {'steamid': user['claimed_id'][-17:]})
+            rv = yield Op(self.db.users.find_one, {'steam_id': user['claimed_id'][-17:]})
             temp = self.upd_session()
 
             if not rv:
@@ -53,3 +54,22 @@ class AuthLogoutHandler(BaseHandler):
         self.db.sessions.remove({'_id': self.current_user['_id']})
         self.clear_cookie('user_session')
         self.redirect(self.get_argument('next', '/'))
+
+
+class AuthHandler(BaseHandler):
+
+    def prepare(self):
+        super().prepare()
+        self.set_header('Content-Type', 'application/json; charset=UTF-8')
+
+    @asynchronous
+    @engine
+    def get(self):
+        if self.current_user:
+            session = yield Op(self.db.users.find_one, {'_id': self.current_user['user_id']})
+            self.write(json_code.json_encode({'auth': True, 'user': session}))
+            self.finish()
+            return
+        self.write(json_code.json_encode({'auth': False, 'user': None}))
+        self.finish()
+        return

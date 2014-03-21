@@ -18,6 +18,9 @@ class Statsmile(Application):
             (r'/', handlers.MainHandler),
             (r'/auth/login', handlers.AuthLoginHandler),
             (r'/auth/logout', handlers.AuthLogoutHandler),
+            (r'/auth', handlers.AuthHandler),
+            (r'/players', handlers.PlayersHandler),
+            (r'/players/(.*)', handlers.PlayerHandler)
         ]
 
         # Create db connection
