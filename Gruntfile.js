@@ -35,8 +35,8 @@ module.exports = function(grunt) {
                     'statsmile/web/frontend/js/libs/ember-data.js',
                     'statsmile/web/frontend/js/libs/showdown.js',
                     'statsmile/web/frontend/js/libs/moment.min.js',
-                    'statsmile/web/frontend/js/libs/toastr.min.js',
-                    'statsmile/web/frontend/js/libs/dota.js'
+                    'statsmile/web/frontend/js/libs/toastr.min.js'
+                    /*'statsmile/web/frontend/js/libs/dota.js'*/
                 ],
                 dest: 'statsmile/web/static/js/libs.js'
             },
@@ -87,6 +87,6 @@ module.exports = function(grunt) {
     /*grunt.loadNpmTasks('grunt-contrib-uglify');*/
     grunt.loadNpmTasks('grunt-ember-templates');
 
-    // Default task(s).
+    // Default task(s)
     grunt.registerTask('default', ['sass', 'concat', 'emberTemplates']);
 };

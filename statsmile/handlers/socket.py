@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
+"""
+import uuid
 
 from tornado import websocket
 
-cl = []
+from .base import BaseHandler
+
+cl = {}
 
 
-class SocketHandler(websocket.WebSocketHandler):
+class SocketHandler(websocket.WebSocketHandler, BaseHandler):
 
     def open(self):
-        if self not in cl:
-            cl.append(self)
+        self.id = uuid.uuid4()
+        if self.id not in cl:
+            cl[self.id] = {'id': self.id}
 
     def on_close(self):
-        if self in cl:
-            cl.remove(self)
+        if self.id in cl:
+            del cl[self.id]
+            """

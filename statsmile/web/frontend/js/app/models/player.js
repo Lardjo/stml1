@@ -1,8 +1,9 @@
 App.Player = DS.Model.extend({
-    persona_name : DS.attr('string'),
-    steam_id : DS.attr('string'),
-    real_name : DS.attr('string'),
-    registration : DS.attr(),
-    avatar : DS.attr('string'),
-    updated : DS.attr()
+    persona_name : DS.attr(),
+    avatar       : DS.attr(),
+    profile_url  : DS.attr(),
+    steam_id     : DS.attr(),
+    real_name    : DS.attr(),
+    badges       : DS.attr(),
+    registration : DS.attr()
 });

@@ -30,7 +30,7 @@ def get_user(key, steamid):
                 'profile_url': array['profileurl'],
                 'avatar': array['avatarfull'],
                 'registration': datetime.now(),
-                'updated': datetime.now() + timedelta(minutes=1)}
+                'update': datetime.now()}
 
         if 'realname' in array.keys():
             user['real_name'] = array['realname']

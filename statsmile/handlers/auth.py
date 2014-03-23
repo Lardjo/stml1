@@ -36,7 +36,7 @@ class AuthLoginHandler(BaseHandler, OpenIdMixin):
                 temp['user_id'] = userid['_id']
                 temp['signed_in'] = datetime.now()
                 self.db.sessions.insert(temp)
-                # This part for feature function #
+
             else:
                 temp['user_id'] = rv['_id']
                 temp['signed_in'] = datetime.now()
