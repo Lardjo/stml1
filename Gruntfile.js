@@ -28,15 +28,12 @@ module.exports = function(grunt) {
         concat: {
             libs: {
                 src: [
-                    'statsmile/web/frontend/js/libs/jquery-2.1.0.min.js',
-                    'statsmile/web/frontend/js/libs/bootstrap.min.js',
+                    'statsmile/web/frontend/js/libs/jquery-1.11.0.js',
+                    'statsmile/web/frontend/js/libs/bootstrap.js',
                     'statsmile/web/frontend/js/libs/handlebars-v1.3.0.js',
                     'statsmile/web/frontend/js/libs/ember-1.4.0.js',
                     'statsmile/web/frontend/js/libs/ember-data.js',
-                    'statsmile/web/frontend/js/libs/showdown.js',
-                    'statsmile/web/frontend/js/libs/moment.min.js',
-                    'statsmile/web/frontend/js/libs/toastr.min.js'
-                    /*'statsmile/web/frontend/js/libs/dota.js'*/
+                    'statsmile/web/frontend/js/libs/moment.min.js'
                 ],
                 dest: 'statsmile/web/static/js/libs.js'
             },
@@ -45,17 +42,6 @@ module.exports = function(grunt) {
                 dest: 'statsmile/web/static/js/app.js'
             }
         },
-
-        /*uglify: {
-            options: {
-                mangle: false
-            },
-            my_target: {
-                files: {
-                    'statsmile/web/static/js/libs.min.js': ['statsmile/web/static/js/libs.js']
-                }
-            }
-        },*/
 
         watch: {
             sass: {
@@ -84,9 +70,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    /*grunt.loadNpmTasks('grunt-contrib-uglify');*/
     grunt.loadNpmTasks('grunt-ember-templates');
 
-    // Default task(s)
     grunt.registerTask('default', ['sass', 'concat', 'emberTemplates']);
 };
