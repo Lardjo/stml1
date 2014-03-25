@@ -1,3 +1,4 @@
+<div class="container">
 <div class="page-header" id="match">
   <div class="row">
     <div class="col-xs-6 col-md-6">
@@ -12,7 +13,6 @@
 <h4>GENERAL INFORMATION</h4>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF160"></span>
     <h6>Match ID</h6>
   </div>
   <div class="bottom">
@@ -22,51 +22,46 @@
 </div>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF05B"></span>
     <h6>Start Date</h6>
   </div>
   <div class="bottom">
     <h2>{{date-full start_time}}</h2>
-    <h6>{{date-short start_time}} GMT</h6>
+    <h6>{{parse_duration start_time}} GMT</h6>
   </div>
 </div>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF166"></span>
     <h6>Duration</h6>
   </div>
   <div class="bottom">
-    <h2>{{date-short duration}}</h2>
+    <h2>{{parse_duration duration}}</h2>
     <h6>Time of match</h6>
   </div>
 </div>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF028"></span>
     <h6>Game Mode</h6>
   </div>
   <div class="bottom">
-    <h2>{{mode game_mode}}</h2>
-    <h6>{{lobby lobby_type}}</h6>
+    <h2>{{game_mode}}</h2>
+    <h6>Example, All Pick</h6>
   </div>
 </div>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF07C"></span>
     <h6>Server</h6>
   </div>
   <div class="bottom">
-    <h2>{{server cluster}}</h2>
+    <h2>{{cluster}}</h2>
     <h6>Regional Cluster</h6>
   </div>
 </div>
 <div class="status-panel">
   <div class="top">
-    <span class="batch batch-huge uniF12E"></span>
     <h6>First Blood</h6>
   </div>
   <div class="bottom">
-    <h2>{{date-short first_blood_time}}</h2>
+    <h2>{{parse_duration first_blood_time}}</h2>
     <h6>Time Of First Death</h6>
   </div>
 </div>
@@ -91,7 +86,7 @@
       </thead>
       <tbody>
         {{#each player in players}}
-        {{#if player.radiant}}
+        {{#if player.radiant_team}}
         <tr>
           <td class="player-name text-muted">Anonymous</td>
           <td class="hero-cont-pad">
@@ -144,7 +139,7 @@
       </thead>
       <tbody>
         {{#each player in players}}
-        {{#if player.radiant}}
+        {{#if player.radiant_team}}
         {{else}}
         <tr>
           <td class="player-name text-muted">Anonymous</td>
@@ -177,4 +172,5 @@
         {{/each}}
       </tbody>
   </table>
+</div>
 </div>

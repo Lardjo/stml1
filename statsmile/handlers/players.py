@@ -8,8 +8,6 @@ from tornado.web import asynchronous
 from statsmile.common.json_code import json_encode
 from .base import BaseHandler
 
-array = dict()
-
 
 class PlayersHandler(BaseHandler):
 
@@ -20,7 +18,8 @@ class PlayersHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self):
-        cursor = self.db.users.find({}, limit=10)
+        array = dict()
+        cursor = self.db.users.find({}, sort=[('win_rate', -1)], limit=10)
         array['players'] = yield Op(cursor.to_list)
         self.write(json_encode(array))
         self.finish()
@@ -35,8 +34,7 @@ class PlayerHandler(BaseHandler):
     @asynchronous
     @engine
     def get(self, user_id):
+        array = dict()
         array['player'] = yield Op(self.db.users.find_one, {'steam_id32': int(user_id)})
-        if not array['player']:
-            return self.send_error(404)
         self.write(json_encode(array))
         self.finish()

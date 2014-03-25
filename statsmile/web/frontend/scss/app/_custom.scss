@@ -36,7 +36,8 @@
   color: #aaa;
 }
 
-.nav > li > a:hover {
+.nav > li > a:hover,
+.nav > li > a:focus {
   color: #fff;
   background-color: #525151;
 }

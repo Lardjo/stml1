@@ -2,6 +2,7 @@
 <div class="page-header">
   <h2>Players <small>The best win rate</small></h2>
 </div>
+{{#if model}}
 <table class="table table-hover">
   <thead>
     <tr>
@@ -12,7 +13,17 @@
     </tr>
   </thead>
   <tbody>
-    Sorry, nobody is here.
+    {{#each itemViewClass="Em.View"}}
+    <tr>
+      <td>{{match view.contentIndex}}</td>
+      <td><img {{bind-attr src=avatar}} class="img-circle avatar">{{#link-to 'player' id class="link-player"}}{{persona_name}}{{/link-to}}</td>
+      <td>{{win_rate}}%</td>
+      <td>{{matches_count}} Matches</td>
+    </tr>
+    {{/each}}
   </tbody>
 </table>
+{{else}}
+<div class="alert alert-warning">Sorry, nobody is here.</div>
+{{/if}}
 </div>

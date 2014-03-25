@@ -2,7 +2,7 @@
 
 import logging
 
-from pymongo import DESCENDING
+from pymongo import DESCENDING, ASCENDING
 
 
 def create_index(db):
@@ -15,3 +15,7 @@ def create_index(db):
     db.server.ensure_index('key', unique=True)
     db.matches.ensure_index('start_time', DESCENDING)
     db.matches.ensure_index('match_id', DESCENDING)
+    db.matches.ensure_index('players.account_id', DESCENDING)
+    db.matches.ensure_index('unregistered', sparse=True)
+    db.matches.ensure_index('game_mode', ASCENDING)
+    db.users.ensure_index('win_rate', DESCENDING)

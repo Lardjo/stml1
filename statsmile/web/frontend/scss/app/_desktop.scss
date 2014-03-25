@@ -71,6 +71,15 @@
   }
 }
 
+.link-player {
+  color: #525151;
+}
+
+.link-player:hover {
+  color: #db574b;
+  text-decoration: none;
+}
+
 #match-overview .active {
   background-color: #b1584f;
   color: #ffffff;
@@ -281,7 +290,7 @@
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   background-color: #555555;
-  padding-top: 20px;
+  padding-top: 0;
 }
 
 .status-panel .bottom {
@@ -306,7 +315,7 @@
 }
 
 .status-panel .bottom h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin: 0;
 }
@@ -389,4 +398,14 @@
     color: #555555;
     font-weight: 300;
   }
+}
+
+.player-card .img-circle {
+  padding: 2px;
+  border: 1px solid #EEE;
+}
+
+.last-update {
+  color: #DDD;
+  margin-top: 10px;
 }

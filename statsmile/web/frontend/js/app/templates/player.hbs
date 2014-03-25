@@ -38,9 +38,9 @@
           <div class="player-card">
             <img {{bind-attr src=avatar}} class="img-circle">
             <p class="badges">
-              {{#if badges}}
-                 test
-              {{/if}}
+              {{#each badge in badges}}
+                {{badge-label badge.badge}}
+              {{/each}}
             </p>
             <div class="card-body">
               <dl>
@@ -62,15 +62,15 @@
           <h4 class="header"><strong>Dota 2</strong> Stats</h4>
           <div class="card-body">
             <dl>
-              <dt>1254</dt>
+              <dt>{{matches_count}}</dt>
               <dd><abbr title="Ranked matches only" class="initialism">Matches</abbr></dd>
             </dl>
             <dl>
-              <dt><span class="text-success">674</span> / <span class="text-danger">580</span></dt>
+              <dt><span class="text-success">{{wins}}</span> / <span class="text-danger">{{loses}}</span></dt>
               <dd>Wins</dd>
             </dl>
             <dl>
-              <dt>50.0%</dt>
+              <dt>{{win_rate}}%</dt>
               <dd>Win Rate</dd>
             </dl>
           </div>
@@ -79,6 +79,7 @@
           {{outlet}}
         </div>
       </div>
+      <p class="last-update">Last update: {{last-update last}}</p>
     </div>
   </div>
 </div>

@@ -33,11 +33,11 @@ class Statsmile(Application):
         except Exception as e:
 
             logging.warning('Update user %s occurred error: %s' % (user['_id'], e))
-            self.db.users.update({'_id': user['_id']},
-                                 {'$set': {'update': datetime.now() + timedelta(minutes=5)}})
+            yield Op(self.db.users.update, {'_id': user['_id']},
+                     {'$set': {'update': datetime.now() + timedelta(minutes=10)}})
 
-        self.db.users.update({'_id': user['_id']},
-                             {'$set': {'update': datetime.now() + timedelta(minutes=5), 'last': datetime.now()}})
+        yield Op(self.db.users.update, {'_id': user['_id']},
+                 {'$set': {'update': datetime.now() + timedelta(minutes=10), 'last': datetime.now()}})
 
         self.__update.remove(user['_id'])
 
@@ -55,7 +55,9 @@ class Statsmile(Application):
             (r'/auth/logout', handlers.AuthLogoutHandler),
             (r'/auth', handlers.AuthHandler),
             (r'/players', handlers.PlayersHandler),
-            (r'/players/(.*)', handlers.PlayerHandler)
+            (r'/players/(.*)', handlers.PlayerHandler),
+            (r'/matches', handlers.MatchesHandler),
+            (r'/matches/(.*)', handlers.MatchHandler)
         ]
 
         # Create db connection
@@ -80,12 +82,12 @@ class Statsmile(Application):
             logging.getLogger().setLevel(logging.DEBUG)
 
         # Users updater
-        #self.__update = []
-        #users = self.db_sync.users.find({}).sort('update').limit(5)
+        self.__update = []
+        users = self.db_sync.users.find({}).sort('update').limit(1)
 
-        #for it in users:
-        #    IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
-        #    self.__update.append(it['_id'])
+        for it in users:
+            IOLoop.instance().add_timeout(it['update'].timestamp(), partial(self.user_update, it))
+            self.__update.append(it['_id'])
 
         super().__init__(handlers_list, **settings)
 

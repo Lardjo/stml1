@@ -11,9 +11,9 @@ from tornado.httpclient import AsyncHTTPClient
 
 
 @coroutine
-def get_matches_id(db, key, steam_id):
+def get_matches_id(key, steam_id):
 
-    logging.debug('Getting matches for user %s.' % steam_id)
+    logging.debug('Getting matches id for user %s.' % steam_id)
 
     matches = []
     _match_id = 0
@@ -42,5 +42,6 @@ def get_matches_id(db, key, steam_id):
 
     else:
         matches.sort()
-        db.matches_id.insert({'steam_id': steam_id, 'matches': matches})
-        logging.debug('User: %s. Added %s matches.' % (steam_id, len(matches)))
+        logging.debug('User: %s. Get %s matches.' % (steam_id, len(matches)))
+
+    return matches
