@@ -6,12 +6,10 @@ def parse_match(match):
 
     Function is to produce clearance dictionary and converts some of the elements
     """
-    match['record_status'] = True
 
     if (match['human_players'] < 10) or (match['duration'] < 360):
-        match['record_status'] = False
+        match['unregistered'] = True
 
-    # Clear match
     del match['tower_status_radiant']
     del match['tower_status_dire']
     del match['barracks_status_radiant']
@@ -23,7 +21,6 @@ def parse_match(match):
 
     for player in match['players']:
 
-        # Put all items in the list
         player['items'] = [player['item_0'],
                            player['item_1'],
                            player['item_2'],
@@ -31,7 +28,6 @@ def parse_match(match):
                            player['item_4'],
                            player['item_5']]
 
-        # Clear all items
         del player['item_0']
         del player['item_1']
         del player['item_2']
@@ -44,27 +40,23 @@ def parse_match(match):
         # Gold
         player['gold'] = int(round(player['gold_per_min'] * (match['duration'] / 60), 0))
 
-        # Remove ability list
         try:
             del player['ability_upgrades']
         except KeyError:
             pass
 
-        # Check account id
         try:
             if player['account_id'] == 4294967295:
-                player['account_id'] = False
+                player['account_id'] = None
         except KeyError:
-            player['account_id'] = False
+            player['account_id'] = None
 
-        # Set team for better understanding
         if player['player_slot'] < 5:
-            player['radiant_team'] = True
+            player['radiant'] = True
         else:
-            player['radiant_team'] = False
+            pass
 
-        # Check valid hero_id
-        if player['hero_id'] == 0:
-            match['record_status'] = False
+        if player.get('hero_id', 0) == 0:
+            match['unregistered'] = True
 
     return match
