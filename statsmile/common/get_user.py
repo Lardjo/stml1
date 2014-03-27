@@ -7,7 +7,7 @@ from tornado.escape import json_decode
 from tornado.httpclient import HTTPClient, HTTPError
 from tornado.httputil import url_concat
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def converter(steamid):
@@ -24,18 +24,18 @@ def get_user(key, steamid):
     try:
         response = client.fetch(url)
         array = json_decode(response.body)['response']['players'][0]
-        user = {'steam_id': array['steamid'],
-                'steam_id32': converter(steamid),
-                'persona_name': array['personaname'],
-                'profile_url': array['profileurl'],
+        user = {'id': converter(steamid),
+                'claimed_id': array['steamid'],
+                'personaname': array['personaname'],
+                'profileurl': array['profileurl'],
                 'avatar': array['avatarfull'],
-                'registration': datetime.now(),
+                'signup': datetime.now(),
                 'update': datetime.now()}
 
         if 'realname' in array.keys():
-            user['real_name'] = array['realname']
+            user['realname'] = array['realname']
         else:
-            user['real_name'] = None
+            user['realname'] = None
 
     except HTTPError as e:
         logging.error('Error: %s' % e)
