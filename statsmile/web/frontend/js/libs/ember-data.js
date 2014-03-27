@@ -1521,7 +1521,7 @@ define("ember-data/lib/adapters/rest_adapter",
           `application/json; charset=utf-8`
         * If the HTTP method is not `"GET"`, it stringifies the data passed in. The
           data is the serialized record in the case of a save.
-        * Registers success and failure handlers.
+        * Registers success and failure api.
 
         @method ajax
         @private
@@ -6399,7 +6399,7 @@ define("ember-data/lib/system/model/states",
       record getting its own copy of the hierarchy of states, each record
       points to this global, immutable shared instance. How does a state
       know which record it should be acting on? We pass the record
-      instance into the state's event handlers as the first argument.
+      instance into the state's event api as the first argument.
 
       The record passed as the first parameter is where you should stash
       state about the record if needed; you should never store data on the state

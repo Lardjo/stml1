@@ -4,15 +4,19 @@
 App.PlayersRoute = Ember.Route.extend({
     model: function() {
         return this.store.find('player');
-    },
-    setupController: function(controller, model) {
-        controller.set('model', model);
     }
 });
 
 App.PlayerRoute = Ember.Route.extend({
     model: function(params) {
+        console.log('test');
         return this.store.find('player', params.steam_id32);
+    }
+});
+
+App.PlayersIndexRoute = Em.Route.extend({
+    model: function() {
+        return this.modelFor('player');
     }
 });
 
@@ -25,4 +29,8 @@ App.PlayerMatchesRoute = Ember.Route.extend({
 
 App.PlayerSerializer = DS.RESTSerializer.extend({
     primaryKey: 'steam_id32'
+});
+
+App.FavoriteSerializer = DS.RESTSerializer.extend({
+    primaryKey: '_id'
 });

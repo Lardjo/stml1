@@ -36,5 +36,7 @@ class PlayerHandler(BaseHandler):
     def get(self, user_id):
         array = dict()
         array['player'] = yield Op(self.db.users.find_one, {'steam_id32': int(user_id)})
+        favorites = yield Op(self.db.favorites.find_one, {'steam_id32': int(user_id)})
+        array['favorites'] = favorites['favorites']
         self.write(json_encode(array))
         self.finish()

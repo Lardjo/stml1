@@ -10,5 +10,15 @@ App.Player = DS.Model.extend({
     matches_count : DS.attr(),
     loses         : DS.attr(),
     wins          : DS.attr(),
-    last          : DS.attr()
+    last          : DS.attr(),
+    favorites     : DS.hasMany('favorite')
+});
+
+App.Favorite = DS.Model.extend({
+    matches : DS.attr(),
+    wins    : DS.attr(),
+    kills   : DS.attr(),
+    deaths  : DS.attr(),
+    assists : DS.attr(),
+    player  : DS.belongsTo('player')
 });

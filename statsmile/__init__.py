@@ -10,10 +10,10 @@ from motor import Op
 from pymongo import ASCENDING
 
 from tornado.web import Application
-from tornado.gen import coroutine, engine
+from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
 
-from statsmile import handlers
+from statsmile import api
 from statsmile.dbase import dbconn, ensure_index
 from statsmile.common import get_secret, get_matches, user_update
 
@@ -26,10 +26,10 @@ class Statsmile(Application):
 
         Periodical function for update user profiles
         """
-        logging.debug('Updating %s user' % user['steam_id'])
+        logging.debug('Updating %s user' % user['id'])
 
         try:
-            yield user_update(self.db, self.settings['api_key'], user['steam_id'], user['steam_id32'])
+            yield user_update(self.db, self.settings['api_key'], user['claimed_id'], user['id'])
         except Exception as e:
 
             logging.warning('Update user %s occurred error: %s' % (user['_id'], e))
@@ -50,14 +50,14 @@ class Statsmile(Application):
     def __init__(self):
 
         handlers_list = [
-            (r'/', handlers.MainHandler),
-            (r'/auth/login', handlers.AuthLoginHandler),
-            (r'/auth/logout', handlers.AuthLogoutHandler),
-            (r'/auth', handlers.AuthHandler),
-            (r'/players', handlers.PlayersHandler),
-            (r'/players/(.*)', handlers.PlayerHandler),
-            (r'/matches', handlers.MatchesHandler),
-            (r'/matches/(.*)', handlers.MatchHandler)
+            (r'/', api.MainHandler),
+            (r'/auth/login', api.AuthLoginHandler),
+            (r'/auth/logout', api.AuthLogoutHandler),
+            (r'/auth', api.AuthHandler),
+            (r'/players', api.PlayersHandler),
+            (r'/players/(.*)', api.PlayerHandler),
+            (r'/matches', api.MatchesHandler),
+            (r'/matches/(.*)', api.MatchHandler)
         ]
 
         # Create db connection

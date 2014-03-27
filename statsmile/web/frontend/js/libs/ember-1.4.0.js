@@ -6392,7 +6392,7 @@ var Backburner = requireModule('backburner').Backburner,
   end.
 
   Normally you should not need to invoke this method yourself. However if
-  you are implementing raw event handlers when interfacing with other
+  you are implementing raw event api when interfacing with other
   libraries or plugins, you should probably wrap all of your code inside this
   call.
 
@@ -8701,7 +8701,7 @@ define("rsvp/events",
 
         @method trigger
         @param {String} eventName name of the event to be triggered
-        @param {Any} options optional value to be passed to any event handlers for
+        @param {Any} options optional value to be passed to any event api for
         the given `eventName`
         @private
       */
@@ -18077,7 +18077,7 @@ var get = Ember.get;
  */
 Ember.DeferredMixin = Ember.Mixin.create({
   /**
-    Add handlers to be called when the Deferred object is resolved or rejected.
+    Add api to be called when the Deferred object is resolved or rejected.
 
     @method then
     @param {Function} resolve a callback function to be called when done
@@ -18170,7 +18170,7 @@ Ember.ActionHandler = Ember.Mixin.create({
     Actions can also be invoked from other parts of your application
     via `ActionHandler#send`.
 
-    The `actions` hash will inherit action handlers from
+    The `actions` hash will inherit action api from
     the `actions` hash defined on extended parent classes
     or mixins rather than just replace the entire hash, e.g.:
 
@@ -18297,7 +18297,7 @@ Ember.ActionHandler = Ember.Mixin.create({
       if (typeOf(props.actions) === 'object') {
         hashName = 'actions';
       } else if (typeOf(props.events) === 'object') {
-        Ember.deprecate('Action handlers contained in an `events` object are deprecated in favor of putting them in an `actions` object', false);
+        Ember.deprecate('Action api contained in an `events` object are deprecated in favor of putting them in an `actions` object', false);
         hashName = 'events';
       }
 
@@ -20426,7 +20426,7 @@ Ember.ControllerMixin = Ember.Mixin.create(Ember.ActionHandler, {
   deprecatedSend: function(actionName) {
     var args = [].slice.call(arguments, 1);
     Ember.assert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
-    Ember.deprecate('Action handlers implemented directly on controllers are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
+    Ember.deprecate('Action api implemented directly on controllers are deprecated in favor of action api on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
     this[actionName].apply(this, args);
     return;
   }
@@ -21911,7 +21911,7 @@ Ember.EventDispatcher = Ember.Object.extend({
 
         // We have to check for action here since in some cases, jQuery will trigger
         // an event on `removeChild` (i.e. focusout) after we've already torn down the
-        // action handlers for the view.
+        // action api for the view.
         if (action && action.eventName === eventName) {
           return action.handler(evt);
         }
@@ -22223,7 +22223,7 @@ Ember.CoreView = Ember.Object.extend(Ember.Evented, Ember.ActionHandler, {
   deprecatedSend: function(actionName) {
     var args = [].slice.call(arguments, 1);
     Ember.assert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
-    Ember.deprecate('Action handlers implemented directly on views are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
+    Ember.deprecate('Action api implemented directly on views are deprecated in favor of action api on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
     this[actionName].apply(this, args);
     return;
   },
@@ -23749,7 +23749,7 @@ Ember.View = Ember.CoreView.extend({
 
     If you implement `willDestroyElement()` on your view, then this method will
     be invoked on your view before your element is destroyed to give you a
-    chance to clean up any event handlers, etc.
+    chance to clean up any event api, etc.
 
     If you write a `willDestroyElement()` handler, you can assume that your
     `didInsertElement()` handler was called earlier for the same element.
@@ -31949,8 +31949,8 @@ define("route-recognizer",
     //
     // * `regex`: A regular expression that is used to extract parameters from paths
     //   that reached this accepting state.
-    // * `handlers`: Information on how to convert the list of captures into calls
-    //   to registered handlers with the specified parameters
+    // * `api`: Information on how to convert the list of captures into calls
+    //   to registered api with the specified parameters
     // * `types`: How many static, dynamic or star segments in this route. Used to
     //   decide which route to use if multiple registered routes match a path.
     //
@@ -32633,7 +32633,7 @@ define("router/handler-info",
 
       // Note: this assumes that both params have the same
       // number of keys, but since we're comparing the
-      // same handlers, they should.
+      // same api, they should.
       for (var k in a) {
         if (a.hasOwnProperty(k) && a[k] !== b[k]) {
           return false;
@@ -32730,7 +32730,7 @@ define("router/router",
               this._changedQueryParams = null;
 
               if (!wasTransitioning && this.activeTransition) {
-                // One of the handlers in queryParamsDidChange
+                // One of the api in queryParamsDidChange
                 // caused a transition. Just return that transition.
                 return this.activeTransition;
               } else {
@@ -32793,7 +32793,7 @@ define("router/router",
       },
 
       /**
-        Clears the current and target route handlers and triggers exit
+        Clears the current and target route api and triggers exit
         on each of them starting at the leaf and traversing up through
         its ancestors.
       */
@@ -32818,7 +32818,7 @@ define("router/router",
         The entry point for handling a change to the URL (usually
         via the back and forward button).
 
-        Returns an Array of handlers and the parameters associated
+        Returns an Array of api and the parameters associated
         with those parameters.
 
         @param {String} url a URL to process
@@ -32857,7 +32857,7 @@ define("router/router",
       /**
         Transition into the specified named route.
 
-        If necessary, trigger the exit callback on any handlers
+        If necessary, trigger the exit callback on any api
         that are no longer represented by the target route.
 
         @param {String} name the name of the route
@@ -33016,7 +33016,7 @@ define("router/router",
       exiting, entering, or changing contexts, and calls the
       proper handler hooks.
 
-      For example, consider the following tree of handlers. Each handler is
+      For example, consider the following tree of api. Each handler is
       followed by the URL segment it handles.
 
       ```
@@ -33032,7 +33032,7 @@ define("router/router",
 
       1. A URL transition to `/posts/1`.
          1. Triggers the `*model` callbacks on the
-            `index`, `posts`, and `showPost` handlers
+            `index`, `posts`, and `showPost` api
          2. Triggers the `enter` callback on the same
          3. Triggers the `setup` callback on the same
       2. A direct transition to `newPost`
@@ -33115,11 +33115,11 @@ define("router/router",
       @private
 
       This function is called when transitioning from one URL to
-      another to determine which handlers are no longer active,
-      which handlers are newly active, and which handlers remain
+      another to determine which api are no longer active,
+      which api are newly active, and which api remain
       active but have their context changed.
 
-      Take a list of old handlers and new handlers and partition
+      Take a list of old api and new api and partition
       them into four buckets:
 
       * unchanged: the handler was active in both the old and
@@ -33136,10 +33136,10 @@ define("router/router",
       The PartitionedHandlers structure has four fields:
 
       * `updatedContext`: a list of `HandlerInfo` objects that
-        represent handlers that remain active but have a changed
+        represent api that remain active but have a changed
         context
       * `entered`: a list of `HandlerInfo` objects that represent
-        handlers that are newly active
+        api that are newly active
       * `exited`: a list of `HandlerInfo` objects that are no
         longer active.
       * `unchanged`: a list of `HanderInfo` objects that remain active.
@@ -33425,7 +33425,7 @@ define("router/transition-intent/named-transition-intent",
       var invalidateIndex = handlers.length;
       var nonDynamicIndexes = [];
 
-      // Pivot handlers are provided for refresh transitions
+      // Pivot api are provided for refresh transitions
       if (this.pivotHandler) {
         for (i = 0; i < handlers.length; ++i) {
           if (getHandler(handlers[i].handler) === this.pivotHandler) {
@@ -33644,7 +33644,7 @@ define("router/transition-intent/url-transition-intent",
 
     /**
       Promise reject reasons passed to promise rejection
-      handlers for failed transitions.
+      api for failed transitions.
      */
     function UnrecognizedURLError(message) {
       this.message = (message || "UnrecognizedURLError");
@@ -33933,7 +33933,7 @@ define("router/transition",
         @public
 
         Fires an event on the current list of resolved/resolving
-        handlers within this transition. Useful for firing events
+        api within this transition. Useful for firing events
         on route hierarchies that haven't fully been entered yet.
 
         Note: This method is also aliased as `send`
@@ -34121,7 +34121,7 @@ define("router/utils",
 
       if (!handlerInfos) {
         if (ignoreFailure) { return; }
-        throw new Error("Could not trigger event '" + name + "'. There are no active handlers");
+        throw new Error("Could not trigger event '" + name + "'. There are no active api");
       }
 
       var eventWasHandled = false;
@@ -34566,7 +34566,7 @@ Ember.Router = Ember.Object.extend(Ember.Evented, {
 
   /**
     Resets the state of the router by clearing the current route
-    handlers and deactivating them.
+    api and deactivating them.
 
     @private
     @method reset
@@ -35216,7 +35216,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Actions can also be invoked from other parts of your application via `Route#send`
     or `Controller#send`.
 
-    The `actions` hash will inherit action handlers from
+    The `actions` hash will inherit action api from
     the `actions` hash defined on extended Route parent classes
     or mixins rather than just replace the entire hash, e.g.:
 
@@ -35531,7 +35531,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
 
     This method is handy for performing intermediate transitions on the
     way to a final destination route, and is called internally by the
-    default implementations of the `error` and `loading` handlers.
+    default implementations of the `error` and `loading` api.
 
     @method intermediateTransitionTo
     @param {String} name the name of the route
@@ -35654,7 +35654,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     }
 
     // Assign the route's controller so that it can more easily be
-    // referenced in action handlers
+    // referenced in action api
     this.controller = controller;
 
     
@@ -37816,7 +37816,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
     Events triggered through the action helper will automatically have
     `.preventDefault()` called on them. You do not need to do so in your event
-    handlers. If you need to allow event propagation (to handle file inputs for
+    api. If you need to allow event propagation (to handle file inputs for
     example) you can supply the `preventDefault=false` option to the `{{action}}` helper:
 
     ```handlebars

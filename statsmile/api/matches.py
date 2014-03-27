@@ -31,7 +31,10 @@ class MatchesHandler(BaseHandler):
 
             cursor = self.db.matches.find({'players.account_id': int(account_id),
                                            'game_mode': int(mode),
-                                           'unregistered': {'$exists': False}}, sort=[('start_time', -1)], limit=10)
+                                           'unregistered': {'$exists': False}},
+                                          {'radiant_win': 1, 'duration': 1, 'game_mode': 1, 'match_id': 1,
+                                           'players': {'$elemMatch': {'account_id': int(account_id)}}},
+                                          sort=[('start_time', -1)], limit=20)
         else:
 
             cursor = self.db.matches.find({'game_mode': int(mode), 'unregistered': {'$exists': False}},

@@ -1,24 +1,40 @@
 <h4 class="header">Matches</h4>
-<table class="table table-hover">
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Match ID</th>
+      <th>Hero</th>
       <th>Result</th>
-      <th>Mode</th>
+      <th>Match ID</th>
       <th>Duration</th>
-      <th>The Radiant</th>
-      <th>the Dire</th>
+      <th>K/D/A</th>
+      <th>Items</th>
     </tr>
   </thead>
   <tbody>
     {{#each model}}
     <tr>
+      <td>{{players.0.hero_id}}</td>
+      {{#if radiant_win}}
+        {{#if players.0.radiant}}<td class="text-success"><strong>Won</strong></td>{{else}}<td class="text-danger">Lost</td>{{/if}}
+      {{else}}
+        {{#if players.0.radiant}}<td class="text-danger">Lost</td>{{else}}<td class="text-success"><strong>Won</strong></td>{{/if}}
+      {{/if}}
       <td>{{#link-to 'match' id}}{{id}}{{/link-to}}</td>
-      {{#if radiant_win}}<td class="text-success">Radiant Victory!</td>{{else}}<td class="text-danger">Dire Victory!</td>{{/if}}
-      <td>{{game_mode}}</td>
       <td>{{parse_duration duration}}</td>
-      <td></td>
-      <td></td>
+      <td>
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" style="width: 33.33%">
+            {{players.0.kills}}
+          </div>
+          <div class="progress-bar progress-bar-danger" style="width: 33.33%">
+            {{players.0.deaths}}
+          </div>
+          <div class="progress-bar progress-bar-warning" style="width: 33.33%">
+            {{players.0.assists}}
+          </div>
+        </div>
+      </td>
+      <td>{{#each item in players.0.items}}{{item}}{{/each}}</td>
     </tr>
     {{/each}}
   </tbody>
