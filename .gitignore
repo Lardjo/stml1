@@ -5,6 +5,8 @@ statsmile/web/static/js/app.js
 statsmile/web/static/js/libs.js
 statsmile/web/static/js/templates.js
 
+.gitignore
+
 # Temp #
 ########
 node_modules/
