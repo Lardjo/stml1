@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import logging
-
 from tornado.gen import coroutine
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
@@ -38,6 +36,5 @@ def get_matches_id(key, steam_id):
 
     else:
         matches.sort()
-        logging.debug('User: %s. Get %s matches.' % (steam_id, len(matches)))
 
     return matches

@@ -2,7 +2,7 @@
 
 import logging
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from motor import Op
 
@@ -24,13 +24,34 @@ def user_update(db, key, _id, _id32):
     Part 1. Getting latest 500 matches. Selection only ranked matches and add if not in database
     """
 
-    matches = yield get_matches_id(key, _id)  # Getting matches id (latest 500)
+    matches = yield get_matches_id(key, _id)
 
-    logging.debug('Getting matches id success')
+    yield get_matches(db, key, matches)
 
-    yield get_matches(db, key, matches)  # Getting matches
+    # Favorites heroes
+    favorites = yield Op(db.matches.aggregate,
+                         [{'$match': {'players.account_id': _id32, 'unregistered': {'$exists': False}}},
+                          {'$unwind': '$players'},
+                          {'$match': {'players.account_id': _id32}},
+                          {'$project': {'_id': 0, 'radiant_win': 1, 'slot': '$players.player_slot',
+                                        'players.player_slot': 1, 'players.hero_id': 1, 'players.account_id': 1,
+                                        'players.kills': 1, 'players.deaths': 1, 'players.assists': 1,
+                                        'players.count': {'$add': [1]}}},
+                          {'$group': {'_id': '$players.hero_id',
+                                      'wins': {
+                                          '$sum': {
+                                              '$cond': [{'$or': [{'$and': [{'$eq': ['$radiant_win', True]},
+                                                                           {'$lt': ['$slot', 5]}]},
+                                                                 {'$and': [{'$eq': ['$radiant_win', False]},
+                                                                           {'$gt': ['$slot', 127]}]}]}, 1, 0]}},
+                                      'matches': {"$sum": "$players.count"},
+                                      'kills': {"$sum": "$players.kills"},
+                                      'deaths': {"$sum": "$players.deaths"},
+                                      'assists': {"$sum": "$players.assists"}}},
+                          {'$sort': {'matches': -1}},
+                          {'$limit': 115}])
 
-    logging.debug('Getting matches details success')
+    db.favorites.update({'steam_id32': _id32}, {'$set': {'favorites': favorites['result']}}, upsert=True)
 
     url = url_concat('https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', {'key': key, 'steamids': _id})
 
@@ -72,4 +93,4 @@ def user_update(db, key, _id, _id32):
                                                  'loses': matches_loses,
                                                  'win_rate': float(win_rate)}})
 
-    logging.info('User %s update complete!' % _id)
+    logging.info('User %s update complete!' % _id32)
