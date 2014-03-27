@@ -2,8 +2,6 @@
 
 import logging
 
-from datetime import datetime
-
 from tornado.gen import coroutine
 from tornado.escape import json_decode
 from tornado.httputil import url_concat
@@ -12,8 +10,6 @@ from tornado.httpclient import AsyncHTTPClient
 
 @coroutine
 def get_matches_id(key, steam_id):
-
-    logging.debug('Getting matches id for user %s.' % steam_id)
 
     matches = []
     _match_id = 0
